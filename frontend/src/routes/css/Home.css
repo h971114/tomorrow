@@ -1,0 +1,84 @@
+#main_content .today_price {
+	padding:60px 20px;
+	box-sizing:border-box;
+	background:#fff;
+}
+#main_content .today_price .time {
+	width:17%;
+	float:left;
+	padding-top:30px;
+}
+#main_content .today_price .time>span {
+	color:#3c3d3c;
+	font-weight:400;
+	font-size:44px;
+	letter-spacing:-1.5px;
+}
+#main_content .today_price .time .sale {
+	margin-bottom:25px;
+	font-size:20px;
+	color:#ff9100;
+	font-weight:400;
+	display:block;
+	text-align:right;
+}
+#main_content .today_price .time .clock {
+	display:block;
+	width:100%;
+	height:56px;
+	margin-bottom:8px;
+}
+#main_content .today_price .time .clock span {
+	float:left;
+	margin-top:35px;
+	color:#3c3d3c;
+	font-size:14px;
+}
+#main_content .today_price .time .clock img {
+	float:right;
+	max-height:57px;
+}
+#main_content .today_price .time .timer ul .second {
+	padding-right:0;
+}
+#main_content .today_price .time .timer {
+	width:100%;
+}
+#main_content .today_price .time .timer ul li {
+	float:left;
+	position:relative;
+	padding:0 5px;
+	box-sizing:border-box;
+}
+#main_content .today_price .time .timer ul li:first-child {
+	padding-left:0;
+}
+#main_content .today_price .time .timer ul li span {
+	width:29px;
+	height:29px;
+	display:inline-block;
+	background:#3c3d3c;
+	line-height:30px;
+	color:#fff;
+	border-radius:29px;
+	font-size:18px;
+	font-weight:900;
+	text-align:center;
+	margin-left:2px;
+}
+#main_content .today_price .time .timer ul li span:first-child {
+	margin-left:0;
+}
+#main_content .today_price .time .timer ul li:after {
+	position:absolute;
+	content:':';
+	width:5px;
+	height:18px;
+	top:50%;
+	margin-top:-9px;
+	color:#3c3d3c;
+	left:-2.5px;
+}
+#main_content .today_price .time .timer ul li:first-child:after {
+	display: none;
+}
