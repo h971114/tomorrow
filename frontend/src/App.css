@@ -81,3 +81,9 @@ body, th, td, input, select, textarea, button {
     font-family: 'NanumSquare',sans-serif;
     color: #323130;
 }
+
+#main_content {
+    min-height: calc(100vh - 170px);
+    margin-bottom: 30px;
+    overflow-x: hidden;
+}

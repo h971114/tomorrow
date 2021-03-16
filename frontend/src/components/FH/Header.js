@@ -60,31 +60,26 @@ class Header extends Component {
                                         <ul className="clear" id="menu_all_sub">
                                             <li className="has-sub">
                                                 <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    <span></span>
                                                     한식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
                                                 <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    <span></span>
                                                     양식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
                                                 <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    <span></span>
                                                     중식/일식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
                                                 <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    <span></span>
                                                     면/파스타
                                                 </a>
                                             </li>
                                             <li className="has-sub">
                                                 <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    <span></span>
                                                     분식/야식
                                                 </a>
                                             </li>
