@@ -2,7 +2,12 @@ package com.Tomorrow.myapp.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,6 +17,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.Tomorrow.myapp.model.MemberDto;
 import com.Tomorrow.myapp.model.PayApprovalDto;
 import com.Tomorrow.myapp.model.PayDto;
 
@@ -22,7 +28,9 @@ private static final String HOST = "https://kapi.kakao.com";
     
     private PayDto payDto;
     private PayApprovalDto payapprovalDto;
-    
+    @Autowired
+	private SqlSession sqlSession;
+	
     public String kakaoPayReady() {
  
         RestTemplate restTemplate = new RestTemplate();
@@ -45,7 +53,6 @@ private static final String HOST = "https://kapi.kakao.com";
         params.add("approval_url", "http://localhost:8080/PaySuccess");
         params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8080/kakaoPaySuccessFail");
- 
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  
         try {
@@ -66,7 +73,7 @@ private static final String HOST = "https://kapi.kakao.com";
         return "/pay";
         
     }
-    public PayApprovalDto kakaoPayInfo(String pg_token) {
+    public PayApprovalDto kakaoPayInfo(String pg_token,String id) {
     	 
     	System.out.println("KakaoPayInfoVO............................................");
         
@@ -86,13 +93,14 @@ private static final String HOST = "https://kapi.kakao.com";
         params.add("partner_user_id", "gorany");
         params.add("pg_token", pg_token);
         params.add("total_amount", "2100");
-        
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
         try {
         	payapprovalDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, PayApprovalDto.class);
            System.out.println("" + payapprovalDto);
-          
+           Map<String, String> map = new HashMap<String, String>();
+           map.put("id",id);
+           map.put("aid",payapprovalDto.getAid());
             return payapprovalDto;
         
         } catch (RestClientException e) {
