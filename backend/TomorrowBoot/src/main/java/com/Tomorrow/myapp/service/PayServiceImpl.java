@@ -44,12 +44,12 @@ private static final String HOST = "https://kapi.kakao.com";
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("partner_order_id", "1001");
-        params.add("partner_user_id", "gorany");
-        params.add("item_name", "갤럭시S9");
-        params.add("quantity", "1");
-        params.add("total_amount", "2100");
-        params.add("tax_free_amount", "100");
+        params.add("partner_order_id", "1001");//주문번호
+        params.add("partner_user_id", "gorany");//
+        params.add("item_name", "내일");//상품이름 or 서비스이름
+        params.add("quantity", "1");//총 수량
+        params.add("total_amount", "2100");//총 가격
+        params.add("tax_free_amount", "100");//세금
         params.add("approval_url", "http://localhost:8080/PaySuccess");
         params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8080/kakaoPaySuccessFail");
@@ -88,8 +88,8 @@ private static final String HOST = "https://kapi.kakao.com";
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
-        params.add("tid", payDto.getTid());
-        params.add("partner_order_id", "1001");
+        params.add("tid", payDto.getTid());//결제고유번호
+        params.add("partner_order_id", "1001");//주문번호
         params.add("partner_user_id", "gorany");
         params.add("pg_token", pg_token);
         params.add("total_amount", "2100");
