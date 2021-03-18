@@ -8,6 +8,7 @@ import Header from "./components/FH/Header";
 import Footer from "./components/FH/Footer";
 
 import Home from "./routes/Home";
+import TodaySale from "./routes/todaySale/TodaySale";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
+          <Route path="/TodaySale" exact={true} component={TodaySale} />
         </Switch>
         <Footer/>
       </div>

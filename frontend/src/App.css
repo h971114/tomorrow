@@ -86,3 +86,97 @@ body, th, td, input, select, textarea, button {
     min-height: calc(100vh - 170px);
     overflow-x: hidden;
 }
+
+.sub_visual {
+    position: relative;
+    background-position: center center;
+    width: 100%;
+    background-repeat: no-repeat;
+    height: 320px;
+}
+
+#sub .inner {
+    min-height: 1000px;
+    padding: 0 0 150px 0;
+    box-sizing: border-box;
+}
+
+.view_wrap {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+	height: 500px;
+}
+.view_wrap .goods .image p {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.view_wrap .goods .image {
+    float: left;
+    width: 50%;
+    margin-right: 5%;
+}
+.view_wrap .info {
+    float: left;
+    width: 45%;
+}
+
+.view_wrap .info .submit_bt a {
+    display: block;
+    float: left;
+    width: 49.5%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 900;
+    background: #8e8e8e;
+}
+.view_wrap .info .item > ul > li.price {
+    line-height: 60px;
+    border-top: 1px solid #dadada;
+    border-bottom: 1px solid #ebebeb;
+}
+.view_wrap .info .item > ul > li {
+    padding: 9px 0;
+    box-sizing: border-box;
+}
+.view_wrap .info .item > ul > li > b {
+    float: left;
+    width: 25%;
+    color: #3c3d3c;
+    font-size: 14px;
+}
+.view_wrap .info .item > ul > li > div .product_sale {
+    font-weight: 800;
+}
+.view_wrap .info .item > ul > li > div {
+    float: left;
+    width: 75%;
+}
+.view_wrap .info .item > ul > li.price {
+    line-height: 60px;
+    border-top: 1px solid #dadada;
+    border-bottom: 1px solid #ebebeb;
+}
+.view_wrap .info .item > ul > li {
+    padding: 9px 0;
+    box-sizing: border-box;
+}
+.view_wrap .info .item > ul > li > div .before_p {
+    position: absolute;
+    left: 90px;
+    top: 0;
+}
+.view_wrap .info .pro_txt {
+    font-size: 16px;
+    text-align: left;
+}
+.view_wrap .info .pro_txt b {
+    text-align: left;
+    font-size: 22px;
+    font-weight: 800;
+    word-break: keep-all;
+}

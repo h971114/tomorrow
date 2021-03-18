@@ -12,7 +12,7 @@ class Header extends Component {
                         <p className="coupon"><span>'내일' 회원가입시</span><img src="img/top_banner.png" alt="top_banner" className="img1" />
                             <span>할인쿠폰 지급<img src="/img/top_banner_go.png" className="go"></img></span></p>
                         <a href="#" className="closeBanner"><em>오늘하루 다시 열지 않기</em>
-                        <img src="img/top_banner_close.png"></img></a>
+                            <img src="img/top_banner_close.png"></img></a>
                     </div>
                 </div>
                 <div className="inner">
@@ -20,7 +20,7 @@ class Header extends Component {
                         <div className="size">
                             <div className="search">
                                 <form>
-                                    <input type="text" id="search_text" name="head_val"  placeholder="제품 검색"></input>
+                                    <input type="text" id="search_text" name="head_val" placeholder="제품 검색"></input>
                                     <input type="submit" value=""></input>
                                 </form>
                             </div>
@@ -50,13 +50,13 @@ class Header extends Component {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="gnb menu_tab">
                         <div className="size clear">
                             <div className="menu_all">
                                 <ul className="clear">
                                     <li className="header_all">
-                                        <a>전체카테고리</a>		
+                                        <a>전체카테고리</a>
                                         <ul className="clear" id="menu_all_sub">
                                             <li className="has-sub">
                                                 <a className="categoryDepthLink" aria-label="submenu" href="#">
@@ -89,30 +89,30 @@ class Header extends Component {
                                 </ul>
                             </div>
                             <div className="menu_other">
-                                <ul className="clear depth1">						
+                                <ul className="clear depth1">
                                     <li>
-                                        <a  href="#">
-                                        베스트 상품</a>
+                                        <a href="#">
+                                            베스트 상품</a>
                                     </li>
                                     <li>
-                                        <a  href="#" >
-                                        신상품</a>
+                                        <a href="#" >
+                                            신상품</a>
                                     </li>
                                     <li>
-                                        <a  href="#" >
-                                        오늘만 특가</a>
+                                        <a href="/TodaySale" >
+                                            오늘만 특가</a>
                                     </li>
                                     <li>
-                                        <a  href="#" >
-                                        알뜰쇼핑</a>
+                                        <a href="#" >
+                                            알뜰쇼핑</a>
                                     </li>
                                     <li>
-                                        <a  href="#" >
-                                        고객센터</a>
+                                        <a href="#" >
+                                            고객센터</a>
                                     </li>
                                 </ul>
                             </div>
-                        </div>			
+                        </div>
                     </div>
 
                 </div>
