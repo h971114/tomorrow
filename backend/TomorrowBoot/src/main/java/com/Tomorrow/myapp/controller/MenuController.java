@@ -2,6 +2,8 @@ package com.Tomorrow.myapp.controller;
 
 import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.service.MenuService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,10 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("menu")
+@RequestMapping("/menu")
 public class MenuController {
+    private static Log log = LogFactory.getLog(MenuController.class);
+
     private final MenuService menuService;
 
     @Autowired
@@ -24,46 +28,39 @@ public class MenuController {
         this.menuService = menuService;
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<MenuDto>> getMenu(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenu(), hs);
+        return new ResponseEntity<>(menuService.getMenu(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("")
+    @GetMapping("/low-price")
     public ResponseEntity<List<MenuDto>> getMenuByLowPrice(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenuByLowPrice(), hs);
+        return new ResponseEntity<>(menuService.getMenuByLowPrice(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("")
+    @GetMapping("/high-price")
     public ResponseEntity<List<MenuDto>> getMenuByHighPrice(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenuByHighPrice(), hs);
+        return new ResponseEntity<>(menuService.getMenuByHighPrice(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("")
+    @GetMapping("/best")
     public ResponseEntity<List<MenuDto>> getMenuByBest(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenuByBest(), hs);
+        return new ResponseEntity<>(menuService.getMenuByBest(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("")
+    @GetMapping("/new")
     public ResponseEntity<List<MenuDto>> getMenuByNew(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenuByNew(), hs);
+        return new ResponseEntity<>(menuService.getMenuByNew(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<MenuDto>> getMenuBySale(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenuBySale(), hs);
+    @GetMapping("/sale")
+    public ResponseEntity getMenuBySale(){
+        return new ResponseEntity<>(menuService.getMenuBySale(), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<MenuDto>> getMenuByTodaySale(){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(menuService.getMenuByTodaySale(), hs);
+    @GetMapping("/today-sale")
+    public ResponseEntity getMenuByTodaySale(){
+        return new ResponseEntity<>(menuService.getMenuByTodaySale(), HttpStatus.ACCEPTED);
     }
 
 }
