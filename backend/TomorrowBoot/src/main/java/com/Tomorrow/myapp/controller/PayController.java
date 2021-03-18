@@ -1,14 +1,18 @@
 package com.Tomorrow.myapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.service.PayService;
 
 @Controller
@@ -22,16 +26,16 @@ public class PayController {
     	this.payService = payService;
     }
     
-//    @GetMapping("/kakaoPay")
-//    public void kakaoPayGet() {
-//    	System.out.println("kakaoPay post............................................");
-//    }
+    @GetMapping("/kakaoPay")
+    public void kakaoPayGet() {
+    	System.out.println("kakaoPay post............................................");
+    }
     
-    @GetMapping("/kakaoPay") // 결제요청 QR
-    public String kakaoPay() {
+    @GetMapping("/kakaoPay/{id}") // 결제요청 QR
+    public String kakaoPay(@PathVariable(value = "id") String id, @RequestBody int cartno, HttpServletRequest req) {
     	System.out.println("kakaoPay post............................................");
         
-        return "redirect:" + payService.kakaoPayReady(); //payService.kakaoPayReady() 주소 창 띄우기
+        return "redirect:" + payService.kakaoPayReady(id,cartno); //payService.kakaoPayReady() 주소 창 띄우기
  
     }
     
