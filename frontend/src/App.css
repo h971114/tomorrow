@@ -84,6 +84,5 @@ body, th, td, input, select, textarea, button {
 
 #main_content {
     min-height: calc(100vh - 170px);
-    margin-bottom: 30px;
     overflow-x: hidden;
 }
