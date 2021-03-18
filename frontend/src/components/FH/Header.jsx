@@ -103,7 +103,7 @@ class Header extends Component {
                                             오늘만 특가</a>
                                     </li>
                                     <li>
-                                        <a href="#" >
+                                        <a href="/Sale" >
                                             알뜰쇼핑</a>
                                     </li>
                                     <li>
