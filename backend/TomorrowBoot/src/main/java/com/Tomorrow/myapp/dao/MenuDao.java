@@ -1,6 +1,7 @@
 package com.Tomorrow.myapp.dao;
 
 import com.Tomorrow.myapp.model.MenuDto;
+import com.Tomorrow.myapp.model.ReviewDto;
 
 import java.util.List;
 
@@ -21,4 +22,13 @@ public interface MenuDao {
     public List<MenuDto> getMenuByNew();
     public List<MenuDto> getMenuBySale();
     public List<MenuDto> getMenuByTodaySale();
+	public void update(MenuDto menu);
+	public MenuDto getMenuInfo(int id);
+	public List<MenuDto> searchall(String keyword);
+	public List<MenuDto> searchbyname(String keyword);
+	public List<MenuDto> searchbyid(String keyword);
+	public List<ReviewDto> getReview(int id);
+	public boolean postReview(ReviewDto reviewDto);
+	public boolean updateReview(ReviewDto reviewDto);
+	public boolean deleteReview(int id);
 }
