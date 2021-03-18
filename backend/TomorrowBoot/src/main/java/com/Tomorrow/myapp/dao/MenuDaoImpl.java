@@ -17,17 +17,17 @@ public class MenuDaoImpl implements MenuDao{
 
     @Override
     public void insertMenu(MenuDto menuDto) {
-
+    	sqlSession.insert("menu.insert", menuDto);
     }
 
     @Override
     public void deleteMenu(MenuDto menuDto) {
-
+    	sqlSession.delete("menu.delete", menuDto);
     }
 
     @Override
     public void updateMenu(MenuDto menuDto) {
-
+    	sqlSession.update("menu.update", menuDto);
     }
 
     @Override
