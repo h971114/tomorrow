@@ -91,7 +91,7 @@ class Header extends Component {
                             <div className="menu_other">
                                 <ul className="clear depth1">
                                     <li>
-                                        <a href="#">
+                                        <a href="/Best">
                                             베스트 상품</a>
                                     </li>
                                     <li>

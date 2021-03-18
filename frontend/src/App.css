@@ -180,3 +180,17 @@ body, th, td, input, select, textarea, button {
     font-weight: 800;
     word-break: keep-all;
 }
+
+/* pagenation */
+.pagenate {width:100%; clear:both;}
+.pagenate {text-align:center; margin:40px auto 0; /*border-top: 1px solid #ebebeb;*/padding-top: 15px; box-sizing: border-box;}
+.pagenate li {display:inline-block;}
+.pagenate li:first-child { margin-left:0px; }
+.pagenate li a{display:inline-block; text-decoration:none; font-weight: 400; padding:0; width:30px; height:30px; font-size: 14px; line-height:30px; box-sizing:border-box; margin-left:-1px; vertical-align:middle;}
+.pagenate li a:hover{font-weight:bold; text-decoration:none;}
+.pagenate li a.board { text-indent:-9999em; margin-left:4px; border-radius: 30px; background: #fff;}
+.pagenate li a.board.first {background: url('./img/pro_ico_first.png') no-repeat center center; border:1px solid #e2e2e2;}
+.pagenate li a.board.prev {margin-right:15px; background: url('./img/pro_ico_prev.png') no-repeat center center; border:1px solid #e2e2e2;}
+.pagenate li a.board.next {margin-left:15px; background: url('./img/pro_ico_next.png') no-repeat center center; border:1px solid #e2e2e2;}
+.pagenate li a.board.last {background: url('./img/pro_ico_last.png') no-repeat center center; border:1px solid #e2e2e2;}
+.pagenate li a.current {color:#9fc54d; font-weight: 800; text-decoration: underline;}

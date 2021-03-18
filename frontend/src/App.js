@@ -8,7 +8,9 @@ import Header from "./components/FH/Header";
 import Footer from "./components/FH/Footer";
 
 import Home from "./routes/Home";
-import TodaySale from "./routes/todaySale/TodaySale";
+
+import TodaySale from "./routes/Product/TodaySale";
+import BestProduct from "./routes/Product/BestProduct";
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Switch>
           <Route path="/" exact={true} component={Home} />
           <Route path="/TodaySale" exact={true} component={TodaySale} />
+          <Route path="/Best" exact={true} component={BestProduct} />
         </Switch>
         <Footer/>
       </div>

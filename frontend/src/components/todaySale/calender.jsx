@@ -38,10 +38,15 @@ const Calender = () => {
             for (var i = todayLabel; i <= totdays + todayLabel - 1; i++) {
                 var imgLink = '/img/calender_sample.png';
                 imgLink.replace(/\@/g, "/");
+                var str = "";
+                if (date == nowDd) {
+                    document.getElementById("d" + i).classList.add("today");
+                    str += '<i class="today_line"></i>';
+                }
                 if (date < 10)
-                    var str = "<em class='day '> 0" + date + "</em>";
+                    str += "<em class='day '> 0" + date + "</em>";
                 else
-                    var str = "<em class='day '>" + date + "</em>";
+                    str += "<em class='day '>" + date + "</em>";
                 str += "<div>"
                 str += '<p style="background-image:url(' + imgLink + ');">';
                 str += "<img src='" + imgLink + "'/>";
