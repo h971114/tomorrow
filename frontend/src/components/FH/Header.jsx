@@ -95,7 +95,7 @@ class Header extends Component {
                                             베스트 상품</a>
                                     </li>
                                     <li>
-                                        <a href="#" >
+                                        <a href="/New" >
                                             신상품</a>
                                     </li>
                                     <li>

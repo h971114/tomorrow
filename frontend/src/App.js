@@ -11,6 +11,7 @@ import Home from "./routes/Home";
 
 import TodaySale from "./routes/Product/TodaySale";
 import BestProduct from "./routes/Product/BestProduct";
+import NewProduct from "./routes/Product/NewProduct";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" exact={true} component={Home} />
           <Route path="/TodaySale" exact={true} component={TodaySale} />
           <Route path="/Best" exact={true} component={BestProduct} />
+          <Route path="/New" exact={true} component={NewProduct} />
         </Switch>
         <Footer/>
       </div>
