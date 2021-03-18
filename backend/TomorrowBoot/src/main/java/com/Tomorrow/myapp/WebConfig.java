@@ -11,13 +11,8 @@ import com.Tomorrow.myapp.service.JwtInterceptor;
 public class WebConfig implements WebMvcConfigurer {
     private static final String[] EXCLUDE_PATHS = {
             "/member/**",
-            "/error/**",
-            "/recommend/**",
-            "/meeting/**",
-            "/contents/**",
-            "/gallery/**",
-            "/notice/**",
-            "/question/**"
+            "/menu/**",
+            "/pay/**",
     };
 
     @Autowired
