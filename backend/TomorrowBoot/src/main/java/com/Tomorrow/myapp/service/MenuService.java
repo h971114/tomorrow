@@ -12,6 +12,10 @@ public interface MenuService {
     List<MenuDto> getMenuByHighPrice( );
     List<MenuDto> getMenuByBest();
     List<MenuDto> getMenuByNew();
+    void insertMenu(MenuDto menu);
+    void deleteMenu(String id);
+    void updateMenu(MenuDto menu);
+    List<MenuDto> getMenubySeller(String id);
     List<HashMap<String, Object>> getMenuBySale();
     List<HashMap<String, Object>> getMenuByTodaySale();
 	void menuUpdate(MenuDto menu);

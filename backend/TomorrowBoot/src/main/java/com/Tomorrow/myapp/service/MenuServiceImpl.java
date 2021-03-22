@@ -172,4 +172,24 @@ public class MenuServiceImpl implements MenuService{
 	public boolean deleteReview(int id) {
 		 return menuDao.deleteReview(id);
 	}
+	@Override
+	public void insertMenu(MenuDto menu) {
+		menuDao.insertMenu(menu);
+		
+	}
+
+	@Override
+	public void deleteMenu(String id) {
+		menuDao.deleteMenu(id);
+	}
+
+	@Override
+	public void updateMenu(MenuDto menu) {
+		menuDao.update(menu);
+	}
+
+	@Override
+	public List<MenuDto> getMenubySeller(String id) {
+		return menuDao.getMenubySeller(id);
+	}
 }
