@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.Tomorrow.myapp.model.MemberDto;
+import com.Tomorrow.myapp.model.NowPayDto;
 import com.Tomorrow.myapp.model.PayApprovalDto;
 import com.Tomorrow.myapp.model.PayDto;
 
@@ -36,7 +38,7 @@ public class PayServiceImpl implements PayService{
     @Autowired
 	private SqlSession sqlSession;
 	
-    public String kakaoPayReady(String id, int cartno) {
+    public String kakaoPayReady(String id, List<NowPayDto> nowpay) {
  
         RestTemplate restTemplate = new RestTemplate();
  
@@ -51,11 +53,19 @@ public class PayServiceImpl implements PayService{
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", partner_order_id);//주문번호
         params.add("partner_user_id", id);//
-        params.add("item_name", "내일");//상품이름 or 서비스이름
-        params.add("quantity", "1");//총 수량 - > 장바구니 수량
-        params.add("total_amount", "2100");//총 가격 -> 장바구니 총 가격
-        params.add("tax_free_amount", "100");//세금
-        params.add("approval_url", APPROVAL_URL);
+        String itemname = "";
+        int total = 0;
+        int tax = 0;
+        for(int i=0;i<nowpay.size();i++) {
+        	itemname+=nowpay.get(i).getItem_name()+",";
+        	total += nowpay.get(i).getTotal_mount();
+        	tax += nowpay.get(i).getTax_free_amount();
+        }
+        params.add("item_name", itemname);//상품이름 or 서비스이름
+        params.add("quantity", Integer.toString(nowpay.size()));//총 수량 - > 장바구니 수량
+        params.add("total_amount", Integer.toString(total));//총 가격 -> 장바구니 총 가격
+        params.add("tax_free_amount", Integer.toString(tax));//세금
+        params.add("approval_url", APPROVAL_URL+id+Integer.toString(total));
         params.add("cancel_url", CANCEL_URL);
         params.add("fail_url", FAIL_URL);
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
@@ -78,7 +88,7 @@ public class PayServiceImpl implements PayService{
         return "/pay";
         
     }
-    public PayApprovalDto kakaoPayInfo(String pg_token,String id) {
+    public PayApprovalDto kakaoPayInfo(String pg_token,String id,int total) {
     	 
     	System.out.println("KakaoPayInfoVO............................................");
         
@@ -97,15 +107,14 @@ public class PayServiceImpl implements PayService{
         params.add("partner_order_id", partner_order_id);//주문번호
         params.add("partner_user_id", id);
         params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");//총가격
+        params.add("total_amount", Integer.toString(total));//총가격
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
         try {
         	payapprovalDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, PayApprovalDto.class);
            System.out.println("" + payapprovalDto);
-           Map<String, String> map = new HashMap<String, String>();
-           map.put("id",id);
-           map.put("aid",payapprovalDto.getAid());
+           sqlSession.insert("order.approval",payapprovalDto);
+           sqlSession.insert("order.detail",payapprovalDto);
             return payapprovalDto;
         
         } catch (RestClientException e) {
