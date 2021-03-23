@@ -26,7 +26,7 @@
 		ORDER BY price ASC
 	</select>
 
-	<select id="getMenuByLowPrice">
+	<select id="getMenuByHighPrice">
 		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
 		FROM menu;
 		ORDER BY price DESC
