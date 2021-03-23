@@ -21,14 +21,15 @@ public class MenuDaoImpl implements MenuDao{
     }
 
     @Override
-    public void deleteMenu(MenuDto menuDto) {
-    	sqlSession.delete("menu.delete", menuDto);
+    public void deleteMenu(String id) {
+    	sqlSession.delete("menu.delete", id);
     }
 
     @Override
     public void updateMenu(MenuDto menuDto) {
     	sqlSession.update("menu.update", menuDto);
     }
+
 
     @Override
     public List<MenuDto> getMenu() {
@@ -117,5 +118,9 @@ public class MenuDaoImpl implements MenuDao{
 		if(delete==0)
 			return false;
 		return true;
+	}
+	@Override
+	public List<MenuDto> getMenubySeller(String id) {
+		return sqlSession.selectList("menu.getbyseller", id);
 	}
 }

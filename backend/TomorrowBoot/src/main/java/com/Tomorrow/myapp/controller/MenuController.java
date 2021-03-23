@@ -36,29 +36,32 @@ public class MenuController {
     public MenuController(MenuService menuService) {
         this.menuService = menuService;
     }
+    @PostMapping("/insert")
+    public ResponseEntity<String> insertMenu(@RequestBody MenuDto menu, HttpServletRequest req){
+    	HttpStatus hs = HttpStatus.ACCEPTED;
+    	menuService.insertMenu(menu);
+    	return new ResponseEntity<String>("Success", hs);
+    }
     
-//    @PostMapping("/insert")
-//    public ResponseEntity<String> insertMenu(@RequestBody MenuDto menu, HttpServletRequest req){
-//    	HttpStatus hs = HttpStatus.ACCEPTED;
-//    	menuService.insertMenu(menu);
-//    	return new ResponseEntity<String>("Success", hs);
-//    }
-//    
-//    @PutMapping("/update")
-//    public ResponseEntity<String> updateMenu(@RequestBody MenuDto menu, HttpServletRequest req){
-//    	HttpStatus hs = HttpStatus.ACCEPTED;
-//    	menuService.updateMenu(menu);
-//    	return new ResponseEntity<String>("Success", hs);
-//    }
-//    
-//    @DeleteMapping("/delete")
-//    public ResponseEntity<String> deleteMenu(@RequestParam("id") String id, HttpServletRequest req){
-//    	HttpStatus hs = HttpStatus.ACCEPTED;
-//    	menuService.deleteMenu(id);
-//    	return new ResponseEntity<String>("Success", hs);
-//    }
-//    
-    @GetMapping("/gm")
+    @PutMapping("/update")
+    public ResponseEntity<String> updateMenu(@RequestBody MenuDto menu, HttpServletRequest req){
+    	HttpStatus hs = HttpStatus.ACCEPTED;
+    	menuService.updateMenu(menu);
+    	return new ResponseEntity<String>("Success", hs);
+    }
+    
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteMenu(@RequestParam("id") String id, HttpServletRequest req){
+    	HttpStatus hs = HttpStatus.ACCEPTED;
+    	menuService.deleteMenu(id);
+    	return new ResponseEntity<String>("Success", hs);
+    }
+    @GetMapping("/getbyseller")
+    public ResponseEntity<List<MenuDto>> getMenubySeller(@RequestParam("seller_id")String id, HttpServletRequest req){
+        HttpStatus hs = HttpStatus.ACCEPTED;
+        return new ResponseEntity<>(menuService.getMenubySeller(id), hs);
+    } 
+    @GetMapping("/all")
     public ResponseEntity<List<MenuDto>> getMenu(){
         HttpStatus hs = HttpStatus.ACCEPTED;
         return new ResponseEntity<>(menuService.getMenu(), hs);
