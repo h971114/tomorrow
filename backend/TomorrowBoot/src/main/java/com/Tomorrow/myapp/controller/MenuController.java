@@ -1,10 +1,9 @@
 package com.Tomorrow.myapp.controller;
 
+import com.Tomorrow.myapp.model.MemberDto;
 import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.model.ReviewDto;
 import com.Tomorrow.myapp.service.MenuService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +30,6 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/menu")
 public class MenuController {
-    private static Log log = LogFactory.getLog(MenuController.class);
-
     private final MenuService menuService;
 
     @Autowired
@@ -66,39 +63,46 @@ public class MenuController {
     } 
     @GetMapping("/all")
     public ResponseEntity<List<MenuDto>> getMenu(){
-        return new ResponseEntity<>(menuService.getMenu(), HttpStatus.ACCEPTED);
+        HttpStatus hs = HttpStatus.ACCEPTED;
+        return new ResponseEntity<>(menuService.getMenu(), hs);
     }
 
-    @GetMapping("/low-price")
+    @GetMapping("/gnblp")
     public ResponseEntity<List<MenuDto>> getMenuByLowPrice(){
-        return new ResponseEntity<>(menuService.getMenuByLowPrice(), HttpStatus.ACCEPTED);
+        HttpStatus hs = HttpStatus.ACCEPTED;
+        return new ResponseEntity<>(menuService.getMenuByLowPrice(), hs);
     }
 
-    @GetMapping("/high-price")
+    @GetMapping("/gmbhp")
     public ResponseEntity<List<MenuDto>> getMenuByHighPrice(){
-        return new ResponseEntity<>(menuService.getMenuByHighPrice(), HttpStatus.ACCEPTED);
+        HttpStatus hs = HttpStatus.ACCEPTED;
+        return new ResponseEntity<>(menuService.getMenuByHighPrice(), hs);
     }
 
-    @GetMapping("/best")
+    @GetMapping("/gmbb")
     public ResponseEntity<List<MenuDto>> getMenuByBest(){
-        return new ResponseEntity<>(menuService.getMenuByBest(), HttpStatus.ACCEPTED);
+        HttpStatus hs = HttpStatus.ACCEPTED;
+        return new ResponseEntity<>(menuService.getMenuByBest(), hs);
     }
 
-    @GetMapping("/new")
+    @GetMapping("/gmbn")
     public ResponseEntity<List<MenuDto>> getMenuByNew(){
-        return new ResponseEntity<>(menuService.getMenuByNew(), HttpStatus.ACCEPTED);
+        HttpStatus hs = HttpStatus.ACCEPTED;
+        return new ResponseEntity<>(menuService.getMenuByNew(), hs);
     }
 
-    @GetMapping("/sale")
-    public ResponseEntity getMenuBySale(){
-        return new ResponseEntity<>(menuService.getMenuBySale(), HttpStatus.ACCEPTED);
-    }
-
-    @GetMapping("/today-sale")
-    public ResponseEntity getMenuByTodaySale(){
-        return new ResponseEntity<>(menuService.getMenuByTodaySale(), HttpStatus.ACCEPTED);
-    }
-    //메뉴 상세정보
+//    @GetMapping("/gmbs")
+//    public ResponseEntity<List<MenuDto>> getMenuBySale(){
+//        HttpStatus hs = HttpStatus.ACCEPTED;
+//        return new ResponseEntity<>(menuService.getMenuBySale(), hs);
+//    }
+//
+//    @GetMapping("/gmbts")
+//    public ResponseEntity<List<MenuDto>> getMenuByTodaySale(){
+//        HttpStatus hs = HttpStatus.ACCEPTED;
+//        return new ResponseEntity<>(menuService.getMenuByTodaySale(), hs);
+//    }
+  //메뉴 상세정보
 	  @GetMapping("data/{no}")
 	  public ResponseEntity<MenuDto> getMeetingInfo(@PathVariable(value="no") int id, HttpServletRequest req) throws SQLException {
 		    HttpStatus status = HttpStatus.ACCEPTED;

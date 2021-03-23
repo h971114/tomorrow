@@ -2,7 +2,12 @@
  <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
  	<typeAliases>
- 		<typeAlias type="com.leeting.myapp.model.MemberDto" alias="member"></typeAlias>
-		<typeAlias type="com.leeting.myapp.model.MenuDto" alias="menu"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.MemberDto" alias="member"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.CartDto" alias="cart"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.OrderDto" alias="order"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.Orderdetail" alias="detail"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.MenuDto" alias="menu"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.PayApprovalDto" alias="pay"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.NoticeDto" alias="notice"></typeAlias>
  	</typeAliases>
  </configuration>
