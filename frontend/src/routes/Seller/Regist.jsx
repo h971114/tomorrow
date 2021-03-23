@@ -14,6 +14,7 @@ const Regist = () => {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState(0);
     const [salePrice, setSalePrice] = useState(price);
+    const [todaySalePrice, setTodaySalePrice] = useState(price);
     const [sSale, setSSale] = useState(false);
     const [sTodaySale, setSTodaySale] = useState(false);
 
@@ -37,14 +38,21 @@ const Regist = () => {
         var price = document.getElementById("price").value;
 
         setPrice(price);
-    }
+    } // 금액 바뀔 때
     const saleChange = (e) => {
         var saleRate = document.getElementById("saleRate").value;
 
         var salePrice = price / 100 * (100 - saleRate);
 
         setSalePrice(salePrice);
-    }
+    } // 세일 퍼센트 바뀔때
+    const todaySaleChange = (e) => {
+        var todaySaleRate = document.getElementById("todaySaleRate").value;
+
+        var todaySalePrice = price / 100 * (100 - todaySaleRate);
+
+        setTodaySalePrice(todaySalePrice);
+    } //오늘의 할인율 바뀔 때
 
     const saleCChange = (e) => {
         if (sSale === false) {
@@ -53,29 +61,25 @@ const Regist = () => {
             document.getElementById("saleRate").readOnly = false;
         } else {
             setSSale(false);
-            if (sTodaySale === false) {
-                document.getElementById("trSale").classList.add("hidden");
-                document.getElementById("saleRate").readOnly = true;
-                document.getElementById("saleRate").value = null;
-                setSalePrice(0);
-            }
+            document.getElementById("trSale").classList.add("hidden");
+            document.getElementById("saleRate").readOnly = true;
+            document.getElementById("saleRate").value = null;
+            setSalePrice(0);
         }
-    }
+    } // 세일 체크박스 바뀔때
     const tSaleCChange = (e) => {
         if (sTodaySale === false) {
             setSTodaySale(true);
             document.getElementById("trTodaySale").classList.remove("hidden");
-            document.getElementById("saleRate").readOnly = false;
+            document.getElementById("todaySaleRate").readOnly = false;
         } else {
             setSTodaySale(false);
             document.getElementById("trTodaySale").classList.add("hidden");
-            if (sSale === false) {
-                document.getElementById("saleRate").readOnly = true;
-                document.getElementById("saleRate").value = null;
-                setSalePrice(0);
-            }
+            document.getElementById("todaySaleRate").readOnly = true;
+            document.getElementById("todaySaleRate").value = null;
+            setTodaySalePrice(0);
         }
-    }
+    } // 오늘의 할인 체크박스 바뀔 때
 
     return (
         <div id="sub">
@@ -144,12 +148,12 @@ const Regist = () => {
                             <tr id="trTodaySale" className="hidden">
                                 <th scope="row">오늘만 할인 할인율</th>
                                 <td colSpan="2">
-                                    <input type="number" id="saleRate" onChange={saleChange} readOnly></input>
+                                    <input type="number" id="todaySaleRate" onChange={todaySaleChange} readOnly></input>
                                     <label> %</label>
                                 </td>
-                                <th scope="row">할인가</th>
+                                <th scope="row">오늘만 할인 할인가</th>
                                 <td colSpan="2">
-                                    <label id="salePrice">{salePrice} 원</label>
+                                    <label id="todaySalePrice">{todaySalePrice} 원</label>
                                 </td>
                             </tr>
                             <tr>
@@ -192,6 +196,10 @@ const Regist = () => {
                             </tr>
                         </tbody>
                     </table>
+                    <div className="buttonWrap">
+                        <button className="cancleBtn">취소하기</button>
+                        <button className="submitBtn">등록하기</button>
+                    </div>
                 </div>
             </div>
         </div>

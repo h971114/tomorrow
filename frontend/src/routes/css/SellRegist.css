@@ -49,7 +49,8 @@
     width: 20px;
     height: 20px;
 }
-.writeInputWrap #saleRate{
+.writeInputWrap #saleRate,
+.writeInputWrap #todaySaleRate{
     width: 50px;
 }
 
@@ -57,9 +58,6 @@
     font-size: 15px;
 }
 
-/* #trSale, #trTodaySale{
-    display: none;
-} */
 tr.hidden{
     display: none;
 }
@@ -67,7 +65,7 @@ tr.hidden{
 #todaySale{
     margin-left: 15px;
 }
-#salePrice{
+#salePrice, #todaySalePrice{
     margin-left: 15px;
     font-size: 18px;
     font-weight: 700;
@@ -137,8 +135,40 @@ tr.hidden{
     font-family: 'NanumSquare',sans-serif !important;
 }
 
+.buttonWrap{
+    margin-top: 30px;
+    margin-right: 15px;
+    text-align: right;
+}
+
+.buttonWrap .cancleBtn,
+.buttonWrap .submitBtn{
+    width: 100px;
+    height: 40px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.buttonWrap .cancleBtn{
+    background-color: #fc573a;
+}
+.buttonWrap .submitBtn{
+    margin-left: 20px;
+    background-color: #92c947;
+}
+.buttonWrap .cancleBtn:hover{
+    background-color: #bb412b;
+}
+.buttonWrap .submitBtn:hover{
+    background-color: #7ba83c;
+}
+
 #saleRate::-webkit-outer-spin-button,
 #saleRate::-webkit-inner-spin-button,
+#todaySaleRate::-webkit-outer-spin-button,
+#todaySaleRate::-webkit-inner-spin-button,
 #price::-webkit-outer-spin-button,
 #price::-webkit-inner-spin-button,
 #amount::-webkit-outer-spin-button,
