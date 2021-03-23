@@ -10,6 +10,7 @@ public class MenuDto {
     private int discount_rate;
     private int todaysale;
     private String create_at;
+    private String category;
 
     public MenuDto(int id, String seller_id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at) {
         this.id = id;
@@ -95,6 +96,14 @@ public class MenuDto {
         this.create_at = create_at;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "MenuDto{" +
@@ -107,6 +116,7 @@ public class MenuDto {
                 ", discount_rate=" + discount_rate +
                 ", todaysale=" + todaysale +
                 ", create_at='" + create_at + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }
