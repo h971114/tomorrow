@@ -67,7 +67,7 @@ const Calender = () => {
         }
 
         timeSet();
-    }, [])
+    })
 
     return (
         <div className="price_calendar">
