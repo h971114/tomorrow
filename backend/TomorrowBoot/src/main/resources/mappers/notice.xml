@@ -18,7 +18,7 @@
 	<!-- 공지사항 상세정보 -->
 	<select id="getNoticeInfo" parameterType="int" resultType="notice">
 		UPDATE notice SET hit=hit+1 WHERE no = #{noticeNo};
-		SELECT * FROM notice WHERE no = #{noticeNo}
+		SELECT * FROM notice WHERE no = #{noticeNo};
 	</select>
 
 	<!-- 공지사항 수정 -->

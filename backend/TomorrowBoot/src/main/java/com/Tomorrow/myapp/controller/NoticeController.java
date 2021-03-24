@@ -2,6 +2,7 @@ package com.Tomorrow.myapp.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,9 @@ public class NoticeController {
     @ApiOperation(value = "공지사항 목록", notes = "공지사항 목록", response = List.class)
     @GetMapping("/list")
     public ResponseEntity<List<NoticeDto>> listNotice() throws SQLException {
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put(("conclusion"), "SUCCESS");
+        resultMap.put(("notice"), noticeService.listNotice());
         return new ResponseEntity<>(noticeService.listNotice(), HttpStatus.ACCEPTED);
     }
 
