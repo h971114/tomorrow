@@ -4,32 +4,31 @@
 <mapper namespace="notice">
 	<!-- 공지사항 등록 -->
 	<insert id="writeNotice" parameterType="notice">
-		INSERT INTO notice ( title, detail, writer, file1,file2,file3,hit)
-		VALUES ( #{title},  #{detail}, #{writer}, #{file1},#{file2},#{file3},0)
+		INSERT INTO notice (title, detail, writer, file1,file2,file3,hit)
+		VALUES ( #{title}, #{detail}, #{writer}, #{file1},#{file2},#{file3},0)
 	</insert>
+
 	<!-- 공지사항 목록 -->
 	<select id="listNotice" resultType="notice">
 		select @ROWNUM := @ROWNUM + 1 AS ROWNUM, n.* 
 		from notice n,(select @ROWNUM:=0) tmp
 		WHERE meetingno=0 ORDER BY ROWNUM DESC
 	</select>
+
 	<!-- 공지사항 상세정보 -->
-	<select id="noticeinfo" parameterType="int" resultType="notice">
-		SELECT * FROM notice WHERE no = #{noticeno}
+	<select id="getNoticeInfo" parameterType="int" resultType="notice">
+		UPDATE notice SET hit=hit+1 WHERE no = #{noticeNo};
+		SELECT * FROM notice WHERE no = #{noticeNo};
 	</select>
-	<update id="noticehit" parameterType="int">
-			UPDATE notice SET hit=hit+1 WHERE no = #{noticeno}
-	</update>
+
 	<!-- 공지사항 수정 -->
-	<update id="noticemodify" parameterType="notice">
+	<update id="updateNotice" parameterType="notice">
 		UPDATE notice SET title=#{title},detail=#{detail},date=now(), file1=#{file1},file2=#{file2},file3=#{file3} WHERE no=#{no};
 	</update>
-<!--  <update id="noticefilemodify" parameterType="map">
-		UPDATE notice SET file1=#{file1},file2=#{file2},file3=#{file3} WHERE no=#{no};
-	</update>-->	
+
 	<!-- 공지사항 삭제 -->
-	<delete id="noticedelete" parameterType="int">
-		DELETE FROM notice WHERE no=#{noticeno} 
+	<delete id="deleteNotice" parameterType="int">
+		DELETE FROM notice WHERE no=#{noticeNo}
 	</delete>
 
 </mapper>

@@ -8,14 +8,13 @@ import  com.Tomorrow.myapp.model.NoticeDto;
 
 public interface  NoticeService {
 
-	boolean writeNotice(NoticeDto notice, Map<String,Object> noticemap);
+	boolean writeNotice(NoticeDto noticeDto) throws SQLException;
 
 	List<NoticeDto> listNotice();
 
-	NoticeDto getNoticeInfo(int noticeno) throws SQLException;
+	NoticeDto getNoticeInfo(int noticeNo) throws SQLException;
 
-	boolean update(NoticeDto notice, Map<String,Object> noticemap)  throws SQLException;
+	boolean updateNotice(NoticeDto noticeDto)  throws SQLException;
 
-	void delete(int noticeno);
-	 Map<String, Object> getByteImage();
+	boolean deleteNotice(int noticeNo);
 }

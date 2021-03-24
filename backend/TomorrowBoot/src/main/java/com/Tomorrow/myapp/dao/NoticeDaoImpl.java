@@ -17,39 +17,27 @@ public class NoticeDaoImpl implements NoticeDao{
 	private SqlSession sqlSession;
 	
 	@Override
-	public void writeNotice(NoticeDto notice, Map<String,Object> noticemap)  throws SQLException{
-		sqlSession.insert("notice.writeNotice",notice);
-	//	noticemap.put("title", notice.getTitle());
-	//	if(noticemap.get("file1") != null) sqlSession.update("notice.putImage",noticemap);
-	//	if(noticemap.get("file2") != null) sqlSession.insert("notice.putImage2",noticemap);
-	//	if(noticemap.get("file3") != null) sqlSession.insert("notice.putImage3",noticemap);
+	public int writeNotice(NoticeDto noticeDto)  throws SQLException{
+		return sqlSession.insert("notice.writeNotice", noticeDto);
 	}
 
 	@Override
 	public List<NoticeDto> listNotice() {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList("notice.listNotice");
 	}
 
 	@Override
-	public NoticeDto noticeinfo(int noticeno) {
-		sqlSession.update("notice.noticehit",noticeno);
-		return sqlSession.selectOne("notice.noticeinfo",noticeno);
+	public NoticeDto getNoticeInfo(int noticeNo) {
+		return sqlSession.selectOne("notice.getNoticeInfo",noticeNo);
 	}
 
 	@Override
-	public void update(NoticeDto notice, Map<String,Object> noticemap) {
-		sqlSession.update("notice.noticemodify",notice);
-	//	sqlSession.update("notice.noticefilemodify",noticemap);
+	public int updateNotice(NoticeDto noticeDto) {
+		return sqlSession.update("notice.updateNotice", noticeDto);
 	}
 
 	@Override
-	public void delete(int noticeno) {
-		sqlSession.delete("notice.noticedelete",noticeno);
-		
-	}
-	@Override
-	public Map<String, Object> getByteImage() {
-	    return sqlSession.selectOne("notice.getByteImage");
+	public int deleteNotice(int noticeNo) {
+		return sqlSession.delete("notice.deleteNotice", noticeNo);
 	}
 }
