@@ -4,7 +4,7 @@
 <mapper namespace="notice">
 	<!-- 공지사항 등록 -->
 	<insert id="writeNotice" parameterType="notice">
-		INSERT INTO notice ( title, detail, writer, file1,file2,file3,hit)
+		INSERT INTO notice (title, detail, writer, file1,file2,file3,hit)
 		VALUES ( #{title}, #{detail}, #{writer}, #{file1},#{file2},#{file3},0)
 	</insert>
 
@@ -17,12 +17,12 @@
 
 	<!-- 공지사항 상세정보 -->
 	<select id="getNoticeInfo" parameterType="int" resultType="notice">
+		UPDATE notice SET hit=hit+1 WHERE no = #{noticeNo};
 		SELECT * FROM notice WHERE no = #{noticeNo}
 	</select>
 
 	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="notice">
-		UPDATE notice SET hit=hit+1 WHERE no = #{noticeNo};
 		UPDATE notice SET title=#{title},detail=#{detail},date=now(), file1=#{file1},file2=#{file2},file3=#{file3} WHERE no=#{no};
 	</update>
 
