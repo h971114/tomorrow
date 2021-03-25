@@ -37,10 +37,10 @@ const Today_sale = () => {
 
         document.getElementById('today_img').setAttribute("style", "background-image:url('/img/sample1.png')");
         document.getElementById('today_img_hover').setAttribute("style", "background-image:url('/img/sample2.png')");
-        document.getElementById('tomorrow_img').setAttribute("style", "background-image:url('/img/sample1.png')");
-        document.getElementById('tomorrow_img_hover').setAttribute("style", "background-image:url('/img/sample2.png')");
-        document.getElementById('tomorrow2_img').setAttribute("style", "background-image:url('/img/sample1.png')");
-        document.getElementById('tomorrow2_img_hover').setAttribute("style", "background-image:url('/img/sample2.png')");
+        document.getElementById('tomorrow_img').setAttribute("style", "background-image:url('/img/sample3.png')");
+        document.getElementById('tomorrow_img_hover').setAttribute("style", "background-image:url('/img/sample4.png')");
+        document.getElementById('tomorrow2_img').setAttribute("style", "background-image:url('/img/sample5.png')");
+        document.getElementById('tomorrow2_img_hover').setAttribute("style", "background-image:url('/img/sample6.png')");
     })
 
     return (

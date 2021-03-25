@@ -30,8 +30,8 @@ class Footer extends Component {
                                     <div className="tbc">
                                         <b className="cs_title">Bank Info</b>
                                         <img src="/img/kb.png" />
-                                        <p>123-45-6789-012</p>
-                                        <span>예금주:(주)내일</span>
+                                        <p>455-80-2041-719</p>
+                                        <span>예금주:(주) 내일</span>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@ class Footer extends Component {
                                 <b className="cs_title clear">
                                     <span>Notice</span>
                                     <a href="#">
-                                        <img src="/img/best_plus.png"/>
+                                        <img src="/img/best_plus.png" />
                                     </a>
                                 </b>
                                 <div className="notice_list">

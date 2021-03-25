@@ -2,24 +2,24 @@ import React, { useEffect } from 'react';
 
 const List = () => {
     useEffect(() => {
-        document.getElementById("sale1").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale1_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale2").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale2_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale3").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale3_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale4").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale4_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale5").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale5_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale6").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale6_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale7").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale7_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale8").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale8_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale9").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
-        document.getElementById("sale9_hover").setAttribute("style", "background-image:url('/img/best_img_sample.png')");
+        document.getElementById("sale1").setAttribute("style", "background-image:url('/img/best_sample1.png')");
+        document.getElementById("sale1_hover").setAttribute("style", "background-image:url('/img/best_sample2.png')");
+        document.getElementById("sale2").setAttribute("style", "background-image:url('/img/best_sample3.png')");
+        document.getElementById("sale2_hover").setAttribute("style", "background-image:url('/img/best_sample4.png')");
+        document.getElementById("sale3").setAttribute("style", "background-image:url('/img/best_sample5.png')");
+        document.getElementById("sale3_hover").setAttribute("style", "background-image:url('/img/best_sample6.png')");
+        document.getElementById("sale4").setAttribute("style", "background-image:url('/img/best_sample7.png')");
+        document.getElementById("sale4_hover").setAttribute("style", "background-image:url('/img/best_sample8.png')");
+        document.getElementById("sale5").setAttribute("style", "background-image:url('/img/best_sample9.png')");
+        document.getElementById("sale5_hover").setAttribute("style", "background-image:url('/img/best_sample10.png')");
+        document.getElementById("sale6").setAttribute("style", "background-image:url('/img/best_sample11.png')");
+        document.getElementById("sale6_hover").setAttribute("style", "background-image:url('/img/best_sample12.png')");
+        document.getElementById("sale7").setAttribute("style", "background-image:url('/img/best_sample13.png')");
+        document.getElementById("sale7_hover").setAttribute("style", "background-image:url('/img/best_sample14.png')");
+        document.getElementById("sale8").setAttribute("style", "background-image:url('/img/best_sample15.png')");
+        document.getElementById("sale8_hover").setAttribute("style", "background-image:url('/img/best_sample16.png')");
+        document.getElementById("sale9").setAttribute("style", "background-image:url('/img/best_sample17.png')");
+        document.getElementById("sale9_hover").setAttribute("style", "background-image:url('/img/best_sample18.png')");
     }, [])
 
     return (
