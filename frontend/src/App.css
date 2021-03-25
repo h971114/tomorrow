@@ -194,3 +194,7 @@ body, th, td, input, select, textarea, button {
 .pagenate li a.board.next {margin-left:15px; background: url('./img/pro_ico_next.png') no-repeat center center; border:1px solid #e2e2e2;}
 .pagenate li a.board.last {background: url('./img/pro_ico_last.png') no-repeat center center; border:1px solid #e2e2e2;}
 .pagenate li a.current {color:#9fc54d; font-weight: 800; text-decoration: underline;}
+
+input:read-only {
+    background-color: #ccc;
+  }
