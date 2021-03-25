@@ -9,10 +9,13 @@ import Footer from "./components/FH/Footer";
 
 import Home from "./routes/Home";
 
+import SellRegist from "./routes/Seller/Regist";
+
 import TodaySale from "./routes/Product/TodaySale";
 import BestProduct from "./routes/Product/BestProduct";
 import NewProduct from "./routes/Product/NewProduct";
 import SaleProduct from "./routes/Product/SaleProduct";
+
 
 function App() {
   return (
@@ -22,10 +25,13 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
+          
           <Route path="/TodaySale" exact={true} component={TodaySale} />
           <Route path="/Best" exact={true} component={BestProduct} />
           <Route path="/New" exact={true} component={NewProduct} />
           <Route path="/Sale" exact={true} component={SaleProduct} />
+
+          <Route path="/SellRegist" exact={true} component={SellRegist} />
         </Switch>
         <Footer/>
       </div>
