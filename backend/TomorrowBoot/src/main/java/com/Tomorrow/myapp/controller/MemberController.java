@@ -48,6 +48,7 @@ import com.Tomorrow.myapp.dao.MemberDaoImpl;
 import com.Tomorrow.myapp.model.MemberDto;
 import com.Tomorrow.myapp.service.JwtService;
 import com.Tomorrow.myapp.service.MemberService;
+import com.Tomorrow.myapp.service.WalletService;
 import com.google.common.net.HttpHeaders;
 import com.sun.el.parser.ParseException;
 
@@ -69,7 +70,9 @@ public class MemberController {
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
-
+	
+	@Autowired
+	private WalletService walletService;
 	@Autowired
 	private JwtService jwtService;
 	@Autowired
@@ -207,7 +210,9 @@ public class MemberController {
 		System.out.println("회원가입");
 		memberbody.setPw(sha256(memberbody.getPw()));
 		if (memberService.join(memberbody)) {
-			conclusion = "SUCESS";
+			if(walletService.join(memberbody.getId())) {
+				conclusion = "SUCESS";
+			}
 		} else {
 			conclusion = "FAIL";
 		}

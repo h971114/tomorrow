@@ -2,6 +2,7 @@ package com.Tomorrow.myapp.dao;
 
 import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.model.ReviewDto;
+import com.Tomorrow.myapp.model.WalletDto;
 
 import java.util.List;
 
