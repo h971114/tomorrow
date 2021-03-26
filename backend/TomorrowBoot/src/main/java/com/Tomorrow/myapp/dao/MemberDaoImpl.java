@@ -1,7 +1,12 @@
 package com.Tomorrow.myapp.dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,18 +15,55 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.TransactionManager;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Hash;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.Web3jService;
+import org.web3j.protocol.admin.methods.response.BooleanResponse;
+import org.web3j.protocol.core.DefaultBlockParameter;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.Request;
+import org.web3j.protocol.core.methods.response.EthAccounts;
+import org.web3j.protocol.core.methods.response.EthBlock;
+import org.web3j.protocol.core.methods.response.EthBlockNumber;
+import org.web3j.protocol.core.methods.response.EthCoinbase;
+import org.web3j.protocol.core.methods.response.EthGasPrice;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthMining;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.core.methods.response.MinerStartResponse;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.protocol.geth.JsonRpc2_0Geth;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.RawTransactionManager;
+import org.web3j.tx.exceptions.TxHashMismatchException;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
+import org.web3j.utils.Convert;
+import org.web3j.utils.Numeric;
+import org.web3j.utils.TxHashVerifier;
 
 import com.Tomorrow.myapp.model.MemberDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
 	
+	private static final Web3jService web3jService = new HttpService("https://ropsten.infura.io/v3/184f3bb959504956a9a5db1c11ac8a2f");
 	@Autowired
 	private SqlSession sqlSession;
 	
 	@Override
 	public void join(MemberDto member)  throws SQLException{
-		sqlSession.insert("member.join",member);
+        sqlSession.insert("member.join",member);
 	}
 	@Override
 	public int login(String id, String pw)  throws SQLException{
@@ -83,6 +125,67 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	@Override
 	public void start () {
-		sqlSession.getConnection();
+//		sqlSession.getConnection();
+		try {
+//			getEthClientVersionSync();
+//			getEthClientVersionASync();
+//			getEthClientVersionRx();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+
+//    public void getEthClientVersionSync() throws Exception
+//    {
+//        Web3j web3j = Web3j.build(new HttpService("https://ropsten.infura.io/v3/184f3bb959504956a9a5db1c11ac8a2f"));
+//        Web3ClientVersion web3ClientVersion = web3j.web3ClientVersion().send();
+//        System.out.println(web3ClientVersion.getWeb3ClientVersion());
+//        System.out.println(web3j.ethBlockNumber());
+//        EthBlockNumber result1 = web3j.ethBlockNumber().sendAsync().get();
+//        System.out.println(web3j.ethAccounts().send().getAccounts().toString());
+//        System.out.println(" result: " + result1.getBlockNumber().toString());
+//        EthGetBalance ethGetBalance= web3j.ethGetBalance("0x5D9E4e5BE5AD159f8518eC51f6E02f951cC765fa",DefaultBlockParameterName.LATEST).sendAsync().get();
+//        BigInteger wei = ethGetBalance.getBalance();
+//        java.math.BigDecimal tokenValue = Convert.fromWei(String.valueOf(wei), Convert.Unit.ETHER);
+//        String strTokenAmount = String.valueOf(tokenValue);
+//        System.out.println(strTokenAmount);
+//        System.out.println("why?");
+//        Credentials maincredentials = Credentials.create("e556623f9caa78f79992389fae16ce33502cb82ce75b3aebcbf151058a22e7f7");
+//        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(maincredentials.getAddress(), DefaultBlockParameterName.PENDING).send();
+//        BigInteger nonce =  ethGetTransactionCount.getTransactionCount();
+//        EthBlock ethblock = web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).sendAsync().get();
+//        BigInteger gaslimit = ethblock.getBlock().getGasLimit();
+//        EthGasPrice gasPrice = web3j.ethGasPrice().send();
+//        System.out.println(gasPrice.getGasPrice());
+//        try {
+//            String password = "secr3t";
+//            ECKeyPair keyPair = Keys.createEcKeyPair();
+//            WalletFile wallet = Wallet.createStandard(password, keyPair);
+//            Credentials credentials = Credentials.create(Wallet.decrypt(password, wallet));
+//            RawTransaction rawTransaction =
+//                    RawTransaction.createTransaction(nonce, gasPrice.getGasPrice(), gaslimit, credentials.getAddress(), BigInteger.valueOf(100),"test");
+//            byte[] signedMessage;
+//            signedMessage = TransactionEncoder.signMessage(rawTransaction, maincredentials);
+//            String hexValue =Numeric.toHexString(signedMessage);
+//            EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send();
+//            if(ethSendTransaction.getError() != null){
+//                System.out.println(ethSendTransaction.getError().getMessage());
+//            }
+//            String hashvalue = ethSendTransaction.getResult();
+//            System.out.println(hashvalue);
+//            System.out.println(web3j.ethGetTransactionReceipt("0x7eda5e3634a6cd92e8183402b2fc767d468144df8a220128821b6991990f964f").send().getTransactionReceipt());
+//            System.out.println(web3j.ethGetTransactionReceipt(hashvalue).send().getTransactionReceipt());
+//            ethGetBalance= web3j.ethGetBalance(credentials.getAddress(),DefaultBlockParameterName.LATEST).sendAsync().get();
+//            System.out.println(credentials.getAddress());
+//            wei = ethGetBalance.getBalance();
+//            tokenValue = Convert.fromWei(String.valueOf(wei), Convert.Unit.ETHER);
+//            strTokenAmount = String.valueOf(tokenValue);
+//            System.out.println(strTokenAmount);
+//            
+//        } catch(Exception e) {
+//            System.err.println("Error: " + e.getMessage());
+//        }
+//        
+//    }
+
 }

@@ -8,7 +8,7 @@ public class MemberDto {
 	private String nickname;
 	private String mobile;
 	private String email;
-	private String meetinglink;
+	private String address;
 
 	public MemberDto() {
 
@@ -30,7 +30,7 @@ public class MemberDto {
 		this.nickname = nickname;
 		this.mobile = mobile;
 		this.email = email;
-		this.meetinglink = meetinglink;
+		this.address = address;
 	}
 
 	public String getId() {
@@ -87,12 +87,12 @@ public class MemberDto {
 				+ ", email=" + email + "]";
 	}
 
-	public String getMeetinglink() {
-		return meetinglink;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setMeetinglink(String meetinglink) {
-		this.meetinglink = meetinglink;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

@@ -138,6 +138,15 @@ public class PayApprovalDto {
 	public void setApproved_at(Date approved_at) {
 		this.approved_at = approved_at;
 	}
+	@Override
+	public String toString() {
+		return "PayApprovalDto [aid=" + aid + ", tid=" + tid + ", cid=" + cid + ", sid=" + sid + ", partner_order_id="
+				+ partner_order_id + ", partner_user_id=" + partner_user_id + ", payment_method_type="
+				+ payment_method_type + ", amount=" + amount + ", card_info=" + card_info + ", item_name=" + item_name
+				+ ", item_code=" + item_code + ", payload=" + payload + ", quantity=" + quantity + ", tax_free_amount="
+				+ tax_free_amount + ", vat_amount=" + vat_amount + ", created_at=" + created_at + ", approved_at="
+				+ approved_at + "]";
+	}
     
     
 }
