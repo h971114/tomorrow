@@ -16,7 +16,7 @@ class Footer extends Component {
                                     </div>
                                     <div className="tbc">
                                         <b className="cs_title">Customer Center</b>
-                                        <span><img src="/img/main_cs_phone.png" />
+                                        <span><a href="/SellRegist"><img src="/img/main_cs_phone.png" /></a>
                                         02-123-4567</span>
                                         <p>평일 오전 09 : 00 ~ 오후 06 : 00</p>
                                         <p>점심 오후 01 : 00 ~ 오후 02 : 00</p>
