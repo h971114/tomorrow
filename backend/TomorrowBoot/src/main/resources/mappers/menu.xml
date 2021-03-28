@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="menu">
+    <insert id="insert" parameterType="menu">
+		INSERT INTO menu (id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at) VALUES (#{id},#{seller_id},#{name},#{price},#{amount},#{sell_amount}, #{discount_rate}, #{todaysale}, #{create_at})
+	</insert>
+	<delete id="delete" parameterType="menu">
+		DELETE FROM menu WHERE id=#{id}
+	</delete>
+	<update id="update" parameterType="menu" >
+		UPDATE menu SET name=#{name},price=#{price},amount=#{amount}, sell_amount =#{sell_amount}, discount_rate = #{discount_rate}, todaysale = #{todaysale}, create_at=#{create_at} WHERE id=#{id}
+	</update>
+	<select id= "getbyseller" parameterType="String">
+		SELECT FROM menu WHERE seller_id=#{id}
+	</select>
+	<select id="getMenu">
+		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+		FROM menu;
+	</select>
+
+	<select id="getMenuByLowPrice">
+		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+		FROM menu;
+		ORDER BY price ASC
+	</select>
+
+	<select id="getMenuByHighPrice">
+		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+		FROM menu;
+		ORDER BY price DESC
+	</select>
+
+	<select id="getMenuByBest">
+-- 		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+-- 		FROM menu;
+-- 		ORDER BY price ASC
+	</select>
+
+	<select id="getMenuByNew">
+		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+		FROM menu;
+		ORDER BY create_at DESC
+	</select>
+
+	<select id="getMenuBySale">
+		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+		FROM menu;
+		WHERE discount_rate > 0
+	</select>
+
+	<select id="getMenuByTodaySale">
+		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
+		FROM menu;
+		WHERE todaysale > 0
+	</select>
+</mapper>

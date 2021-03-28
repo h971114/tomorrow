@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="question">
+    <!-- 문의사항 등록 -->
+    <insert id="writeQuestion" parameterType="question">
+        INSERT INTO question (title, detail, writer, date)
+        VALUES (#{title},  #{detail}, #{writer}, now())
+    </insert>
+
+    <update id="putImage" parameterType="map">
+        UPDATE question SET file1=#{file1},file2=#{file2} WHERE title=#{title}
+    </update>
+
+    <!-- 문의사항 목록 -->
+    <select id="listQuestion" parameterType="String" resultType="question">
+        select @ROWNUM := @ROWNUM + 1 AS ROWNUM, q.*
+        from question q,(select @ROWNUM:=0) tmp
+        WHERE writer = #{writer} ORDER BY ROWNUM DESC
+    </select>
+
+    <!-- 문의사항 전체목록 -->
+    <select id="listAllQuestion" parameterType="String" resultType="question">
+        select @ROWNUM := @ROWNUM + 1 AS ROWNUM, q.*
+        from question q,(select @ROWNUM:=0) tmp
+        ORDER BY ROWNUM DESC
+    </select>
+
+    <!-- 문의사항 상세정보 -->
+    <select id="getQuestionInfo" parameterType="int" resultType="question">
+        SELECT * FROM question WHERE no = #{no}
+    </select>
+
+    <!-- 문의사항 수정 -->
+    <update id="updateQuestion" parameterType="question">
+        UPDATE question SET title=#{title}, detail=#{detail}, date=now() WHERE no=#{no};
+    </update>
+
+    <update id="updateQuestionFile" parameterType="map">
+        UPDATE question SET file1=#{file1},file2=#{file2} WHERE no=#{no};
+    </update>
+
+    <!-- 문의사항 삭제 -->
+    <delete id="deleteQuestion" parameterType="int">
+        DELETE FROM answer WHERE question_no = #{no};
+        DELETE FROM question WHERE no=#{no};
+    </delete>
+</mapper>
