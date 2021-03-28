@@ -16,7 +16,7 @@ class Footer extends Component {
                                     </div>
                                     <div className="tbc">
                                         <b className="cs_title">Customer Center</b>
-                                        <span><img src="/img/main_cs_phone.png" />
+                                        <span><a href="/SellRegist"><img src="/img/main_cs_phone.png" /></a>
                                         02-123-4567</span>
                                         <p>평일 오전 09 : 00 ~ 오후 06 : 00</p>
                                         <p>점심 오후 01 : 00 ~ 오후 02 : 00</p>
@@ -30,8 +30,8 @@ class Footer extends Component {
                                     <div className="tbc">
                                         <b className="cs_title">Bank Info</b>
                                         <img src="/img/kb.png" />
-                                        <p>123-45-6789-012</p>
-                                        <span>예금주:(주)내일</span>
+                                        <p>455-80-2041-719</p>
+                                        <span>예금주:(주) 내일</span>
                                     </div>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@ class Footer extends Component {
                                 <b className="cs_title clear">
                                     <span>Notice</span>
                                     <a href="#">
-                                        <img src="/img/best_plus.png"/>
+                                        <img src="/img/best_plus.png" />
                                     </a>
                                 </b>
                                 <div className="notice_list">

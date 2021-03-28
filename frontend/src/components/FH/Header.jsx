@@ -91,31 +91,31 @@ class Header extends Component {
                             <div className="menu_all">
                                 <ul className="clear">
                                     <li className="header_all">
-                                        <a>전체카테고리</a>
+                                        <a href="/goods">전체카테고리</a>
                                         <ul className="clear" id="menu_all_sub">
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/1">
                                                     한식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/2">
                                                     양식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/3">
                                                     중식/일식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    면/파스타
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/4">
+                                                    동남아
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    분식/야식
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/5">
+                                                    샐러드
                                                 </a>
                                             </li>
                                         </ul>
