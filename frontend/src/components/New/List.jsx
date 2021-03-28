@@ -2,11 +2,8 @@ import React, { useEffect } from 'react';
 
 const List = () => {
     useEffect(() => {
-<<<<<<< HEAD
         document.getElementById('check1').setAttribute("checked", "true");
 
-=======
->>>>>>> master
         document.getElementById("new1").setAttribute("style", "background-image:url('/img/best_sample1.png')");
         document.getElementById("new1_hover").setAttribute("style", "background-image:url('/img/best_sample2.png')");
         document.getElementById("new2").setAttribute("style", "background-image:url('/img/best_sample3.png')");
