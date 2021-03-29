@@ -74,6 +74,17 @@ address, caption, cite, code, dfn, em, var {
 .clear {
     clear:both;
 }
+.clear:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+
+/*input*/
+input[type="text"]  {border:1px solid #dadada; height:32px; padding:0 10px; vertical-align:middle;}
+select {border:1px solid #dadada; height:24px; padding:3px 3px 3px 4px; vertical-align:middle; line-height:24px;}
+input[type="file"] {vertical-align:middle; height:22px; width:80%; margin-right:6px;}
 /* reset */
 
 body, th, td, input, select, textarea, button {
@@ -81,6 +92,14 @@ body, th, td, input, select, textarea, button {
     line-height: 1.5;
     font-family: 'NanumSquare',sans-serif;
     color: #323130;
+}
+
+.wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+    min-height: 600px;
 }
 
 #main_content {
@@ -204,4 +223,83 @@ body, th, td, input, select, textarea, button {
 
 input:read-only {
     background-color: #ccc;
-  }
+}
+
+
+
+/* button */
+.btnSet {
+	position:relative;
+	margin:20px 0;
+	text-align:center;
+	overflow:hidden;
+}
+.btnSet .right {
+	position:absolute;
+	top:0;
+	right:0;
+}
+.btnSet .left {
+	position:absolute;
+	top:0;
+	left:0;
+}
+.btn {
+	font-size:14px;
+	text-decoration:none !important;
+	white-space:nowrap;
+	display:inline-block;
+	vertical-align:baseline;
+	position:relative;
+	cursor:pointer;
+	padding:4px 20px;
+	min-width:64px;
+	border:2px solid #333;
+	color:#333;
+	margin:0 2px;
+	text-align:center;
+	font-weight:bold;
+	transition:all 0.4s;
+}
+.btnSet .btn:hover {
+	background:#313234;
+    color: white !important;
+    text-decoration:none !important;
+}
+.btn.point {
+	border:3px solid #579408 !important;
+	color:#579408 !important;
+}
+.btn.point:hover {
+	background:#579408 !important;
+    color: white !important;
+}
+.big {
+	font-size:16px !important;
+	padding:10px 40px !important;
+	border:3px solid #333;
+}
+.btn.bgGray {
+	background:#a8a8aa !important;
+	border:none !important;
+	color:#fff !important;
+	text-decoration:none !important;
+	height:32px;
+}
+.btn.bgGray:hover {
+	text-decoration:none !important;
+}
+.btn.bgGreen {
+	background:#87b350 !important;
+	border:none !important;
+	color:#fff !important;
+	text-decoration:none !important;
+	height:32px;
+}
+.btn.bgGreen:hover {
+	text-decoration:none !important;
+}
+.tdBtn .btn {
+	display:block;
+	margin-bottom: 3px;
+}

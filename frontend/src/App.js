@@ -23,12 +23,16 @@ import BestProduct from "./routes/Product/BestProduct";
 import NewProduct from "./routes/Product/NewProduct";
 import SaleProduct from "./routes/Product/SaleProduct";
 
+import Cart from "./routes/User/Cart";
+import Order from "./routes/User/Order";
+import OrderEnd from "./routes/User/OrderEnd";
+
 
 function App() {
   return (
     <Router>
       <ScrolltoTop />
-      <div>
+      <div className="wrapper">
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
@@ -40,12 +44,16 @@ function App() {
           <Route path="/goods/4" exact={true} component={AsiaProductList} />
           <Route path="/goods/5" exact={true} component={SalProductList} />
 
-          <Route path="/TodaySale" exact={true} component={TodaySale} />
-          <Route path="/Best" exact={true} component={BestProduct} />
-          <Route path="/New" exact={true} component={NewProduct} />
-          <Route path="/Sale" exact={true} component={SaleProduct} />
+          <Route path="/todaysale" exact={true} component={TodaySale} />
+          <Route path="/best" exact={true} component={BestProduct} />
+          <Route path="/new" exact={true} component={NewProduct} />
+          <Route path="/sale" exact={true} component={SaleProduct} />
 
-          <Route path="/SellRegist" exact={true} component={SellRegist} />
+          <Route path="/sellregist" exact={true} component={SellRegist} />
+
+          <Route path="/cart" exact={true} component={Cart}/>
+          <Route path="/Order" exact={true} component={Order}/>
+          <Route path="/orderend" exact={true} component={OrderEnd}/>
         </Switch>
         <Footer/>
       </div>
