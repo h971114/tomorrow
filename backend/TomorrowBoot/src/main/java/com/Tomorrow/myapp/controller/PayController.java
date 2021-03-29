@@ -2,6 +2,7 @@ package com.Tomorrow.myapp.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Tomorrow.myapp.model.NowPayDto;
+import com.Tomorrow.myapp.model.PayApprovalDto;
+import com.Tomorrow.myapp.service.EthereumService;
 import com.Tomorrow.myapp.service.PayService;
 
 @Controller
@@ -23,6 +26,9 @@ import com.Tomorrow.myapp.service.PayService;
 public class PayController {
 	
     private final PayService payService;
+    private String from = "0x11fd1D319B17aECEebC93439A35Ebc256cE8b851";
+    @Autowired
+    EthereumService ethereumService;
     @Autowired
     public PayController(PayService payService) {
     	this.payService = payService;
@@ -42,10 +48,14 @@ public class PayController {
     }
     
     @GetMapping("/PaySuccess/{id}/{total}") // 결제완료페이지
-    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, @PathVariable(value = "id") String id,@PathVariable(value = "total") int total,Model model) {
+    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, @PathVariable(value = "id") String id,@PathVariable(value = "total") int total,Model model) throws Exception {
         System.out.println("kakaoPaySuccess get............................................");
-        System.out.println("kakaoPaySuccess pg_token : " + pg_token);      
-        model.addAttribute("info", payService.kakaoPayInfo(pg_token,id,total));
+        System.out.println("kakaoPaySuccess pg_token : " + pg_token);
+        PayApprovalDto pay = payService.kakaoPayInfo(pg_token,id,total);
+        model.addAttribute("info", pay);
+        ethereumService.sendTransaction(pay);
         return "SUCCESS";
     }
+    
+
 }
