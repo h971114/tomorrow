@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -195,5 +198,14 @@ public class MenuController {
 			else
 				conclusion = "FAIL";
 			return new ResponseEntity<>(conclusion, httpStatus);
+		}
+		public String time() {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date dTime = new Date();
+			TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+			sdf.setTimeZone(tz);
+			String curTime = sdf.format(dTime);
+			System.out.println(curTime);
+			return curTime;
 		}
 }
