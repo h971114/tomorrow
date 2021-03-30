@@ -26,7 +26,7 @@ const List = () => {
 
     return (
         <div className="size">
-            <div className="radio_bt">
+            <div className="radio_bt new_radio_bt">
                 <input type="radio" name="check" value="0" id="check1" />
                 <label htmlFor="check1" className="first"><span>신상품</span></label>
                 <input type="radio" name="check" value="1" id="check2" />
