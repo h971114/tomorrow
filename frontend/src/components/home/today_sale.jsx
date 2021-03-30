@@ -4,33 +4,36 @@ const Today_sale = () => {
     useEffect(() => {
         const timeSet = async () => {
 
-            var xmlHttp;
-
-            function srvTime() {
-                if (window.XMLHttpRequest) {
-                    xmlHttp = new XMLHttpRequest();
-                    xmlHttp.open('HEAD', window.location.href.toString(), false);
-                    xmlHttp.setRequestHeader("Content-Type", "text/html");
-                    xmlHttp.send('');
-                    return xmlHttp.getResponseHeader("Date");
-                }
-            }
-            var st = srvTime();
-            var d = new Date(st);
+            var d = new Date();
+            var nowYy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
             var nowDd = Number(d.getDate());
+            console.log(nowDd);
+
+            var tomorrow1 = new Date(nowYy, nowMm, nowDd);
+            var tomorrow1Mm = Number((tomorrow1.getMonth()));
+            var tomorrow1Dd = Number(tomorrow1.getDate());
+            console.log(tomorrow1Dd);
+
+            var tomorrow2 = new Date(nowYy, nowMm, nowDd + 1);
+            var tomorrow2Mm = Number((tomorrow2.getMonth()));
+            var tomorrow2Dd = Number(tomorrow2.getDate());
 
             if (nowMm < 10)
                 nowMm = '0' + nowMm;
-            var tomorrow1 = nowDd + 1;
-            var tomorrow2 = nowDd + 2;
-            if (tomorrow1 < 10)
-                tomorrow1 = '0' + tomorrow1;
-            if (tomorrow2 < 10)
-                tomorrow2 = '0' + tomorrow2;
+            if (tomorrow1Mm < 10)
+                tomorrow1Mm = '0' + tomorrow1Mm;
+            if (tomorrow2Mm < 10)
+                tomorrow2Mm = '0' + tomorrow2Mm;
+            // var tomorrow1 = nowDd + 1;
+            // var tomorrow2 = nowDd + 2;
+            if (tomorrow1Dd < 10)
+                tomorrow1Dd = '0' + tomorrow1Dd;
+            if (tomorrow2Dd < 10)
+                tomorrow2Dd = '0' + tomorrow2Dd;
 
-            document.getElementById('Tomorrow1').innerText = nowMm + "-" + tomorrow1;
-            document.getElementById('Tomorrow2').innerText = nowMm + "-" + tomorrow2;
+            document.getElementById('Tomorrow1').innerText = tomorrow1Mm + "-" + tomorrow1Dd;
+            document.getElementById('Tomorrow2').innerText = tomorrow2Mm + "-" + tomorrow2Dd;
         }
 
         timeSet();
