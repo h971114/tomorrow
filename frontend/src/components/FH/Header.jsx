@@ -44,10 +44,10 @@ class Header extends Component {
             <div id="header">
                 <div id="joinInduce">
                     <div className="size clear">
-                        <p className="coupon"><span>'내일' 회원가입시</span><img src="img/top_banner.png" alt="top_banner" className="img1" />
+                        <p className="coupon"><span>'내일' 회원가입시</span><img src="/img/top_banner.png" alt="top_banner" className="img1" />
                             <span>할인쿠폰 지급<img src="/img/top_banner_go.png" className="go"></img></span></p>
                         <a href="#" className="closeBanner"><em>오늘하루 다시 열지 않기</em>
-                            <img src="img/top_banner_close.png"></img></a>
+                            <img src="/img/top_banner_close.png"></img></a>
                     </div>
                 </div>
                 <div className="inner">

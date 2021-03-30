@@ -694,6 +694,10 @@
 	height:45px;
 	line-height:45px;
 }
+#sub .bbs_tab>ul.itemList2 li {
+	margin-left:1%;
+	width:40%;
+}
 #sub .bbs_tab>ul.itemList4 li {
 	margin-left:1%;
 	width:19%;
