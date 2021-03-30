@@ -1,4 +1,5 @@
-@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css');
+@import url('https://fonts.googleapis.com/css2?family=Damion&display=swap');
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -181,6 +182,12 @@ body, th, td, input, select, textarea, button {
     word-break: keep-all;
 }
 
+.view_wrap .goods .image img {
+    visibility: hidden;
+    opacity: 0;
+    max-width: 100%;
+}
+
 /* pagenation */
 .pagenate {width:100%; clear:both;}
 .pagenate {text-align:center; margin:40px auto 0; /*border-top: 1px solid #ebebeb;*/padding-top: 15px; box-sizing: border-box;}
@@ -194,3 +201,7 @@ body, th, td, input, select, textarea, button {
 .pagenate li a.board.next {margin-left:15px; background: url('./img/pro_ico_next.png') no-repeat center center; border:1px solid #e2e2e2;}
 .pagenate li a.board.last {background: url('./img/pro_ico_last.png') no-repeat center center; border:1px solid #e2e2e2;}
 .pagenate li a.current {color:#9fc54d; font-weight: 800; text-decoration: underline;}
+
+input:read-only {
+    background-color: #ccc;
+  }

@@ -3,20 +3,7 @@ import React, { useEffect } from 'react';
 const Timer = () => {
     useEffect(() => {
         const timeSet = async () => {
-
-            var xmlHttp;
-
-            function srvTime() {
-                if (window.XMLHttpRequest) {
-                    xmlHttp = new XMLHttpRequest();
-                    xmlHttp.open('HEAD', window.location.href.toString(), false);
-                    xmlHttp.setRequestHeader("Content-Type", "text/html");
-                    xmlHttp.send('');
-                    return xmlHttp.getResponseHeader("Date");
-                }
-            }
-            var st = srvTime();
-            var d = new Date(st);
+            var d = new Date();
             var nowYyyy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
             var nowDd = Number(d.getDate());

@@ -204,6 +204,7 @@
 #menu_all_sub li:hover{
     border-left: 1px solid #9fc54d;
     color: #9fc54d;
+    font-weight: 700;
 }
 #menu_all_sub li a{
     display: inline-block;

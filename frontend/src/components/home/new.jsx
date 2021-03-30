@@ -4,12 +4,12 @@ const New = () => {
     useEffect(() => {
         document.getElementById('new1').setAttribute("style", "background-image:url('/img/best_sample1.png')");
         document.getElementById('new1_hover').setAttribute("style", "background-image:url('/img/best_sample2.png')");
-        document.getElementById('new2').setAttribute("style", "background-image:url('/img/best_sample1.png')");
-        document.getElementById('new2_hover').setAttribute("style", "background-image:url('/img/best_sample2.png')");
-        document.getElementById('new3').setAttribute("style", "background-image:url('/img/best_sample1.png')");
-        document.getElementById('new3_hover').setAttribute("style", "background-image:url('/img/best_sample2.png')");
-        document.getElementById('new4').setAttribute("style", "background-image:url('/img/best_sample1.png')");
-        document.getElementById('new4_hover').setAttribute("style", "background-image:url('/img/best_sample2.png')");
+        document.getElementById('new2').setAttribute("style", "background-image:url('/img/best_sample3.png')");
+        document.getElementById('new2_hover').setAttribute("style", "background-image:url('/img/best_sample4.png')");
+        document.getElementById('new3').setAttribute("style", "background-image:url('/img/best_sample5.png')");
+        document.getElementById('new3_hover').setAttribute("style", "background-image:url('/img/best_sample6.png')");
+        document.getElementById('new4').setAttribute("style", "background-image:url('/img/best_sample7.png')");
+        document.getElementById('new4_hover').setAttribute("style", "background-image:url('/img/best_sample8.png')");
     })
     return (
         <div className="product">

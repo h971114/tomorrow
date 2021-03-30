@@ -2,7 +2,42 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import "./Header.css";
 
+import axios from "axios";
+
 class Header extends Component {
+
+    signUp = (e) => {
+        console.log('회원가입 시도')
+        e.preventDefault();
+        axios.post('http://127.0.0.1:8080/myapp/member/join', {
+            id: "dummy",
+            pw: "q1w2e3r4!",
+            name: "김덕배",
+            nickname: "덕배김",
+            mobile: "010-1111-1111",
+            email: "",
+            address: "",
+        }).then(res => {
+            if (res.data === "SUCESS") {
+                alert('회원가입 완료');
+            }
+        })
+    }
+
+    signIn = (e) => {
+        console.log('로그인 시도')
+        e.preventDefault();
+        axios.post('http://127.0.0.1:8080/myapp/member/join', {
+            id: "dummy",
+            pw: "q1w2e3r4!"
+        }).then(res => {
+            sessionStorage.setItem("token", res.data.token);
+            sessionStorage.setItem("nickname", res.data.nickname);
+            sessionStorage.setItem("id", res.data.id);
+            window.location.replace("/");
+            alert('로그인 성공!');
+        })
+    }
 
     render() {
         return (
@@ -32,10 +67,10 @@ class Header extends Component {
                             <div className="util">
                                 <ul className="clear">
                                     <li className="nologin">
-                                        <a href="#">로그인</a>
+                                        <a href="#" onClick={this.signIn}>로그인</a>
                                     </li>
                                     <li className="nologin">
-                                        <a href="#">회원가입</a>
+                                        <a href="#" onClick={this.signUp}>회원가입</a>
                                     </li>
                                     <li className="login">
                                         <a href="#">로그아웃</a>
@@ -56,31 +91,31 @@ class Header extends Component {
                             <div className="menu_all">
                                 <ul className="clear">
                                     <li className="header_all">
-                                        <a>전체카테고리</a>
+                                        <a href="/goods">전체카테고리</a>
                                         <ul className="clear" id="menu_all_sub">
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/1">
                                                     한식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/2">
                                                     양식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/3">
                                                     중식/일식
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    면/파스타
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/4">
+                                                    동남아
                                                 </a>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="#">
-                                                    분식/야식
+                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/5">
+                                                    샐러드
                                                 </a>
                                             </li>
                                         </ul>

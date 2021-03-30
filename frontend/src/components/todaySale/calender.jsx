@@ -36,17 +36,17 @@ const Calender = () => {
 
             var date = 1;
             for (var i = todayLabel; i <= totdays + todayLabel - 1; i++) {
-                var imgLink = '/img/calender_sample.png';
+                var imgLink = '/img/calender_sample' + i + '.png';
                 imgLink.replace(/\@/g, "/");
                 var str = "";
                 if (date == nowDd) {
                     document.getElementById("d" + i).classList.add("today");
-                    str += '<i class="today_line"></i>';
+                    str += '<i className="today_line"></i>';
                 }
                 if (date < 10)
-                    str += "<em class='day '> 0" + date + "</em>";
+                    str += "<em className='day '> 0" + date + "</em>";
                 else
-                    str += "<em class='day '>" + date + "</em>";
+                    str += "<em className='day '>" + date + "</em>";
                 str += "<div>"
                 str += '<p style="background-image:url(' + imgLink + ');">';
                 str += "<img src='" + imgLink + "'/>";
@@ -67,7 +67,7 @@ const Calender = () => {
         }
 
         timeSet();
-    }, [])
+    })
 
     return (
         <div className="price_calendar">

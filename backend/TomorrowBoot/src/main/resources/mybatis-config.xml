@@ -10,5 +10,8 @@
 		<typeAlias type="com.Tomorrow.myapp.model.WalletDto" alias="wallet"></typeAlias>
 		<typeAlias type="com.Tomorrow.myapp.model.PayApprovalDto" alias="pay"></typeAlias>
 		<typeAlias type="com.Tomorrow.myapp.model.NoticeDto" alias="notice"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.utils.GalleryDto" alias="gallery"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.QuestionDto" alias="question"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.AnswerDto" alias="answer"></typeAlias>
  	</typeAliases>
  </configuration>

@@ -60,7 +60,7 @@ const Home = () => {
                         <em className="mbr"> 잘 나가는 제품 Best 12</em>
                     </p>
                     <Bob />
-                    <a href="#" class="more_bt">More</a>
+                    <a href="#" className="more_bt">More</a>
                 </div>
             </div>
             <div className="section new">
