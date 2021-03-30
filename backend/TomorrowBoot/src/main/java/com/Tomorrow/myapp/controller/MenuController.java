@@ -43,21 +43,21 @@ public class MenuController {
     public ResponseEntity<String> insertMenu(@RequestBody MenuDto menu, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	menuService.insertMenu(menu);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     
     @PutMapping("/update")
     public ResponseEntity<String> updateMenu(@RequestBody MenuDto menu, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	menuService.updateMenu(menu);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteMenu(@RequestParam("id") String id, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	menuService.deleteMenu(id);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     @GetMapping("/getbyseller")
     public ResponseEntity<List<MenuDto>> getMenubySeller(@RequestParam("seller_id")String id, HttpServletRequest req){

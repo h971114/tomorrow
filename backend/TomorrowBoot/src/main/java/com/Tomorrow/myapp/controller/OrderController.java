@@ -39,26 +39,26 @@ public class OrderController {
     public ResponseEntity<String> insertOrder(@RequestBody OrderDto order, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderService.insertorder(order);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     @PostMapping("/insertdetail")
     public ResponseEntity<String> insertdetail(@RequestBody Orderdetail order, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderdetailservice.insertOrderdetail(order);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteOrder(@RequestParam("id") String id, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderService.deleteorder(id);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     @DeleteMapping("/deletedetail")
     public ResponseEntity<String> deletedetail(@RequestParam("id") String id, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderdetailservice.deleteOrderdetail(id);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     @GetMapping("/detail")
     public ResponseEntity<Orderdetail> getdetail(@RequestParam("id") String id){

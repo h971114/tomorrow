@@ -36,7 +36,7 @@ public class CartController {
     public ResponseEntity<String> insertCart(@RequestBody CartDto cart, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.insertCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     
     
@@ -44,7 +44,7 @@ public class CartController {
     public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", hs);
     }
     
     @GetMapping("/list")

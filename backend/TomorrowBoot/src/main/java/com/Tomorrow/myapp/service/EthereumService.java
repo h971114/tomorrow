@@ -2,6 +2,7 @@ package com.Tomorrow.myapp.service;
 
 import java.math.BigInteger;
 
+import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
@@ -17,6 +18,7 @@ import org.web3j.utils.Numeric;
 
 import com.Tomorrow.myapp.model.PayApprovalDto;
 
+@Service
 public class EthereumService {
 
 	 public void sendTransaction(PayApprovalDto pay) throws Exception{
