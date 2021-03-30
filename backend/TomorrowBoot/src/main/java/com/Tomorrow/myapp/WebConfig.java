@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.Tomorrow.myapp.service.JwtInterceptor;
 
 @Configuration
-public class WebConfig implements   {
+public class WebConfig implements WebMvcConfigurer {
     private static final String[] EXCLUDE_PATHS = {
             "/member/**",
             "/menu/**",
@@ -21,9 +21,8 @@ public class WebConfig implements   {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor)
-						.addPathPatterns("/**")
-						.excludePathPatterns(EXCLUDE_PATHS);
+        registry.addInterceptor(jwtInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns(EXCLUDE_PATHS);
     }
 }
-

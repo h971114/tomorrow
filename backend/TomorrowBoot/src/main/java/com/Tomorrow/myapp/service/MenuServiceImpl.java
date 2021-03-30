@@ -4,20 +4,62 @@ import com.Tomorrow.myapp.dao.MenuDao;
 import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.model.ReviewDto;
 import com.Tomorrow.myapp.utils.UtilsClass;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
-public class MenuServiceImpl implements MenuService{
-    private UtilsClass utils;
+public class MenuServiceImpl implements MenuService {
     private final MenuDao menuDao;
+
     public MenuServiceImpl(MenuDao menuDao) {
         this.menuDao = menuDao;
+    }
+
+    /* 상품 Service: 등록 삭제 수정 */
+    @Override
+    public void insertMenu(MenuDto menu) {
+        try {
+            menuDao.insertMenu(menu);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public void deleteMenu(String id) {
+        try {
+            menuDao.deleteMenu(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public void updateMenu(MenuDto menu) {
+        try {
+            menuDao.updateMenu(menu);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    /* 상품 조회 */
+    @Override
+    public MenuDto getMenuInfo(int id) {
+        MenuDto menu = null;
+        try {
+            menu = menuDao.getMenuInfo(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return menu;
     }
 
     @Override
@@ -25,7 +67,19 @@ public class MenuServiceImpl implements MenuService{
         List<MenuDto> menuDtoList = null;
         try {
             menuDtoList = menuDao.getMenu();
-        } catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return menuDtoList;
+    }
+
+    @Override
+    public List<MenuDto> getMenuBySeller(String seller_id) {
+        List<MenuDto> menuDtoList = null;
+        try {
+            menuDtoList = menuDao.getMenuBySeller(seller_id);
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -37,7 +91,7 @@ public class MenuServiceImpl implements MenuService{
         List<MenuDto> menuDtoList = null;
         try {
             menuDtoList = menuDao.getMenuByLowPrice();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -49,7 +103,7 @@ public class MenuServiceImpl implements MenuService{
         List<MenuDto> menuDtoList = null;
         try {
             menuDtoList = menuDao.getMenuByHighPrice();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -61,7 +115,7 @@ public class MenuServiceImpl implements MenuService{
         List<MenuDto> menuDtoList = null;
         try {
             menuDtoList = menuDao.getMenuByBest();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -73,7 +127,7 @@ public class MenuServiceImpl implements MenuService{
         List<MenuDto> menuDtoList = null;
         try {
             menuDtoList = menuDao.getMenuByNew();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -82,16 +136,16 @@ public class MenuServiceImpl implements MenuService{
 
     @Override
     public List<HashMap<String, Object>> getMenuBySale() {
-        List<HashMap<String, Object>> menuList = null;
+        List<HashMap<String, Object>> menuList = new ArrayList<>();
         try {
             List<MenuDto> menuDtoList = menuDao.getMenuBySale();
-            for(MenuDto menuDto : menuDtoList) {
+            for (MenuDto menuDto : menuDtoList) {
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("menu", menuDto);
-                hashMap.put("sale_price", utils.getSalePrice(menuDto.getPrice(), menuDto.getDiscount_rate()));
+                hashMap.put("sale_price", UtilsClass.getSalePrice(menuDto.getPrice(), menuDto.getDiscount_rate()));
                 menuList.add(hashMap);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
@@ -100,96 +154,45 @@ public class MenuServiceImpl implements MenuService{
 
     @Override
     public List<HashMap<String, Object>> getMenuByTodaySale() {
-        List<HashMap<String, Object>> menuList = null;
+        List<HashMap<String, Object>> menuList = new ArrayList<>();
         try {
-            List<MenuDto> menuDtoList = menuDao.getMenuBySale();
-            for(MenuDto menuDto : menuDtoList) {
+            List<MenuDto> menuDtoList = menuDao.getMenuByTodaySale();
+            for (MenuDto menuDto : menuDtoList) {
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("menu", menuDto);
-                hashMap.put("sale_price", utils.getSalePrice(menuDto.getPrice(), menuDto.getTodaysale()));
+                hashMap.put("sale_price", UtilsClass.getSalePrice(menuDto.getPrice(), menuDto.getTodaysale()));
                 menuList.add(hashMap);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
         return menuList;
     }
-	@Override
-	public void menuUpdate(MenuDto menu) {
-		 try {
-			 menuDao.update(menu);
-	        } catch (Exception e){
-	            e.printStackTrace();
-	            throw e;
-	        }
-		
-	}
 
-	@Override
-	public MenuDto getMenuInfo(int id) {
-		MenuDto menu = null;
-        try {
-        	menu = menuDao.getMenuInfo(id);
-        } catch (Exception e){
-            e.printStackTrace();
-            throw e;
-        }
-        return menu;
-	}
+    @Override
+    public List<MenuDto> getMenuByCategory(int keyword) {
+        return menuDao.getMenuByCategory(keyword);
+    }
 
-	@Override
-	public List<MenuDto> searchAll(String keyword) {
-		return menuDao.searchall(keyword);
-	}
+    /* 리뷰 Service */
+    @Override
+    public List<ReviewDto> getReview(int id) {
+        return menuDao.getReview(id);
+    }
 
-	@Override
-	public List<MenuDto> searchByName(String keyword) {
-		return menuDao.searchbyname(keyword);
-	}
+    @Override
+    public boolean postReview(ReviewDto reviewDto) {
+        return menuDao.postReview(reviewDto);
+    }
 
-	@Override
-	public List<MenuDto> searchById(String keyword) {
-		 return menuDao.searchbyid(keyword);
-	}
+    @Override
+    public boolean updateReview(ReviewDto reviewDto) {
+        return menuDao.updateReview(reviewDto);
+    }
 
-	@Override
-	public List<ReviewDto> getReview(int id) {
-		return menuDao.getReview(id);
-	}
-
-	@Override
-	public boolean postReview(ReviewDto reviewDto) {
-		return menuDao.postReview(reviewDto);
-	}
-
-	@Override
-	public boolean updateReview(ReviewDto reviewDto) {
-		return menuDao.updateReview(reviewDto);
-	}
-
-	@Override
-	public boolean deleteReview(int id) {
-		 return menuDao.deleteReview(id);
-	}
-	@Override
-	public void insertMenu(MenuDto menu) {
-		menuDao.insertMenu(menu);
-		
-	}
-
-	@Override
-	public void deleteMenu(String id) {
-		menuDao.deleteMenu(id);
-	}
-
-	@Override
-	public void updateMenu(MenuDto menu) {
-		menuDao.update(menu);
-	}
-
-	@Override
-	public List<MenuDto> getMenubySeller(String id) {
-		return menuDao.getMenubySeller(id);
-	}
+    @Override
+    public boolean deleteReview(int id) {
+        return menuDao.deleteReview(id);
+    }
 }
