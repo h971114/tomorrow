@@ -89,9 +89,6 @@ public class NoticeController {
 	    System.out.println(req);
 	    String conclusion = "SUCCESS";
 	    HttpStatus status = HttpStatus.ACCEPTED;
-	    System.out.println("put to /meeting done");
-	    System.out.println("미팅수정");
-	    System.out.println(notice.toString());
 	    Map<String, Object> noticemap = new HashMap<String, Object>();
 	    if(noticeService.update(notice,noticemap)) {
 	    	conclusion = "SUCCESS";
@@ -109,8 +106,6 @@ public class NoticeController {
 	    System.out.println(req);
 	    Map<String, Object> resultMap = new HashMap<>();
 	    HttpStatus status = HttpStatus.ACCEPTED;
-	    System.out.println("delete to /notice done");
-	    System.out.println("공지사항삭제");
 	    noticeService.delete(noticeno);
 	    return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	  }
