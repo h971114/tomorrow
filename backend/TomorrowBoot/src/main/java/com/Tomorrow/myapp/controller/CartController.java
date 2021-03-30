@@ -8,15 +8,7 @@ import com.Tomorrow.myapp.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -32,25 +24,22 @@ public class CartController {
         this.cartService = cartService;
     }
     
-    @PostMapping("/insert")
+    @PostMapping("")
     public ResponseEntity<String> insertCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.insertCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     
     
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     
-    @GetMapping("/list")
-    public ResponseEntity<List<CartDto>> getCart(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(cartService.getCartlist(id), hs);
+    @GetMapping("/{id}")
+    public ResponseEntity<List<CartDto>> getCart(@PathVariable String id){
+        return new ResponseEntity<>(cartService.getCartlist(id), HttpStatus.ACCEPTED);
     }
 
 }

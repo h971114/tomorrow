@@ -7,22 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface MenuService {
+    void insertMenu(MenuDto menu);
+    void deleteMenu(String id);
+    void updateMenu(MenuDto menu);
+
+    MenuDto getMenuInfo(int id);
     List<MenuDto> getMenu();
+    List<MenuDto> getMenuBySeller(String seller_id);
     List<MenuDto> getMenuByLowPrice();
     List<MenuDto> getMenuByHighPrice( );
     List<MenuDto> getMenuByBest();
     List<MenuDto> getMenuByNew();
-    void insertMenu(MenuDto menu);
-    void deleteMenu(String id);
-    void updateMenu(MenuDto menu);
-    List<MenuDto> getMenubySeller(String id);
     List<HashMap<String, Object>> getMenuBySale();
     List<HashMap<String, Object>> getMenuByTodaySale();
-	void menuUpdate(MenuDto menu);
-	MenuDto getMenuInfo(int id);
-	List<MenuDto> searchAll(String keyword);
-	List<MenuDto> searchByName(String keyword);
-	List<MenuDto> searchById(String keyword);
+	List<MenuDto> getMenuByCategory(int keyword);
+
 	List<ReviewDto> getReview(int id);
 	boolean postReview(ReviewDto reviewDto);
 	boolean updateReview(ReviewDto reviewDto);

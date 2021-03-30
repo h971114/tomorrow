@@ -37,39 +37,33 @@ public class OrderController {
     
     @PostMapping("/insert")
     public ResponseEntity<String> insertOrder(@RequestBody OrderDto order, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderService.insertorder(order);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     @PostMapping("/insertdetail")
     public ResponseEntity<String> insertdetail(@RequestBody Orderdetail order, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderdetailservice.insertOrderdetail(order);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteOrder(@RequestParam("id") String id, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderService.deleteorder(id);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/deletedetail")
     public ResponseEntity<String> deletedetail(@RequestParam("id") String id, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	orderdetailservice.deleteOrderdetail(id);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     @GetMapping("/detail")
     public ResponseEntity<Orderdetail> getdetail(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(orderdetailservice.getdetail(id), hs);
+        return new ResponseEntity<>(orderdetailservice.getdetail(id), HttpStatus.ACCEPTED);
     }
     
     @GetMapping("/list")
     public ResponseEntity<List<OrderDto>> getOrder(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(orderService.getorderlist(id), hs);
+        return new ResponseEntity<>(orderService.getorderlist(id), HttpStatus.ACCEPTED);
     }
 }
 

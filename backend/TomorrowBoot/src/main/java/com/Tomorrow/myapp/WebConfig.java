@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/member/**",
             "/menu/**",
             "/pay/**",
+            "/hometax/**",
     };
 
     @Autowired
@@ -20,9 +21,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor)
-						.addPathPatterns("/**")
-						.excludePathPatterns(EXCLUDE_PATHS);
+        registry.addInterceptor(jwtInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns(EXCLUDE_PATHS);
     }
 }
-
