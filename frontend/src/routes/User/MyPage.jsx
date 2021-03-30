@@ -69,7 +69,7 @@ const MyPage = () => {
                                         <th className="addr_th"><span>주소</span></th>
                                         <td colSpan="3" className="addr">
                                             <p className="clear">
-                                                <input type="text" name="zipcode" id="zipcode" className="wid200" value="" />
+                                                <input type="text" name="zipcode" id="zipcode" className="wid200" readOnly />
                                                 <a>우편번호</a>
                                             </p>
                                             <p className="inline"><input type="text" name="addr1" id="addr1" readOnly /></p>

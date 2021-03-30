@@ -41,6 +41,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+html{
+    scroll-behavior: smooth;
+}
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -140,6 +144,12 @@ body, th, td, input, select, textarea, button {
     height: 320px;
 }
 
+#sub{
+    overflow:hidden;
+	height:auto;
+    margin-bottom: 30px;
+}
+
 #sub .inner {
     min-height: 1000px;
     padding: 0 0 150px 0;
@@ -150,7 +160,7 @@ body, th, td, input, select, textarea, button {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
-	height: 500px;
+	/* height: 500px; */
 }
 .view_wrap .goods .image p {
     background-size: cover;
