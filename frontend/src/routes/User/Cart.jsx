@@ -113,7 +113,7 @@ const Cart = ({ history }) => {
                         </li>
                     </ul>
                 </div>
-                <htmlForm name="cartFrm" id="frm">
+                <form name="cartFrm" id="frm">
                     <div className="product_list">
                         <table>
                             <colgroup>
@@ -196,7 +196,7 @@ const Cart = ({ history }) => {
                         <a>선택 상품 주문</a>
                         <a>전체 상품 주문</a>
                     </div>
-                </htmlForm>
+                </form>
             </div>
         </div>
     )

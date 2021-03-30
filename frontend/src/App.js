@@ -18,11 +18,16 @@ import ChiProductList from "./routes/Product/ProductList/ChiProductList";
 import AsiaProductList from "./routes/Product/ProductList/AsiaProductList";
 import SalProductList from "./routes/Product/ProductList/SalProductList";
 
+import Detail from "./routes/Product/Detail";
+
 import TodaySale from "./routes/Product/TodaySale";
 import BestProduct from "./routes/Product/BestProduct";
 import NewProduct from "./routes/Product/NewProduct";
 import SaleProduct from "./routes/Product/SaleProduct";
 
+import MyPage from "./routes/User/MyPage";
+import MyOrder from "./routes/User/MyOrder";
+import MyOrderDetail from "./routes/User/MyOrderDetail";
 import Cart from "./routes/User/Cart";
 import Order from "./routes/User/Order";
 import OrderEnd from "./routes/User/OrderEnd";
@@ -44,6 +49,8 @@ function App() {
           <Route path="/goods/4" exact={true} component={AsiaProductList} />
           <Route path="/goods/5" exact={true} component={SalProductList} />
 
+          <Route path="/product/detail" exact={true} component={Detail} />
+
           <Route path="/todaysale" exact={true} component={TodaySale} />
           <Route path="/best" exact={true} component={BestProduct} />
           <Route path="/new" exact={true} component={NewProduct} />
@@ -51,8 +58,11 @@ function App() {
 
           <Route path="/sellregist" exact={true} component={SellRegist} />
 
+          <Route path="/mypage" exact={true} component={MyPage}/>
+          <Route path="/mypage/order" exact={true} component={MyOrder}/>
+          <Route path="/mypage/order/detail" exact={true} component={MyOrderDetail}/>
           <Route path="/cart" exact={true} component={Cart}/>
-          <Route path="/Order" exact={true} component={Order}/>
+          <Route path="/order" exact={true} component={Order}/>
           <Route path="/orderend" exact={true} component={OrderEnd}/>
         </Switch>
         <Footer/>
