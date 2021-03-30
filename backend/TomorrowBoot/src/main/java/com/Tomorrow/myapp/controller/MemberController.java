@@ -118,7 +118,7 @@ public class MemberController {
 		System.out.println(memberbody);
 		memberbody.setPw(sha256(memberbody.getPw()));
 		if (memberService.login(memberbody)) {
-			conclusion = "SUCESS";
+			conclusion = "SUCCESS";
 			MemberDto tmpmember = memberService.getMemberInfo(memberbody.getId());
 			String token = jwtService.create("member", tmpmember, "id");
 			conclusionmap.put("message", "SUCCESS");
@@ -161,7 +161,7 @@ public class MemberController {
 		System.out.println("get to /member/same done");
 		System.out.println("중복검사");
 		if (memberService.sameId(memberbody.get("id"))) {
-			conclusion = "SUCESS";
+			conclusion = "SUCCESS";
 		} else {
 			conclusion = "FAIL";
 		}
@@ -179,7 +179,7 @@ public class MemberController {
 		System.out.println("get to /member/samenick done");
 		System.out.println("중복검사");
 		if (memberService.sameNick(memberbody.get("nickname"))) {
-			conclusion = "SUCESS";
+			conclusion = "SUCCESS";
 		} else {
 			conclusion = "FAIL";
 		}
@@ -211,7 +211,7 @@ public class MemberController {
 		memberbody.setPw(sha256(memberbody.getPw()));
 		if (memberService.join(memberbody)) {
 			if(walletService.join(memberbody.getId())) {
-				conclusion = "SUCESS";
+				conclusion = "SUCCESS";
 			}
 		} else {
 			conclusion = "FAIL";
