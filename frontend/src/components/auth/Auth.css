@@ -54,6 +54,32 @@
     align-items: center;
     cursor: pointer;
 }
+.login_box {
+    width: 100%;
+    box-sizing: border-box;
+}
+.login_box p {
+    margin-top: 10px;
+    position: relative;
+}
+
+.login_box p img {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.login_box p input {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    border: 1px solid #dadada;
+    padding: 0 10px 0 35px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
 
 .realInput {
     width: 388px;

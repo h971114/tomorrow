@@ -359,3 +359,7 @@ table {
 .fl_l {
     float: left !important;
 }
+
+input[type='text'], input[type='password'], input[type='submit'], input[type='search'] {
+    -webkit-appearance: none;
+}
