@@ -122,6 +122,13 @@ public class MemberController {
 			MemberDto tmpmember = memberService.getMemberInfo(memberbody.getId());
 			String token = jwtService.create("member", tmpmember, "id");
 			conclusionmap.put("message", "SUCCESS");
+			conclusionmap.put("name", tmpmember.getName());
+			if(tmpmember.getSeller() == 1) {
+				conclusionmap.put("isseller", "seller");
+			}
+			else {
+				conclusionmap.put("isseller", "buyer");
+			}
 			conclusionmap.put("token", token);
 		} else {
 			conclusionmap.put("message", "FAIL");
@@ -145,6 +152,13 @@ public class MemberController {
 			conclusionmap.put("message", "SUCCESS");
 			conclusionmap.put("id", newmember.getId());
 			conclusionmap.put("nickname", newmember.getNickname());
+			conclusionmap.put("name", newmember.getName());
+			if(newmember.getSeller() == 1) {
+				conclusionmap.put("isseller", "seller");
+			}
+			else {
+				conclusionmap.put("isseller", "buyer");
+			}
 		} else {
 			conclusionmap.put("message", "FAIL");
 		}
@@ -236,12 +250,13 @@ public class MemberController {
 	// 회원수정
 	@ApiOperation(value = "회원수정", notes = "회원수정", response = Map.class)
 	@PutMapping("")
-	public ResponseEntity<String> updateMember(@RequestBody MemberDto memberbody, HttpServletRequest req) {
+	public ResponseEntity<String> updateMember(@RequestBody MemberDto memberbody, HttpServletRequest req) throws NoSuchAlgorithmException {
 		System.out.println(req);
 		String conclusion = "SUCCESS";
 		HttpStatus status = HttpStatus.ACCEPTED;
 		System.out.println("put to /member done");
 		System.out.println("회원수정");
+		memberbody.setPw(sha256(memberbody.getPw()));
 		memberService.update(memberbody);
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -333,6 +348,24 @@ public class MemberController {
 		if (conclusion == null) {
 			conclusion = "FAIL";
 		}
+		else {
+			conclusion = "SUCCESS";
+		}
+		return new ResponseEntity<String>(conclusion, status);
+	}
+	@ApiOperation(value = "비밀번호변경", notes = "비밀번호변경", response = Map.class)
+	@PutMapping("/findpw")
+	public ResponseEntity<String> changepw(@RequestBody MemberDto memberbody, HttpServletRequest req)
+			throws SQLException, NoSuchAlgorithmException {
+		System.out.println(req);
+		String conclusion = "";
+		HttpStatus status = HttpStatus.ACCEPTED;
+		System.out.println("get to /member/changepw done");
+		System.out.println("비밀번호변경");
+		MemberDto newmemberbody = memberService.getMemberInfo(memberbody.getId());
+		newmemberbody.setPw(sha256(memberbody.getPw()));
+		memberService.update(newmemberbody);
+		conclusion = "SUCCESS";
 		return new ResponseEntity<String>(conclusion, status);
 	}
 

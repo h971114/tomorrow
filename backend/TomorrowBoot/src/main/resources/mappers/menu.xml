@@ -51,17 +51,17 @@
     <select id="getMenuByBest" resultType="menu">
         SELECT *
         FROM menu
-        ORDER BY sell_amount DESC LIMIT 9
+        ORDER BY sell_amount DESC LIMIT 6
     </select>
     <select id="getMenuByNew" resultType="menu">
         SELECT *
         FROM menu
-        ORDER BY create_at DESC LIMIT 9
+        ORDER BY create_at DESC LIMIT 4
     </select>
     <select id="getMenuBySale" resultType="menu">
         SELECT * FROM menu
         WHERE discount_rate > 0
-        ORDER BY create_at DESC
+        ORDER BY discount_rate DESC, create_at DESC LIMIT 2;
     </select>
     <select id="getMenuByTodaySale" resultType="menu">
         SELECT * FROM menu
