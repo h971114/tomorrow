@@ -22,6 +22,15 @@ class Header extends Component {
         console.log(cookies)
     };
 
+    logout = (e) => {
+        const { cookies } = this.props;
+
+        window.sessionStorage.clear();
+        cookies.remove('id');
+        cookies.remove('token');
+        window.location.replace("/");
+    };
+
     render() {
         if (window.location.pathname === '/Auth') return null;
         return (
@@ -63,7 +72,7 @@ class Header extends Component {
                                     {this.state.id !== "" &&
                                     <div>
                                         <li className="login">
-                                            <a href="#">로그아웃</a>
+                                            <p onClick={this.logout} style={{ cursor: "pointer" }}>로그아웃</p>
                                         </li>
                                         <li className="login">
                                             <a href="#">마이페이지</a>
