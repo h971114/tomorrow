@@ -9,8 +9,8 @@
 		<version>2.4.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.leeting</groupId>
-	<artifactId>LeetingBootProject</artifactId>
+	<groupId>com.Tomorrow</groupId>
+	<artifactId>TomorrowBoot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>LeetingBootProject</name>
 	<description>Spring Boot Project for Leeting</description>
