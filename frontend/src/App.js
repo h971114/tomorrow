@@ -32,6 +32,9 @@ import Cart from "./routes/User/Cart";
 import Order from "./routes/User/Order";
 import OrderEnd from "./routes/User/OrderEnd";
 
+import Notice from "./routes/CsCenter/Notice";
+import Faq from "./routes/CsCenter/Faq";
+
 
 function App() {
   return (
@@ -63,7 +66,10 @@ function App() {
           <Route path="/mypage/order/detail" exact={true} component={MyOrderDetail}/>
           <Route path="/cart" exact={true} component={Cart}/>
           <Route path="/order" exact={true} component={Order}/>
-          <Route path="/orderend" exact={true} component={OrderEnd}/>
+          <Route path="/orderend" exact={true} component={OrderEnd} />
+          
+          <Route path="/cscenter/notice" exact={true} component={Notice}/>
+          <Route path="/cscenter/faq" exact={true} component={Faq}/>
         </Switch>
         <Footer/>
       </div>
