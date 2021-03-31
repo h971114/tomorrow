@@ -2,6 +2,20 @@ package com.Tomorrow.myapp.model;
 
 public class MemberDto {
 
+	public MemberDto(String id, String pw, String name, String nickname, String mobile, String email, String address,
+			int seller, String cert) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.nickname = nickname;
+		this.mobile = mobile;
+		this.email = email;
+		this.address = address;
+		this.seller = seller;
+		this.cert = cert;
+	}
+
 	private String id;
 	private String pw;
 	private String name;
@@ -9,7 +23,8 @@ public class MemberDto {
 	private String mobile;
 	private String email;
 	private String address;
-
+	private int seller;
+	private String cert;
 	public MemberDto() {
 
 	}
@@ -22,7 +37,7 @@ public class MemberDto {
 		this.mobile = mobile;
 		this.email = email;
 	}
-	public MemberDto(String id, String pw, String name, String nickname, String mobile, String email, String meetinglink) {
+	public MemberDto(String id, String pw, String name, String nickname, String mobile, String email, String address) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -93,6 +108,18 @@ public class MemberDto {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public int getSeller() {
+		return seller;
+	}
+	public void setSeller(int seller) {
+		this.seller = seller;
+	}
+	public String getCert() {
+		return cert;
+	}
+	public void setCert(String cert) {
+		this.cert = cert;
 	}
 	
 	
