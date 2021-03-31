@@ -7,6 +7,8 @@ import ScrolltoTop from "./components/common/ScrollToTop";
 import Header from "./components/FH/Header";
 import Footer from "./components/FH/Footer";
 
+import Auth from "./components/auth/Auth";
+
 import Home from "./routes/Home";
 
 import SellRegist from "./routes/Seller/Regist";
@@ -25,6 +27,8 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
+          
+          <Route path="/Auth" exact={true} component={Auth} />
           
           <Route path="/TodaySale" exact={true} component={TodaySale} />
           <Route path="/Best" exact={true} component={BestProduct} />

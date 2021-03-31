@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-class Header extends Component {
+import axios from "axios";
 
+class Header extends Component {
     render() {
+        if (window.location.pathname === '/Auth') return null;
         return (
             <div id="header">
                 <div id="joinInduce">
@@ -32,10 +34,10 @@ class Header extends Component {
                             <div className="util">
                                 <ul className="clear">
                                     <li className="nologin">
-                                        <a href="#">로그인</a>
+                                        <a href="/Auth">로그인</a>
                                     </li>
                                     <li className="nologin">
-                                        <a href="#">회원가입</a>
+                                        <a href="/Auth">회원가입</a>
                                     </li>
                                     <li className="login">
                                         <a href="#">로그아웃</a>
