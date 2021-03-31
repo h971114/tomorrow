@@ -142,6 +142,7 @@
 
 #header .inner .header_top .logo{
     display: inline-block;
+    height: auto;
 }
 #header .inner .header_top .logo a{
     display: block; 

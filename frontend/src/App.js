@@ -7,6 +7,8 @@ import ScrolltoTop from "./components/common/ScrollToTop";
 import Header from "./components/FH/Header";
 import Footer from "./components/FH/Footer";
 
+import Auth from "./components/auth/Auth";
+
 import Home from "./routes/Home";
 
 import SellRegist from "./routes/Seller/Regist";
@@ -32,6 +34,9 @@ import Cart from "./routes/User/Cart";
 import Order from "./routes/User/Order";
 import OrderEnd from "./routes/User/OrderEnd";
 
+import Notice from "./routes/CsCenter/Notice";
+import Faq from "./routes/CsCenter/Faq";
+
 
 function App() {
   return (
@@ -41,6 +46,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
+          <Route path="/Auth" exact={true} component={Auth} />
           
           <Route path="/goods" exact={true} component={AllProductList} />
           <Route path="/goods/1" exact={true} component={KorProductList} />
@@ -48,6 +54,12 @@ function App() {
           <Route path="/goods/3" exact={true} component={ChiProductList} />
           <Route path="/goods/4" exact={true} component={AsiaProductList} />
           <Route path="/goods/5" exact={true} component={SalProductList} />
+        
+          
+          <Route path="/TodaySale" exact={true} component={TodaySale} />
+          <Route path="/Best" exact={true} component={BestProduct} />
+          <Route path="/New" exact={true} component={NewProduct} />
+          <Route path="/Sale" exact={true} component={SaleProduct} />
 
           <Route path="/product/detail" exact={true} component={Detail} />
 
@@ -63,7 +75,10 @@ function App() {
           <Route path="/mypage/order/detail" exact={true} component={MyOrderDetail}/>
           <Route path="/cart" exact={true} component={Cart}/>
           <Route path="/order" exact={true} component={Order}/>
-          <Route path="/orderend" exact={true} component={OrderEnd}/>
+          <Route path="/orderend" exact={true} component={OrderEnd} />
+          
+          <Route path="/cscenter/notice" exact={true} component={Notice}/>
+          <Route path="/cscenter/faq" exact={true} component={Faq}/>
         </Switch>
         <Footer/>
       </div>
