@@ -7,6 +7,8 @@ import ScrolltoTop from "./components/common/ScrollToTop";
 import Header from "./components/FH/Header";
 import Footer from "./components/FH/Footer";
 
+import Auth from "./components/auth/Auth";
+
 import Home from "./routes/Home";
 
 import SellRegist from "./routes/Seller/Regist";
@@ -44,6 +46,7 @@ function App() {
         <Header />
         <Switch>
           <Route path="/" exact={true} component={Home} />
+          <Route path="/Auth" exact={true} component={Auth} />
           
           <Route path="/goods" exact={true} component={AllProductList} />
           <Route path="/goods/1" exact={true} component={KorProductList} />
@@ -51,6 +54,12 @@ function App() {
           <Route path="/goods/3" exact={true} component={ChiProductList} />
           <Route path="/goods/4" exact={true} component={AsiaProductList} />
           <Route path="/goods/5" exact={true} component={SalProductList} />
+        
+          
+          <Route path="/TodaySale" exact={true} component={TodaySale} />
+          <Route path="/Best" exact={true} component={BestProduct} />
+          <Route path="/New" exact={true} component={NewProduct} />
+          <Route path="/Sale" exact={true} component={SaleProduct} />
 
           <Route path="/product/detail" exact={true} component={Detail} />
 
