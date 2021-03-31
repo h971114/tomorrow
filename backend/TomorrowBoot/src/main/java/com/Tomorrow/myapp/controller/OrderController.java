@@ -23,7 +23,7 @@ import com.Tomorrow.myapp.service.CartService;
 import com.Tomorrow.myapp.service.OrderService;
 import com.Tomorrow.myapp.service.OrderdetailService;
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
