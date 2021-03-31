@@ -1,10 +1,34 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import "./Auth.css";
+import { instanceOf } from 'prop-types'
+import { withCookies, Cookies } from 'react-cookie';
 // import { GoogleLogin } from 'react-google-login';
 // import  KaKaoLogin  from 'react-kakao-login';
 
 class Auth extends React.Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        const { cookies } = props;
+        this.state = {
+            id: cookies.get('id') || "",
+            // name: cookies.get('name') || "",
+            nickname: cookies.get('nickname') || "",
+            token: cookies.get('token') || "",
+            // mobile: cookies.get('mobile') || "",
+            // email: cookies.get('email') || "",
+            // address: cookies.get('address') || "",
+            // seller: cookies.get('seller') || 0,
+            // cert: cookies.get('cert') || null,
+        }
+        console.log(cookies)
+    };
+
     state = {
         id: "",
         pw: "",
@@ -87,21 +111,29 @@ class Auth extends React.Component {
     certChange = (e) => this.setState({ cert: e.target.value });
 
     signIn = (e) => {
+        
         axios.post('http://127.0.0.1:8080/myapp/member/login', {
             id: this.state.id,
             pw: this.state.pw
         }).then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             if (res.data.message === "SUCCESS") {
                 sessionStorage.setItem("token", res.data.token);
-                sessionStorage.setItem("nickname", res.data.nickname);
-                sessionStorage.setItem("id", res.data.id);
+                sessionStorage.setItem("id", this.state.id);
+                this.saveCookies(res.data.token, this.state.id)
                 window.location.replace("/");
             } else {
                 alert("아이디와 비밀번호를 확인해주세요.");
             }
         })
     };
+
+    saveCookies = (token, id) => {
+        const { cookies } = this.props;
+        cookies.set("token", token);
+        cookies.set("id", id);
+        // cookies.set("nickname", nickname);
+    }
 
     signInKeyPress = (e) => {
         if (e.key === "Enter") { this.signIn(); }
@@ -334,4 +366,4 @@ class Auth extends React.Component {
         )
     }
 }
-export default Auth;
+export default withCookies(Auth);
