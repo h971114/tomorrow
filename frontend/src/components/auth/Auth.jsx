@@ -18,7 +18,7 @@ class Auth extends React.Component {
         this.state = {
             id: cookies.get('id') || "",
             // name: cookies.get('name') || "",
-            nickname: cookies.get('nickname') || "",
+            // nickname: cookies.get('nickname') || "",
             token: cookies.get('token') || "",
             // mobile: cookies.get('mobile') || "",
             // email: cookies.get('email') || "",

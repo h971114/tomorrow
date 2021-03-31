@@ -1,10 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { instanceOf } from 'prop-types'
+import { withCookies, Cookies } from 'react-cookie';
 
 import axios from "axios";
 
 class Header extends Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        const { cookies } = props;
+        this.state = {
+            id: cookies.get('id') || "",
+            token: cookies.get('token') || "",
+        }
+        console.log(cookies)
+    };
+
     render() {
         if (window.location.pathname === '/Auth') return null;
         return (
@@ -33,18 +50,26 @@ class Header extends Component {
                             </h1>
                             <div className="util">
                                 <ul className="clear">
-                                    <li className="nologin">
-                                        <a href="/Auth">로그인</a>
-                                    </li>
-                                    <li className="nologin">
-                                        <a href="/Auth">회원가입</a>
-                                    </li>
-                                    <li className="login">
-                                        <a href="#">로그아웃</a>
-                                    </li>
-                                    <li className="login">
-                                        <a href="#">마이페이지</a>
-                                    </li>
+                                    {this.state.id === "" &&
+                                    <div>
+                                        <li className="nologin">
+                                            <a href="/Auth">로그인</a>
+                                        </li>
+                                        <li className="nologin">
+                                            <a href="/Auth">회원가입</a>
+                                        </li>
+                                    </div>
+                                    }
+                                    {this.state.id !== "" &&
+                                    <div>
+                                        <li className="login">
+                                            <a href="#">로그아웃</a>
+                                        </li>
+                                        <li className="login">
+                                            <a href="#">마이페이지</a>
+                                        </li>
+                                    </div>
+                                    }
                                     <li>
                                         <a href="#">장바구니 <span>0</span></a>
                                     </li>
@@ -124,4 +149,4 @@ class Header extends Component {
 
 }
 
-export default Header;
+export default withCookies(Header);
