@@ -14,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/menu/**",
             "/pay/**",
             "/hometax/**",
+            "/gallery/**",
     };
 
     @Autowired
