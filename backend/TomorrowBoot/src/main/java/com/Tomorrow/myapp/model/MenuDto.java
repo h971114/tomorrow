@@ -1,7 +1,28 @@
 package com.Tomorrow.myapp.model;
 
 public class MenuDto {
-    private int id;
+
+
+	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale,
+			String create_at, int category, String img1, String img2, String seller_id, String data, String subname) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.amount = amount;
+		this.sell_amount = sell_amount;
+		this.discount_rate = discount_rate;
+		this.todaysale = todaysale;
+		this.create_at = create_at;
+		this.category = category;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.seller_id = seller_id;
+		this.data = data;
+		this.subname = subname;
+	}
+
+	private int id;
     private String name;
     private int price;
     private int amount;      // 재고
@@ -13,23 +34,9 @@ public class MenuDto {
     private String img1;
     private String img2;
     private String seller_id;
+    private String data;
     private String subname;
 
-    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at, int category, String img1, String img2, String seller_id, String subname) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.amount = amount;
-        this.sell_amount = sell_amount;
-        this.discount_rate = discount_rate;
-        this.todaysale = todaysale;
-        this.create_at = create_at;
-        this.category = category;
-        this.img1 = img1;
-        this.img2 = img2;
-        this.seller_id = seller_id;
-        this.subname = subname;
-    }
 
     public int getId() {
         return id;
@@ -127,14 +134,6 @@ public class MenuDto {
         this.seller_id = seller_id;
     }
 
-    public String getSubname() {
-        return subname;
-    }
-
-    public void setSubname(String subname) {
-        this.subname = subname;
-    }
-
     @Override
     public String toString() {
         return "MenuDto{" +
@@ -144,13 +143,28 @@ public class MenuDto {
                 ", amount=" + amount +
                 ", sell_amount=" + sell_amount +
                 ", discount_rate=" + discount_rate +
-                ", todaysale=" + todaysale +
+                ", todaysale='" + todaysale + '\'' +
                 ", create_at='" + create_at + '\'' +
                 ", category=" + category +
                 ", img1='" + img1 + '\'' +
                 ", img2='" + img2 + '\'' +
                 ", seller_id='" + seller_id + '\'' +
-                ", subname='" + subname + '\'' +
                 '}';
     }
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getSubname() {
+		return subname;
+	}
+
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
 }
