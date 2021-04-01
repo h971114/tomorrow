@@ -3,8 +3,9 @@ package com.Tomorrow.myapp.model;
 public class MenuDto {
 
 
+
 	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale,
-			String create_at, int category, String img1, String img2, String seller_id, String data, String subname) {
+			String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -20,6 +21,7 @@ public class MenuDto {
 		this.seller_id = seller_id;
 		this.data = data;
 		this.subname = subname;
+		this.detail = detail;
 	}
 
 	private int id;
@@ -36,6 +38,7 @@ public class MenuDto {
     private String seller_id;
     private String data;
     private String subname;
+    private String detail;
 
 
     public int getId() {
@@ -133,6 +136,14 @@ public class MenuDto {
     public void setSeller_id(String seller_id) {
         this.seller_id = seller_id;
     }
+    
+    public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 
     @Override
     public String toString() {
@@ -149,6 +160,7 @@ public class MenuDto {
                 ", img1='" + img1 + '\'' +
                 ", img2='" + img2 + '\'' +
                 ", seller_id='" + seller_id + '\'' +
+                ", detail='" +detail+'\'' +
                 '}';
     }
 

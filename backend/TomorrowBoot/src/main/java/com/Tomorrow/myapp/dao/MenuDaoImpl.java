@@ -34,27 +34,6 @@ public class MenuDaoImpl implements MenuDao {
     @Override
     public void insertMenu(MenuDto menuDto) {
         sqlSession.insert("menu.insert", menuDto);
-        Web3j web3j = Web3j.build(new HttpService("https://ropsten.infura.io/v3/184f3bb959504956a9a5db1c11ac8a2f"));
-        Credentials maincredentials = Credentials.create("e556623f9caa78f79992389fae16ce33502cb82ce75b3aebcbf151058a22e7f7");
-        try {
-            EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(maincredentials.getAddress(), DefaultBlockParameterName.PENDING).send();
-            BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-            EthBlock ethblock = web3j.ethGetBlockByNumber(DefaultBlockParameterName.LATEST, false).sendAsync().get();
-            BigInteger gaslimit = ethblock.getBlock().getGasLimit();
-            EthGasPrice gasPrice = web3j.ethGasPrice().send();
-            WalletDto wallet = walletDao.walletinfo(menuDto.getSeller_id());
-            Credentials credentials = Credentials.create(wallet.getPrivate_key());
-            RawTransaction rawTransaction =
-                    RawTransaction.createTransaction(nonce, gasPrice.getGasPrice(), gaslimit, credentials.getAddress(), BigInteger.valueOf(100), menuDto.getId() + " " + menuDto.getCreate_at());
-            byte[] signedMessage;
-            signedMessage = TransactionEncoder.signMessage(rawTransaction, maincredentials);
-            String hexValue = Numeric.toHexString(signedMessage);
-            EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).send();
-            EthGetTransactionCount transactioncount = web3j.ethGetTransactionCount(wallet.getAddress(), DefaultBlockParameterName.EARLIEST).send();
-            System.out.println(transactioncount.getTransactionCount().toString());
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
     }
 
     @Override

@@ -4,9 +4,9 @@
 
 <mapper namespace="menu">
     <insert id="insert" parameterType="menu">
-        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, create_at, category, img1, img2)
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, create_at, category, img1, img2, detail)
         VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
-                #{create_at}, #{category}, #{img1}, #{img2})
+                #{create_at}, #{category}, #{img1}, #{img2}, #{detail})
     </insert>
     <delete id="delete" parameterType="menu">
         DELETE
@@ -25,7 +25,8 @@
             create_at=#{create_at},
             category=#{category},
             img1 = #{img1},
-            img2 = #{img2}
+            img2 = #{img2},
+            detail = #{detail}
         WHERE id = #{id}
     </update>
     <select id="getMenuInfo" parameterType="int" resultType="menu">

@@ -50,10 +50,6 @@ public class MenuController {
     @PostMapping()
     public ResponseEntity<String> insertMenu(@RequestBody MenuDto menu, HttpServletRequest req) {
         menuService.insertMenu(menu);
-        MenuDetailDto menudetail = new MenuDetailDto();
-        menudetail.setMenu_id(Integer.toString(menu.getId()));
-        menudetail.setDetail(menu.getData());
-        menuDetailService.insertMenuDetail(menudetail);
         return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
 
