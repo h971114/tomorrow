@@ -1,6 +1,7 @@
 package com.Tomorrow.myapp.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,19 +22,25 @@ import com.Tomorrow.myapp.model.CartDto;
 import com.Tomorrow.myapp.model.OrderDto;
 import com.Tomorrow.myapp.model.Orderdetail;
 import com.Tomorrow.myapp.service.CartService;
+import com.Tomorrow.myapp.service.EthereumService;
+import com.Tomorrow.myapp.service.MenuService;
 import com.Tomorrow.myapp.service.OrderService;
 import com.Tomorrow.myapp.service.OrderdetailService;
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
     private final OrderdetailService orderdetailservice;
+    private final MenuService menuservice;
+    private final EthereumService etherservice;
 
     @Autowired
-    public OrderController(OrderService orderService, OrderdetailService orderdetailservice) {
+    public OrderController(OrderService orderService, OrderdetailService orderdetailservice, MenuService menuservice, EthereumService etherservice) {
         this.orderService = orderService;
         this.orderdetailservice = orderdetailservice;
+        this.menuservice = menuservice;
+        this.etherservice = etherservice;
     }
     
     @PostMapping("/insert")
@@ -64,6 +72,23 @@ public class OrderController {
     @GetMapping("/list")
     public ResponseEntity<List<OrderDto>> getOrder(@RequestParam("id") String id){
         return new ResponseEntity<>(orderService.getorderlist(id), HttpStatus.ACCEPTED);
+    }
+    @PutMapping("/send")
+    public ResponseEntity<String> deletedetail(@RequestBody Map<String, String> data, HttpServletRequest req){
+    	Orderdetail order = orderdetailservice.getdetail(data.get("id"));
+    	orderdetailservice.sendOrderdetail(order);
+    	String seller =  menuservice.getMenuInfo(Integer.parseInt(order.getMenu_id())).getSeller_id();
+    	String conclusion = "SUCCESS";
+    	String hash ="";
+    	try {
+			hash = etherservice.sendTransaction(seller, data.toString());
+		} catch (Exception e) {
+			conclusion = "FAIL";
+			e.printStackTrace();
+		}
+    	order.setFoodhash(hash);
+    	orderdetailservice.sendOrderdetail(order);
+    	return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
 }
 
