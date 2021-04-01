@@ -4,12 +4,15 @@
 
 <mapper namespace="order">
     <insert id="insert" parameterType="order">
-		INSERT INTO order (id,member_id,price,payment,time,payment_status) VALUES (#{id},#{member_id},#{price},#{payment},#{time},#{payment_status})
+		INSERT INTO orderInfo (id,member_id,price,payment,time,payment_status, order_num, order_status, paymenthash) VALUES (#{id},#{member_id},#{price},#{payment},#{time},#{payment_status}, #{order_num}, #{order_status}, #{paymenthash})
 	</insert>
 	<delete id="delete" parameterType="String">
-		DELETE FROM order WHERE id=#{id}
+		DELETE FROM orderInfo WHERE id=#{id}
 	</delete>
 	<select id="get" parameterType="String" resultType="order">
-		SELECT * FROM order WHERE id = #{id}
+		SELECT * FROM orderInfo WHERE id = #{id}
 	</select>
+	<update id="payment" parameterType="order">
+		UPDATE orderInfo SET payment_status = #{payment_status}, paymenthash = #{paymenthash} where id = #{id}
+	</update>
 </mapper>

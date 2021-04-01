@@ -16,22 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Tomorrow.myapp.model.NowPayDto;
+import com.Tomorrow.myapp.model.OrderDto;
 import com.Tomorrow.myapp.model.PayApprovalDto;
 import com.Tomorrow.myapp.service.EthereumService;
+import com.Tomorrow.myapp.service.OrderService;
 import com.Tomorrow.myapp.service.PayService;
 
 @Controller
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
 @RequestMapping("/pay")
 public class PayController {
 	
     private final PayService payService;
+    private final OrderService orderService;
     private String from = "0x11fd1D319B17aECEebC93439A35Ebc256cE8b851";
     @Autowired
     EthereumService ethereumService;
     @Autowired
-    public PayController(PayService payService) {
-    	this.payService = payService;
+    public PayController(PayService payService, OrderService orderservice) {
+    	this.orderService = orderservice;
+		this.payService = payService;
     }
     
     @GetMapping("/kakaoPay")
@@ -53,7 +57,12 @@ public class PayController {
         System.out.println("kakaoPaySuccess pg_token : " + pg_token);
         PayApprovalDto pay = payService.kakaoPayInfo(pg_token,id,total);
         model.addAttribute("info", pay);
-        ethereumService.sendTransaction(pay);
+        String hash = ethereumService.sendTransaction(pay);
+        OrderDto order = new OrderDto();
+        order.setId(pay.getPartner_order_id());
+        order.setPayment_status("1");
+        order.setPaymenthash(hash);
+        orderService.paymentorder(order);
         return "SUCCESS";
     }
     

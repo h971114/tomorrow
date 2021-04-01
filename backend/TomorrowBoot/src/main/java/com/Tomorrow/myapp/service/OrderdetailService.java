@@ -6,4 +6,5 @@ public interface OrderdetailService {
 	void insertOrderdetail(Orderdetail orderdetail);
 	void deleteOrderdetail(String id);
 	Orderdetail getdetail(String id);
+	void sendOrderdetail(Orderdetail orderdetail);
 }
