@@ -29,7 +29,7 @@ public class GalleryController {
         // 현재 dirName: "static", 이후 페이지별 디렉토리 추가 가능
         String dirName = "static";
         if(dirNum == 1){
-            dirName = "meeting";
+            dirName = "menu";
         }else if(dirNum == 2){
             dirName = "member";
         }else if(dirNum == 0) {
