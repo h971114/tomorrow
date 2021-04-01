@@ -13,8 +13,9 @@ public class MenuDto {
     private String img1;
     private String img2;
     private String seller_id;
+    private String subname;
 
-    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at, int category, String img1, String img2, String seller_id) {
+    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at, int category, String img1, String img2, String seller_id, String subname) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -27,6 +28,7 @@ public class MenuDto {
         this.img1 = img1;
         this.img2 = img2;
         this.seller_id = seller_id;
+        this.subname = subname;
     }
 
     public int getId() {
@@ -125,6 +127,14 @@ public class MenuDto {
         this.seller_id = seller_id;
     }
 
+    public String getSubname() {
+        return subname;
+    }
+
+    public void setSubname(String subname) {
+        this.subname = subname;
+    }
+
     @Override
     public String toString() {
         return "MenuDto{" +
@@ -134,12 +144,13 @@ public class MenuDto {
                 ", amount=" + amount +
                 ", sell_amount=" + sell_amount +
                 ", discount_rate=" + discount_rate +
-                ", todaysale='" + todaysale + '\'' +
+                ", todaysale=" + todaysale +
                 ", create_at='" + create_at + '\'' +
                 ", category=" + category +
                 ", img1='" + img1 + '\'' +
                 ", img2='" + img2 + '\'' +
                 ", seller_id='" + seller_id + '\'' +
+                ", subname='" + subname + '\'' +
                 '}';
     }
 }

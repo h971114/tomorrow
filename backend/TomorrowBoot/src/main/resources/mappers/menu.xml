@@ -4,8 +4,8 @@
 
 <mapper namespace="menu">
     <insert id="insert" parameterType="menu">
-        INSERT INTO menu (id, seller_id, name, price, amount, sell_amount, discount_rate, todaysale, create_at, category, img1, img2)
-        VALUES (#{id}, #{seller_id}, #{name}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, create_at, category, img1, img2)
+        VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
                 #{create_at}, #{category}, #{img1}, #{img2})
     </insert>
     <delete id="delete" parameterType="menu">
@@ -16,6 +16,7 @@
     <update id="update" parameterType="menu">
         UPDATE menu
         SET name=#{name},
+            subname=#{subname},
             price=#{price},
             amount=#{amount},
             sell_amount =#{sell_amount},
