@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const MyPage = () => {
+const SellPage = () => {
 
     return (
         <div id="sub">
@@ -9,22 +9,34 @@ const MyPage = () => {
                     <div className="cs_tab">
                         <div className="sub">
                             <ul className="clear">
-                                <li className="itemList2">
-                                    <a href="/mypage/" className="on">
-                                        개인정보
+                                <li className="itemList4">
+                                    <a href="/sellpage" className="on">
+                                        판매자 정보
                                         <img src="/img/bbs_tab_arrow.png" />
                                     </a>
                                 </li>
-                                <li className="itemList2">
-                                    <a href="/mypage/order/">
-                                        주문내역
+                                <li className="itemList4">
+                                    <a href="/sellpage/manage">
+                                        판매 관리
+                                        <img src="/img/bbs_tab_arrow.png" />
+                                    </a>
+                                </li>
+                                <li className="itemList4">
+                                    <a href="/sellpage/order/">
+                                        판매 내역
+                                        <img src="/img/bbs_tab_arrow.png" />
+                                    </a>
+                                </li>
+                                <li className="itemList4">
+                                    <a href="/sellpage/order/">
+                                        판매 목록
                                         <img src="/img/bbs_tab_arrow.png" />
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <h4 className="cs_title">개인정보</h4>
+                    <h4 className="cs_title">판매자 정보</h4>
                     <form name="board" id="board">
                         <div className="member bbs">
                             <table className="write mt30 join">
@@ -56,14 +68,14 @@ const MyPage = () => {
                                         <td>이름넣기</td>
                                     </tr>
                                     <tr>
-                                        <th className="phone">휴대폰번호</th>
+                                        <th className="phone">연락처</th>
                                         <td><input type="text" name="cell" id="cell" className="ipt" value="휴대폰value" maxLength="15" /></td>
                                     </tr>
 
                                     <tr>
                                         <th className="email">이메일</th>
                                         <td className="e_txt"><input type="text" name="email" id="email" value="email값 넣기" className="ipt2" />
-                                            <span className="ptxt">메일수신이 가능한 이메일 주소를 입력해 주세요. (단, 한메일은 제외, 메일수신이 안됩니다.)</span>
+                                            <span className="ptxt">메일수신이 가능한 이메일 주소를 입력해 주세요.</span>
                                         </td>
                                     </tr>
                                     <tr className="addr_section">
@@ -98,4 +110,4 @@ const MyPage = () => {
         </div>
     )
 }
-export default MyPage;
+export default SellPage;

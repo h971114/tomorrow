@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const Order = ({ history }) => {
 
@@ -19,7 +19,7 @@ const Order = ({ history }) => {
                             <div className="order">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence1.png" />
+                                        <img src="/img/sequence1.png" alt="장바구니" />
                                         <div className="txt">
                                             <em>STEP01</em>
                                             <span>장바구니</span>
@@ -32,7 +32,7 @@ const Order = ({ history }) => {
                             <div className="order on">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence2.png" />
+                                        <img src="/img/sequence2.png" alt="주문하기" />
                                         <div className="txt">
                                             <em>STEP02</em>
                                             <span>주문하기</span>
@@ -45,7 +45,7 @@ const Order = ({ history }) => {
                             <div className="order">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence3.png" />
+                                        <img src="/img/sequence3.png" alt="주문확인" />
                                         <div className="txt">
                                             <em>STEP03</em>
                                             <span>주문확인</span>
@@ -58,7 +58,7 @@ const Order = ({ history }) => {
                             <div className="order last">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence4.png" />
+                                        <img src="/img/sequence4.png" alt="주문완료" />
                                         <div className="txt">
                                             <em>STEP04</em>
                                             <span>주문완료</span>
@@ -245,11 +245,11 @@ const Order = ({ history }) => {
 
                 </div>
 
-                <div class="last_check">
+                <div className="last_check">
                     <input type="checkbox" id="last_ck" name="order_agree" />
-                    <label htmlFor="last_ck">구매하실 상품의 결제정보를 확인하였으며, <em class="mbr">구매진행에 동의합니다.</em></label>
+                    <label htmlFor="last_ck">구매하실 상품의 결제정보를 확인하였으며, <em className="mbr">구매진행에 동의합니다.</em></label>
 
-                    <div class="bt">
+                    <div className="bt">
                         <a>결제하기</a>
                         {/* 백엔드 연동 예정 */}
                     </div>
