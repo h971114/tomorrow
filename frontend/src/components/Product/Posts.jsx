@@ -48,24 +48,26 @@ export const Posts = ({ posts, loading }) => {
     return (
         <div className="product_list new_list">
             <div className="product_wrap">
-                {posts.map(post => (
-                    <List
-                        key={post.id}
-                        id={post.id}
-                        name={post.name}
-                        subname={post.subname}
-                        category={post.category}
-                        price={post.price}
-                        discount_rate={post.discount_rate}
-                        img1={post.img1}
-                        img2={post.img2}
-                        amount={post.amount}
-                        sell_amount={post.sell_amount}
-                        seller_id={post.seller_id}
-                        subname={post.subname}
-                        create_at={post.create_at}
-                    />
-                ))}
+                <ul className="clear">
+                    {posts.map(post => (
+                        <List
+                            key={post.id}
+                            id={post.id}
+                            name={post.name}
+                            subname={post.subname}
+                            category={post.category}
+                            price={post.price}
+                            discount_rate={post.discount_rate}
+                            img1={post.img1}
+                            img2={post.img2}
+                            amount={post.amount}
+                            sell_amount={post.sell_amount}
+                            seller_id={post.seller_id}
+                            subname={post.subname}
+                            create_at={post.create_at}
+                        />
+                    ))}
+                </ul>
             </div>
         </div>
     )
