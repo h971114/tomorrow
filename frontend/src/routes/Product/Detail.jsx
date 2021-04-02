@@ -21,7 +21,7 @@ class Detail extends React.Component {
         const { location, history } = this.props;
         console.log(location.state.id);
         var no = location.state.id
-        axios.get('http://j4a305.p.ssafy.io/myapp/menu/gm/' + no
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gm/` + no
         ).then(res => {
             this.setState({
                 loading: false,
