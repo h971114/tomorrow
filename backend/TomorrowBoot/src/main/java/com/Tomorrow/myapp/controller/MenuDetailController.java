@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.sql.SQLException;
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
 @RequestMapping("/menudetail")
 public class MenuDetailController {
     private final MenuDetailService menuDetailService;

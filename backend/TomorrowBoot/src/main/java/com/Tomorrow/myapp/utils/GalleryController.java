@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/gallery")
 public class GalleryController {
     private final GalleryService galleryService;

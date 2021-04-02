@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
 @RequestMapping("/menu")
 public class MenuController {
     private final MenuService menuService;
