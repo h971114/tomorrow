@@ -62,11 +62,7 @@ const Regist = ({ history }) => {
             alert('할인율은 최대 99%까지 가능합니다');
             document.getElementById("saleRate").value = '';
         }
-        else {
-            var salePrice = price / 100 * (100 - saleRate);
-
-            setSalePrice(salePrice);
-        }
+        setSalePrice(salePrice);
     } // 세일 퍼센트 바뀔때
     const todaySaleChange = (e) => {
         var todaySaleRate = document.getElementById("todaySaleRate").value;
@@ -230,39 +226,6 @@ const Regist = ({ history }) => {
                 }
             })
         }
-        // if (sTodaySale) {
-        //     axios.post("http://127.0.0.1:8080/myapp/menu", {
-        //         seller_id: id,
-        //         name: title,
-        //         subname: subtitle,
-        //         price: price,
-        //         amount: amount,
-        //         sell_amount: 0,
-        //         discount_rate: salePrice,
-        //         category: category,
-        //         img1: thumb,
-        //         img2: thumb2
-        //     }).then(res => {
-        //         if (res.data === "SUCCESS") {
-        //             alert("상품 등록을 완료하셨습니다.");
-        //         } else {
-        //             alert("상품 등록에 실패하셨습니다. 잠시후 다시 시도해주세요!");
-        //         }
-        //     })
-        // } else {
-
-        // }
-
-        // category
-        // title
-        // subtitle
-        // price
-        // salePrice
-        // todaySalePrice
-        // sSale
-        // sTodaySale
-        // thumb
-        // thumb2
     }
 
     function priceOnlyNum(e) {
