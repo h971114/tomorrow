@@ -14,7 +14,7 @@ const ProductList = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/all');
+            const res = await axios.get('http://j4a305.p.ssafy.io//myapp/menu/all');
 
             setPosts(res.data);
             setLoading(false);

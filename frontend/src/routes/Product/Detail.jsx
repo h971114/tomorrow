@@ -21,7 +21,7 @@ class Detail extends React.Component {
         const { location, history } = this.props;
         console.log(location.state.id);
         var no = location.state.id
-        axios.get('http://127.0.0.1:8080/myapp/menu/gm/' + no
+        axios.get('http://j4a305.p.ssafy.io//myapp/menu/gm/' + no
         ).then(res => {
             this.setState({
                 loading: false,
