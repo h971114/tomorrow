@@ -112,7 +112,7 @@ class Auth extends React.Component {
 
     signIn = (e) => {
 
-        axios.post('http://j4a305.p.ssafy.io/member/login', {
+        axios.post('https://j4a305.p.ssafy.io/member/login', {
             id: this.state.id,
             pw: this.state.pw
         }).then(res => {
