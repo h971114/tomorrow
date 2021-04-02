@@ -57,6 +57,7 @@ const Regist = ({ history }) => {
     }
     const saleChange = (e) => {
         var saleRate = document.getElementById("saleRate").value;
+        // var salePrice = saleRate
         if (Number(saleRate) >= 100) {
             setSalePrice(0);
             alert('할인율은 최대 99%까지 가능합니다');
