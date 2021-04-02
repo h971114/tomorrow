@@ -17,6 +17,7 @@ const Regist = ({ history }) => {
     const [price, setPrice] = useState(0);
     const [amount, setAmount] = useState(0);
     const [salePrice, setSalePrice] = useState(price);
+    const [saleRate, setSaleRate] = useState(0);
     const [todaySalePrice, setTodaySalePrice] = useState(price);
     const [sSale, setSSale] = useState(false);
     const [sTodaySale, setSTodaySale] = useState(false);
@@ -56,13 +57,15 @@ const Regist = ({ history }) => {
     }
     const saleChange = (e) => {
         var saleRate = document.getElementById("saleRate").value;
-
         if (Number(saleRate) >= 100) {
             setSalePrice(0);
             alert('할인율은 최대 99%까지 가능합니다');
             document.getElementById("saleRate").value = '';
+        } else {
+            var salePrice = price / 100 * (100 - saleRate);
+            setSalePrice(salePrice);
+            setSaleRate(saleRate);
         }
-        setSalePrice(salePrice);
     } // 세일 퍼센트 바뀔때
     const todaySaleChange = (e) => {
         var todaySaleRate = document.getElementById("todaySaleRate").value;
@@ -192,7 +195,7 @@ const Regist = ({ history }) => {
                 price: price,
                 amount: amount,
                 sell_amount: 0,
-                discount_rate: salePrice,
+                discount_rate: saleRate,
                 category: category,
                 img1: thumb,
                 img2: thumb2,
@@ -281,8 +284,8 @@ const Regist = ({ history }) => {
                                         <option value="1" defaultValue>한  식</option>
                                         <option value="2">양  식</option>
                                         <option value="3">중식,일식</option>
-                                        <option value="4">면,파스타</option>
-                                        <option value="5">분식, 야식</option>
+                                        <option value="4">동남아</option>
+                                        <option value="5">샐러드</option>
                                     </select>
                                 </td>
                             </tr>
