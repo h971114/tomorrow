@@ -188,13 +188,4 @@ public class MenuController {
         return new ResponseEntity<>(conclusion, httpStatus);
     }
 
-    public String time() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date dTime = new Date();
-        TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
-        sdf.setTimeZone(tz);
-        String curTime = sdf.format(dTime);
-        System.out.println(curTime);
-        return curTime;
-    }
 }

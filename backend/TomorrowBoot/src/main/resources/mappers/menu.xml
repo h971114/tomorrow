@@ -35,8 +35,8 @@
         WHERE id = #{id};
     </select>
     <select id="getMenu" resultType="menu">
-        SELECT *
-        FROM menu
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu;
     </select>
     <select id="getMenuBySeller" parameterType="String" resultType="menu">
         SELECT *

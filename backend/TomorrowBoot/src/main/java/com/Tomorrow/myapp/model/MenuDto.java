@@ -2,7 +2,21 @@ package com.Tomorrow.myapp.model;
 
 public class MenuDto {
 
-
+	private int id;
+    private String name;
+    private int price;
+    private int amount;      // 재고
+    private int sell_amount; // 판매 수량
+    private int discount_rate;
+    private int todaysale;
+    private String create_at;
+    private int category;
+    private String img1;
+    private String img2;
+    private String seller_id;
+    private String data;
+    private String subname;
+    private String detail;
 
 	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale,
 			String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail) {
@@ -24,22 +38,9 @@ public class MenuDto {
 		this.detail = detail;
 	}
 
-	private int id;
-    private String name;
-    private int price;
-    private int amount;      // 재고
-    private int sell_amount; // 판매 수량
-    private int discount_rate;
-    private int todaysale;
-    private String create_at;
-    private int category;
-    private String img1;
-    private String img2;
-    private String seller_id;
-    private String data;
-    private String subname;
-    private String detail;
-
+	public MenuDto() {
+		// TODO Auto-generated constructor stub
+	}
 
     public int getId() {
         return id;
