@@ -25,5 +25,8 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getOrder(memberid);
 	}
 	
-	
+	@Override
+	public void paymentorder(OrderDto order) {
+		orderDao.paymentOrder(order);
+	}
 }

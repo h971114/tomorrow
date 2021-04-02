@@ -26,5 +26,9 @@ public class OrderDaoImpl implements OrderDao {
 	public List<OrderDto> getOrder(String memberid) {
 		return sqlSession.selectList("order.get", memberid);
 	}
-
+	@Override
+	public void paymentOrder(OrderDto order) {
+		sqlSession.update("order.payment", order);
+	}
+	
 }

@@ -1,21 +1,21 @@
 package com.Tomorrow.myapp.model;
 
 public class Orderdetail {
-	public Orderdetail(String id, String order_id, String menu_id, String name, String amount, String price) {
+	public Orderdetail(String id, String order_id, String menu_id, String name, String amount, String foodhash) {
 		super();
 		this.id = id;
 		this.order_id = order_id;
 		this.menu_id = menu_id;
 		this.name = name;
 		this.amount = amount;
-		this.price = price;
+		this.foodhash = foodhash;
 	}
 	private String id;
 	private String order_id;
 	private String menu_id;
 	private String name;
 	private String amount;
-	private String price;
+	private String foodhash;
 	public String getId() {
 		return id;
 	}
@@ -46,10 +46,10 @@ public class Orderdetail {
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
-	public String getPrice() {
-		return price;
+	public String getFoodhash() {
+		return foodhash;
 	}
-	public void setPrice(String price) {
-		this.price = price;
+	public void setFoodhash(String foodhash) {
+		this.foodhash = foodhash;
 	}
 }

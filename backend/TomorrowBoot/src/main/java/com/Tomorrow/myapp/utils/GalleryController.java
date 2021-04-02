@@ -28,14 +28,15 @@ public class GalleryController {
 
         // 현재 dirName: "static", 이후 페이지별 디렉토리 추가 가능
         String dirName = "static";
-        if(dirNum == 1){
-            dirName = "meeting";
-        }else if(dirNum == 2){
+        if(dirNum == 0){
+            dirName = "menu";
+        }else if(dirNum == 1){
             dirName = "member";
-        }else if(dirNum == 0) {
+        }else if(dirNum == 2) {
             dirName = "notice";
+        }else if(dirNum == 3) {
+            dirName = "review";
         }
-        System.out.println(id+" "+dirName);
         return galleryService.upload(dirName, id, multipartFile);
     }
 }

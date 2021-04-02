@@ -1,7 +1,8 @@
 package com.Tomorrow.myapp.model;
 
 public class MenuDto {
-    private int id;
+
+	private int id;
     private String name;
     private int price;
     private int amount;      // 재고
@@ -13,21 +14,33 @@ public class MenuDto {
     private String img1;
     private String img2;
     private String seller_id;
+    private String data;
+    private String subname;
+    private String detail;
 
-    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at, int category, String img1, String img2, String seller_id) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.amount = amount;
-        this.sell_amount = sell_amount;
-        this.discount_rate = discount_rate;
-        this.todaysale = todaysale;
-        this.create_at = create_at;
-        this.category = category;
-        this.img1 = img1;
-        this.img2 = img2;
-        this.seller_id = seller_id;
-    }
+	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale,
+			String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.amount = amount;
+		this.sell_amount = sell_amount;
+		this.discount_rate = discount_rate;
+		this.todaysale = todaysale;
+		this.create_at = create_at;
+		this.category = category;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.seller_id = seller_id;
+		this.data = data;
+		this.subname = subname;
+		this.detail = detail;
+	}
+
+	public MenuDto() {
+		// TODO Auto-generated constructor stub
+	}
 
     public int getId() {
         return id;
@@ -124,6 +137,14 @@ public class MenuDto {
     public void setSeller_id(String seller_id) {
         this.seller_id = seller_id;
     }
+    
+    public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 
     @Override
     public String toString() {
@@ -140,6 +161,23 @@ public class MenuDto {
                 ", img1='" + img1 + '\'' +
                 ", img2='" + img2 + '\'' +
                 ", seller_id='" + seller_id + '\'' +
+                ", detail='" +detail+'\'' +
                 '}';
     }
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getSubname() {
+		return subname;
+	}
+
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
 }

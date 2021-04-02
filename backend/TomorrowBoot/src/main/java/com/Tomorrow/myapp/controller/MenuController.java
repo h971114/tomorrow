@@ -1,8 +1,10 @@
 package com.Tomorrow.myapp.controller;
 
 import com.Tomorrow.myapp.model.MemberDto;
+import com.Tomorrow.myapp.model.MenuDetailDto;
 import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.model.ReviewDto;
+import com.Tomorrow.myapp.service.MenuDetailService;
 import com.Tomorrow.myapp.service.MenuService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +34,16 @@ import java.util.Map;
 import java.util.TimeZone;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
 @RequestMapping("/menu")
 public class MenuController {
     private final MenuService menuService;
+    private final MenuDetailService menuDetailService;
 
     @Autowired
-    public MenuController(MenuService menuService) {
+    public MenuController(MenuService menuService, MenuDetailService menuDetailService) {
         this.menuService = menuService;
+        this.menuDetailService = menuDetailService;
     }
 
     /* 상품 Service: 등록 삭제 수정 */
@@ -184,13 +188,4 @@ public class MenuController {
         return new ResponseEntity<>(conclusion, httpStatus);
     }
 
-    public String time() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date dTime = new Date();
-        TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
-        sdf.setTimeZone(tz);
-        String curTime = sdf.format(dTime);
-        System.out.println(curTime);
-        return curTime;
-    }
 }

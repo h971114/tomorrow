@@ -25,4 +25,9 @@ public class OrderdetailServiceImpl implements OrderdetailService {
 		return orderdetailDao.getOrder(id);
 	}
 	
+	@Override
+	public void sendOrderdetail(Orderdetail orderdetail) {
+		orderdetailDao.sendOrder(orderdetail);
+		
+	}
 }

@@ -11,4 +11,5 @@ public interface OrderdetailDao {
 	void insertOrder(Orderdetail order);
 	void deleteOrder(String id);
 	Orderdetail getOrder(String id);
+	void sendOrder(Orderdetail order);
 }

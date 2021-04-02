@@ -4,9 +4,9 @@
 
 <mapper namespace="menu">
     <insert id="insert" parameterType="menu">
-        INSERT INTO menu (id, seller_id, name, price, amount, sell_amount, discount_rate, todaysale, create_at)
-        VALUES (#{id}, #{seller_id}, #{name}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
-                #{create_at})
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, create_at, category, img1, img2, detail)
+        VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
+                #{create_at}, #{category}, #{img1}, #{img2}, #{detail})
     </insert>
     <delete id="delete" parameterType="menu">
         DELETE
@@ -16,12 +16,17 @@
     <update id="update" parameterType="menu">
         UPDATE menu
         SET name=#{name},
+            subname=#{subname},
             price=#{price},
             amount=#{amount},
             sell_amount =#{sell_amount},
             discount_rate = #{discount_rate},
             todaysale = #{todaysale},
-            create_at=#{create_at}
+            create_at=#{create_at},
+            category=#{category},
+            img1 = #{img1},
+            img2 = #{img2},
+            detail = #{detail}
         WHERE id = #{id}
     </update>
     <select id="getMenuInfo" parameterType="int" resultType="menu">
@@ -30,8 +35,8 @@
         WHERE id = #{id};
     </select>
     <select id="getMenu" resultType="menu">
-        SELECT *
-        FROM menu
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu;
     </select>
     <select id="getMenuBySeller" parameterType="String" resultType="menu">
         SELECT *

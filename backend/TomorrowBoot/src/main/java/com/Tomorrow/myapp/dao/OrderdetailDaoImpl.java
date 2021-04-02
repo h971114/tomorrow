@@ -24,5 +24,9 @@ public class OrderdetailDaoImpl implements OrderdetailDao {
 	public Orderdetail getOrder(String id) {
 		return sqlSession.selectOne("orderdetail.get", id);
 	}
-
+	
+	@Override
+	public void sendOrder(Orderdetail order) {
+		sqlSession.insert("orderdetail.send", order);
+	}
 }
