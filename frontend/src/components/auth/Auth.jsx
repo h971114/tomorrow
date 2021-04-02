@@ -210,7 +210,7 @@ class Auth extends React.Component {
                 cert: this.state.cert,
             }).then(res => {
                 console.log(res);
-                if (res.data === "SUCESS") {
+                if (res.data === "SUCCESS") {
                     alert('회원가입 성공! 로그인 창에서 로그인하세요.')
                     this.tabZero();
                 } else {
