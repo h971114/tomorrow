@@ -54,14 +54,17 @@ public class PayServiceImpl implements PayService{
         params.add("partner_order_id", partner_order_id);//주문번호
         params.add("partner_user_id", id);//
         String itemname = "";
+        String itemcode = "";
         int total = 0;
         int tax = 0;
         for(int i=0;i<nowpay.size();i++) {
         	itemname+=nowpay.get(i).getItem_name()+",";
+        	itemcode+=nowpay.get(i).getItem_code()+",";
         	total += nowpay.get(i).getTotal_mount();
         	tax += nowpay.get(i).getTax_free_amount();
         }
         params.add("item_name", itemname);//상품이름 or 서비스이름
+        params.add("item_code", itemcode);//상품번호
         params.add("quantity", Integer.toString(nowpay.size()));//총 수량 - > 장바구니 수량
         params.add("total_amount", Integer.toString(total));//총 가격 -> 장바구니 총 가격
         params.add("tax_free_amount", Integer.toString(tax));//세금

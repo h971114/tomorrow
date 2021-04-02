@@ -163,12 +163,12 @@ const QnAWrite = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="btnSet clear">
-                                <div class="fl_r"><a href="/cscenter/qna/write">글쓰기</a></div>
+                            <div className="btnSet clear">
+                                <div className="fl_r"><a href="/cscenter/qna/write">글쓰기</a></div>
                             </div>
-                            <div class="pagenate clear table">
-                                <ul class="paging">
-                                    <li><a class="current">1</a></li>
+                            <div className="pagenate clear table">
+                                <ul className="paging">
+                                    <li><a className="current">1</a></li>
                                     <li><a>2</a></li>
                                     <li><a>3</a></li>
                                     <li><a>4</a></li>
@@ -178,20 +178,20 @@ const QnAWrite = () => {
                                     <li><a>8</a></li>
                                     <li><a>9</a></li>
                                     <li><a>10</a></li>
-                                    <li><a class="board next">next</a></li>
-                                    <li><a class="board last">last</a></li>
+                                    <li><a className="board next">next</a></li>
+                                    <li><a className="board last">last</a></li>
                                 </ul>
                             </div>
-                            <div class="bbsSearch">
+                            <div className="bbsSearch">
                                 <form name="searchForm" id="searchForm">
-                                    <span class="srchSelect">
-                                        <select id="stype" name="stype" class="dSelect" title="검색분류 선택">
+                                    <span className="srchSelect">
+                                        <select id="stype" name="stype" className="dSelect" title="검색분류 선택">
                                             <option value="all">제목+내용</option>
                                             <option value="title">제목</option>
                                             <option value="contents">내용</option>
                                         </select>
                                     </span>
-                                    <span class="searchWord">
+                                    <span className="searchWord">
                                         <input type="text" id="sval" name="sval" title="검색어 입력" />
                                         <input type="button" value="검색" title="검색" />
                                     </span>

@@ -8,4 +8,5 @@ public interface OrderService {
 	void insertorder(OrderDto order);
 	void deleteorder(String id);
 	List<OrderDto> getorderlist(String memberid);
+	void paymentorder(OrderDto order);
 }

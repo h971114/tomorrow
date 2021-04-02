@@ -9,4 +9,5 @@ public interface OrderDao {
 	void insertOrder(OrderDto order);
 	void deleteOrder(String id);
 	List<OrderDto> getOrder(String memberid);
+	void paymentOrder(OrderDto order);
 }

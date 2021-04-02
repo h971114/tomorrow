@@ -1,8 +1,8 @@
 package com.Tomorrow.myapp.model;
 
 public class MenuDto {
-    private int id;
-    private String seller_id;
+
+	private int id;
     private String name;
     private int price;
     private int amount;      // 재고
@@ -10,19 +10,37 @@ public class MenuDto {
     private int discount_rate;
     private int todaysale;
     private String create_at;
-    private String category;
+    private int category;
+    private String img1;
+    private String img2;
+    private String seller_id;
+    private String data;
+    private String subname;
+    private String detail;
 
-    public MenuDto(int id, String seller_id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at) {
-        this.id = id;
-        this.seller_id = seller_id;
-        this.name = name;
-        this.price = price;
-        this.amount = amount;
-        this.sell_amount = sell_amount;
-        this.discount_rate = discount_rate;
-        this.todaysale = todaysale;
-        this.create_at = create_at;
-    }
+	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale,
+			String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.amount = amount;
+		this.sell_amount = sell_amount;
+		this.discount_rate = discount_rate;
+		this.todaysale = todaysale;
+		this.create_at = create_at;
+		this.category = category;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.seller_id = seller_id;
+		this.data = data;
+		this.subname = subname;
+		this.detail = detail;
+	}
+
+	public MenuDto() {
+		// TODO Auto-generated constructor stub
+	}
 
     public int getId() {
         return id;
@@ -30,14 +48,6 @@ public class MenuDto {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getSeller_id() {
-        return seller_id;
-    }
-
-    public void setSeller_id(String seller_id) {
-        this.seller_id = seller_id;
     }
 
     public String getName() {
@@ -96,27 +106,78 @@ public class MenuDto {
         this.create_at = create_at;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
+
+    public String getImg1() {
+        return img1;
+    }
+
+    public void setImg1(String img1) {
+        this.img1 = img1;
+    }
+
+    public String getImg2() {
+        return img2;
+    }
+
+    public void setImg2(String img2) {
+        this.img2 = img2;
+    }
+
+    public String getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(String seller_id) {
+        this.seller_id = seller_id;
+    }
+    
+    public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
 
     @Override
     public String toString() {
         return "MenuDto{" +
                 "id=" + id +
-                ", seller_id='" + seller_id + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", amount=" + amount +
                 ", sell_amount=" + sell_amount +
                 ", discount_rate=" + discount_rate +
-                ", todaysale=" + todaysale +
+                ", todaysale='" + todaysale + '\'' +
                 ", create_at='" + create_at + '\'' +
-                ", category='" + category + '\'' +
+                ", category=" + category +
+                ", img1='" + img1 + '\'' +
+                ", img2='" + img2 + '\'' +
+                ", seller_id='" + seller_id + '\'' +
+                ", detail='" +detail+'\'' +
                 '}';
     }
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public String getSubname() {
+		return subname;
+	}
+
+	public void setSubname(String subname) {
+		this.subname = subname;
+	}
 }

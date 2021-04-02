@@ -72,7 +72,7 @@ function App() {
           <Route path="/New" exact={true} component={NewProduct} />
           <Route path="/Sale" exact={true} component={SaleProduct} />
 
-          <Route path="/product/detail" exact={true} component={Detail} />
+          <Route path="/product/detail/:id" exact={true} component={Detail} />
 
           <Route path="/todaysale" exact={true} component={TodaySale} />
           <Route path="/best" exact={true} component={BestProduct} />

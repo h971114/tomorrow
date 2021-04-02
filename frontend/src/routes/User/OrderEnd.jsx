@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const OrderEnd = () => {
     return (
@@ -10,7 +10,7 @@ const OrderEnd = () => {
                             <div className="order">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence1.png" />
+                                        <img src="/img/sequence1.png" alt="장바구니" />
                                         <div className="txt">
                                             <em>STEP01</em>
                                             <span>장바구니</span>
@@ -23,7 +23,7 @@ const OrderEnd = () => {
                             <div className="order">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence2.png" />
+                                        <img src="/img/sequence2.png" alt="주문하기" />
                                         <div className="txt">
                                             <em>STEP02</em>
                                             <span>주문하기</span>
@@ -36,7 +36,7 @@ const OrderEnd = () => {
                             <div className="order">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence3.png" />
+                                        <img src="/img/sequence3.png" alt="주문확인" />
                                         <div className="txt">
                                             <em>STEP03</em>
                                             <span>주문확인</span>
@@ -49,7 +49,7 @@ const OrderEnd = () => {
                             <div className="order last on">
                                 <div className="tb">
                                     <div className="tbc">
-                                        <img src="/img/sequence4.png" />
+                                        <img src="/img/sequence4.png" alt="주문완료" />
                                         <div className="txt">
                                             <em>STEP04</em>
                                             <span>주문완료</span>
@@ -76,7 +76,7 @@ const OrderEnd = () => {
                                 </p>
                             </div>
                             <div className="btnSet clear">
-                                <a href="#" className="btn big point">주문내역</a>
+                                <a href="/mypage/order" className="btn big point">주문내역</a>
                                 <a href="/" className="btn big">메인</a>
                             </div>
                         </div>

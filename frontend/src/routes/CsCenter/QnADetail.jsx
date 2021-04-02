@@ -21,36 +21,36 @@ const QnADetail = () => {
                         </div>
                     </div>
                     <h4 className="cs_title">Q&A</h4>
-                    <div class="contents">
-                        <div class="bbs view">
-                            <div class="view">
-                                <div class="title">
+                    <div className="contents">
+                        <div className="bbs view">
+                            <div className="view">
+                                <div className="title">
                                     <dl>
                                         <dt>문의 제목</dt>
-                                        <dd class="name">작성자</dd>
-                                        <dd class="date">2021-03-31</dd>
+                                        <dd className="name">작성자</dd>
+                                        <dd className="date">2021-03-31</dd>
                                     </dl>
                                 </div>
-                                <div class="cont">
+                                <div className="cont">
                                     <p>안녕?</p>
                                 </div>
 
-                                <div class="title">
+                                <div className="title">
                                     <dl>
                                         <dt>답변 제목</dt>
-                                        <dd class="name">관리자</dd>
-                                        <dd class="date">2021-03-31</dd>
+                                        <dd className="name">관리자</dd>
+                                        <dd className="date">2021-03-31</dd>
                                     </dl>
                                 </div>
-                                <div class="cont">
+                                <div className="cont">
                                     <p>안녕하지 못해...</p>
                                 </div>
 
-                                <div class="btnSet clear">
-                                    <div class="fl_l"><a class="btn">목록으로</a></div>
-                                    <div class="fl_r">
-                                        <a class="btn">수정</a>
-                                        <a class="btn">삭제</a>
+                                <div className="btnSet clear">
+                                    <div className="fl_l"><a className="btn">목록으로</a></div>
+                                    <div className="fl_r">
+                                        <a className="btn">수정</a>
+                                        <a className="btn">삭제</a>
                                     </div>
                                 </div>
                             </div>

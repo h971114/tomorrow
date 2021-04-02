@@ -75,9 +75,6 @@ class Header extends Component {
                                         <li className="nologin">
                                             <a href="/Auth">회원가입</a>
                                         </li>
-                                        <li>
-                                            <a href="#">장바구니 <span>0</span></a>
-                                        </li>
                                     </ul>
                                 </div>
                             }
@@ -98,7 +95,7 @@ class Header extends Component {
                                             }
                                         </li>
                                         <li>
-                                            <a href="#">장바구니 <span>0</span></a>
+                                            <a href="/cart">장바구니 <span>0</span></a>
                                         </li>
                                     </ul>
                                 </div>

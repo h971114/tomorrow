@@ -4,55 +4,78 @@
 
 <mapper namespace="menu">
     <insert id="insert" parameterType="menu">
-		INSERT INTO menu (id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at) VALUES (#{id},#{seller_id},#{name},#{price},#{amount},#{sell_amount}, #{discount_rate}, #{todaysale}, #{create_at})
-	</insert>
-	<delete id="delete" parameterType="menu">
-		DELETE FROM menu WHERE id=#{id}
-	</delete>
-	<update id="update" parameterType="menu" >
-		UPDATE menu SET name=#{name},price=#{price},amount=#{amount}, sell_amount =#{sell_amount}, discount_rate = #{discount_rate}, todaysale = #{todaysale}, create_at=#{create_at} WHERE id=#{id}
-	</update>
-	<select id= "getbyseller" parameterType="String">
-		SELECT FROM menu WHERE seller_id=#{id}
-	</select>
-	<select id="getMenu">
-		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
-		FROM menu;
-	</select>
-
-	<select id="getMenuByLowPrice">
-		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
-		FROM menu;
-		ORDER BY price ASC
-	</select>
-
-	<select id="getMenuByHighPrice">
-		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
-		FROM menu;
-		ORDER BY price DESC
-	</select>
-
-	<select id="getMenuByBest">
--- 		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
--- 		FROM menu;
--- 		ORDER BY price ASC
-	</select>
-
-	<select id="getMenuByNew">
-		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
-		FROM menu;
-		ORDER BY create_at DESC
-	</select>
-
-	<select id="getMenuBySale">
-		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
-		FROM menu;
-		WHERE discount_rate > 0
-	</select>
-
-	<select id="getMenuByTodaySale">
-		SELECT id,seller_id,name,price, amount, sell_amount, discount_rate,todaysale,create_at,category
-		FROM menu;
-		WHERE todaysale > 0
-	</select>
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, create_at, category, img1, img2, detail)
+        VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
+                #{create_at}, #{category}, #{img1}, #{img2}, #{detail})
+    </insert>
+    <delete id="delete" parameterType="menu">
+        DELETE
+        FROM menu
+        WHERE id = #{id}
+    </delete>
+    <update id="update" parameterType="menu">
+        UPDATE menu
+        SET name=#{name},
+            subname=#{subname},
+            price=#{price},
+            amount=#{amount},
+            sell_amount =#{sell_amount},
+            discount_rate = #{discount_rate},
+            todaysale = #{todaysale},
+            create_at=#{create_at},
+            category=#{category},
+            img1 = #{img1},
+            img2 = #{img2},
+            detail = #{detail}
+        WHERE id = #{id}
+    </update>
+    <select id="getMenuInfo" parameterType="int" resultType="menu">
+        SELECT *
+        FROM menu
+        WHERE id = #{id};
+    </select>
+    <select id="getMenu" resultType="menu">
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu;
+    </select>
+    <select id="getMenuBySeller" parameterType="String" resultType="menu">
+        SELECT *
+        FROM menu
+        WHERE seller_id = #{seller_id}
+    </select>
+    <select id="getMenuByLowPrice" resultType="menu">
+        SELECT *
+        FROM menu
+        ORDER BY price ASC
+    </select>
+    <select id="getMenuByHighPrice" resultType="menu">
+        SELECT *
+        FROM menu
+        ORDER BY price DESC
+    </select>
+    <select id="getMenuByBest" resultType="menu">
+        SELECT *
+        FROM menu
+        ORDER BY sell_amount DESC LIMIT 6
+    </select>
+    <select id="getMenuByNew" resultType="menu">
+        SELECT *
+        FROM menu
+        ORDER BY create_at DESC LIMIT 4
+    </select>
+    <select id="getMenuBySale" resultType="menu">
+        SELECT * FROM menu
+        WHERE discount_rate > 0
+        ORDER BY discount_rate DESC, create_at DESC LIMIT 2;
+    </select>
+    <select id="getMenuByTodaySale" resultType="menu">
+        SELECT * FROM menu
+        WHERE todaysale > 0
+        ORDER BY create_at DESC
+    </select>
+    <select id="getMenuByCategory" parameterType="int" resultType="menu">
+        SELECT *
+        FROM menu
+        WHERE category = #{keyword}
+    </select>
 </mapper>

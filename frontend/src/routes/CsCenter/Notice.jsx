@@ -12,17 +12,17 @@ const Notice = () => {
 
             <div className="size notice">
                 <div className="notice_wrap">
-                    <div class="cs_tab">
-                        <div class="sub" >
-                            <ul class="clear">
-                                <li class="itemList3"><a href="/cscenter/notice/" class="on">공지사항<img src="/img/bbs_tab_arrow.png" /></a></li>
-                                <li class="itemList3"><a href="/cscenter/faq/">FAQ<img src="/img/bbs_tab_arrow.png" /></a></li>
-                                <li class="itemList3"><a href="/cscenter/qna/">Q&amp;A<img src="/img/bbs_tab_arrow.png" /></a></li>
+                    <div className="cs_tab">
+                        <div className="sub" >
+                            <ul className="clear">
+                                <li className="itemList3"><a href="/cscenter/notice/" className="on">공지사항<img src="/img/bbs_tab_arrow.png" /></a></li>
+                                <li className="itemList3"><a href="/cscenter/faq/">FAQ<img src="/img/bbs_tab_arrow.png" /></a></li>
+                                <li className="itemList3"><a href="/cscenter/qna/">Q&amp;A<img src="/img/bbs_tab_arrow.png" /></a></li>
                             </ul>
                         </div>
                     </div>
                     <h4 className="cs_title">공지사항</h4>
-                    <table class="table_form">
+                    <table className="table_form">
                         <colgroup>
                             <col width="10%" />
                             <col width="*" />
@@ -42,73 +42,73 @@ const Notice = () => {
                         <tbody>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                             <tr>
                                 <td>id</td>
-                                <td class="txt">공지사항 제목</td>
-                                <td class="writer">관리자</td>
-                                <td class="date">2021-03-31</td>
-                                <td class="view">109</td>
+                                <td className="txt">공지사항 제목</td>
+                                <td className="writer">관리자</td>
+                                <td className="date">2021-03-31</td>
+                                <td className="view">109</td>
                             </tr>
                         </tbody>
                     </table>
@@ -128,14 +128,14 @@ const Notice = () => {
                 </div>
                 <div className="bbsSearch">
                     <form name="searchForm" id="searchForm">
-                        <span class="srchSelect">
-                            <select id="stype" name="stype" class="dSelect valid" title="검색분류 선택">
+                        <span className="srchSelect">
+                            <select id="stype" name="stype" className="dSelect valid" title="검색분류 선택">
                                 <option value="all">제목+내용</option>
                                 <option value="title">제목</option>
                                 <option value="contents">내용</option>
                             </select>
                         </span>
-                        <span class="searchWord">
+                        <span className="searchWord">
                             <input type="text" id="sval" name="sval" title="검색어 입력" />
                             <input type="button" value="검색" title="검색" />
                         </span>

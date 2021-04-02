@@ -16,7 +16,7 @@ const QnAWrite = ({ history }) => {
     };
 
     return (
-        <div id="sub" class="qna qna_write">
+        <div id="sub" className="qna qna_write">
             <TopVisual></TopVisual>
             <div className="size faq cs">
                 <div className="faq_wrap bbs">
@@ -42,12 +42,12 @@ const QnAWrite = ({ history }) => {
                                     <tbody>
                                         <tr>
                                             <th>제목</th>
-                                            <td><input type="text" name="title" id="title" class="wid500" />
+                                            <td><input type="text" name="title" id="title" className="wid500" />
                                                 <input type="checkbox" name="secret" value="1" id="secret"></input>
                                                 <label for="secret">비밀글</label>
                                             </td>
                                         </tr>
-                                        <tr class="txtarea">
+                                        <tr className="txtarea">
                                             <th>내용</th>
                                             <td>
                                                 <Editor
@@ -60,27 +60,27 @@ const QnAWrite = ({ history }) => {
                                             </td>
                                         </tr>
 
-                                        <tr class="line4">
+                                        <tr className="line4">
                                             <th>첨부<br />파일</th>
                                             <td>
-                                                <div class="fileBox">
-                                                    <div class="inputBox">
+                                                <div className="fileBox">
+                                                    <div className="inputBox">
                                                         <input type="text" id="addFile" disabled="" value="" />
                                                     </div>
-                                                    <div class="fileBtn">
+                                                    <div className="fileBtn">
                                                         <label className="fileBtn_label">찾아보기<input type="file" name="filename" /></label>
                                                     </div>
                                                 </div>
-                                                <p class="help">첨부파일은 5MB 이하의 파일만 가능합니다.</p>
+                                                <p className="help">첨부파일은 5MB 이하의 파일만 가능합니다.</p>
                                             </td>
                                         </tr>
 
                                     </tbody>
                                 </table>
-                                <div class="btnSet clear">
+                                <div className="btnSet clear">
                                     <div>
-                                        <a class="btn">저장</a>
-                                        <a onclick={goBack} class="btn">취소</a>
+                                        <a className="btn">저장</a>
+                                        <a onclick={goBack} className="btn">취소</a>
                                     </div>
                                 </div>
                             </div>
