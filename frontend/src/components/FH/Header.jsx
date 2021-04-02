@@ -1,22 +1,57 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { instanceOf } from 'prop-types'
+import { withCookies, Cookies } from 'react-cookie';
+
 import "./Header.css";
 
+import App from '../../App';
 import axios from "axios";
 
 class Header extends Component {
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        const { cookies } = props;
+        this.state = {
+            id: cookies.get('id') || "",
+            token: cookies.get('token') || "",
+            isSeller: cookies.get('isSeller') || "0",
+        }
+        // console.log(cookies);
+        console.log(this.state.isSeller);
+    };
+
+    logout = (e) => {
+        const { cookies } = this.props;
+
+        window.localStorage.clear();
+        cookies.remove('id');
+        cookies.remove('token');
+        cookies.remove('isSeller');
+        window.location.replace("/");
+    };
+
     render() {
         if (window.location.pathname === '/Auth') return null;
         return (
             <div id="header">
-                <div id="joinInduce">
-                    <div className="size clear">
-                        <p className="coupon"><span>'내일' 회원가입시</span><img src="/img/top_banner.png" alt="top_banner" className="img1" />
-                            <span>할인쿠폰 지급<img src="/img/top_banner_go.png" className="go"></img></span></p>
-                        <a href="#" className="closeBanner"><em>오늘하루 다시 열지 않기</em>
-                            <img src="/img/top_banner_close.png"></img></a>
+                {this.state.id === "" &&
+                    <div id="joinInduce">
+                        <div className="size clear">
+                            <p className="coupon">
+                                <a href="/Auth">
+                                    <span>'내일' 회원가입시</span><img src="/img/top_banner.png" alt="top_banner" className="img1" />
+                                    <span>할인쿠폰 지급<img src="/img/top_banner_go.png" className="go"></img></span>
+                                </a>
+                            </p>
+                        </div>
                     </div>
-                </div>
+                }
                 <div className="inner">
                     <div className="header_top">
                         <div className="size">
@@ -31,25 +66,40 @@ class Header extends Component {
                                     <img src="/img/logo.png"></img>
                                 </a>
                             </h1>
-                            <div className="util">
-                                <ul className="clear">
-                                    <li className="nologin">
-                                        <a href="/Auth">로그인</a>
-                                    </li>
-                                    <li className="nologin">
-                                        <a href="/Auth">회원가입</a>
-                                    </li>
-                                    <li className="login">
-                                        <a href="#">로그아웃</a>
-                                    </li>
-                                    <li className="login">
-                                        <a href="#">마이페이지</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">장바구니 <span>0</span></a>
-                                    </li>
-                                </ul>
-                            </div>
+                            {this.state.id === "" &&
+                                <div className="util">
+                                    <ul className="clear">
+                                        <li className="nologin">
+                                            <a href="/Auth">로그인</a>
+                                        </li>
+                                        <li className="nologin">
+                                            <a href="/Auth">회원가입</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                            {this.state.id !== "" &&
+                                <div className="util">
+                                    <ul className="clear">
+                                        <li className="login">
+                                            <a onClick={this.logout} style={{ cursor: "pointer" }}>로그아웃</a>
+                                        </li>
+                                        <li className="login">
+                                            {
+                                                this.state.isSeller === "0" &&
+                                                <a href="/mypage">마이페이지</a>
+                                            }
+                                            {
+                                                this.state.isSeller === "1" &&
+                                                <a href="/sellPage">판매자 페이지</a>
+                                            }
+                                        </li>
+                                        <li>
+                                            <a href="/cart">장바구니 <span>0</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
                         </div>
                     </div>
 
@@ -109,7 +159,7 @@ class Header extends Component {
                                             알뜰쇼핑</a>
                                     </li>
                                     <li>
-                                        <a href="#" >
+                                        <a href="/cscenter/notice" >
                                             고객센터</a>
                                     </li>
                                 </ul>
@@ -124,4 +174,4 @@ class Header extends Component {
 
 }
 
-export default Header;
+export default withCookies(Header);

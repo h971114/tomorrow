@@ -117,10 +117,25 @@ class Auth extends React.Component {
             pw: this.state.pw
         }).then(res => {
             console.log(res.data);
+            var id = this.state.id;
+
             if (res.data.message === "SUCCESS") {
-                sessionStorage.setItem("token", res.data.token);
-                sessionStorage.setItem("id", this.state.id);
-                this.saveCookies(res.data.token, this.state.id)
+                // sessionStorage.setItem("token", res.data.token);
+                // sessionStorage.setItem("id", this.state.id);
+                if (res.data.isseller === "seller") {
+                    this.state = {
+                        seller: 1
+                    }
+                } else {
+                    this.state = {
+                        seller: 0
+                    }
+                }
+                var isseller = this.state.seller;
+                localStorage.setItem("seller", isseller);
+                localStorage.setItem("id", id);
+                localStorage.setItem("token", res.data.token);
+                this.saveCookies(res.data.token, id, isseller);
                 window.location.replace("/");
             } else {
                 alert("아이디와 비밀번호를 확인해주세요.");
@@ -128,10 +143,11 @@ class Auth extends React.Component {
         })
     };
 
-    saveCookies = (token, id) => {
+    saveCookies = (token, id, isseller) => {
         const { cookies } = this.props;
         cookies.set("token", token);
         cookies.set("id", id);
+        cookies.set("isSeller", isseller);
         // cookies.set("nickname", nickname);
     }
 

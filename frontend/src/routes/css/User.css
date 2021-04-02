@@ -749,6 +749,10 @@ td.addr p:first-child {
 	width:45%;
 	margin-left:1%;
 }
+.cs_tab .sub>ul>.itemList3 {
+    width: 32%;
+    margin-left: 1%;
+}
 .cs_tab .sub>ul>.itemList4 {
 	width:24%;
 	margin-left:1%;

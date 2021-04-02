@@ -66,6 +66,7 @@
     position: absolute; 
     width: 280px; 
     left: 0; 
+    top: 40px;
     border-bottom: 1px solid #92c947;
 }
 #header .inner .header_top .size .search input[type="text"]{
@@ -134,9 +135,6 @@
     top: 11.5px;
 }
 #header .inner .header_top .size .util > ul > li:first-child:after{
-    display: none;
-}
-#header .inner .header_top .size .util > ul > .login{
     display: none;
 }
 
