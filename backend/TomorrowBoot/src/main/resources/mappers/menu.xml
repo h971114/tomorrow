@@ -4,9 +4,9 @@
 
 <mapper namespace="menu">
     <insert id="insert" parameterType="menu">
-        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, category, img1, img2, detail)
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, category, img1, img2, detail, shipping_fee)
         VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
-                #{category}, #{img1}, #{img2}, #{detail})
+                #{category}, #{img1}, #{img2}, #{detail}, #{shipping_fee})
     </insert>
     <delete id="delete" parameterType="menu">
         DELETE
@@ -27,6 +27,7 @@
             img1 = #{img1},
             img2 = #{img2},
             detail = #{detail}
+            shipping_fee = #{shipping_fee}
         WHERE id = #{id}
     </update>
     <select id="getMenuInfo" parameterType="int" resultType="menu">
@@ -35,7 +36,7 @@
         WHERE id = #{id};
     </select>
     <select id="getMenu" resultType="menu">
-        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at, shipping_fee
         FROM menu;
     </select>
     <select id="getMenuBySeller" parameterType="String" resultType="menu">
@@ -74,7 +75,7 @@
         ORDER BY create_at DESC
     </select>
     <select id="getMenuByCategory" parameterType="int" resultType="menu">
-        SELECT *
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at, shipping_fee
         FROM menu
         WHERE category = #{keyword}
     </select>
