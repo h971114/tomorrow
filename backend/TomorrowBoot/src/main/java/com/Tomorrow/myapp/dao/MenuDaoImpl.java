@@ -93,7 +93,10 @@ public class MenuDaoImpl implements MenuDao {
 
     @Override
     public List<MenuDto> getMenuByCategory(int keyword) {
-        return sqlSession.selectList("menu.getMenuByCategory", keyword);
+        if(keyword==0)
+            return sqlSession.selectList("menu.getMenu");
+        else
+            return sqlSession.selectList("menu.getMenuByCategory", keyword);
     }
 
     @Override
