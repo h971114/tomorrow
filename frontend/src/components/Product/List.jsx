@@ -38,58 +38,56 @@ function List({ id, name, subname, category, price, discount_rate, img1, img2, a
 
 
     return (
-        <ul className="clear">
-            <li>
-                <Link
-                    to={{
-                        pathname: `/product/detail/${id}`,
-                        state: {
-                            id
-                        }
-                    }}
-                >
-                    <div className="pic">
-                        <p className="pro_img" style={{ backgroundImage: `url(${img1})` }}>
-                            <img src="/img/best_img_sample.png" />
-                        </p>
-                        <p className="info_icon">
-                            {sale === true &&
-                                <img src="/img/sale.png" />
-                            }
-                            {newP === true &&
-                                <img src="/img/new.png" />
-                            }
-                        </p>
-                        <p className="pic_hover" style={{ backgroundImage: `url(${img2})` }}>
-                            <img src="/img/best_img_sample.png" />
-                        </p>
-                    </div>
-                    <div className="pro_txt">
-                        <p>
-                            <b className="p_name" >
-                                {title}
-                            </b>
-                            <span className="sub_title" >
-                                {subname}
-                            </span>
-                        </p>
+        <li>
+            <Link
+                to={{
+                    pathname: `/product/detail/${id}`,
+                    state: {
+                        id
+                    }
+                }}
+            >
+                <div className="pic">
+                    <p className="pro_img" style={{ backgroundImage: `url(${img1})` }}>
+                        <img src="/img/best_img_sample.png" />
+                    </p>
+                    <p className="info_icon">
                         {sale === true &&
-                            <span className="product_sale per">
-                                <span className="before_p">{price}원</span>
-                                <b>{sale_money}</b>원
-                                <span className="sale_per">{discount_rate}%</span>
-                            </span>
+                            <img src="/img/sale.png" />
                         }
-                        {sale === false &&
-                            <span className="product_sale">
-                                <b>{price}</b>
+                        {newP === true &&
+                            <img src="/img/new.png" />
+                        }
+                    </p>
+                    <p className="pic_hover" style={{ backgroundImage: `url(${img2})` }}>
+                        <img src="/img/best_img_sample.png" />
+                    </p>
+                </div>
+                <div className="pro_txt">
+                    <p>
+                        <b className="p_name" >
+                            {title}
+                        </b>
+                        <span className="sub_title" >
+                            {subname}
+                        </span>
+                    </p>
+                    {sale === true &&
+                        <span className="product_sale per">
+                            <span className="before_p">{price}원</span>
+                            <b>{sale_money}</b>원
+                                <span className="sale_per">{discount_rate}%</span>
+                        </span>
+                    }
+                    {sale === false &&
+                        <span className="product_sale">
+                            <b>{price}</b>
                             원
                             </span>
-                        }
-                    </div>
-                </Link>
-            </li>
-        </ul>
+                    }
+                </div>
+            </Link>
+        </li>
     );
 }
 
