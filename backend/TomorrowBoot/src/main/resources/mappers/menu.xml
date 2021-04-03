@@ -74,7 +74,7 @@
         ORDER BY create_at DESC
     </select>
     <select id="getMenuByCategory" parameterType="int" resultType="menu">
-        SELECT *
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
         FROM menu
         WHERE category = #{keyword}
     </select>
