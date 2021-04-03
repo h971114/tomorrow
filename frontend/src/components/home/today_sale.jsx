@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 
+import moment from 'moment';
+import 'moment/locale/ko';
+
 const Today_sale = () => {
     useEffect(() => {
         const timeSet = async () => {
@@ -10,12 +13,12 @@ const Today_sale = () => {
             var nowDd = Number(d.getDate());
             console.log(nowDd);
 
-            var tomorrow1 = new Date(nowYy, nowMm, nowDd);
+            var tomorrow1 = new Date(nowYy, nowMm, nowDd + 1);
             var tomorrow1Mm = Number((tomorrow1.getMonth()));
             var tomorrow1Dd = Number(tomorrow1.getDate());
             console.log(tomorrow1Dd);
 
-            var tomorrow2 = new Date(nowYy, nowMm, nowDd + 1);
+            var tomorrow2 = new Date(nowYy, nowMm, nowDd + 2);
             var tomorrow2Mm = Number((tomorrow2.getMonth()));
             var tomorrow2Dd = Number(tomorrow2.getDate());
 

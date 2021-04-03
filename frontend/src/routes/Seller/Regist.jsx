@@ -175,7 +175,7 @@ const Regist = ({ history }) => {
         var subNameLength = subtitle.length;
         var contents = content;
 
-        // console.log(contents);
+        console.log(contents);
         if (nameLength < 3) {
             alert("상품명은 3글자 이상 입력해주세요");
         }
@@ -380,6 +380,7 @@ const Regist = ({ history }) => {
                                         ref={editorRef}
                                         onChange={editorChange}
                                     />
+
                                 </td>
                             </tr>
                         </tbody>

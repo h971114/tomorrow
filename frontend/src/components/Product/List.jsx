@@ -5,10 +5,12 @@ import moment from 'moment';
 
 import 'moment/locale/ko';
 
-function List({ id, name, subname, category, price, discount_rate, img1, img2, amount, sell_amount, seller_id, create_at }) {
+function List({ idx, id, name, subname, category, price, discount_rate, img1, img2, amount, sell_amount, seller_id, create_at }) {
     var title = name;
+    var priceString = price;
     var sale = false;
     var sale_money = price;
+    var saleMoneyString = price;
     var newP = false;
 
     var createYY = create_at.substring(0, 4);
@@ -33,8 +35,8 @@ function List({ id, name, subname, category, price, discount_rate, img1, img2, a
     } else {
         sale = false;
     }
-    sale_money = sale_money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-    price = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    saleMoneyString = sale_money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    priceString = priceString.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
 
     return (
@@ -43,7 +45,17 @@ function List({ id, name, subname, category, price, discount_rate, img1, img2, a
                 to={{
                     pathname: `/product/detail/${id}`,
                     state: {
-                        id
+                        id,
+                        name,
+                        subname,
+                        discount_rate,
+                        img1,
+                        price,
+                        priceString,
+                        sale_money,
+                        saleMoneyString,
+                        seller_id,
+                        create_at,
                     }
                 }}
             >
@@ -74,14 +86,14 @@ function List({ id, name, subname, category, price, discount_rate, img1, img2, a
                     </p>
                     {sale === true &&
                         <span className="product_sale per">
-                            <span className="before_p">{price}원</span>
-                            <b>{sale_money}</b>원
+                            <span className="before_p">{priceString}원</span>
+                            <b>{saleMoneyString}</b>원
                                 <span className="sale_per">{discount_rate}%</span>
                         </span>
                     }
                     {sale === false &&
                         <span className="product_sale">
-                            <b>{price}</b>
+                            <b>{priceString}</b>
                             원
                             </span>
                     }

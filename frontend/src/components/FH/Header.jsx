@@ -87,7 +87,14 @@ class Header extends Component {
                                         <li className="login">
                                             {
                                                 this.state.isSeller === "0" &&
-                                                <a href="/mypage">마이페이지</a>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/mypage`,
+                                                        state: {
+                                                            id: this.state.id
+                                                        }
+                                                    }}
+                                                >마이페이지</Link>
                                             }
                                             {
                                                 this.state.isSeller === "1" &&

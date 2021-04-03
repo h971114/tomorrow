@@ -442,3 +442,58 @@ input[type='text'], input[type='password'], input[type='submit'], input[type='se
         height: 75%;
     }
 }
+
+.te-mode-switch-section{
+    display: none !important;
+}
+
+.skeletonUI {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: placeHolderShimmer;
+    -webkit-animation-timing-function: linear;
+    background: #d8d8d8;
+    background-image: linear-gradient(to right, #d8d8d8 0%, #bdbdbd 20%, #d8d8d8 40%, #d8d8d8 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 345px;
+    position: relative
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+    background-position: -468px 0
+    }
+    100% {
+    background-position: 468px 0
+    }
+}
+
+@keyframes prideShimmer {
+    from {
+    background-position: top left
+    }
+    to {
+        background-position: bottom right
+    }
+}
+
+
+.openModal{
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    transition:all 0.4s;
+}
+
+.openModal .modalBack{
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.3);
+}

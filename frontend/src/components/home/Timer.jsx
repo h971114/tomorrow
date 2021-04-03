@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 
+import moment from 'moment';
+import 'moment/locale/ko';
+
 const Timer = () => {
     useEffect(() => {
         const timeSet = async () => {
-            var d = new Date();
-            var nowYyyy = Number(d.getFullYear());
-            var nowMm = Number((d.getMonth() + 1));
-            var nowDd = Number(d.getDate());
-            var nowHh = Number(d.getHours());
-            var nowMi = Number(d.getMinutes());
-            var nowSs = Number(d.getSeconds());
+            var d = new moment();
+            var nowYyyy = d.format("YYYY");
+            var nowMm = d.format("MM");
+            var nowDd = d.format("DD");
+            var nowHh = d.format("hh");
+            var nowMi = d.format("mm");
+            var nowSs = d.format("ss");
+            // console.log(nowHh + " : " + nowMi + " : " + nowSs);
 
             var now = new Date(nowYyyy, nowMm, nowDd, nowHh, nowMi, nowSs); //현재시간 지정
             var later = new Date(nowYyyy, nowMm, nowDd, 23, 59, 59);
@@ -54,7 +58,7 @@ const Timer = () => {
         return () => {
             clearInterval(timer);
         };
-    })
+    }, [])
 
     return (
         <div className="time">

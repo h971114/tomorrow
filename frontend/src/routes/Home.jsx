@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import axios from "axios";
 
-// import moment from 'moment';
-// import 'moment/locale/ko';
+
 
 import Timer from "../components/home/Timer";
 import TodaySales from "../components/home/today_sale";

@@ -9,25 +9,25 @@ export const Posts = ({ posts, loading }) => {
 
         const ArrayList = arrays.map(
             (array) => (
-                <li>
+                <li key={array}>
                     <a href="#">
-                        <div className="pic">
-                            <p className="pro_img" style={{ backgroundColor: '#dadada', borderRadius: '5px' }}>
+                        <div className="pic skeletonUI" style={{ height: '345px' }}>
+                            <p className="pro_img">
                                 <img src="/img/best_img_sample.png" />
                             </p>
-                            <p className="pic_hover" style={{ backgroundColor: '#dadada', borderRadius: '5px' }}>
+                            <p className="pic_hover">
                                 <img src="/img/best_img_sample.png" />
                             </p>
                         </div>
                         <div className="pro_txt">
                             <p>
-                                <b className="p_name" style={{ backgroundColor: '#dadada', borderRadius: '5px' }}></b>
-                                <span className="sub_title" style={{ backgroundColor: '#dadada', borderRadius: '5px' }}></span>
+                                <b className="p_name skeletonUI"></b>
+                                <span className="sub_title skeletonUI"></span>
                             </p>
-                            <span className="product_sale per" style={{ backgroundColor: '#dadada', borderRadius: '5px' }}>
-                                <span className="before_p"></span>
+                            <span className="product_sale per" >
+                                <span className="before_p skeletonUI"></span>
                                 <b></b>
-                                <span className="sale_per"></span>
+                                <span className="sale_per skeletonUI"></span>
                             </span>
                         </div>
                     </a>
