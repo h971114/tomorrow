@@ -31,8 +31,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<CartDto> getCartlist(String id) {
-		return cartDao.getCart(id);
+	public List<CartDto> getCartlist(String member_id) {
+		return cartDao.getCart(member_id);
 	}
 	
 }

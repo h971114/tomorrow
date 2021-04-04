@@ -4,12 +4,12 @@
 
 <mapper namespace="cart">
     <insert id="insert" parameterType="cart">
-		INSERT INTO cart (id,menu_id,name,amount,price) VALUES (#{id},#{menu_id},#{name},#{amount},#{price})
+		INSERT INTO cart (member_id,menu_id,name,amount,price) VALUES (#{member_id},#{menu_id},#{name},#{amount},#{price})
 	</insert>
 	<delete id="delete" parameterType="cart">
 		DELETE FROM cart WHERE id=#{id}
 	</delete>
 	<select id="getlist" parameterType="String" resultType="cart">
-		SELECT * FROM cart WHERE id = #{id}
+		SELECT * FROM cart WHERE member_id = #{member_id}
 	</select>
 </mapper>

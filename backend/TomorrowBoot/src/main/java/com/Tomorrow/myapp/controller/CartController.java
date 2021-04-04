@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/cart")
 public class CartController {
     private final CartService cartService;
@@ -32,7 +32,7 @@ public class CartController {
         this.cartService = cartService;
     }
     //장바구니 담기
-    @PostMapping("/insert")
+    @PostMapping()
     public ResponseEntity<String> insertCart(@RequestBody CartDto cart, HttpServletRequest req){
     	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.insertCart(cart);
@@ -48,16 +48,18 @@ public class CartController {
     }
     //장바구니 검색(전부긁어오기)
     @GetMapping("/list")
-    public ResponseEntity<List<CartDto>> getCart(@RequestParam("id") String id){
+    public ResponseEntity<List<CartDto>> getCart(@RequestParam("member_id") String member_id){
         HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(cartService.getCartlist(id), hs);
+        return new ResponseEntity<>(cartService.getCartlist(member_id), hs);
     }
     // 장바구니 갯수 검색
     @GetMapping("/count")
-    public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
+    public ResponseEntity<Integer> getCartCount(@RequestParam("member_id") String member_id){
         HttpStatus hs = HttpStatus.ACCEPTED;
-        List<CartDto> cartlist =  cartService.getCartlist(id);
+        List<CartDto> cartlist =  cartService.getCartlist(member_id);
+        System.out.println(cartlist);
        	int count = cartlist.size(); 
+       	System.out.println(count);
         return new ResponseEntity<>(count, hs);
     }
 }
