@@ -7,9 +7,9 @@
 		INSERT INTO cart (id,menu_id,name,amount,price) VALUES (#{id},#{menu_id},#{name},#{amount},#{price})
 	</insert>
 	<delete id="delete" parameterType="cart">
-		DELETE FROM cart WHERE id=#{id}
+		DELETE FROM cart WHERE member_id = #{memberId}
 	</delete>
 	<select id="getlist" parameterType="String" resultType="cart">
-		SELECT * FROM cart WHERE id = #{id}
+		SELECT * FROM cart WHERE member_id = #{memberId}
 	</select>
 </mapper>

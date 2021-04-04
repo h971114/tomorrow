@@ -8,7 +8,8 @@ public class MenuDto {
     private int amount;      // 재고
     private int sell_amount; // 판매 수량
     private int discount_rate;
-    private int todaysale;
+    private int today_discount_rate;
+    private String todaysale;
     private String create_at;
     private int category;
     private String img1;
@@ -22,13 +23,14 @@ public class MenuDto {
     public MenuDto() {
     }
 
-    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale, String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail, int shipping_fee) {
+    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int today_discount_rate, String todaysale, String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail, int shipping_fee) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.amount = amount;
         this.sell_amount = sell_amount;
         this.discount_rate = discount_rate;
+        this.today_discount_rate = today_discount_rate;
         this.todaysale = todaysale;
         this.create_at = create_at;
         this.category = category;
@@ -89,11 +91,19 @@ public class MenuDto {
         this.discount_rate = discount_rate;
     }
 
-    public int getTodaysale() {
+    public int getToday_discount_rate() {
+        return today_discount_rate;
+    }
+
+    public void setToday_discount_rate(int today_discount_rate) {
+        this.today_discount_rate = today_discount_rate;
+    }
+
+    public String getTodaysale() {
         return todaysale;
     }
 
-    public void setTodaysale(int todaysale) {
+    public void setTodaysale(String todaysale) {
         this.todaysale = todaysale;
     }
 
@@ -178,7 +188,8 @@ public class MenuDto {
                 ", amount=" + amount +
                 ", sell_amount=" + sell_amount +
                 ", discount_rate=" + discount_rate +
-                ", todaysale=" + todaysale +
+                ", today_discount_rate=" + today_discount_rate +
+                ", todaysale='" + todaysale + '\'' +
                 ", create_at='" + create_at + '\'' +
                 ", category=" + category +
                 ", img1='" + img1 + '\'' +

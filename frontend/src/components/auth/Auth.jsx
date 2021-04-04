@@ -26,7 +26,7 @@ class Auth extends React.Component {
             // seller: cookies.get('seller') || 0,
             // cert: cookies.get('cert') || null,
         }
-        console.log(cookies)
+        // // console.log(cookies)
     };
 
     state = {
@@ -112,11 +112,11 @@ class Auth extends React.Component {
 
     signIn = (e) => {
 
-        axios.post('http://127.0.0.1:8080/myapp/member/login', {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/login`, {
             id: this.state.id,
             pw: this.state.pw
         }).then(res => {
-            console.log(res.data);
+            // // console.log(res.data);
             var id = this.state.id;
 
             if (res.data.message === "SUCCESS") {
@@ -157,13 +157,13 @@ class Auth extends React.Component {
 
     findID = (e) => {
         e.preventDefault();
-        axios.get('http://127.0.0.1:8080/myapp/member/findid', {
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/findid`, {
             params: {
                 name: this.state.name,
                 email: this.state.email,
             }
         }).then(res => {
-            console.log(res.data);
+            // // console.log(res.data);
             if (res.data === "FAIL") {
                 alert("찾으시는 정보가 없습니다.");
             }
@@ -175,14 +175,14 @@ class Auth extends React.Component {
 
     findPW = (e) => {
         e.preventDefault();
-        axios.get('http://127.0.0.1:8080/myapp/member/findpw', {
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/findpw`, {
             params: {
                 name: this.state.name,
                 id: this.state.id,
                 email: this.state.email,
             }
         }).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data === "FAIL") {
                 alert("찾으시는 정보가 없습니다.");
                 window.location.replace("/find");
@@ -195,10 +195,10 @@ class Auth extends React.Component {
 
     signUp = (e) => {
         e.preventDefault();
-        console.log(this.state);
-        // console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
+        // console.log(this.state);
+        // // console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
         if ((this.state.seller === 1) || !this.state.seller) {
-            axios.post('http://127.0.0.1:8080/myapp/member/join', {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
                 id: this.state.id,
                 pw: this.state.pw,
                 name: this.state.name,
@@ -209,7 +209,7 @@ class Auth extends React.Component {
                 seller: this.state.seller,
                 cert: this.state.cert,
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data === "SUCCESS") {
                     alert('회원가입 성공! 로그인 창에서 로그인하세요.')
                     this.tabZero();
@@ -217,7 +217,7 @@ class Auth extends React.Component {
                     alert('문제가 있습니다')
                 }
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
         };
     }

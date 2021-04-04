@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,32 +33,28 @@ public class CartController {
         this.cartService = cartService;
     }
     //장바구니 담기
-    @PostMapping("/insert")
-    public ResponseEntity<String> insertCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
-    	cartService.insertCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    @PostMapping("")
+    public ResponseEntity<String> insertCart(@RequestBody CartDto cartDto, HttpServletRequest req){
+    	cartService.insertCart(cartDto);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     
     //장바구니 삭제
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     //장바구니 검색(전부긁어오기)
-    @GetMapping("/list")
+    @GetMapping("")
     public ResponseEntity<List<CartDto>> getCart(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(cartService.getCartlist(id), hs);
+        return new ResponseEntity<>(cartService.getCartlist(id), HttpStatus.ACCEPTED);
     }
     // 장바구니 갯수 검색
     @GetMapping("/count")
     public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        List<CartDto> cartlist =  cartService.getCartlist(id);
-       	int count = cartlist.size(); 
-        return new ResponseEntity<>(count, hs);
+        List<CartDto> cartlist = new ArrayList<>();
+        cartlist = cartService.getCartlist(id);
+        return new ResponseEntity<>(cartlist.size(), HttpStatus.ACCEPTED);
     }
 }

@@ -18,7 +18,7 @@ const Cart = ({ history }) => {
     // // 체크박스 전체 선택
     // const handleAllCheck = (checked) => {
     //     if (checked) {
-    //         console.log("wow");
+    //         // console.log("wow");
     //         const idArray = [];
     //     // 전체 체크 박스가 체크 되면 id를 가진 모든 elements를 배열에 넣어주어서,
     //     // 전체 체크 박스 체크

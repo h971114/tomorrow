@@ -160,7 +160,7 @@ public class MenuServiceImpl implements MenuService {
             for (MenuDto menuDto : menuDtoList) {
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("menu", menuDto);
-                hashMap.put("sale_price", UtilsClass.getSalePrice(menuDto.getPrice(), menuDto.getTodaysale()));
+                hashMap.put("sale_price", UtilsClass.getSalePrice(menuDto.getPrice(), menuDto.getToday_discount_rate()));
                 menuList.add(hashMap);
             }
         } catch (Exception e) {

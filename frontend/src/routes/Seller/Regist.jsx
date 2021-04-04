@@ -32,13 +32,13 @@ const Regist = ({ history }) => {
     const selectChange = (e) => {
         var cate = document.getElementById("category").value;
         setCategory(cate);
-        // console.log(cate);
+        // // console.log(cate);
     } // 카테고리 바꿀 때
     const titChange = (e) => {
         var tit = document.getElementById("tit").value;
 
         setTitle(tit);
-        // console.log(titles);
+        // // console.log(titles);
     } // 상품명 바꿀때
     const subtitChange = (e) => {
         var subTit = document.getElementById("subTit").value;
@@ -47,7 +47,7 @@ const Regist = ({ history }) => {
     } // 상품 소개 바꿀때
     const priceChange = (e) => {
         var price = document.getElementById("price").value;
-        // console.log(price);
+        // // console.log(price);
         setPrice(price);
     } // 금액 바뀔 때
     const amountChange = (e) => {
@@ -120,19 +120,19 @@ const Regist = ({ history }) => {
         document.getElementById('upload-name1').value = filename;
 
         var file = e.target.files[0];
-        console.log(file);
+        // console.log(file);
         var formData = new FormData();
         formData.append('data', file);
         formData.append('hostid', localStorage.getItem('id'));
         formData.append('dirNum', 1);
-        axios.post('http://127.0.0.1:8080/myapp/gallery/upload', formData, {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res);
+            // console.log(res);
             var dec = decodeURI(res.data);
-            console.log(dec);
+            // console.log(dec);
             setThumb(dec);
         }).catch(err => {
         })
@@ -151,19 +151,19 @@ const Regist = ({ history }) => {
         document.getElementById('upload-name2').value = filename;
 
         var file = e.target.files[0];
-        // console.log(file);
+        // // console.log(file);
         var formData = new FormData();
         formData.append('data', file);
         formData.append('hostid', localStorage.getItem('id'));
         formData.append('dirNum', 1);
-        axios.post('http://127.0.0.1:8080/myapp/gallery/upload', formData, {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res);
+            // console.log(res);
             var dec = decodeURI(res.data);
-            console.log(dec);
+            // console.log(dec);
             setThumb2(dec);
         }).catch(err => {
         })
@@ -189,7 +189,7 @@ const Regist = ({ history }) => {
             alert("판매 수량을 입력해주세요");
         }
         else if (sSale) {
-            axios.post("http://127.0.0.1:8080/myapp/menu", {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/menu`, {
                 seller_id: id,
                 name: title,
                 subname: subtitle,
@@ -204,14 +204,14 @@ const Regist = ({ history }) => {
             }).then(res => {
                 if (res.data === "SUCCESS") {
                     alert("상품 등록을 완료하셨습니다.");
-                    console.log(res);
+                    // console.log(res);
                 } else {
                     alert("상품 등록에 실패하셨습니다. 잠시후 다시 시도해주세요!");
                 }
             })
         }
         else if (!sSale) {
-            axios.post("http://127.0.0.1:8080/myapp/menu", {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/menu`, {
                 seller_id: id,
                 name: title,
                 subname: subtitle,
@@ -380,6 +380,7 @@ const Regist = ({ history }) => {
                                         ref={editorRef}
                                         onChange={editorChange}
                                     />
+
                                 </td>
                             </tr>
                         </tbody>

@@ -21,13 +21,13 @@ const Modify = () => {
     const selectChange = (e) => {
         var cate = document.getElementById("category").value;
         setCategory(cate);
-        // console.log(cate);
+        // // console.log(cate);
     } // 카테고리 바꿀 때
     const titChange = (e) => {
         var tit = document.getElementById("tit").value;
 
         setTitle(tit);
-        // console.log(titles);
+        // // console.log(titles);
     } // 상품명 바꿀때
     const subtitChange = (e) => {
         var subTit = document.getElementById("subTit").value;
