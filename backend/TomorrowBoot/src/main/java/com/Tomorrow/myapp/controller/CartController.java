@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,34 +33,28 @@ public class CartController {
         this.cartService = cartService;
     }
     //장바구니 담기
-    @PostMapping()
-    public ResponseEntity<String> insertCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
-    	cartService.insertCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    @PostMapping("")
+    public ResponseEntity<String> insertCart(@RequestBody CartDto cartDto, HttpServletRequest req){
+    	cartService.insertCart(cartDto);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     
     //장바구니 삭제
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     //장바구니 검색(전부긁어오기)
-    @GetMapping("/list")
-    public ResponseEntity<List<CartDto>> getCart(@RequestParam("member_id") String member_id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(cartService.getCartlist(member_id), hs);
+    @GetMapping("")
+    public ResponseEntity<List<CartDto>> getCart(@RequestParam("id") String id){
+        return new ResponseEntity<>(cartService.getCartlist(id), HttpStatus.ACCEPTED);
     }
     // 장바구니 갯수 검색
     @GetMapping("/count")
-    public ResponseEntity<Integer> getCartCount(@RequestParam("member_id") String member_id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        List<CartDto> cartlist =  cartService.getCartlist(member_id);
-        System.out.println(cartlist);
-       	int count = cartlist.size(); 
-       	System.out.println(count);
-        return new ResponseEntity<>(count, hs);
+    public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
+        List<CartDto> cartlist = new ArrayList<>();
+        cartlist = cartService.getCartlist(id);
+        return new ResponseEntity<>(cartlist.size(), HttpStatus.ACCEPTED);
     }
 }
