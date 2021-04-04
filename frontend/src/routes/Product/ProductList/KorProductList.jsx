@@ -23,9 +23,11 @@ const ProductList = () => {
             setPosts(res.data.list);
             // // console.log(res);
             setLoading(false);
+
         }
         fetchPosts();
         document.getElementById('check1').setAttribute("checked", "true");
+        return () => setLoading(false);
     }, []);
 
     // Get current posts
