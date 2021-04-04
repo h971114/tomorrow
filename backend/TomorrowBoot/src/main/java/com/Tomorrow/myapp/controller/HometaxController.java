@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
 @RequestMapping("/hometax")
 public class HometaxController {
     private final static Logger logger = LoggerFactory.getLogger(HometaxController.class);

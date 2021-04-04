@@ -23,7 +23,7 @@ const Order = ({ history }) => {
         document.getElementById("state").value = state;
         document.getElementById('result').setAttribute("style", "display:");
         document.getElementById('changeState').setAttribute("style", "display:none");
-        // console.log(state);
+        // // console.log(state);
     }
 
     return (

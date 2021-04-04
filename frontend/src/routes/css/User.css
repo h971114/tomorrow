@@ -682,7 +682,7 @@ td.addr #zipcode {
 	font-size:15px;
 	font-weight:400;
 }
-td.addr a {
+td.addr a#gopost {
 	display:inline-block;
 	height:34px;
 	background:#8e8e8e;

@@ -49,9 +49,10 @@ export const Posts = ({ posts, loading }) => {
         <div className="product_list new_list">
             <div className="product_wrap">
                 <ul className="clear">
-                    {posts.map(post => (
+                    {posts.map((post, idx) => (
                         <List
                             key={post.id}
+                            idx={idx}
                             id={post.id}
                             name={post.name}
                             subname={post.subname}

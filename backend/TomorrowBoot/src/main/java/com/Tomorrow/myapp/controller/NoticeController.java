@@ -25,7 +25,7 @@ import com.Tomorrow.myapp.service.NoticeService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
 @RequestMapping("/notice")
 public class NoticeController {
     private final NoticeService noticeService;

@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
 @RequestMapping("/menu")
 public class MenuController {
     private final MenuService menuService;
@@ -123,13 +123,15 @@ public class MenuController {
             list = menuService.getMenuByCategory(0);
         else
             list = menuService.getMenuByCategory(Integer.parseInt(keyword));
+        
+        System.out.println(keyword);
 
         conclusionMap.put("list", list);
         if (list.size() != 0)
             conclusionMap.put("message", "SUCCESS");
         else
             conclusionMap.put("message", "FAIL");
-
+        System.out.println(conclusionMap);
         return new ResponseEntity<>(conclusionMap, HttpStatus.ACCEPTED);
     }
 

@@ -30,7 +30,7 @@
         WHERE id = #{id}
     </update>
     <select id="getMenuInfo" parameterType="int" resultType="menu">
-        SELECT *
+        SELECT detail
         FROM menu
         WHERE id = #{id};
     </select>
@@ -54,13 +54,13 @@
         ORDER BY price DESC
     </select>
     <select id="getMenuByBest" resultType="menu">
-        SELECT *
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
         FROM menu
-        ORDER BY sell_amount DESC LIMIT 6
+        ORDER BY sell_amount DESC LIMIT 9
     </select>
     <select id="getMenuByNew" resultType="menu">
-        SELECT *
-        FROM menu
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu where TIMESTAMPDIFF(DAY, create_at, CURDATE( ))
         ORDER BY create_at DESC LIMIT 4
     </select>
     <select id="getMenuBySale" resultType="menu">
@@ -69,13 +69,15 @@
         ORDER BY discount_rate DESC, create_at DESC LIMIT 2;
     </select>
     <select id="getMenuByTodaySale" resultType="menu">
-        SELECT * FROM menu
-        WHERE todaysale > 0
-        ORDER BY create_at DESC
+        SELECT id, name, price, amount, sell_amount, discount_rate, today_discount_rate, category, img1, img2,  seller_id, subname, create_at,todaysale
+        FROM menu
+        WHERE todaysale is not null
+        ORDER BY todaysale ASC
     </select>
     <select id="getMenuByCategory" parameterType="int" resultType="menu">
-        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
         FROM menu
         WHERE category = #{keyword}
+        ORDER BY create_at DESC
     </select>
 </mapper>

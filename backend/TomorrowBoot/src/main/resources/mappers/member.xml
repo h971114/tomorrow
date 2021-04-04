@@ -39,6 +39,6 @@
 	</delete>
 	<!-- 수정 -->
 	<update id="modify" parameterType="member">
-		UPDATE member SET pw=#{pw},name=#{name},nickname=#{nickname},mobile=#{mobile}, address =#{address} WHERE id=#{id}
+		UPDATE member SET pw=#{pw},mobile=#{mobile}, email=#{email}, address =#{address} WHERE id=#{id}
 	</update>
 </mapper>

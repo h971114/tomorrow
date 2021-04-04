@@ -8,7 +8,8 @@ public class MenuDto {
     private int amount;      // 재고
     private int sell_amount; // 판매 수량
     private int discount_rate;
-    private int todaysale;
+    private int today_discount_rate;
+    private String todaysale;
     private String create_at;
     private int category;
     private String img1;
@@ -18,7 +19,7 @@ public class MenuDto {
     private String subname;
     private String detail;
 
-	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int todaysale,
+	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, String todaysale, int today_discount_rate,
 			String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail) {
 		super();
 		this.id = id;
@@ -27,6 +28,7 @@ public class MenuDto {
 		this.amount = amount;
 		this.sell_amount = sell_amount;
 		this.discount_rate = discount_rate;
+		this.today_discount_rate = today_discount_rate;
 		this.todaysale = todaysale;
 		this.create_at = create_at;
 		this.category = category;
@@ -90,11 +92,11 @@ public class MenuDto {
         this.discount_rate = discount_rate;
     }
 
-    public int getTodaysale() {
+    public String getTodaysale() {
         return todaysale;
     }
 
-    public void setTodaysale(int todaysale) {
+    public void setTodaysale(String todaysale) {
         this.todaysale = todaysale;
     }
 
@@ -145,25 +147,15 @@ public class MenuDto {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-
+	
     @Override
-    public String toString() {
-        return "MenuDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", amount=" + amount +
-                ", sell_amount=" + sell_amount +
-                ", discount_rate=" + discount_rate +
-                ", todaysale='" + todaysale + '\'' +
-                ", create_at='" + create_at + '\'' +
-                ", category=" + category +
-                ", img1='" + img1 + '\'' +
-                ", img2='" + img2 + '\'' +
-                ", seller_id='" + seller_id + '\'' +
-                ", detail='" +detail+'\'' +
-                '}';
-    }
+	public String toString() {
+		return "MenuDto [id=" + id + ", name=" + name + ", price=" + price + ", amount=" + amount + ", sell_amount="
+				+ sell_amount + ", discount_rate=" + discount_rate + ", today_discount_rate=" + today_discount_rate
+				+ ", todaysale=" + todaysale + ", create_at=" + create_at + ", category=" + category + ", img1=" + img1
+				+ ", img2=" + img2 + ", seller_id=" + seller_id + ", data=" + data + ", subname=" + subname
+				+ ", detail=" + detail + "]";
+	}
 
 	public String getData() {
 		return data;
@@ -179,5 +171,13 @@ public class MenuDto {
 
 	public void setSubname(String subname) {
 		this.subname = subname;
+	}
+
+	public int getToday_discount_rate() {
+		return today_discount_rate;
+	}
+
+	public void setToday_discount_rate(int today_discount_rate) {
+		this.today_discount_rate = today_discount_rate;
 	}
 }
