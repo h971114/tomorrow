@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/cart")
 public class CartController {
     private final CartService cartService;
