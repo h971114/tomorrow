@@ -10,7 +10,7 @@ const Calender = () => {
         const getdata = async () => {
 
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/gmbts');
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gmbts`);
 
             setPosts(res.data);
             setLoading(false);

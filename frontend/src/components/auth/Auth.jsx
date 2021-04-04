@@ -112,7 +112,7 @@ class Auth extends React.Component {
 
     signIn = (e) => {
 
-        axios.post('http://127.0.0.1:8080/myapp/member/login', {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/login`, {
             id: this.state.id,
             pw: this.state.pw
         }).then(res => {
@@ -157,7 +157,7 @@ class Auth extends React.Component {
 
     findID = (e) => {
         e.preventDefault();
-        axios.get('http://127.0.0.1:8080/myapp/member/findid', {
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/findid`, {
             params: {
                 name: this.state.name,
                 email: this.state.email,
@@ -175,7 +175,7 @@ class Auth extends React.Component {
 
     findPW = (e) => {
         e.preventDefault();
-        axios.get('http://127.0.0.1:8080/myapp/member/findpw', {
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/findpw`, {
             params: {
                 name: this.state.name,
                 id: this.state.id,
@@ -198,7 +198,7 @@ class Auth extends React.Component {
         // console.log(this.state);
         // // console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
         if ((this.state.seller === 1) || !this.state.seller) {
-            axios.post('http://127.0.0.1:8080/myapp/member/join', {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
                 id: this.state.id,
                 pw: this.state.pw,
                 name: this.state.name,

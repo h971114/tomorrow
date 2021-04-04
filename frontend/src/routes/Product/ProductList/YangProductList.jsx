@@ -5,6 +5,7 @@ import TopVisual from '../../../components/Product/TopVisual/TopVisualYang';
 import Posts from '../../../components/Product/Posts';
 import Pagination from '../../../components/common/Pagination';
 
+
 const ProductList = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ const ProductList = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/gmbc', {
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gmbc`, {
                 params: {
                     keyword: '2'
                 }
@@ -35,8 +36,11 @@ const ProductList = () => {
 
     //change page
     const paginate = (pageNumber) => {
+        window.scrollTo(0, 0);
         setCurrentPage(pageNumber);
     }
+
+
 
     return (
         <div id="sub">

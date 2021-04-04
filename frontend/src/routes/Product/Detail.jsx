@@ -39,7 +39,6 @@ class Detail extends React.Component {
             totPay: payString
         })
 
-
         var createYY = location.state.create_at.substring(0, 4);
         var createMM = location.state.create_at.substring(5, 7);
         var createDD = location.state.create_at.substring(8, 10);
@@ -61,17 +60,17 @@ class Detail extends React.Component {
                 saleState: true
             })
         }
-        console.log(location.state.discount_rate);
+        // console.log(location.state.discount_rate);
 
         var no = location.state.id;
 
-        axios.get('http://127.0.0.1:8080/myapp/menu/gm/' + no
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gm/` + no
         ).then(res => {
             this.setState({
                 loading: false,
                 detail: res.data.detail
             })
-            console.log(location.state.discount_rate);
+            // console.log(location.state.discount_rate);
         });
     }
 

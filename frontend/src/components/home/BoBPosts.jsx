@@ -129,9 +129,9 @@ export const BoBPosts = ({ posts, loading }) => {
                                     discount_rate: post.discount_rate,
                                     img1: post.img1,
                                     price: post.price,
-                                    priceString: post.priceString,
-                                    sale_money: post.sale_money,
-                                    saleMoneyString: post.saleMoneyString,
+                                    priceString,
+                                    sale_money: sale_money,
+                                    saleMoneyString,
                                     seller_id: post.seller_id,
                                     create_at: post.create_at,
                                 }

@@ -14,7 +14,7 @@ const ProductList = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/all');
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/all`);
 
             setPosts(res.data);
             setLoading(false);
@@ -30,6 +30,7 @@ const ProductList = () => {
 
     //change page
     const paginate = (pageNumber) => {
+        window.scrollTo(0, 0);
         setCurrentPage(pageNumber);
     }
 

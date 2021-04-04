@@ -9,7 +9,7 @@ const New = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/gmbb');
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gmbb`);
 
             setPosts(res.data);
             // // console.log();

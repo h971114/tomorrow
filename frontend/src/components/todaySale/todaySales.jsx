@@ -26,7 +26,7 @@ const TodaySales = () => {
         const getdata = async () => {
 
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/gmbts');
+            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gmbts`);
 
             setLoading(false);
             timeSet(res.data);
@@ -53,7 +53,7 @@ const TodaySales = () => {
                     var Dd = Days.substring(8, 10);
 
                     if (nowMm === Mm && nowDd === Dd) {
-                        console.log(array.menu.name);
+                        // console.log(array.menu.name);
                         setName(array.menu.name);
                         setSubName(array.menu.subname);
                         setTDR(array.menu.today_discount_rate);

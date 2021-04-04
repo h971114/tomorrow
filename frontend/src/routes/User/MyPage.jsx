@@ -33,7 +33,7 @@ class MyPage extends React.Component {
             id: id
         })
 
-        axios.get('http://127.0.0.1:8080/myapp/member/' + id
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
         ).then(res => {
             // // console.log(res.data);
 
@@ -254,7 +254,7 @@ class MyPage extends React.Component {
             this.state.checkPw === true && this.state.addr1B === true &&
             this.state.addr2B === true) {
             var addr = this.state.zoneCode + " / " + this.state.fullAddress + " / " + this.state.addr2;
-            axios.put('http://127.0.0.1:8080/myapp/member', {
+            axios.put(`${process.env.REACT_APP_SERVER_BASE_URL} / member`, {
                 id: this.state.id,
                 pw: this.state.pw,
                 email: this.state.email,
@@ -270,7 +270,7 @@ class MyPage extends React.Component {
     }
 
     fireUser = (e) => {
-        axios.delete('http://127.0.0.1:8080/myapp/member/' + this.state.id, {
+        axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + this.state.id, {
             id: this.state.id,
         }).then(res => {
             alert("회원탈퇴가 완료되었습니다.");

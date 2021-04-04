@@ -125,7 +125,7 @@ const Regist = ({ history }) => {
         formData.append('data', file);
         formData.append('hostid', localStorage.getItem('id'));
         formData.append('dirNum', 1);
-        axios.post('http://127.0.0.1:8080/myapp/gallery/upload', formData, {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
@@ -156,7 +156,7 @@ const Regist = ({ history }) => {
         formData.append('data', file);
         formData.append('hostid', localStorage.getItem('id'));
         formData.append('dirNum', 1);
-        axios.post('http://127.0.0.1:8080/myapp/gallery/upload', formData, {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
@@ -189,7 +189,7 @@ const Regist = ({ history }) => {
             alert("판매 수량을 입력해주세요");
         }
         else if (sSale) {
-            axios.post("http://127.0.0.1:8080/myapp/menu", {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/menu`, {
                 seller_id: id,
                 name: title,
                 subname: subtitle,
@@ -211,7 +211,7 @@ const Regist = ({ history }) => {
             })
         }
         else if (!sSale) {
-            axios.post("http://127.0.0.1:8080/myapp/menu", {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/menu`, {
                 seller_id: id,
                 name: title,
                 subname: subtitle,

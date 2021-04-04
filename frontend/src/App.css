@@ -497,3 +497,7 @@ input[type='text'], input[type='password'], input[type='submit'], input[type='se
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.3);
 }
+
+a{
+    cursor: pointer;
+}
