@@ -56,10 +56,10 @@ const Home = () => {
                     </span>
                     <p className="section_sub">
                         내일에서 가장
-                        <em className="mbr"> 잘 나가는 제품 Best 12</em>
+                        <em className="mbr"> 잘 나가는 제품 Best 9</em>
                     </p>
                     <Bob />
-                    <a href="#" className="more_bt">More</a>
+                    <a href="/best" className="more_bt">More</a>
                 </div>
             </div>
             <div className="section new">

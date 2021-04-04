@@ -56,8 +56,6 @@ const ProductList = () => {
                         <label htmlFor="check2"><span>낮은가격</span></label>
                         <input type="radio" name="check" value="2" id="check3" />
                         <label htmlFor="check3"><span>높은가격</span></label>
-                        <input type="radio" name="check" value="3" id="check4" />
-                        <label htmlFor="check4"><span>상품평</span></label>
                     </div>
                     <Posts posts={currentPosts} loading={loading} />
                 </div>

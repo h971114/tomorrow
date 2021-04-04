@@ -456,7 +456,7 @@ input[type='text'], input[type='password'], input[type='submit'], input[type='se
     background: #d8d8d8;
     background-image: linear-gradient(to right, #d8d8d8 0%, #bdbdbd 20%, #d8d8d8 40%, #d8d8d8 100%);
     background-repeat: no-repeat;
-    background-size: 800px 345px;
+    background-size: 800px 900px;
     position: relative
 }
 

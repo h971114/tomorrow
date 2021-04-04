@@ -22,8 +22,8 @@ class Header extends Component {
             token: cookies.get('token') || "",
             isSeller: cookies.get('isSeller') || "0",
         }
-        // console.log(cookies);
-        console.log(this.state.isSeller);
+        // // console.log(cookies);
+        // console.log(this.state.isSeller);
     };
 
     logout = (e) => {

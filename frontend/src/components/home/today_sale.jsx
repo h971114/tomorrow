@@ -11,12 +11,12 @@ const Today_sale = () => {
             var nowYy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
             var nowDd = Number(d.getDate());
-            console.log(nowDd);
+            // console.log(nowDd);
 
             var tomorrow1 = new Date(nowYy, nowMm, nowDd + 1);
             var tomorrow1Mm = Number((tomorrow1.getMonth()));
             var tomorrow1Dd = Number(tomorrow1.getDate());
-            console.log(tomorrow1Dd);
+            // console.log(tomorrow1Dd);
 
             var tomorrow2 = new Date(nowYy, nowMm, nowDd + 2);
             var tomorrow2Mm = Number((tomorrow2.getMonth()));

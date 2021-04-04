@@ -13,7 +13,7 @@ const Timer = () => {
             var nowHh = d.format("hh");
             var nowMi = d.format("mm");
             var nowSs = d.format("ss");
-            // console.log(nowHh + " : " + nowMi + " : " + nowSs);
+            // // console.log(nowHh + " : " + nowMi + " : " + nowSs);
 
             var now = new Date(nowYyyy, nowMm, nowDd, nowHh, nowMi, nowSs); //현재시간 지정
             var later = new Date(nowYyyy, nowMm, nowDd, 23, 59, 59);

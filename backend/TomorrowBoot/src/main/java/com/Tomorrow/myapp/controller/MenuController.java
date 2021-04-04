@@ -115,17 +115,23 @@ public class MenuController {
 
     // 메뉴 검색
     @GetMapping("/gmbc")
-    public ResponseEntity<Map<String, Object>> getMenuByCategory(@RequestParam(value = "keyword", defaultValue = "") int keyword,
+    public ResponseEntity<Map<String, Object>> getMenuByCategory(@RequestParam(value = "keyword", defaultValue = "") String keyword,
                                                                  HttpServletRequest req) throws SQLException {
         Map<String, Object> conclusionMap = new HashMap<>();
+        List<MenuDto> list = new ArrayList<>();
+        if(keyword.equals(""))
+            list = menuService.getMenuByCategory(0);
+        else
+            list = menuService.getMenuByCategory(Integer.parseInt(keyword));
+        
+        System.out.println(keyword);
 
-        List<MenuDto> list = menuService.getMenuByCategory(keyword);
         conclusionMap.put("list", list);
         if (list.size() != 0)
             conclusionMap.put("message", "SUCCESS");
         else
             conclusionMap.put("message", "FAIL");
-
+        System.out.println(conclusionMap);
         return new ResponseEntity<>(conclusionMap, HttpStatus.ACCEPTED);
     }
 

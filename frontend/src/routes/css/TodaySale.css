@@ -287,7 +287,7 @@
 	font-weight:400;
 	color:#fff;
 }
-#sub .inner.special .price_calendar .list_wrap ul li .today_line {
+#sub .inner.special .price_calendar .list_wrap ul li.today .today_line {
 	border:5px solid #9fc54d;
 	box-sizing:border-box;
 	position:absolute;
@@ -315,4 +315,9 @@
     width: 14.28%;
     text-align: center;
     height: 205px;
+}
+
+.thumb{
+	width: 161.36px;
+	height: 160px;
 }

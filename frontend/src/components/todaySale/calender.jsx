@@ -1,9 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Calender = () => {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
 
-        const timeSet = async () => {
+
+        const getdata = async () => {
+
+            setLoading(true);
+            const res = await axios.get('http://127.0.0.1:8080/myapp/menu/gmbts');
+
+            setPosts(res.data);
+            setLoading(false);
+
+            timeSet(res.data);
+        }
+
+        const timeSet = async (e) => {
+            // console.log(e[0].menu.img1);
             var d = new Date();
             var nowYyyy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
@@ -35,27 +51,30 @@ const Calender = () => {
             }
 
             var date = 1;
+            var num = 0;
             for (var i = todayLabel; i <= totdays + todayLabel - 1; i++) {
+                // console.log(num);
                 var imgLink = '/img/calender_sample' + i + '.png';
                 imgLink.replace(/\@/g, "/");
                 var str = "";
                 if (date == nowDd) {
                     document.getElementById("d" + i).classList.add("today");
-                    str += '<i className="today_line"></i>';
+                    str += '<i class="today_line"></i>';
                 }
                 if (date < 10)
-                    str += "<em className='day '> 0" + date + "</em>";
+                    str += "<em class='day '> 0" + date + "</em>";
                 else
-                    str += "<em className='day '>" + date + "</em>";
+                    str += "<em class='day '>" + date + "</em>";
                 str += "<div>"
-                str += '<p style="background-image:url(' + imgLink + ');">';
-                str += "<img src='" + imgLink + "'/>";
+                str += '<p class="thumb" style="background-image:url(' + e[num].menu.img1 + ');">';
+                str += "<img src='" + e[num].menu.img1 + "'/>";
                 str += "</p>";
-                str += "<span>밀키트 이름</span>";
+                str += "<span>" + e[num].menu.name + "</span>";
                 str += "</div>";
                 document.getElementById("d" + i).innerHTML = str;
                 document.getElementById("d" + i).classList.remove("null");
                 date = date + 1;
+                num = num + 1;
             }
             // 0 > +1
             // 1 > +0
@@ -66,8 +85,11 @@ const Calender = () => {
             // 6 > -5
         }
 
-        timeSet();
-    })
+
+
+        getdata();
+
+    }, [])
 
     return (
         <div className="price_calendar">

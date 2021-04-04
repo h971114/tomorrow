@@ -61,29 +61,18 @@ class Detail extends React.Component {
                 saleState: true
             })
         }
+        console.log(location.state.discount_rate);
 
         var no = location.state.id;
 
-        if (localStorage.getItem(no + "detail") !== null) {
-            var detail = localStorage.getItem(no + "detail");
+        axios.get('http://127.0.0.1:8080/myapp/menu/gm/' + no
+        ).then(res => {
             this.setState({
                 loading: false,
-                detail: detail
+                detail: res.data.detail
             })
-        }
-        else {
-            axios.get('http://127.0.0.1:8080/myapp/menu/gm/' + no
-            ).then(res => {
-                this.setState({
-                    loading: false,
-                    detail: res.data.detail
-                })
-                var dec = decodeURI(res.data.detail);
-                console.log(res.data.detail);
-                console.log(dec);
-                // localStorage.setItem(no + "detail", res.data.detail);
-            });
-        }
+            console.log(location.state.discount_rate);
+        });
     }
 
 
@@ -93,9 +82,11 @@ class Detail extends React.Component {
         if (this.state.buyAmount > 1) {
             amounts = Number(amounts) - 1;
             pay = amounts * this.state.sale_money;
+            var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            // // console.log(payString);
             this.setState({
                 buyAmount: amounts,
-                totPay: pay
+                totPay: payString,
             })
         }
         else {
@@ -110,7 +101,7 @@ class Detail extends React.Component {
             amounts = Number(amounts) + 1;
             pay = amounts * this.state.sale_money;
             var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-            // console.log(payString);
+            // // console.log(payString);
             this.setState({
                 buyAmount: amounts,
                 totPay: payString,
@@ -122,101 +113,101 @@ class Detail extends React.Component {
     }
 
     render() {
+        var codes = this.state.detail;
 
-        if (this.state.loading) {
-            return (
-                <div id="sub" >
-                    <div className="inner view_inner size detail_view_inner">
-                        <div className="view_wrap">
-                            <div className="goods clear">
-                                <div className="image">
-                                    <p className="detail_img" id="detail_img" style={{ backgroundImage: `url(${this.state.img1})`, borderRadius: `5px` }}>
-                                        <img src="/img/view_pic_bg.png" />
-                                    </p>
-                                </div>
-
-                                <div className="info">
-                                    <p className="icon">
-                                        {this.state.newP === true &&
-                                            <img src="/img/new.png" />
-                                        }
-                                        {this.state.saleState === true &&
-                                            <img src="/img/sale.png" />
-                                        }
-                                    </p>
-                                    <div className="pro_txt">
-                                        <b>
-                                            {this.state.name}</b>
-                                        {this.state.subname}</div>
-                                    <div className="item">
-                                        <ul className="clear">
-                                            <li className="price clear">
-                                                <b>판매가</b>
-                                                <div>
-                                                    {this.state.saleState === true &&
-                                                        <p className="product_sale per">
-                                                            <span className="sale_per">{this.state.discount_rate}<em>%</em></span>
-                                                            <b>{this.state.saleMoneyString}</b>원
-                                                            <span className="before_p">{this.state.priceString}원</span>
-                                                        </p>
-                                                    }
-                                                    {this.state.saleState !== true &&
-                                                        <p>
-                                                            <span>{this.state.priceString}원</span>
-                                                        </p>
-                                                    }
-
-                                                </div>
-                                            </li>
-                                            <li className="clear">
-                                                <b>제조사</b>
-                                                <div><span>{this.state.seller_id}</span></div>
-                                            </li>
-                                            <li className="clear">
-                                                <b>배송비</b>
-                                                <div><span>0원</span></div>
-                                            </li>
-                                            <li className="amount clear">
-                                                <b>주문수량</b>
-                                                <div>
-                                                    <a className="amount_up" onClick={this.downAmount} ></a>
-                                                    <input type="text" className="amount txt amount_val" id="amountCnt" value={this.state.buyAmount} readOnly />
-                                                    <a className="amount_down" onClick={this.upAmount}></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    {/* 여기 */}
-                                    <div className="total_price">
-                                        <b>총 금액(수량):</b>
-                                        <span><b className="price_val">{this.state.totPay}</b>원({this.state.buyAmount}개)</span>
-                                    </div>
-
-                                    <div className="submit_bt clear">
-                                        <a className="addCartBtn" id="pop1">장바구니</a>
-                                        <a className="purchase">바로구매</a>
-                                    </div>
-                                </div>
+        return (
+            <div id="sub" >
+                <div className="inner view_inner size detail_view_inner">
+                    <div className="view_wrap">
+                        <div className="goods clear">
+                            <div className="image">
+                                <p className="detail_img" id="detail_img" style={{ backgroundImage: `url(${this.state.img1})`, borderRadius: `5px` }}>
+                                    <img src="/img/view_pic_bg.png" />
+                                </p>
                             </div>
 
+                            <div className="info">
+                                <p className="icon">
+                                    {this.state.newP === true &&
+                                        <img src="/img/new.png" />
+                                    }
+                                    {this.state.saleState === true &&
+                                        <img src="/img/sale.png" />
+                                    }
+                                </p>
+                                <div className="pro_txt">
+                                    <b>
+                                        {this.state.name}</b>
+                                    {this.state.subname}</div>
+                                <div className="item">
+                                    <ul className="clear">
+                                        <li className="price clear">
+                                            <b>판매가</b>
+                                            <div>
+                                                {this.state.saleState === true &&
+                                                    <p className="product_sale per">
+                                                        <span className="sale_per">{this.state.discount_rate}<em>%</em></span>
+                                                        <b>{this.state.saleMoneyString}</b>원
+                                                            <span className="before_p">{this.state.priceString}원</span>
+                                                    </p>
+                                                }
+                                                {this.state.saleState !== true &&
+                                                    <p>
+                                                        <span>{this.state.priceString}원</span>
+                                                    </p>
+                                                }
+
+                                            </div>
+                                        </li>
+                                        <li className="clear">
+                                            <b>제조사</b>
+                                            <div><span>{this.state.seller_id}</span></div>
+                                        </li>
+                                        <li className="clear">
+                                            <b>배송비</b>
+                                            <div><span>2500</span>원 (30,000원 이상시 무료)</div>
+                                        </li>
+                                        <li className="amount clear">
+                                            <b>주문수량</b>
+                                            <div>
+                                                <a className="amount_up" onClick={this.downAmount} ></a>
+                                                <input type="text" className="amount txt amount_val" id="amountCnt" value={this.state.buyAmount} readOnly />
+                                                <a className="amount_down" onClick={this.upAmount}></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="total_price">
+                                    <b>총 금액(수량):</b>
+                                    <span><b className="price_val">{this.state.totPay}</b>원({this.state.buyAmount}개)</span>
+                                </div>
+
+                                <div className="submit_bt clear">
+                                    <a className="addCartBtn" id="pop1">장바구니</a>
+                                    <a className="purchase">바로구매</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {this.state.loading === true &&
                             <div className="multi_info">
                                 <div id="detail1">
                                     <div className="tab">
                                         <ul className="clear">
                                             <li>
                                                 <a href="#detail1" className="on">상품설명
-                                            <img src="/img/bbs_tab_arrow.png" />
+                                                <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail2">유의사항 및
-                                            <em className="mbr"> 구매안내</em>
+                                                <em className="mbr"> 구매안내</em>
                                                     <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail3">구매후기
-                                            <img src="/img/bbs_tab_arrow.png" />
+                                                <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -235,106 +226,26 @@ class Detail extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-        else {
-            var codes = this.state.detail;
-            return (
-                <div id="sub" >
-                    <div className="inner view_inner size detail_view_inner">
-                        <div className="view_wrap">
-                            <div className="goods clear">
-                                <div className="image">
-                                    <p className="detail_img" id="detail_img" style={{ backgroundImage: `url(${this.state.img1})`, borderRadius: `5px` }}>
-                                        <img src="/img/view_pic_bg.png" />
-                                    </p>
-                                </div>
-
-                                <div className="info">
-                                    <p className="icon">
-                                        {this.state.newP === true &&
-                                            <img src="/img/new.png" />
-                                        }
-                                        {this.state.saleState === true &&
-                                            <img src="/img/sale.png" />
-                                        }
-                                    </p>
-                                    <div className="pro_txt">
-                                        <b>
-                                            {this.state.name}</b>
-                                        {this.state.subname}</div>
-                                    <div className="item">
-                                        <ul className="clear">
-                                            <li className="price clear">
-                                                <b>판매가</b>
-                                                <div>
-                                                    {this.state.saleState === true &&
-                                                        <p className="product_sale per">
-                                                            <span className="sale_per">{this.state.discount_rate}<em>%</em></span>
-                                                            <b>{this.state.salePrice}</b>원
-                                                            <span className="before_p">{this.state.price}원</span>
-                                                        </p>
-                                                    }
-                                                    {this.state.saleState !== true &&
-                                                        <p>
-                                                            <span>{this.state.priceString}원</span>
-                                                        </p>
-                                                    }
-
-                                                </div>
-                                            </li>
-                                            <li className="clear">
-                                                <b>제조사</b>
-                                                <div><span>{this.state.seller_id}</span></div>
-                                            </li>
-                                            <li className="clear">
-                                                <b>배송비</b>
-                                                <div><span>0원</span></div>
-                                            </li>
-                                            <li className="amount clear">
-                                                <b>주문수량</b>
-                                                <div>
-                                                    <a className="amount_up" onClick={this.downAmount} ></a>
-                                                    <input type="text" className="amount txt amount_val" id="amountCnt" value={this.state.buyAmount} readOnly />
-                                                    <a className="amount_down" onClick={this.upAmount}></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    {/* 여기 */}
-                                    <div className="total_price">
-                                        <b>총 금액(수량):</b>
-                                        <span><b className="price_val">{this.state.totPay}</b>원({this.state.buyAmount}개)</span>
-                                    </div>
-
-                                    <div className="submit_bt clear">
-                                        <a className="addCartBtn" id="pop1">장바구니</a>
-                                        <a className="purchase">바로구매</a>
-                                    </div>
-                                </div>
-                            </div>
-
+                        }
+                        {this.state.loading === false &&
                             <div className="multi_info">
                                 <div id="detail1">
                                     <div className="tab">
                                         <ul className="clear">
                                             <li>
                                                 <a href="#detail1" className="on">상품설명
-                                                <img src="/img/bbs_tab_arrow.png" />
+                                                            <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail2">유의사항 및
-                                                <em className="mbr"> 구매안내</em>
+                                                            <em className="mbr"> 구매안내</em>
                                                     <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail3">구매후기
-                                                <img src="/img/bbs_tab_arrow.png" />
+                                                            <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -349,18 +260,18 @@ class Detail extends React.Component {
                                         <ul className="clear">
                                             <li>
                                                 <a href="#detail1">상품설명
-                                                <img src="/img/bbs_tab_arrow.png" />
+                                                            <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail2" className="on">유의사항 및
-                                                <em className="mbr"> 구매안내</em>
+                                                            <em className="mbr"> 구매안내</em>
                                                     <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail3">구매후기
-                                                <img src="/img/bbs_tab_arrow.png" />
+                                                            <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -375,18 +286,18 @@ class Detail extends React.Component {
                                         <ul className="clear">
                                             <li>
                                                 <a href="#detail1">상품설명
-                                                <img src="/img/bbs_tab_arrow.png" />
+                                                            <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail2">유의사항 및
-                                                <em className="mbr"> 구매안내</em>
+                                                            <em className="mbr"> 구매안내</em>
                                                     <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#detail3" className="on">구매후기
-                                                <img src="/img/bbs_tab_arrow.png" />
+                                                            <img src="/img/bbs_tab_arrow.png" />
                                                 </a>
                                             </li>
                                         </ul>
@@ -428,7 +339,7 @@ class Detail extends React.Component {
 
                                                 <div className="c_wrap">
                                                     <textarea name="contents" placeholder="리뷰를 남겨 주세요!
-                                                문의글 혹은 악의적인 비방글은 작성자의 동의 없이 삭제될 수 있습니다."></textarea>
+                                                            문의글 혹은 악의적인 비방글은 작성자의 동의 없이 삭제될 수 있습니다."></textarea>
                                                     <input type="submit" value="리뷰등록" />
                                                 </div>
                                                 <div id="picture" className="clear">
@@ -441,7 +352,7 @@ class Detail extends React.Component {
                                                 <li>
                                                     <p className="txt no_data">
                                                         등록된 후기가 없습니다.
-                                                    </p>
+                                                                </p>
                                                 </li>
                                             </ul>
                                         </div>
@@ -450,11 +361,11 @@ class Detail extends React.Component {
                                 </div>
 
                             </div>
-                        </div>
+                        }
                     </div>
                 </div>
-            )
-        }
+            </div>
+        )
     }
 }
 

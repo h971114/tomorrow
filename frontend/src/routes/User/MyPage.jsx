@@ -35,7 +35,7 @@ class MyPage extends React.Component {
 
         axios.get('http://127.0.0.1:8080/myapp/member/' + id
         ).then(res => {
-            // console.log(res.data);
+            // // console.log(res.data);
 
             this.setState({
                 name: res.data.name,
@@ -56,16 +56,16 @@ class MyPage extends React.Component {
             })
 
             var addrs = this.state.addr;
-            // console.log(addrs);
+            // // console.log(addrs);
             var addrArray = addrs.split(' / ');
             this.setState({
                 zoneCode: addrArray[0],
                 fullAddress: addrArray[1],
                 addr2: addrArray[2]
             })
-            // console.log(addrArray[0]);
-            // console.log(addrArray[1]);
-            // console.log(addrArray[2]);
+            // // console.log(addrArray[0]);
+            // // console.log(addrArray[1]);
+            // // console.log(addrArray[2]);
 
         });
     }
@@ -96,18 +96,18 @@ class MyPage extends React.Component {
             addr1B: true,
             modalOpen: false
         })
-        // console.log(this.state.zoneCode);
-        // console.log(this.state.fullAddress);
+        // // console.log(this.state.zoneCode);
+        // // console.log(this.state.fullAddress);
     }
 
     openModal = () => {
-        // console.log("열려따");
+        // // console.log("열려따");
         this.setState({
             modalOpen: true
         })
     }
     closeModal = () => {
-        // console.log("닫혔따");
+        // // console.log("닫혔따");
         this.setState({
             modalOpen: false
         })
@@ -194,7 +194,7 @@ class MyPage extends React.Component {
             document.getElementById('validateCPw').textContent = "비밀번호가 다릅니다.";
             document.getElementById('validateCPw').setAttribute('style', 'color: #ff3535');
         }
-        // // console.log(this.state.checkPw);
+        // // // console.log(this.state.checkPw);
     };
 
     mobileChange = (e) => {
@@ -261,11 +261,11 @@ class MyPage extends React.Component {
                 mobile: this.state.mobile,
                 address: addr
             }).then(res => {
-                console.log(res);
+                // console.log(res);
             })
         }
         else {
-            console.log("안됨...");
+            // console.log("안됨...");
         }
     }
 
