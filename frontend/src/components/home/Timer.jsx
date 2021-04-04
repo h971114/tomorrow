@@ -10,10 +10,10 @@ const Timer = () => {
             var nowYyyy = d.format("YYYY");
             var nowMm = d.format("MM");
             var nowDd = d.format("DD");
-            var nowHh = d.format("hh");
+            var nowHh = d.format("HH");
             var nowMi = d.format("mm");
             var nowSs = d.format("ss");
-            // // console.log(nowHh + " : " + nowMi + " : " + nowSs);
+            // console.log(nowHh + " : " + nowMi + " : " + nowSs);
 
             var now = new Date(nowYyyy, nowMm, nowDd, nowHh, nowMi, nowSs); //현재시간 지정
             var later = new Date(nowYyyy, nowMm, nowDd, 23, 59, 59);

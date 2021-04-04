@@ -39,7 +39,6 @@ class Detail extends React.Component {
             totPay: payString
         })
 
-
         var createYY = location.state.create_at.substring(0, 4);
         var createMM = location.state.create_at.substring(5, 7);
         var createDD = location.state.create_at.substring(8, 10);
@@ -61,7 +60,7 @@ class Detail extends React.Component {
                 saleState: true
             })
         }
-        console.log(location.state.discount_rate);
+        // console.log(location.state.discount_rate);
 
         var no = location.state.id;
 
@@ -71,7 +70,7 @@ class Detail extends React.Component {
                 loading: false,
                 detail: res.data.detail
             })
-            console.log(location.state.discount_rate);
+            // console.log(location.state.discount_rate);
         });
     }
 

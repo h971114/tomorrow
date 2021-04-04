@@ -53,7 +53,7 @@ const TodaySales = () => {
                     var Dd = Days.substring(8, 10);
 
                     if (nowMm === Mm && nowDd === Dd) {
-                        console.log(array.menu.name);
+                        // console.log(array.menu.name);
                         setName(array.menu.name);
                         setSubName(array.menu.subname);
                         setTDR(array.menu.today_discount_rate);
@@ -124,7 +124,7 @@ const TodaySales = () => {
                     <div className="submit_bt clear">
                         <Link
                             to={{
-                                pathname: `/ product / detail / ${id}`,
+                                pathname: `/product/detail/${id}`,
                                 state: {
                                     id,
                                     name,

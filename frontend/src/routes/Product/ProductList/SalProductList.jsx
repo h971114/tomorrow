@@ -35,6 +35,7 @@ const ProductList = () => {
 
     //change page
     const paginate = (pageNumber) => {
+        window.scrollTo(0, 0);
         setCurrentPage(pageNumber);
     }
 

@@ -5,6 +5,7 @@ import TopVisual from '../../../components/Product/TopVisual/TopVisualYang';
 import Posts from '../../../components/Product/Posts';
 import Pagination from '../../../components/common/Pagination';
 
+
 const ProductList = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -35,8 +36,11 @@ const ProductList = () => {
 
     //change page
     const paginate = (pageNumber) => {
+        window.scrollTo(0, 0);
         setCurrentPage(pageNumber);
     }
+
+
 
     return (
         <div id="sub">

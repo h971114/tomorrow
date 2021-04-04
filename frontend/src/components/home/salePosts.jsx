@@ -58,16 +58,16 @@ export const SalePosts = ({ posts, loading }) => {
     else {
         const salelist = posts.map((post, idx) => {
 
-            var title = post.name;
-            var priceString = post.price;
-            var sale = false;
-            var sale_money = post.price;
-            var saleMoneyString = post.price;
+            var title = post.menu.name;
+            var priceString = post.menu.price;
+            var sale = true;
+            var sale_money = post.sale_price;
+            var saleMoneyString = post.sale_price;
             var newP = false;
 
-            var createYY = post.create_at.substring(0, 4);
-            var createMM = post.create_at.substring(5, 7);
-            var createDD = post.create_at.substring(8, 10);
+            var createYY = post.menu.create_at.substring(0, 4);
+            var createMM = post.menu.create_at.substring(5, 7);
+            var createDD = post.menu.create_at.substring(8, 10);
             var createDate = moment([createYY, createMM - 1, createDD]);
             var nowDate = moment();
 
@@ -81,42 +81,37 @@ export const SalePosts = ({ posts, loading }) => {
                 title = title.substring(0, 10) + "...";
             }
 
-            if (post.discount_rate != 0) {
-                sale = true;
-                sale_money = post.price / 100 * (100 - post.discount_rate);
-            } else {
-                sale = false;
-            }
             saleMoneyString = sale_money.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
             priceString = priceString.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
             if (idx <= 3) {
+                // console.log(post);
                 return (
                     <li key={idx}>
                         <Link
                             to={{
-                                pathname: `/product/detail/${post.id}`,
+                                pathname: `/product/detail/${post.menu.id}`,
                                 state: {
-                                    id: post.id,
-                                    name: post.name,
-                                    subname: post.subname,
-                                    discount_rate: post.discount_rate,
-                                    img1: post.img1,
-                                    price: post.price,
-                                    priceString: post.priceString,
-                                    sale_money: post.sale_money,
-                                    saleMoneyString: post.saleMoneyString,
-                                    seller_id: post.seller_id,
-                                    create_at: post.create_at,
+                                    id: post.menu.id,
+                                    name: post.menu.name,
+                                    subname: post.menu.subname,
+                                    discount_rate: post.menu.discount_rate,
+                                    img1: post.menu.img1,
+                                    price: post.menu.price,
+                                    priceString,
+                                    sale_money: post.sale_price,
+                                    saleMoneyString,
+                                    seller_id: post.menu.seller_id,
+                                    create_at: post.menu.create_at,
                                 }
                             }}
                         >
                             <div className="con clear">
                                 <div className="pic">
-                                    <p className="pro_img" style={{ backgroundImage: `url(${post.img1})` }}>
+                                    <p className="pro_img" style={{ backgroundImage: `url(${post.menu.img1})` }}>
                                         <img src="/img/new_bg.png" />
                                     </p>
-                                    <p className="pic_hover" style={{ backgroundImage: `url(${post.img2})` }}>
+                                    <p className="pic_hover" style={{ backgroundImage: `url(${post.menu.img2})` }}>
                                         <img src="/img/new_bg.png" />
                                     </p>
                                 </div>
@@ -125,26 +120,16 @@ export const SalePosts = ({ posts, loading }) => {
                                         {title}
                                     </b>
                                     <span className="sub_title">
-                                        {post.subname}
+                                        {post.menu.subname}
                                     </span>
 
-                                    {sale === true &&
-                                        <div className="product_sale per">
-                                            <span className="sale_per">{post.discount_rate}<em>%</em></span>
-                                            <b>{saleMoneyString}</b>원
+                                    <div className="product_sale per">
+                                        <span className="sale_per">{post.menu.discount_rate}<em>%</em></span>
+                                        <b>{saleMoneyString}</b>원
                                             <span className="before_p">{priceString}원</span>
-                                        </div>
-                                    }
-                                    {sale === false &&
-                                        <span className="product_sale">
-                                            <b>{priceString}</b>
-                                                원
-                                                </span>
-                                    }
+                                    </div>
                                     <p className="info_icon">
-                                        {sale === true &&
-                                            <img src="/img/sale.png" />
-                                        }
+                                        <img src="/img/sale.png" />
                                         {newP === true &&
                                             <img src="/img/new.png" />
                                         }

@@ -20,7 +20,6 @@ const BestProduct = () => {
             setLoading(false);
         }
         fetchPosts();
-        document.getElementById('check1').setAttribute("checked", "true");
     }, []);
 
     return (
@@ -29,14 +28,6 @@ const BestProduct = () => {
                 <TopVisual />
 
                 <div className="size">
-                    <div className="radio_bt">
-                        <input type="radio" name="check" value="0" id="check1" />
-                        <label htmlFor="check1" className="first"><span>신상품</span></label>
-                        <input type="radio" name="check" value="1" id="check2" />
-                        <label htmlFor="check2"><span>낮은가격</span></label>
-                        <input type="radio" name="check" value="2" id="check3" />
-                        <label htmlFor="check3"><span>높은가격</span></label>
-                    </div>
                     <Posts posts={posts} loading={loading} />
                 </div>
             </div>
