@@ -29,7 +29,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void insertCart(CartDto cart) {
-        cartDao.insertCart(cart);
+        CartDto cartDto = null;
+        cartDto = cartDao.getOne(cart);
+        if(cartDto == null)
+            cartDao.insertCart(cart);
+        else
+            cartDao.updateCart(cart);
     }
 
     @Override

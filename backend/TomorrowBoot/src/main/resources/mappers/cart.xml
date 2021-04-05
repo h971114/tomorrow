@@ -6,6 +6,16 @@
     <insert id="insert" parameterType="cart">
 		INSERT INTO cart (member_id,menu_id,name,amount,price) VALUES (#{member_id},#{menu_id},#{name},#{amount},#{price})
 	</insert>
+	<update id="update" parameterType="cart">
+		update cart
+		set amount = amount +1
+		where member_id = #{member_id} and menu_id = #{menu_id};
+	</update>
+	<select id="getOne" parameterType="cart" resultType="cart">
+		select *
+		from cart
+		where member_id = #{member_id} and menu_id = #{menu_id}
+	</select>
 	<delete id="delete" parameterType="cart">
 		DELETE FROM cart WHERE id = #{id}
 	</delete>
