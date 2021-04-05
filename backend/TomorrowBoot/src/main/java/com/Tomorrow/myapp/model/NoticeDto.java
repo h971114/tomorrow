@@ -15,8 +15,8 @@ public class NoticeDto {
 	private String file2;
 	private String file3;
 
-
-	public NoticeDto(int no, String title, String detail, String date, String writer, int hit, String file1, String file2, String file3) {
+	public NoticeDto(int ROWNUM, int no, String title, String detail, String date, String writer, int hit, String file1, String file2, String file3) {
+		this.ROWNUM = ROWNUM;
 		this.no = no;
 		this.title = title;
 		this.detail = detail;
@@ -32,8 +32,8 @@ public class NoticeDto {
 		return ROWNUM;
 	}
 
-	public void setROWNUM(int rnum) {
-		ROWNUM = rnum;
+	public void setROWNUM(int ROWNUM) {
+		this.ROWNUM = ROWNUM;
 	}
 
 	public int getNo() {

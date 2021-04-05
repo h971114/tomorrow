@@ -12,6 +12,12 @@ public class CartDaoImpl implements CartDao {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+	@Override
+	public List<CartDto> getCart(String memberId) {
+		return sqlSession.selectList("cart.getlist",memberId);
+	}
+
 	@Override
 	public void insertCart(CartDto cart) {
 		sqlSession.insert("cart.insert",cart);
@@ -21,10 +27,4 @@ public class CartDaoImpl implements CartDao {
 	public void deleteCart(CartDto cart) {
 		sqlSession.delete("cart.delete",cart);
 	}
-
-	@Override
-	public List<CartDto> getCart(String memberid) {
-		return sqlSession.selectList("cart.getlist",memberid);
-	}
-
 }

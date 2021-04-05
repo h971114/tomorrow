@@ -61,6 +61,18 @@ public class MenuServiceImpl implements MenuService {
         }
         return menu;
     }
+    @Override
+    public MenuDto getMenubyid(int id) {
+        MenuDto menu = null;
+        try {
+            menu = menuDao.getMenubyid(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return menu;
+    }
+    
 
     @Override
     public List<MenuDto> getMenu() {

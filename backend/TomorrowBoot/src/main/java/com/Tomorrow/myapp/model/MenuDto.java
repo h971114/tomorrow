@@ -18,31 +18,30 @@ public class MenuDto {
     private String data;
     private String subname;
     private String detail;
+    private int shipping_fee;
 
-	public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, String todaysale, int today_discount_rate,
-			String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.price = price;
-		this.amount = amount;
-		this.sell_amount = sell_amount;
-		this.discount_rate = discount_rate;
-		this.today_discount_rate = today_discount_rate;
-		this.todaysale = todaysale;
-		this.create_at = create_at;
-		this.category = category;
-		this.img1 = img1;
-		this.img2 = img2;
-		this.seller_id = seller_id;
-		this.data = data;
-		this.subname = subname;
-		this.detail = detail;
-	}
+    public MenuDto() {
+    }
 
-	public MenuDto() {
-		// TODO Auto-generated constructor stub
-	}
+    public MenuDto(int id, String name, int price, int amount, int sell_amount, int discount_rate, int today_discount_rate, String todaysale, String create_at, int category, String img1, String img2, String seller_id, String data, String subname, String detail, int shipping_fee) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+        this.sell_amount = sell_amount;
+        this.discount_rate = discount_rate;
+        this.today_discount_rate = today_discount_rate;
+        this.todaysale = todaysale;
+        this.create_at = create_at;
+        this.category = category;
+        this.img1 = img1;
+        this.img2 = img2;
+        this.seller_id = seller_id;
+        this.data = data;
+        this.subname = subname;
+        this.detail = detail;
+        this.shipping_fee = shipping_fee;
+    }
 
     public int getId() {
         return id;
@@ -92,6 +91,14 @@ public class MenuDto {
         this.discount_rate = discount_rate;
     }
 
+    public int getToday_discount_rate() {
+        return today_discount_rate;
+    }
+
+    public void setToday_discount_rate(int today_discount_rate) {
+        this.today_discount_rate = today_discount_rate;
+    }
+
     public String getTodaysale() {
         return todaysale;
     }
@@ -139,45 +146,59 @@ public class MenuDto {
     public void setSeller_id(String seller_id) {
         this.seller_id = seller_id;
     }
-    
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getSubname() {
+        return subname;
+    }
+
+    public void setSubname(String subname) {
+        this.subname = subname;
+    }
+
     public String getDetail() {
-		return detail;
-	}
+        return detail;
+    }
 
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-	
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public int getShipping_fee() {
+        return shipping_fee;
+    }
+
+    public void setShipping_fee(int shipping_fee) {
+        this.shipping_fee = shipping_fee;
+    }
+
     @Override
-	public String toString() {
-		return "MenuDto [id=" + id + ", name=" + name + ", price=" + price + ", amount=" + amount + ", sell_amount="
-				+ sell_amount + ", discount_rate=" + discount_rate + ", today_discount_rate=" + today_discount_rate
-				+ ", todaysale=" + todaysale + ", create_at=" + create_at + ", category=" + category + ", img1=" + img1
-				+ ", img2=" + img2 + ", seller_id=" + seller_id + ", data=" + data + ", subname=" + subname
-				+ ", detail=" + detail + "]";
-	}
-
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public String getSubname() {
-		return subname;
-	}
-
-	public void setSubname(String subname) {
-		this.subname = subname;
-	}
-
-	public int getToday_discount_rate() {
-		return today_discount_rate;
-	}
-
-	public void setToday_discount_rate(int today_discount_rate) {
-		this.today_discount_rate = today_discount_rate;
-	}
+    public String toString() {
+        return "MenuDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", amount=" + amount +
+                ", sell_amount=" + sell_amount +
+                ", discount_rate=" + discount_rate +
+                ", today_discount_rate=" + today_discount_rate +
+                ", todaysale='" + todaysale + '\'' +
+                ", create_at='" + create_at + '\'' +
+                ", category=" + category +
+                ", img1='" + img1 + '\'' +
+                ", img2='" + img2 + '\'' +
+                ", seller_id='" + seller_id + '\'' +
+                ", data='" + data + '\'' +
+                ", subname='" + subname + '\'' +
+                ", detail='" + detail + '\'' +
+                ", shipping_fee=" + shipping_fee +
+                '}';
+    }
 }

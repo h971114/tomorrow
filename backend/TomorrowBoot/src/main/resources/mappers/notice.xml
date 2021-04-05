@@ -10,9 +10,9 @@
 
 	<!-- 공지사항 목록 -->
 	<select id="listNotice" resultType="notice">
-		select @ROWNUM := @ROWNUM + 1 AS ROWNUM, n.* 
+		select @ROWNUM := @ROWNUM + 1 AS ROWNUM, n.no, n.title, n.detail, n.date, n.writer, n.hit, n.file1, n.file2, n.file3
 		from notice n,(select @ROWNUM:=0) tmp
-		WHERE meetingno=0 ORDER BY ROWNUM DESC
+		ORDER BY ROWNUM DESC
 	</select>
 
 	<!-- 공지사항 상세정보 -->

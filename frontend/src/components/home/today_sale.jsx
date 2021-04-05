@@ -230,24 +230,7 @@ const Today_sale = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link
-                        to={{
-                            pathname: `/product/detail/${id2}`,
-                            state: {
-                                id: id2,
-                                name: name2,
-                                subname: subname2,
-                                discount_rate: tdr2,
-                                img1: img12,
-                                price: price2,
-                                priceString: priceString2,
-                                sale_money: sale_money2,
-                                saleMoneyString: saleMoneyString2,
-                                seller_id: seller_id2,
-                                create_at: create_at2,
-                            }
-                        }}
-                    >
+                    <a style={{ cursor: `default` }}>
                         <div className="pic">
                             <p className="pro_img" style={{ backgroundImage: `url(${img12})` }}>
                                 <img src="/img/time_sale.png" />
@@ -271,27 +254,10 @@ const Today_sale = () => {
                                             <span className="sale_per">{tdr2}%</span>
                             </div>
                         </div>
-                    </Link>
+                    </a>
                 </li>
                 <li>
-                    <Link
-                        to={{
-                            pathname: `/product/detail/${id3}`,
-                            state: {
-                                id: id3,
-                                name: name3,
-                                subname: subname3,
-                                discount_rate: tdr3,
-                                img1: img13,
-                                price: price3,
-                                priceString: priceString3,
-                                sale_money: sale_money3,
-                                saleMoneyString: saleMoneyString3,
-                                seller_id: seller_id3,
-                                create_at: create_at3,
-                            }
-                        }}
-                    >
+                    <a style={{ cursor: `default` }}>
                         <div className="pic">
                             <p className="pro_img" style={{ backgroundImage: `url(${img13})` }}>
                                 <img src="/img/time_sale.png" />
@@ -315,7 +281,7 @@ const Today_sale = () => {
                                             <span className="sale_per">{tdr3}%</span>
                             </div>
                         </div>
-                    </Link>
+                    </a>
                 </li>
             </ul>
         </div>

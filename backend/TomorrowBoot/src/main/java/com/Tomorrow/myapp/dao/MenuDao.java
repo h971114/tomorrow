@@ -29,4 +29,5 @@ public interface MenuDao {
 	public boolean postReview(ReviewDto reviewDto);
 	public boolean updateReview(ReviewDto reviewDto);
 	public boolean deleteReview(int id);
+	public MenuDto getMenubyid(int id);
 }

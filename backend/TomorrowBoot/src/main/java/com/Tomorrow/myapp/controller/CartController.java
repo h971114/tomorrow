@@ -19,45 +19,66 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/cart")
 public class CartController {
     private final CartService cartService;
+    private final MenuService menuService;
 
     @Autowired
-    public CartController(CartService cartService) {
+    public CartController(CartService cartService, MenuService menuService) {
         this.cartService = cartService;
+        this.menuService = menuService;
     }
     //장바구니 담기
-    @PostMapping("/insert")
-    public ResponseEntity<String> insertCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
-    	cartService.insertCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    @PostMapping("")
+    public ResponseEntity<String> insertCart(@RequestBody CartDto cartDto, HttpServletRequest req){
+    	cartService.insertCart(cartDto);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     
     //장바구니 삭제
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	HttpStatus hs = HttpStatus.ACCEPTED;
     	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("Success", hs);
+    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
     }
     //장바구니 검색(전부긁어오기)
-    @GetMapping("/list")
-    public ResponseEntity<List<CartDto>> getCart(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        return new ResponseEntity<>(cartService.getCartlist(id), hs);
+    @GetMapping("")
+    public ResponseEntity<List<Map<String, String>>> getCart(@RequestParam("id") String id){
+    	List<CartDto> carts = cartService.getCartlist(id);
+    	List<Map<String, String>> resultmap = new ArrayList<Map<String,String>>();
+    	for(CartDto cart : carts) {
+    		Map<String, String> tmpmap = new HashMap<String, String>();
+    		MenuDto tmpmenu = menuService.getMenubyid(Integer.parseInt(cart.getMenu_id()));
+    		tmpmap.put("id", id);
+    		tmpmap.put("menu_id", cart.getMenu_id());
+    		tmpmap.put("name", tmpmenu.getName());
+    		tmpmap.put("price", Integer.toString(tmpmenu.getPrice()));
+    		tmpmap.put("amount", cart.getAmount());
+    		tmpmap.put("discount_rate", Integer.toString(tmpmenu.getDiscount_rate()));
+    		tmpmap.put("category", Integer.toString(tmpmenu.getCategory()));
+    		tmpmap.put("img1", tmpmenu.getImg1());
+    		tmpmap.put("todaysale",tmpmenu.getTodaysale());
+    		tmpmap.put("tdr",Integer.toString(tmpmenu.getToday_discount_rate()));
+    		tmpmap.put("seller_id", tmpmenu.getSeller_id());
+    		tmpmap.put("subname", tmpmenu.getSubname());
+    		tmpmap.put("create_at", tmpmenu.getCreate_at());
+    		resultmap.add(tmpmap);
+    	}
+        return new ResponseEntity<>(resultmap, HttpStatus.ACCEPTED);
     }
     // 장바구니 갯수 검색
     @GetMapping("/count")
     public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
-        HttpStatus hs = HttpStatus.ACCEPTED;
-        List<CartDto> cartlist =  cartService.getCartlist(id);
-       	int count = cartlist.size(); 
-        return new ResponseEntity<>(count, hs);
+        List<CartDto> cartlist = new ArrayList<>();
+        cartlist = cartService.getCartlist(id);
+        return new ResponseEntity<>(cartlist.size(), HttpStatus.ACCEPTED);
     }
 }
