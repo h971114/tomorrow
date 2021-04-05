@@ -26,6 +26,8 @@ import com.Tomorrow.myapp.service.PayService;
 @CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
 @RequestMapping("/pay")
 public class PayController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
 	
     private final PayService payService;
     private final OrderService orderService;
@@ -63,7 +65,7 @@ public class PayController {
         order.setPayment_status("1");
         order.setPaymenthash(hash);
         orderService.paymentorder(order);
-        return "SUCCESS";
+        return SUCCESS;
     }
     
 

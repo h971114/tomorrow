@@ -22,6 +22,8 @@ import java.sql.SQLException;
 @CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
 @RequestMapping("/menudetail")
 public class MenuDetailController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final MenuDetailService menuDetailService;
 
     @Autowired
@@ -33,19 +35,19 @@ public class MenuDetailController {
     @PostMapping()
     public ResponseEntity<String> insertMenu(@RequestBody MenuDetailDto menu, HttpServletRequest req) {
         menuDetailService.insertMenuDetail(menu);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
     @PutMapping()
     public ResponseEntity<String> updateMenu(@RequestBody MenuDetailDto menu, HttpServletRequest req) {
         menuDetailService.updateMenuDetail(menu);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMenu(@PathVariable(value = "id") String id, HttpServletRequest req) {
         menuDetailService.deleteMenuDetail(id);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
     /* 상품 조회: 상세*/

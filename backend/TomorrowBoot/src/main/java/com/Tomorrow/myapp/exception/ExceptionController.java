@@ -12,6 +12,7 @@ import java.util.Map;
 @ControllerAdvice
 //@Slf4j
 public class ExceptionController {
+    private final String FAIL = "FAIL";
 
     // 400
     @ExceptionHandler({
@@ -36,7 +37,7 @@ public class ExceptionController {
 //        log.error("error", ex);
 
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("message", "FAIL");
+        resultMap.put("message", FAIL);
         resultMap.put("error", ex.getMessage());
         return new ResponseEntity<>(resultMap, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -23,8 +23,19 @@ public class CartDaoImpl implements CartDao {
 		sqlSession.insert("cart.insert",cart);
 	}
 
+
 	@Override
-	public void deleteCart(CartDto cart) {
-		sqlSession.delete("cart.delete",cart);
+	public void deleteCart(int id) {
+		sqlSession.delete("cart.delete", id);
+	}
+
+	@Override
+	public void updateCart(CartDto cartDto) {
+		sqlSession.update("cart.update", cartDto);
+	}
+
+	@Override
+	public CartDto getOne(CartDto cartDto) {
+		return sqlSession.selectOne("cart.getOne", cartDto);
 	}
 }

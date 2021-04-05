@@ -110,7 +110,7 @@ public class MemberServiceImpl implements MemberService{
             return memberid;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return "fail";
+            return null;
         }
 	}
 	@Override

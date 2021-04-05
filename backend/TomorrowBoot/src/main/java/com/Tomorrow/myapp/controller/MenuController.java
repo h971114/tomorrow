@@ -37,6 +37,8 @@ import java.util.TimeZone;
 @CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
 @RequestMapping("/menu")
 public class MenuController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final MenuService menuService;
     private final MenuDetailService menuDetailService;
 
@@ -50,19 +52,19 @@ public class MenuController {
     @PostMapping()
     public ResponseEntity<String> insertMenu(@RequestBody MenuDto menu, HttpServletRequest req) {
         menuService.insertMenu(menu);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
     @PutMapping()
     public ResponseEntity<String> updateMenu(@RequestBody MenuDto menu, HttpServletRequest req) {
         menuService.updateMenu(menu);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMenu(@PathVariable(value = "id") String id, HttpServletRequest req) {
         menuService.deleteMenu(id);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
     /* 상품 조회: 상세, 전체, 판매자, 낮은가격, 높은가격, 베스트, 신상품, 세일, 오늘특가, 카테고리별*/
@@ -132,9 +134,9 @@ public class MenuController {
 
         conclusionMap.put("list", list);
         if (list.size() != 0)
-            conclusionMap.put("message", "SUCCESS");
+            conclusionMap.put("message", SUCCESS);
         else
-            conclusionMap.put("message", "FAIL");
+            conclusionMap.put("message", FAIL);
         System.out.println(conclusionMap);
         return new ResponseEntity<>(conclusionMap, HttpStatus.ACCEPTED);
     }
@@ -151,10 +153,10 @@ public class MenuController {
             for (ReviewDto reviewDto : list)
                 System.out.println("reviewDto.getReview() = " + reviewDto.getReview());
             map.put("list", list);
-            map.put("conclusion", "SUCCESS");
+            map.put("conclusion", SUCCESS);
         } else {
             map.put("list", null);
-            map.put("conclusion", "FAIL");
+            map.put("conclusion", FAIL);
         }
         return new ResponseEntity<>(map, httpStatus);
     }
@@ -166,9 +168,9 @@ public class MenuController {
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
         System.out.println("post /review");
         if (menuService.postReview(reviewDto))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
         return new ResponseEntity<>(conclusion, httpStatus);
     }
 
@@ -179,9 +181,9 @@ public class MenuController {
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
         System.out.println("put /review");
         if (menuService.updateReview(reviewDto))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
         return new ResponseEntity<>(conclusion, httpStatus);
     }
 
@@ -192,9 +194,9 @@ public class MenuController {
         HttpStatus httpStatus = HttpStatus.ACCEPTED;
         System.out.println("del /review");
         if (menuService.deleteReview(id))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
         return new ResponseEntity<>(conclusion, httpStatus);
     }
 

@@ -73,10 +73,50 @@ const Cart = ({ history }) => {
         var checkall = document.getElementById("check_all");
         var checkboxes = document.getElementsByClassName("session_check");
         // session_check
-
+        var Pays = 0, sendpays = 0;
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = checkall.checked;
         }
+
+        if (checkall.checked) {
+            posts.map((post, idx) => {
+                // console.log(post);
+                var realPrice = post.price;
+                var date = new Date().getDate();
+                // console.log(date);
+                if (date < 10)
+                    date = '0' + date;
+
+                var days = post.todaysale;
+                days = days.substr(days.length - 2, 2);
+                // console.log(days);
+                if (date === days)
+                    realPrice = post.price / 100 * (100 - post.tdr);
+                else if (post.discount_rate > 0)
+                    realPrice = post.price / 100 * (100 - post.discount_rate);
+
+                Pays += (realPrice * post.amount);
+            })
+        } else {
+            Pays = 0;
+            sendpays = 2500;
+        }
+        if (Pays > 30000)
+            sendpays = 0;
+        else {
+            sendpays = 2500;
+        }
+
+        setPays(Pays);
+        setPaysString(Pays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+        setTotPay(Pays + sendpays);
+
+        setSendPay(sendpays);
+        var totpayStrings = (Pays + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        setTotPayString(totpayStrings);
+        setSendPayString(sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+
+
         // console.log(e.target.checked);
         // console.log(checkall.checked);
     }
@@ -85,9 +125,18 @@ const Cart = ({ history }) => {
         var checkboxes = document.getElementsByClassName("session_check");
 
         for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked === true)
-                console.log(checkboxes[i].value);
+            if (checkboxes[i].checked === true) {
+                var cartId = checkboxes[i].value;
+                axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
+                    params: {
+                        id: cartId
+                    }
+                }).then(res => {
+                    alert('삭제되었습니다.');
+                })
+            }
         }
+        window.location.replace("/cart");
     }
 
     return (
@@ -175,7 +224,7 @@ const Cart = ({ history }) => {
                             <tbody>
                                 {
                                     posts.map((post, idx) => {
-                                        console.log(post);
+                                        // console.log(post);
                                         var realPrice = post.price;
                                         var date = new Date().getDate();
                                         // console.log(date);
@@ -287,7 +336,7 @@ const Cart = ({ history }) => {
                                             }
                                             else {
                                                 var Pays = pays - eachpay;
-                                                console.log(totpay + " : " + eachpay);
+                                                // console.log(totpay + " : " + eachpay);
                                                 var sendpays = sendpay;
                                                 if (Pays >= 30000) {
                                                     sendpays = 0;
@@ -315,7 +364,7 @@ const Cart = ({ history }) => {
                                                     <input type="checkbox" className="menu_id" value={post.menu_id} />
                                                     <input type="checkbox" className="moneycheck" value={realPrice} />
                                                     <input type="checkbox" className="amountcheck" value={post.amount} />
-                                                    <input type="checkbox" className="session_check" onChange={handleChange} value={post.menu_id} name={checkBoxid} id={checkBoxid} />
+                                                    <input type="checkbox" className="session_check" onChange={handleChange} value={post.cartid} name={checkBoxid} id={checkBoxid} />
                                                     <label htmlFor={checkBoxid}></label>
                                                 </td>
                                                 <td className="pro_info">
@@ -373,7 +422,16 @@ const Cart = ({ history }) => {
 
                     <div className="last_bt">
                         <a>선택 상품 주문</a>
-                        <a>전체 상품 주문</a>
+                        <Link
+                            to={{
+                                pathname: `/order`,
+                                state: {
+                                    posts
+                                }
+                            }}
+                        >
+                            전체 상품 주문
+                    </Link>
                     </div>
                 </form>
             </div>

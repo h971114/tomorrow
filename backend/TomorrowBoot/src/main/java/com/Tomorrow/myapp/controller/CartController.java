@@ -28,6 +28,8 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/cart")
 public class CartController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final CartService cartService;
     private final MenuService menuService;
 
@@ -40,14 +42,14 @@ public class CartController {
     @PostMapping("")
     public ResponseEntity<String> insertCart(@RequestBody CartDto cartDto, HttpServletRequest req){
     	cartService.insertCart(cartDto);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     
     //장바구니 삭제
     @DeleteMapping("")
-    public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    public ResponseEntity<String> deleteCart(@RequestParam("id") String id, HttpServletRequest req){
+    	cartService.deleteCart(Integer.parseInt(id));
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     //장바구니 검색(전부긁어오기)
     @GetMapping("")
@@ -65,6 +67,7 @@ public class CartController {
     		tmpmap.put("discount_rate", Integer.toString(tmpmenu.getDiscount_rate()));
     		tmpmap.put("category", Integer.toString(tmpmenu.getCategory()));
     		tmpmap.put("img1", tmpmenu.getImg1());
+    		tmpmap.put("img2",tmpmenu.getImg2());
     		tmpmap.put("todaysale",tmpmenu.getTodaysale());
     		tmpmap.put("tdr",Integer.toString(tmpmenu.getToday_discount_rate()));
     		tmpmap.put("seller_id", tmpmenu.getSeller_id());
@@ -77,8 +80,7 @@ public class CartController {
     // 장바구니 갯수 검색
     @GetMapping("/count")
     public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
-        List<CartDto> cartlist = new ArrayList<>();
-        cartlist = cartService.getCartlist(id);
+        List<CartDto> cartlist = cartService.getCartlist(id);
         return new ResponseEntity<>(cartlist.size(), HttpStatus.ACCEPTED);
     }
 }

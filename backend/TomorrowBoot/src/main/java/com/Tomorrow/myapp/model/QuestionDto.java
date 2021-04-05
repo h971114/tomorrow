@@ -13,13 +13,6 @@ public class QuestionDto {
     private MultipartFile file1;
     private MultipartFile file2;
 
-    public int getROWNUM() {
-        return ROWNUM;
-    }
-    public void setROWNUM(int rnum) {
-        ROWNUM = rnum;
-    }
-
     public QuestionDto(int no, String title, String detail, String writer, String date, MultipartFile file1, MultipartFile file2) {
         this.no = no;
         this.title = title;
@@ -28,6 +21,13 @@ public class QuestionDto {
         this.date = date;
         this.file1 = file1;
         this.file2 = file2;
+    }
+
+    public int getROWNUM() {
+        return ROWNUM;
+    }
+    public void setROWNUM(int rnum) {
+        ROWNUM = rnum;
     }
 
     public int getNo() {

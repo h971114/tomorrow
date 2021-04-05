@@ -63,9 +63,6 @@ class MyPage extends React.Component {
                 fullAddress: addrArray[1],
                 addr2: addrArray[2]
             })
-            // // console.log(addrArray[0]);
-            // // console.log(addrArray[1]);
-            // // console.log(addrArray[2]);
 
         });
     }
@@ -305,7 +302,7 @@ class MyPage extends React.Component {
         const width = 595;
         const height = 450;
         const modalStyle = {
-            position: "absolute",
+            position: "fixed",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
