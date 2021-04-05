@@ -1,8 +1,15 @@
 package com.Tomorrow.myapp.model;
 
 public class CartDto {
-    public CartDto(String member_id, String menu_id, String name, String amount, String price) {
-        super();
+    private int id;
+    private String member_id;
+    private String menu_id;
+    private String name;
+    private String amount;
+    private String price;
+
+    public CartDto(int id, String member_id, String menu_id, String name, String amount, String price) {
+        this.id = id;
         this.member_id = member_id;
         this.menu_id = menu_id;
         this.name = name;
@@ -10,11 +17,13 @@ public class CartDto {
         this.price = price;
     }
 
-    private String member_id;
-    private String menu_id;
-    private String name;
-    private String amount;
-    private String price;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getMember_id() {
         return member_id;

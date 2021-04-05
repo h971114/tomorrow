@@ -6,7 +6,7 @@ import com.Tomorrow.myapp.model.CartDto;
 
 public interface CartService {
 	List<CartDto> getCartlist(String id);
-	void deleteCart(CartDto cart);
+	void deleteCart(int id);
 	void insertCart(CartDto cart);
     void changetoorder(String id);
 }

@@ -7,7 +7,12 @@ public class ReviewDto {
     private String writer;
     private String review;
 
-    public ReviewDto() {
+    public ReviewDto(int no, int menuid, String date, String writer, String review) {
+        this.no = no;
+        this.menuid = menuid;
+        this.date = date;
+        this.writer = writer;
+        this.review = review;
     }
 
     public int getNo() {
@@ -22,7 +27,7 @@ public class ReviewDto {
         return menuid;
     }
 
-    public void setMeetingno(int menuid) {
+    public void setMenuid(int menuid) {
         this.menuid = menuid;
     }
 

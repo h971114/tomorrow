@@ -7,5 +7,7 @@ import com.Tomorrow.myapp.model.CartDto;
 public interface CartDao {
 	List<CartDto> getCart(String memberId);
 	void insertCart(CartDto cart);
-	void deleteCart(CartDto cart);
+	void deleteCart(int id);
+	void updateCart(CartDto cartDto);
+	CartDto getOne(CartDto cartDto);
 }
