@@ -84,9 +84,16 @@ class Header extends Component {
                                 </form>
                             </div>
                             <h1 className="logo">
-                                <a href="/">
+                                <Link
+                                    to={{
+                                        pathname: `/`,
+                                        state: {
+                                            id: this.state.id
+                                        }
+                                    }}
+                                >
                                     <img src="/img/logo.png"></img>
-                                </a>
+                                </Link>
                             </h1>
                             {this.state.id === "" &&
                                 <div className="util">
@@ -123,8 +130,16 @@ class Header extends Component {
                                                 <a href="/sellPage">판매자 페이지</a>
                                             }
                                         </li>
-                                        <li>
-                                            <a href="/cart">장바구니 <span>{this.state.cartCnt}</span></a>
+                                        <li><Link
+                                            to={{
+                                                pathname: `/cart`,
+                                                state: {
+                                                    id: this.state.id
+                                                }
+                                            }}
+                                        >
+                                            장바구니 <span>{this.state.cartCnt}</span>
+                                        </Link>
                                         </li>
                                     </ul>
                                 </div>
