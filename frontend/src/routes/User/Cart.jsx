@@ -1,19 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 import '../css/User.css';
 
 const Cart = ({ history }) => {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [amount, setAmount] = useState(1);
     const [pay, setPay] = useState(31900);
+    const [totpay, setTotPay] = useState(0);
+    const [totpayString, setTotPayString] = useState('');
 
     useEffect(() => {
-        document.getElementById('pro1_img').setAttribute('style', 'background-image:url(/img/cart_sample.png)');
+        // document.getElementById('pro1_img').setAttribute('style', 'background-image:url(/img/cart_sample.png)');
 
-    })
-
-    const goBack = () => {
-        history.goBack();
-    };
+        var Uid = localStorage.getItem('id');
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
+            params: {
+                id: Uid
+            }
+        }).then(res => {
+            setPosts(res.data);
+            console.log(res.data.length);
+            var totPrices = 0;
+            for (var i = 0; i < res.data.length; i++) {
+                var thisPrice = res.data[i].price * res.data[i].amount;
+                totPrices = totPrices + thisPrice;
+                // console.log(totPrices);
+            }
+            setTotPay(totPrices);
+            setTotPayString(totPrices.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+        })
+    }, []);
 
     // // 체크박스 전체 선택
     // const handleAllCheck = (checked) => {
@@ -32,27 +51,9 @@ const Cart = ({ history }) => {
     //     }
     // };
 
-    const upAmount = (e) => {
-        var amounts = document.getElementById("amountCnt").value;
-        var pay;
-        if (amount < 9) {
-            amounts = Number(amounts) + 1;
-            pay = amounts * 31900;
-            setAmount(amounts);
-            setPay(pay);
-        }
-    }
-
-    const downAmount = (e) => {
-        var amounts = document.getElementById("amountCnt").value;
-        var pay;
-        if (amount > 1) {
-            amounts = Number(amounts) - 1;
-            pay = amounts * 31900;
-            setAmount(amounts);
-            setPay(pay);
-        }
-    }
+    const goBack = () => {
+        history.goBack();
+    };
 
     return (
         <div id="sub">
@@ -135,56 +136,113 @@ const Cart = ({ history }) => {
                                     <th>합계</th>
                                 </tr>
                             </thead>
+
                             <tbody>
+                                {
+                                    posts.map((post, idx) => {
+                                        var pay = post.amount * post.price;
+                                        var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                        var checkBoxid = "pro" + (idx + 1);
+                                        var pImgId = "pro" + (idx + 1) + "_img";
+                                        var amountCntId = "amountCnt" + (idx + 1);
+                                        var upAmountCntId = "1amountCnt" + (idx + 1);
+                                        var downAmountCntId = "2amountCnt" + (idx + 1);
+                                        var priceString = post.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                        var payId = "eachtotal" + (idx + 1);
 
+                                        const upAmount = (e) => {
+                                            var amounts = document.getElementById(amountCntId).value;
+                                            var totpays = totpay - (post.price * amounts);
+                                            console.log(totpay);
+                                            if (post.amount < 9) {
+                                                amounts = Number(amounts) + 1;
+                                                pay = amounts * post.price;
+                                                post.amount = amounts;
+                                                payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                                document.getElementById(amountCntId).value = post.amount;
+                                                document.getElementById(payId).innerText = payString;
+                                                setTotPay(totpays + pay);
+                                            }
+                                        }
 
-                                <tr className="se1">
-                                    <td className="check">
-                                        <input type="checkbox" className="numchk" />
-                                        <input type="checkbox" className="session_check" id="pro_1" />
-                                        <label htmlFor="pro_1"></label>
-                                    </td>
-                                    <td className="pro_info">
-                                        <a>
-                                            <div>
-                                                <p id="pro1_img">
-                                                    <img src="/img/product_bg.png" />
-                                                </p>
-                                                <span>밀키트 이름</span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <em className="m_block">판매가 : </em>
-                                        <span className="each_price">
-                                            31,900 원
-                                </span></td>
-                                    <td className="amount">
-                                        <div className="a_wrap">
-                                            <a className="amount_down" onClick={downAmount} ></a>
-                                            <input type="text" className="amount txt amount_val" id="amountCnt" value={amount} readOnly />
-                                            <a className="amount_up" onClick={upAmount}></a>
-                                        </div>
-                                    </td>
-                                    <td className="total">
-                                        <em className="m_block">합계 : </em>
-                                        <span className="eachtotal">{pay}</span>원
-                                    <input type="hidden" name="eachtotal[]" className="eachtotal_val" value="31900" />
-                                    </td>
-                                </tr>
+                                        const downAmount = (e) => {
+                                            var amounts = document.getElementById(amountCntId).value;
+                                            var totpays = totpay - (post.price * amounts);
+                                            console.log(totpay);
+                                            if (post.amount > 1) {
+                                                amounts = Number(amounts) - 1;
+                                                pay = amounts * post.price;
+                                                post.amount = amounts;
+                                                payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                                document.getElementById(amountCntId).value = post.amount;
+                                                document.getElementById(payId).innerText = payString;
+                                                setTotPay(totpays + pay);
+                                            }
+                                        }
+
+                                        return (
+                                            <tr className="se1" key={idx}>
+                                                {/* idx, amount, member_id, menu_id, name, price  */}
+                                                <td className="check">
+                                                    <input type="checkbox" className="numchk" />
+                                                    <input type="checkbox" className="session_check" id={checkBoxid} />
+                                                    <label htmlFor={checkBoxid}></label>
+                                                </td>
+                                                <td className="pro_info">
+                                                    <a>
+                                                        <div>
+                                                            {/* <p id={pImgId} style={{ backgroundImage: `url(${img1})` }}>
+                                <img src="/img/product_bg.png" />
+                            </p> */}
+                                                            <span>{post.name}</span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <em className="m_block">판매가 : </em>
+                                                    <span className="each_price">
+                                                        {priceString} 원
+</span></td>
+                                                <td className="amount">
+                                                    <div className="a_wrap">
+                                                        <a className="amount_down" onClick={downAmount} id={downAmountCntId} ></a>
+                                                        <input type="text" className="amount txt amount_val" id={amountCntId} value={post.amount} readOnly />
+                                                        <a className="amount_up" onClick={upAmount} id={upAmountCntId}></a>
+                                                    </div>
+                                                </td>
+                                                <td className="total">
+                                                    <em className="m_block">합계 : </em>
+                                                    <span className="eachtotal" id={payId} >{payString}</span>원
+    <input type="hidden" name="eachtotal[]" className="eachtotal_val" value="31900" />
+                                                </td>
+                                            </tr>
+
+                                        )
+                                    }
+                                    )}
 
                             </tbody>
+                            {/* {posts.map((post, idx) => (
+                                <List
+                                    key={idx}
+                                    amount={post.amount}
+                                    member_id={post.member_id}
+                                    menu_id={post.menu_id}
+                                    name={post.name}
+                                    price={post.price}
+                                />
+                            ))} */}
                         </table>
                     </div>
                     <div className="price_result clear">
                         <span>상품 구매금액
-                        <input type="hidden" name="myTotalPrice" value="31900" id="mytotalprice_val" />
-                            <b id="totalprice"> 31,900</b>
+        <input type="hidden" name="myTotalPrice" value={totpay} id="mytotalprice_val" />
+                            <b id="totalprice"> {totpay}</b>
 
-                            원	+ 배송비 <b id="deliveryprice">
+            원	+ 배송비 <b id="deliveryprice">
                                 0</b>원 <em className="mbr">= 총 합계 <b className="result">
                                 <input type="hidden" name="delivery" value="0" />
-                                <span id="resultVal">31,900</span><span>원</span></b></em></span>
+                                <span id="resultVal">{totpay}</span><span>원</span></b></em></span>
                     </div>
 
                     <div className="util_bt">
@@ -198,7 +256,7 @@ const Cart = ({ history }) => {
                     </div>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }
 export default Cart;

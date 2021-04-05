@@ -20,8 +20,8 @@ class MyPage extends React.Component {
             checkEmail: true,
             checkMobile: true,
             checkPw: false,
-            addr1B: false,
-            addr2B: false
+            addr1B: true,
+            addr2B: true
         }
     }
 
@@ -254,18 +254,24 @@ class MyPage extends React.Component {
             this.state.checkPw === true && this.state.addr1B === true &&
             this.state.addr2B === true) {
             var addr = this.state.zoneCode + " / " + this.state.fullAddress + " / " + this.state.addr2;
-            axios.put(`${process.env.REACT_APP_SERVER_BASE_URL} / member`, {
+            axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/member`, {
                 id: this.state.id,
                 pw: this.state.pw,
                 email: this.state.email,
                 mobile: this.state.mobile,
                 address: addr
             }).then(res => {
-                // console.log(res);
+                console.log(res);
+                alert("됐음~~");
             })
         }
         else {
-            // console.log("안됨...");
+            alert("안됨");
+            console.log(this.state.checkEmail);
+            console.log(this.state.checkMobile);
+            console.log(this.state.checkPw);
+            console.log(this.state.addr1B);
+            console.log(this.state.addr2B);
         }
     }
 

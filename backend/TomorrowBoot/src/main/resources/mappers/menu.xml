@@ -4,9 +4,9 @@
 
 <mapper namespace="menu">
     <insert id="insert" parameterType="menu">
-        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, category, img1, img2, detail)
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, category, img1, img2, detail, shipping_fee)
         VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
-                #{category}, #{img1}, #{img2}, #{detail})
+                #{category}, #{img1}, #{img2}, #{detail}, #{shipping_fee})
     </insert>
     <delete id="delete" parameterType="menu">
         DELETE
@@ -27,6 +27,7 @@
             img1 = #{img1},
             img2 = #{img2},
             detail = #{detail}
+            shipping_fee = #{shipping_fee}
         WHERE id = #{id}
     </update>
     <select id="getMenuInfo" parameterType="int" resultType="menu">
@@ -35,7 +36,7 @@
         WHERE id = #{id};
     </select>
     <select id="getMenu" resultType="menu">
-        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at, shipping_fee
         FROM menu;
     </select>
     <select id="getMenuBySeller" parameterType="String" resultType="menu">
@@ -61,13 +62,12 @@
     <select id="getMenuByNew" resultType="menu">
         SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
         FROM menu where TIMESTAMPDIFF(DAY, create_at, CURDATE( ))
-        ORDER BY create_at DESC
+        ORDER BY create_at DESC LIMIT 4
     </select>
     <select id="getMenuBySale" resultType="menu">
-        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
-        FROM menu
+        SELECT * FROM menu
         WHERE discount_rate > 0
-        ORDER BY discount_rate DESC, create_at DESC;
+        ORDER BY discount_rate DESC, create_at DESC LIMIT 2;
     </select>
     <select id="getMenuByTodaySale" resultType="menu">
         SELECT id, name, price, amount, sell_amount, discount_rate, today_discount_rate, category, img1, img2,  seller_id, subname, create_at,todaysale

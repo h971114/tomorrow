@@ -36,7 +36,8 @@ class Detail extends React.Component {
             seller_id: location.state.seller_id,
             sale_money: location.state.sale_money,
             saleMoneyString: location.state.saleMoneyString,
-            totPay: payString
+            totPay: pay,
+            totPayString: payString
         })
 
         var createYY = location.state.create_at.substring(0, 4);
@@ -85,7 +86,8 @@ class Detail extends React.Component {
             // // console.log(payString);
             this.setState({
                 buyAmount: amounts,
-                totPay: payString,
+                totPay: pay,
+                totPayString: payString,
             })
         }
         else {
@@ -103,11 +105,35 @@ class Detail extends React.Component {
             // // console.log(payString);
             this.setState({
                 buyAmount: amounts,
-                totPay: payString,
+                totPay: pay,
+                totPayString: payString,
             })
         }
         else {
             alert('한 품목당 10개 이상 구매하실 수 없습니다.\n대용량 구매는 문의 게시판을 이용해주세요!');
+        }
+    }
+
+    GoCart = (e) => {
+        if (localStorage.getItem('id') === null) {
+            alert('로그인하시면 장바구니를 이용하실 수 있습니다.');
+            // location.href("/auth");
+            document.location.href = "/auth";
+        }
+        else {
+            var Uid = localStorage.getItem('id');
+            console.log(this.state.buyAmount);
+            console.log(this.state.totPay);
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
+                member_id: Uid,
+                menu_id: this.state.id,
+                name: this.state.name,
+                amount: this.state.buyAmount,
+                price: this.state.totPay
+            }).then(res => {
+                // console.log(res);
+                alert('등록완료~');
+            })
         }
     }
 
@@ -178,12 +204,12 @@ class Detail extends React.Component {
                                 </div>
                                 <div className="total_price">
                                     <b>총 금액(수량):</b>
-                                    <span><b className="price_val">{this.state.totPay}</b>원({this.state.buyAmount}개)</span>
+                                    <span><b className="price_val">{this.state.totPayString}</b>원({this.state.buyAmount}개)</span>
                                 </div>
 
                                 <div className="submit_bt clear">
-                                    <a className="addCartBtn" id="pop1">장바구니</a>
-                                    <a className="purchase">바로구매</a>
+                                    <a className="addCartBtn" id="pop1" onClick={this.GoCart} >장바구니</a>
+                                    <a className="purchase" >바로구매</a>
                                 </div>
                             </div>
                         </div>
