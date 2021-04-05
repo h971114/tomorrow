@@ -52,6 +52,11 @@ public class MenuDaoImpl implements MenuDao {
     }
     
     @Override
+    public MenuDto getMenubyid(int id) {
+        return sqlSession.selectOne("menu.getMenubyid", id);
+    }
+    
+    @Override
     public List<MenuDto> getMenu() {
         return sqlSession.selectList("menu.getMenu");
     }

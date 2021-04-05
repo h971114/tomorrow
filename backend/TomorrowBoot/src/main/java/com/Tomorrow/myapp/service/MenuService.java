@@ -26,4 +26,5 @@ public interface MenuService {
 	boolean postReview(ReviewDto reviewDto);
 	boolean updateReview(ReviewDto reviewDto);
 	boolean deleteReview(int id);
+	MenuDto getMenubyid(int id);
 }

@@ -70,6 +70,10 @@ public class MenuController {
     public ResponseEntity<MenuDto> getMenuInfo(@PathVariable(value = "no") int id, HttpServletRequest req) throws SQLException {
         return new ResponseEntity<MenuDto>(menuService.getMenuInfo(id), HttpStatus.ACCEPTED);
     }
+    @GetMapping("gmbi/{no}")
+    public ResponseEntity<MenuDto> getMenubyid(@PathVariable(value = "no") int id, HttpServletRequest req) throws SQLException {
+        return new ResponseEntity<MenuDto>(menuService.getMenubyid(id), HttpStatus.ACCEPTED);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<MenuDto>> getMenu() {
