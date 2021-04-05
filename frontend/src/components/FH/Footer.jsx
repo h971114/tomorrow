@@ -5,7 +5,6 @@ import "./Footer.css";
 class Footer extends Component {
 
     render() {
-        if (window.location.pathname === '/Auth') return null;
         return (
             <div id="footer">
                 <div className="inner">

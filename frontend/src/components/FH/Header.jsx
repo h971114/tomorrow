@@ -59,7 +59,6 @@ class Header extends Component {
     };
 
     render() {
-        if (window.location.pathname === '/Auth') return null;
         return (
             <div id="header">
                 {this.state.id === "" &&
