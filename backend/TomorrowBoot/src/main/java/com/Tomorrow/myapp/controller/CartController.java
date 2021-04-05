@@ -47,8 +47,8 @@ public class CartController {
     
     //장바구니 삭제
     @DeleteMapping("")
-    public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
-    	cartService.deleteCart(cart);
+    public ResponseEntity<String> deleteCart(@RequestParam("id") String id, HttpServletRequest req){
+    	cartService.deleteCart(Integer.parseInt(id));
     	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     //장바구니 검색(전부긁어오기)
@@ -58,8 +58,9 @@ public class CartController {
     	List<Map<String, String>> resultmap = new ArrayList<Map<String,String>>();
     	for(CartDto cart : carts) {
     		Map<String, String> tmpmap = new HashMap<String, String>();
-    		MenuDto tmpmenu = menuService.getMenubyid(Integer.parseInt(id));
+    		MenuDto tmpmenu = menuService.getMenubyid(Integer.parseInt(cart.getMenu_id()));
     		tmpmap.put("id", id);
+    		tmpmap.put("menu_id", cart.getMenu_id());
     		tmpmap.put("name", tmpmenu.getName());
     		tmpmap.put("price", Integer.toString(tmpmenu.getPrice()));
     		tmpmap.put("amount", cart.getAmount());
@@ -67,6 +68,8 @@ public class CartController {
     		tmpmap.put("category", Integer.toString(tmpmenu.getCategory()));
     		tmpmap.put("img1", tmpmenu.getImg1());
     		tmpmap.put("img2",tmpmenu.getImg2());
+    		tmpmap.put("todaysale",tmpmenu.getTodaysale());
+    		tmpmap.put("tdr",Integer.toString(tmpmenu.getToday_discount_rate()));
     		tmpmap.put("seller_id", tmpmenu.getSeller_id());
     		tmpmap.put("subname", tmpmenu.getSubname());
     		tmpmap.put("create_at", tmpmenu.getCreate_at());
@@ -77,8 +80,7 @@ public class CartController {
     // 장바구니 갯수 검색
     @GetMapping("/count")
     public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
-        List<CartDto> cartlist = new ArrayList<>();
-        cartlist = cartService.getCartlist(id);
+        List<CartDto> cartlist = cartService.getCartlist(id);
         return new ResponseEntity<>(cartlist.size(), HttpStatus.ACCEPTED);
     }
 }

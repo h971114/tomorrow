@@ -1,60 +1,15 @@
 package com.Tomorrow.myapp.model;
 
+import lombok.*;
+
 import java.util.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class PayDto {
-
 	private String tid, next_redirect_pc_url;
     private Date created_at;
-    
-    
-	public PayDto() {
-		super();
-	}
-
-
-	public PayDto(String tid, String next_redirect_pc_url, Date created_at) {
-		super();
-		this.tid = tid;
-		this.next_redirect_pc_url = next_redirect_pc_url;
-		this.created_at = created_at;
-	}
-
-
-	public String getTid() {
-		return tid;
-	}
-
-
-	public void setTid(String tid) {
-		this.tid = tid;
-	}
-
-
-	public String getNext_redirect_pc_url() {
-		return next_redirect_pc_url;
-	}
-
-
-	public void setNext_redirect_pc_url(String next_redirect_pc_url) {
-		this.next_redirect_pc_url = next_redirect_pc_url;
-	}
-
-
-	public Date getCreated_at() {
-		return created_at;
-	}
-
-
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
-	}
-
-
-	@Override
-	public String toString() {
-		return "PayDto [tid=" + tid + ", next_redirect_pc_url=" + next_redirect_pc_url + ", created_at=" + created_at
-				+ "]";
-	}
-	
 }

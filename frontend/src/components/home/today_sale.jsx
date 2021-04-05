@@ -111,6 +111,7 @@ const Today_sale = () => {
                     var Days = array.menu.todaysale
                     var Mm = Days.substring(5, 7);
                     var Dd = Days.substring(8, 10);
+<<<<<<< HEAD
 
                     if (nowMm === Mm && nowDd === Dd) {
                         // console.log(array.menu.name);
@@ -179,6 +180,76 @@ const Today_sale = () => {
             setPriceString3(PriceString3);
         }
 
+=======
+
+                    if (nowMm === Mm && nowDd === Dd) {
+                        // console.log(array.menu.name);
+                        setName(array.menu.name);
+                        setSubName(array.menu.subname);
+                        setTDR(array.menu.today_discount_rate);
+                        setAmount(array.menu.amount);
+                        setSellAmount(array.menu.sell_amount);
+                        setImg1(array.menu.img1);
+                        setImg2(array.menu.img2);
+                        setId(array.menu.id);
+                        setsale_money(array.sale_price);
+                        setPrice(array.menu.price);
+                        setSeller(array.menu.seller_id);
+                        setCreate(array.menu.create_at);
+                        saleMoneyString = array.sale_price;
+                        PriceString = array.menu.price;
+                    }
+                    if (tomorrow1Mm === Mm && tomorrow1Dd === Dd) {
+                        setName2(array.menu.name);
+                        setSubName2(array.menu.subname);
+                        setTDR2(array.menu.today_discount_rate);
+                        setAmount2(array.menu.amount);
+                        setSellAmount2(array.menu.sell_amount);
+                        setImg12(array.menu.img1);
+                        setImg22(array.menu.img2);
+                        setId2(array.menu.id);
+                        setsale_money2(array.sale_price);
+                        setPrice2(array.menu.price);
+                        setSeller2(array.menu.seller_id);
+                        setCreate2(array.menu.create_at);
+                        saleMoneyString2 = array.sale_price;
+                        PriceString2 = array.menu.price;
+                    }
+                    if (tomorrow2Mm === Mm && tomorrow2Dd === Dd) {
+                        setName3(array.menu.name);
+                        setSubName3(array.menu.subname);
+                        setTDR3(array.menu.today_discount_rate);
+                        setAmount3(array.menu.amount);
+                        setSellAmount3(array.menu.sell_amount);
+                        setImg13(array.menu.img1);
+                        setImg23(array.menu.img2);
+                        setId3(array.menu.id);
+                        setsale_money3(array.sale_price);
+                        setPrice3(array.menu.price);
+                        setSeller3(array.menu.seller_id);
+                        setCreate3(array.menu.create_at);
+                        saleMoneyString3 = array.sale_price;
+                        PriceString3 = array.menu.price;
+                    }
+                }
+            )
+
+            saleMoneyString = saleMoneyString.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            PriceString = PriceString.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            saleMoneyString2 = saleMoneyString2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            PriceString2 = PriceString2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            saleMoneyString3 = saleMoneyString3.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            PriceString3 = PriceString3.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+            setsale_moneyString(saleMoneyString);
+            setPriceString(PriceString);
+            setsale_moneyString2(saleMoneyString2);
+            setPriceString2(PriceString2);
+            setsale_moneyString3(saleMoneyString3);
+            setPriceString3(PriceString3);
+        }
+
+>>>>>>> 6a6353ab02842e827bb571110445c8d74e234a15
         getdata();
     }, []);
 
@@ -230,6 +301,7 @@ const Today_sale = () => {
                     </Link>
                 </li>
                 <li>
+<<<<<<< HEAD
                     <Link
                         to={{
                             pathname: `/product/detail/${id2}`,
@@ -248,6 +320,9 @@ const Today_sale = () => {
                             }
                         }}
                     >
+=======
+                    <a style={{ cursor: `default` }}>
+>>>>>>> 6a6353ab02842e827bb571110445c8d74e234a15
                         <div className="pic">
                             <p className="pro_img" style={{ backgroundImage: `url(${img12})` }}>
                                 <img src="/img/time_sale.png" />
@@ -274,6 +349,7 @@ const Today_sale = () => {
                     </Link>
                 </li>
                 <li>
+<<<<<<< HEAD
                     <Link
                         to={{
                             pathname: `/product/detail/${id3}`,
@@ -292,6 +368,9 @@ const Today_sale = () => {
                             }
                         }}
                     >
+=======
+                    <a style={{ cursor: `default` }}>
+>>>>>>> 6a6353ab02842e827bb571110445c8d74e234a15
                         <div className="pic">
                             <p className="pro_img" style={{ backgroundImage: `url(${img13})` }}>
                                 <img src="/img/time_sale.png" />

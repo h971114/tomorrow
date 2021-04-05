@@ -2,6 +2,7 @@ package com.Tomorrow.myapp.model;
 
 import java.math.BigInteger;
 
+
 public class TransactionDto {
 	public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(9000);
 	

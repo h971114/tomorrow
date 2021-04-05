@@ -12,6 +12,7 @@ import java.util.Map;
 @ControllerAdvice
 //@Slf4j
 public class ExceptionController {
+    private final String FAIL = "FAIL";
 
     // 400
     @ExceptionHandler({
