@@ -28,6 +28,8 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/notice")
 public class NoticeController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final NoticeService noticeService;
 
     @Autowired
@@ -45,9 +47,9 @@ public class NoticeController {
     public ResponseEntity<String> writeNotice(@RequestBody NoticeDto noticeDto) throws SQLException {
         String conclusion = "";
         if (noticeService.writeNotice(noticeDto)) {
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         } else {
-            conclusion = "FAIL";
+            conclusion = FAIL;
         }
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
@@ -56,7 +58,7 @@ public class NoticeController {
     @GetMapping("/list")
     public ResponseEntity<List<NoticeDto>> listNotice() throws SQLException {
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(("conclusion"), "SUCCESS");
+        resultMap.put(("conclusion"), SUCCESS);
         resultMap.put(("notice"), noticeService.listNotice());
         return new ResponseEntity<>(noticeService.listNotice(), HttpStatus.ACCEPTED);
     }
@@ -74,9 +76,9 @@ public class NoticeController {
     public ResponseEntity<String> updateNotice(@RequestBody NoticeDto noticeDto) throws SQLException, IOException {
         String conclusion = "";
         if (noticeService.updateNotice(noticeDto)) {
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         } else {
-            conclusion = "FAIL";
+            conclusion = FAIL;
         }
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
@@ -87,9 +89,9 @@ public class NoticeController {
     public ResponseEntity<String> deletenotice(@PathVariable(value = "no") int noticeNo) {
         String conclusion = "";
         if(noticeService.deleteNotice(noticeNo)){
-        	conclusion = "SUCCESS";
+        	conclusion = SUCCESS;
 		}else {
-        	conclusion = "FAIL";
+        	conclusion = FAIL;
 		}
         return new ResponseEntity<>(conclusion, HttpStatus.ACCEPTED);
     }

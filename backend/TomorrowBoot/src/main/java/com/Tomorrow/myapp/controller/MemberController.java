@@ -59,7 +59,8 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/member")
 public class MemberController {
-
+	private final String SUCCESS = "SUCCESS";
+	private final String FAIL = "FAIL";
 	// service
 	private final MemberService memberService;
 
@@ -102,7 +103,7 @@ public class MemberController {
 		HttpStatus status = HttpStatus.ACCEPTED;
 		System.out.println("delete to /member done");
 		System.out.println("회원탈퇴");
-		return new ResponseEntity<String>("SUCCESS", status);
+		return new ResponseEntity<String>(SUCCESS, status);
 	}
 	// 로그인
 	@ApiOperation(value = "로그인", notes = "로그인", response = Map.class)
@@ -118,10 +119,10 @@ public class MemberController {
 		System.out.println(memberbody);
 		memberbody.setPw(sha256(memberbody.getPw()));
 		if (memberService.login(memberbody)) {
-			conclusion = "SUCCESS";
+			conclusion = SUCCESS;
 			MemberDto tmpmember = memberService.getMemberInfo(memberbody.getId());
 			String token = jwtService.create("member", tmpmember, "id");
-			conclusionmap.put("message", "SUCCESS");
+			conclusionmap.put("message", SUCCESS);
 			conclusionmap.put("name", tmpmember.getName());
 			if(tmpmember.getSeller() == 1) {
 				conclusionmap.put("isseller", "seller");
@@ -131,7 +132,7 @@ public class MemberController {
 			}
 			conclusionmap.put("token", token);
 		} else {
-			conclusionmap.put("message", "FAIL");
+			conclusionmap.put("message", FAIL);
 		}
 		return new ResponseEntity<Map<String, String>>(conclusionmap, status);
 	}
@@ -149,7 +150,7 @@ public class MemberController {
 		System.out.println("jwt인증");
 		if (jwtService.isUsable(jwttoken)) {
 			MemberDto newmember = (MemberDto) jwtService.get("member", jwttoken);
-			conclusionmap.put("message", "SUCCESS");
+			conclusionmap.put("message", SUCCESS);
 			conclusionmap.put("id", newmember.getId());
 			conclusionmap.put("nickname", newmember.getNickname());
 			conclusionmap.put("name", newmember.getName());
@@ -160,7 +161,7 @@ public class MemberController {
 				conclusionmap.put("isseller", "buyer");
 			}
 		} else {
-			conclusionmap.put("message", "FAIL");
+			conclusionmap.put("message", FAIL);
 		}
 		return new ResponseEntity<Map<String, String>>(conclusionmap, status);
 	}
@@ -175,9 +176,9 @@ public class MemberController {
 		System.out.println("get to /member/same done");
 		System.out.println("중복검사");
 		if (memberService.sameId(memberbody.get("id"))) {
-			conclusion = "SUCCESS";
+			conclusion = SUCCESS;
 		} else {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -193,9 +194,9 @@ public class MemberController {
 		System.out.println("get to /member/samenick done");
 		System.out.println("중복검사");
 		if (memberService.sameNick(memberbody.get("nickname"))) {
-			conclusion = "SUCCESS";
+			conclusion = SUCCESS;
 		} else {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -225,10 +226,10 @@ public class MemberController {
 		memberbody.setPw(sha256(memberbody.getPw()));
 		if (memberService.join(memberbody)) {
 			if(walletService.join(memberbody.getId())) {
-				conclusion = "SUCCESS";
+				conclusion = SUCCESS;
 			}
 		} else {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -252,7 +253,7 @@ public class MemberController {
 	@PutMapping("")
 	public ResponseEntity<String> updateMember(@RequestBody MemberDto memberbody, HttpServletRequest req) throws NoSuchAlgorithmException {
 		System.out.println(req);
-		String conclusion = "SUCCESS";
+		String conclusion = SUCCESS;
 		HttpStatus status = HttpStatus.ACCEPTED;
 		System.out.println("put to /member done");
 		System.out.println("회원수정");
@@ -274,7 +275,7 @@ public class MemberController {
 		System.out.println(memberbody.containsKey("samecheck"));
 		System.out.println(memberService.sameEmail(memberbody.get("email")));
 		if (memberbody.containsKey("samecheck") && !memberService.sameEmail(memberbody.get("email"))) {
-			token = "FAIL";
+			token = FAIL;
 		} else {
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setTo(memberbody.get("email"));
@@ -302,9 +303,9 @@ public class MemberController {
 		System.out.println("get to /member/auth done");
 		System.out.println("토큰인증");
 		if (jwtService.get("email", memberbody.get("token")).equals(memberbody.get("auth"))) {
-			conclusion = "SUCCESS";
+			conclusion = SUCCESS;
 		} else {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -325,7 +326,7 @@ public class MemberController {
 		conclusion = memberService.findid(memberbody);
 		System.out.println(conclusion);
 		if (conclusion == null) {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -346,10 +347,10 @@ public class MemberController {
 		memberbody.setId(memberid);
 		conclusion = memberService.findpw(memberbody);
 		if (conclusion == null) {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 		}
 		else {
-			conclusion = "SUCCESS";
+			conclusion = SUCCESS;
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
@@ -365,7 +366,7 @@ public class MemberController {
 		MemberDto newmemberbody = memberService.getMemberInfo(memberbody.getId());
 		newmemberbody.setPw(sha256(memberbody.getPw()));
 		memberService.update(newmemberbody);
-		conclusion = "SUCCESS";
+		conclusion = SUCCESS;
 		return new ResponseEntity<String>(conclusion, status);
 	}
 
@@ -437,7 +438,7 @@ public class MemberController {
 		String infoStr = getProfileFromNaver(session.getAttribute("currentAT").toString());
 		Map<String, Object> infoMap = new JSONParser(infoStr).parseObject();
 		Map<String, String> conclusionmap = new HashMap<String, String>();
-		if (infoMap.get("message").equals("success")) {
+		if (infoMap.get("message").equals(SUCCESS)) {
 			Map<String, Object> infoResp = (Map<String, Object>) infoMap.get("response");
 			String uniqueid = "nav_" + infoResp.get("id");
 			MemberDto newmember = new MemberDto(uniqueid, uniqueid, infoResp.get("name").toString(),
@@ -451,7 +452,7 @@ public class MemberController {
 			}
 			String token = jwtService.create("id", newmember.getId(), "id");
 			if (!conclusionmap.containsKey("message")) {
-				conclusionmap.put("message", "SUCCESS");
+				conclusionmap.put("message", SUCCESS);
 			}
 			conclusionmap.put("token", token);
 			conclusionmap.put("id", newmember.getId());
@@ -459,7 +460,7 @@ public class MemberController {
 			conclusionmap.put("name", newmember.getName());
 		}
 		if (!conclusionmap.containsKey("message")) {
-			conclusionmap.put("message", "FAIL");
+			conclusionmap.put("message", FAIL);
 		}
 		return new ResponseEntity<Map<String, String>>(conclusionmap, status);
 //   return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
@@ -528,7 +529,7 @@ public class MemberController {
 		}
 		String token = jwtService.create("id", newmember.getId(), "id");
 		if (!conclusionmap.containsKey("message")) {
-			conclusionmap.put("message", "SUCCESS");
+			conclusionmap.put("message", SUCCESS);
 		}
 		conclusionmap.put("token", token);
 		conclusionmap.put("id", newmember.getId());
@@ -566,7 +567,7 @@ public class MemberController {
 		}
 		String token = jwtService.create("id", newmember.getId(), "id");
 		if (!conclusionmap.containsKey("message")) {
-			conclusionmap.put("message", "SUCCESS");
+			conclusionmap.put("message", SUCCESS);
 		}
 		conclusionmap.put("token", token);
 		conclusionmap.put("id", newmember.getId());

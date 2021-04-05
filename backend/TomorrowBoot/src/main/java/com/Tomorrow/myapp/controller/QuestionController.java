@@ -22,6 +22,8 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/question")
 public class QuestionController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
 
     private final QuestionService questionService;
 
@@ -39,10 +41,10 @@ public class QuestionController {
         if(questionDto.getFile2()!=null) questionMap.put("file2", questionDto.getFile2().getBytes());
 
         if(questionService.writeQuestion(questionDto, questionMap)) {
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         }
         else {
-            conclusion = "FAIL";
+            conclusion = FAIL;
         }
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
@@ -54,10 +56,10 @@ public class QuestionController {
 
         if(list.size()>0) {
             resultMap.put("list", list);
-            resultMap.put("conclusion", "SUCCESS");
+            resultMap.put("conclusion", SUCCESS);
         }else{
             resultMap.put("list",null);
-            resultMap.put("conclusion", "FAIL");
+            resultMap.put("conclusion", FAIL);
         }
         return new ResponseEntity<>(resultMap, HttpStatus.ACCEPTED);
     }
@@ -69,10 +71,10 @@ public class QuestionController {
 
         if(list.size()>0) {
             resultMap.put("list", list);
-            resultMap.put("conclusion", "SUCCESS");
+            resultMap.put("conclusion", SUCCESS);
         }else{
             resultMap.put("list",null);
-            resultMap.put("conclusion", "FAIL");
+            resultMap.put("conclusion", FAIL);
         }
         return new ResponseEntity<>(resultMap, HttpStatus.ACCEPTED);
     }
@@ -93,10 +95,10 @@ public class QuestionController {
         if(questionDto.getFile2()!=null) questionMap.put("file2", questionDto.getFile2().getBytes());
 
         if(questionService.updateQuestion(questionDto, questionMap)) {
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         }
         else {
-            conclusion = "FAIL";
+            conclusion = FAIL;
         }
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
@@ -108,9 +110,9 @@ public class QuestionController {
         String conclusion = "";
 
         if(questionService.deleteQuestion(no))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
 
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
