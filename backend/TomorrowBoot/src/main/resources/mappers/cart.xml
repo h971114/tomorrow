@@ -10,6 +10,6 @@
 		DELETE FROM cart WHERE id = #{id}
 	</delete>
 	<select id="getlist" parameterType="String" resultType="cart">
-		SELECT * FROM cart WHERE member_id = #{memberId}
+		SELECT * FROM cart WHERE member_id = #{member_id}
 	</select>
 </mapper>
