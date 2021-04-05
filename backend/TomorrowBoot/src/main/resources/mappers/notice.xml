@@ -12,7 +12,7 @@
 	<select id="listNotice" resultType="notice">
 		select @ROWNUM := @ROWNUM + 1 AS ROWNUM, n.* 
 		from notice n,(select @ROWNUM:=0) tmp
-		WHERE meetingno=0 ORDER BY ROWNUM DESC
+		ORDER BY ROWNUM DESC
 	</select>
 
 	<!-- 공지사항 상세정보 -->
