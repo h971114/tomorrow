@@ -682,6 +682,7 @@ td.addr #zipcode {
 	font-size:15px;
 	font-weight:400;
 }
+.id_section td a#gopost,
 td.addr a#gopost {
 	display:inline-block;
 	height:34px;

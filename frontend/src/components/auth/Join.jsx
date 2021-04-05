@@ -1,15 +1,13 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, Fragment } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import DaumPostCode from 'react-daum-postcode';
+
+
 import { instanceOf } from 'prop-types'
 import { withCookies, Cookies } from 'react-cookie';
 
-
-class MyPage extends React.Component {
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    };
-
+class Find extends React.Component {
     constructor(props) {
         super();
 
@@ -17,59 +15,13 @@ class MyPage extends React.Component {
         this.state = {
             modalOpen: false,
             isdaumpost: false,
-            checkEmail: true,
-            checkMobile: true,
+            checkEmail: false,
+            checkMobile: false,
             checkPw: false,
-            addr1B: true,
-            addr2B: true
-        }
-    }
-
-    componentDidMount() {
-        const { location } = this.props;
-
-        var id = location.state.id;
-        this.setState({
-            id: id
-        })
-
-        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
-        ).then(res => {
-            // // console.log(res.data);
-
-            this.setState({
-                name: res.data.name,
-                email: res.data.email,
-                points: res.data.points,
-                mobile: res.data.mobile,
-                addr: res.data.address
-            })
-
-            document.getElementById('cell').value = this.state.mobile;
-            document.getElementById('email').value = this.state.email;
-
-            var points = this.state.points;
-            var pointsString = points.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-            this.setState({
-                pointsString: pointsString
-            })
-
-            var addrs = this.state.addr;
-            // // console.log(addrs);
-            var addrArray = addrs.split(' / ');
-            this.setState({
-                zoneCode: addrArray[0],
-                fullAddress: addrArray[1],
-                addr2: addrArray[2]
-            })
-
-        });
-    }
-
-    componentWillUnmount() {
-        this.state = {
-            modalOpen: false
+            addr1B: false,
+            addr2B: false,
+            checkId: false,
+            checkName: false
         }
     }
 
@@ -93,8 +45,8 @@ class MyPage extends React.Component {
             addr1B: true,
             modalOpen: false
         })
-        // // console.log(this.state.zoneCode);
-        // // console.log(this.state.fullAddress);
+        document.getElementById('zipcode').value = zoneCodes;
+        document.getElementById('addr1').value = AllAddress;
     }
 
     openModal = () => {
@@ -107,6 +59,19 @@ class MyPage extends React.Component {
         // // console.log("닫혔따");
         this.setState({
             modalOpen: false
+        })
+    }
+
+    htChange = (e) => {
+        this.setState({
+            hometax: e.target.value
+        })
+    }
+    checkHT = () => {
+        var number = this.state.hometax;
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/hometax/` + number, {
+        }).then(res => {
+            console.log(res);
         })
     }
 
@@ -125,6 +90,45 @@ class MyPage extends React.Component {
             })
         }
     }
+
+    idChange = (e) => {
+        console.log(e.target.value);
+        this.setState({
+            id: e.target.value
+        })
+    }
+    checkID = (e) => {
+        e.preventDefault();
+        var idReg = /^[a-z|\S]+[a-z0-9|\S]{5,19}$/g;
+        // console.log(!idReg.test(this.state.id));
+        if (idReg.test(this.state.id)) {
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/same`, {
+                id: this.state.id
+            }).then(res => {
+                console.log(res);
+                if (res.data === "SUCCESS") {
+                    this.setState({
+                        checkId: true
+                    });
+                    document.getElementById('validateId').textContent = "사용가능한 아이디입니다.";
+                    document.getElementById('validateId').setAttribute('style', 'color:blue');
+                }
+                else {
+                    this.setState({
+                        checkId: false
+                    });
+                    document.getElementById('validateId').textContent = "이미 존재하는 아이디입니다.";
+                    document.getElementById('validateId').setAttribute('style', 'color: #ff3535');
+                }
+            });
+        } else {
+            this.setState({
+                checkId: false
+            });
+            document.getElementById('validateId').textContent = "양식을 맞춰 주세요";
+            document.getElementById('validateId').setAttribute('style', 'color: #ff3535');
+        }
+    };
 
     pwChange = (e) => {
         var pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^])[A-Za-z\d$@$!^%*#?&|\S]{8,}$/g;
@@ -246,8 +250,31 @@ class MyPage extends React.Component {
         }
     }
 
-    modify = (e) => {
-        if (this.state.checkEmail === true && this.state.checkMobile === true &&
+    nameChange = (e) => {
+        var nameReg = /^[가-힣|\S]{2,4}$/g;
+        if (!nameReg.test(e.target.value)) {
+            this.setState({
+                checkName: false
+            });
+            // document.getElementById('joinbtn').disabled = true;
+            document.getElementById('validateName').textContent = "이름은 2~4자 사이의 한국어 입니다.";
+            document.getElementById('validateName').setAttribute('style', 'color: #ff3535');
+        }
+        else {
+            document.getElementById('validateName').textContent = "";
+            this.setState({
+                name: e.target.value,
+                checkName: true
+            });
+            // if (this.state.checkId === true && this.state.checkEmail === true && this.state.checkMobile === true && this.state.checkName === true && this.state.checkNickname === true && this.state.checkPw === true) {
+            //   document.getElementById('joinbtn').disabled = false;
+            // }
+        }
+    }
+
+    join = (e) => {
+        if (this.state.checkId === true && this.state.checkName === true &&
+            this.state.checkEmail === true && this.state.checkMobile === true &&
             this.state.checkPw === true && this.state.addr1B === true &&
             this.state.addr2B === true) {
             var addr = this.state.zoneCode + " / " + this.state.fullAddress + " / " + this.state.addr2;
@@ -259,7 +286,8 @@ class MyPage extends React.Component {
                 address: addr
             }).then(res => {
                 console.log(res);
-                alert("됐음~~");
+                alert("회원가입 완료");
+
             })
         }
         else {
@@ -272,33 +300,15 @@ class MyPage extends React.Component {
         }
     }
 
-    fireUser = (e) => {
-        axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + this.state.id, {
-            id: this.state.id,
-        }).then(res => {
-            alert("회원탈퇴가 완료되었습니다.");
-            this.logout();
-        })
-    }
-
-    logout = (e) => {
-        const { cookies } = this.props;
-
-        window.localStorage.clear();
-        cookies.remove('id');
-        cookies.remove('token');
-        cookies.remove('isSeller');
-        window.location.replace("/");
-    };
 
     render() {
+
         const {
             modalOpen,
             fullAddress,
             zoneCode,
             addr2
         } = this.state;
-
         const width = 595;
         const height = 450;
         const modalStyle = {
@@ -312,27 +322,12 @@ class MyPage extends React.Component {
         }
         return (
             <div id="sub">
-                <div className="inner_wrap mypage">
+                <div className="inner_wrap join_page">
+                    <div className="top_visual" style={{ background: `#f4f4f4` }}>
+                        <p className="pc" style={{ backgroundImage: `url(/img/joinbanner.png)` }}></p>
+                    </div>
                     <div className="size sub_page">
-                        <div className="cs_tab">
-                            <div className="sub">
-                                <ul className="clear">
-                                    <li className="itemList2">
-                                        <a href="/mypage/" className="on">
-                                            개인정보
-                                        <img src="/img/bbs_tab_arrow.png" />
-                                        </a>
-                                    </li>
-                                    <li className="itemList2">
-                                        <a href="/mypage/order/">
-                                            주문내역
-                                        <img src="/img/bbs_tab_arrow.png" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <h4 className="cs_title">개인정보</h4>
+                        <h4 className="cs_title" style={{ marginTop: `50px` }}>회원가입</h4>
                         <form name="board" id="board">
                             <div className="member bbs">
                                 <table className="write mt30 join">
@@ -346,7 +341,13 @@ class MyPage extends React.Component {
                                     <tbody>
                                         <tr className="id_section">
                                             <th>아이디</th>
-                                            <td>{this.state.id}</td>
+                                            <td>
+                                                <p class="ipt_box">
+                                                    <input type="text" name="id" id="id" class="ipt" onChange={this.idChange} />
+                                                    <button class="ipt_btn" onClick={this.checkID} style={{ border: `none` }}>중복확인</button>
+                                                    <span className="ptxt" id="validateId">아이디는 영어와 숫자 조합으로 5자 이상으로 입력해주세요.</span>
+                                                </p>
+                                            </td>
                                         </tr>
                                         <tr className="line2">
                                             <th>비밀번호</th>
@@ -361,7 +362,9 @@ class MyPage extends React.Component {
                                         </tr>
                                         <tr className="name">
                                             <th>이름</th>
-                                            <td>{this.state.name}</td>
+                                            <td>
+                                                <input type="text" id="inputName" className="ipt" onChange={this.nameChange} />
+                                                <span className="ptxt" id="validateName">한글 2~3글자의 이름을 작성해주세요.</span></td>
                                         </tr>
                                         <tr>
                                             <th className="phone">휴대폰번호</th>
@@ -381,29 +384,35 @@ class MyPage extends React.Component {
                                             <th className="addr_th"><span>주소</span></th>
                                             <td colSpan="3" className="addr">
                                                 <p className="clear">
-                                                    <a onClick={this.openModal}><input type="text" name="zipcode" id="zipcode" className="wid200" value={zoneCode == null ? "" : zoneCode} readOnly /></a>
+                                                    <a onClick={this.openModal}><input type="text" name="zipcode" id="zipcode" className="wid200" readOnly /></a>
                                                     <a onClick={this.openModal} id="gopost">우편번호</a>
                                                 </p>
                                                 <p className="inline">
-                                                    <input type="text" name="addr1" id="addr1" value={fullAddress == null ? "" : fullAddress} readOnly />
+                                                    <input type="text" name="addr1" id="addr1" readOnly />
                                                 </p>
                                                 <p className="inline">
-                                                    <input type="text" name="addr2" id="addr2" placeholder="상세 주소를 입력하세요" onChange={this.addr2Change} value={addr2 == null ? "" : addr2} />
+                                                    <input type="text" name="addr2" id="addr2" placeholder="상세 주소를 입력하세요" onChange={this.addr2Change} />
                                                 </p>
                                             </td>
                                         </tr>
                                         <tr className="point">
-                                            <th>적립금</th>
-                                            <td><span className="point_span">{this.state.pointsString}</span> Point</td>
+                                            <th>사업자 등록번호</th>
+                                            <td>
+                                                <p class="ipt_box">
+                                                    <input type="text" name="hometax" id="hometax" class="ipt" onChange={this.htChange} />
+                                                    <button class="ipt_btn" onClick={this.checkHT} style={{ border: `none` }}>확인</button>
+                                                    <span className="ptxt" id="validateId">사업자 분들만 입력해주세요!!</span>
+                                                </p>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
 
                                 <div className="color_btnSet clear">
                                     <div className="clear">
-                                        <a className="btn" onClick={this.modify}>확인</a>
+                                        <a className="btn" onClick={this.join}>회원가입</a>
                                         <a className="btn" href="/">취소</a>
-                                        <a className="btn fl_r" onClick={this.fireUser}>회원탈퇴</a>
+
                                     </div>
                                 </div>
                             </div>
@@ -432,6 +441,4 @@ class MyPage extends React.Component {
         )
     }
 }
-
-
-export default withCookies(MyPage);
+export default Find;

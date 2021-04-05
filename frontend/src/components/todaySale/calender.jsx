@@ -54,8 +54,6 @@ const Calender = () => {
             var num = 0;
             for (var i = todayLabel; i <= totdays + todayLabel - 1; i++) {
                 // console.log(num);
-                var imgLink = '/img/calender_sample' + i + '.png';
-                imgLink.replace(/\@/g, "/");
                 var str = "";
                 if (date == nowDd) {
                     document.getElementById("d" + i).classList.add("today");

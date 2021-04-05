@@ -13,7 +13,7 @@ class Order extends React.Component {
 
     componentDidMount() {
         const { location } = this.props;
-        // console.log(location.state);
+        console.log(location.state.posts);
         this.setState({
             posts: location.state.posts
         })
@@ -154,13 +154,48 @@ class Order extends React.Component {
     }
 
     payStart = (e) => {
+        var Uid = localStorage.getItem('id');
+
         var j = this.state.posts.length;
-        var List = function () {
-            for (var i = 0; i < j; i++) {
-                this.item_name = this.state.posts[i].name;
-            }
-            // this.item_name = ''
+        var List = new Object();
+
+        var arrnowpayHistory = new Array();
+        for (var i = 0; i < j; i++) {
+            var realPrice = this.state.posts[i].price;
+            var date = new Date().getDate();
+            // console.log(date);
+            if (date < 10)
+                date = '0' + date;
+
+            var days = this.state.posts[i].todaysale;
+            days = days.substr(days.length - 2, 2);
+            // console.log(days);
+            if (date === days)
+                realPrice = this.state.posts[i].price / 100 * (100 - this.state.posts[i].tdr);
+            else if (this.state.posts[i].discount_rate > 0)
+                realPrice = this.state.posts[i].price / 100 * (100 - this.state.posts[i].discount_rate);
+
+            var thisPrice = realPrice * this.state.posts[i].amount;
+
+            // var itemID = "nowpay" + i;
+            var nowpay = new Object();
+            nowpay.item_name = this.state.posts[i].name;
+            nowpay.item_code = this.state.posts[i].menu_id;
+            nowpay.quantity = this.state.posts[i].amount;
+            nowpay.total_mount = thisPrice;
+            nowpay.tax_free_amount = 0;
+
+            arrnowpayHistory.push(nowpay);
         }
+        List = arrnowpayHistory;
+
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, {
+            params: {
+                List
+            }
+        }).then(res => {
+            console.log(res);
+        })
         console.log(List);
     }
 

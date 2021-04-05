@@ -8,6 +8,9 @@ import Header from "./components/FH/Header";
 import Footer from "./components/FH/Footer";
 
 import Auth from "./components/auth/Auth";
+import FindId from "./components/auth/FindID";
+import FindPw from "./components/auth/FindPW";
+import Join from "./components/auth/Join";
 
 import Home from "./routes/Home";
 
@@ -59,6 +62,9 @@ function App() {
         <Switch>
           <Route path="/" exact={true} component={Home} />
           <Route path="/Auth" exact={true} component={Auth} />
+          <Route path="/findid" exact={true} component={FindId} />
+          <Route path="/findpw" exact={true} component={FindPw} />
+          <Route path="/join" exact={true} component={Join} />
           
           <Route path="/goods" exact={true} component={AllProductList} />
           <Route path="/goods/1" exact={true} component={KorProductList} />
