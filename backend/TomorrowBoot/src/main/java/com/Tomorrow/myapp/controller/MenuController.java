@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000","http://j4a305.p.ssafy.io"})
+@CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
 @RequestMapping("/menu")
 public class MenuController {
     private final MenuService menuService;
@@ -69,6 +69,10 @@ public class MenuController {
     @GetMapping("gm/{no}")
     public ResponseEntity<MenuDto> getMenuInfo(@PathVariable(value = "no") int id, HttpServletRequest req) throws SQLException {
         return new ResponseEntity<MenuDto>(menuService.getMenuInfo(id), HttpStatus.ACCEPTED);
+    }
+    @GetMapping("gmbi/{no}")
+    public ResponseEntity<MenuDto> getMenubyid(@PathVariable(value = "no") int id, HttpServletRequest req) throws SQLException {
+        return new ResponseEntity<MenuDto>(menuService.getMenubyid(id), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/all")
