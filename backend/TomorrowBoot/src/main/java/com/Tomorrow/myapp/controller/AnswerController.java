@@ -15,6 +15,8 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:3000", "http://j4a305.p.ssafy.io"})
 @RequestMapping("/answer")
 public class AnswerController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final AnswerService answerService;
 
     public AnswerController(AnswerService answerService){
@@ -25,9 +27,9 @@ public class AnswerController {
     public ResponseEntity<String> writeAnswer(@RequestBody AnswerDto answerDto) throws SQLException {
         String conclusion = "";
         if(answerService.writeAnswer(answerDto))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
 
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
@@ -38,10 +40,10 @@ public class AnswerController {
 
         if(answerDto!=null) {
             resultMap.put("answer", answerDto);
-            resultMap.put("conclusion", "SUCCESS");
+            resultMap.put("conclusion", SUCCESS);
         }else{
             resultMap.put("answer",null);
-            resultMap.put("conclusion", "FAIL");
+            resultMap.put("conclusion", FAIL);
         }
 
         return new ResponseEntity<>(resultMap, HttpStatus.ACCEPTED);
@@ -52,9 +54,9 @@ public class AnswerController {
         String conclusion = "";
 
         if(answerService.updateAnswer(answerDto))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
 
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
@@ -64,9 +66,9 @@ public class AnswerController {
         String conclusion = "";
 
         if(answerService.deleteAnswer(no))
-            conclusion = "SUCCESS";
+            conclusion = SUCCESS;
         else
-            conclusion = "FAIL";
+            conclusion = FAIL;
 
         return new ResponseEntity<>(conclusion, HttpStatus.ACCEPTED);
     }

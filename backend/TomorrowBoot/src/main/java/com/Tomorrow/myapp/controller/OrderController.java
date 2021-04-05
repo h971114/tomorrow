@@ -30,6 +30,8 @@ import com.Tomorrow.myapp.service.OrderdetailService;
 @CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io"})
 @RequestMapping("/order")
 public class OrderController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final OrderService orderService;
     private final OrderdetailService orderdetailservice;
     private final MenuService menuservice;
@@ -46,23 +48,23 @@ public class OrderController {
     @PostMapping("/insert")
     public ResponseEntity<String> insertOrder(@RequestBody OrderDto order, HttpServletRequest req){
     	orderService.insertorder(order);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     @PostMapping("/insertdetail")
     public ResponseEntity<String> insertdetail(@RequestBody Orderdetail order, HttpServletRequest req){
     	orderdetailservice.insertOrderdetail(order);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteOrder(@RequestParam("id") String id, HttpServletRequest req){
     	orderService.deleteorder(id);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     @DeleteMapping("/deletedetail")
     public ResponseEntity<String> deletedetail(@RequestParam("id") String id, HttpServletRequest req){
     	orderdetailservice.deleteOrderdetail(id);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     @GetMapping("/detail")
     public ResponseEntity<Orderdetail> getdetail(@RequestParam("id") String id){
@@ -78,12 +80,12 @@ public class OrderController {
     	Orderdetail order = orderdetailservice.getdetail(data.get("id"));
     	orderdetailservice.sendOrderdetail(order);
     	String seller =  menuservice.getMenuInfo(Integer.parseInt(order.getMenu_id())).getSeller_id();
-    	String conclusion = "SUCCESS";
+    	String conclusion = SUCCESS;
     	String hash ="";
     	try {
 			hash = etherservice.sendTransaction(seller, data.toString());
 		} catch (Exception e) {
-			conclusion = "FAIL";
+			conclusion = FAIL;
 			e.printStackTrace();
 		}
     	order.setFoodhash(hash);

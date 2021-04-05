@@ -28,6 +28,8 @@ import java.util.Map;
 @CrossOrigin(origins = {"http://localhost:3000", "https://j4a305.p.ssafy.io"})
 @RequestMapping("/cart")
 public class CartController {
+    private final String SUCCESS = "SUCCESS";
+    private final String FAIL = "FAIL";
     private final CartService cartService;
     private final MenuService menuService;
 
@@ -40,14 +42,14 @@ public class CartController {
     @PostMapping("")
     public ResponseEntity<String> insertCart(@RequestBody CartDto cartDto, HttpServletRequest req){
     	cartService.insertCart(cartDto);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     
     //장바구니 삭제
     @DeleteMapping("")
     public ResponseEntity<String> deleteCart(@RequestBody CartDto cart, HttpServletRequest req){
     	cartService.deleteCart(cart);
-    	return new ResponseEntity<String>("SUCCESS", HttpStatus.ACCEPTED);
+    	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
     //장바구니 검색(전부긁어오기)
     @GetMapping("")
