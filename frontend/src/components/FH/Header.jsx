@@ -22,9 +22,31 @@ class Header extends Component {
             token: cookies.get('token') || "",
             isSeller: cookies.get('isSeller') || "0",
         }
-        // // console.log(cookies);
-        // console.log(this.state.isSeller);
     };
+
+    componentDidMount() {
+        this.cartCount();
+        // console.log(this.state.cartCnt);
+    }
+
+    cartCount = (e) => {
+        if (localStorage.getItem('id') !== null) {
+            var Uid = localStorage.getItem('id');
+            console.log(Uid);
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/count`, {
+                params: {
+                    id: Uid
+                }
+            }).then(res => {
+                console.log(res.data);
+                var cartCnts = res.data;
+                // console.log(cartCnt);
+                this.setState({
+                    cartCnt: cartCnts
+                })
+            })
+        }
+    }
 
     logout = (e) => {
         const { cookies } = this.props;
@@ -102,7 +124,7 @@ class Header extends Component {
                                             }
                                         </li>
                                         <li>
-                                            <a href="/cart">장바구니 <span>0</span></a>
+                                            <a href="/cart">장바구니 <span>{this.state.cartCnt}</span></a>
                                         </li>
                                     </ul>
                                 </div>

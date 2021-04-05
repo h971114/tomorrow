@@ -62,13 +62,12 @@
     <select id="getMenuByNew" resultType="menu">
         SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
         FROM menu where TIMESTAMPDIFF(DAY, create_at, CURDATE( ))
-        ORDER BY create_at DESC
+        ORDER BY create_at DESC LIMIT 4
     </select>
     <select id="getMenuBySale" resultType="menu">
-        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
-        FROM menu
+        SELECT * FROM menu
         WHERE discount_rate > 0
-        ORDER BY discount_rate DESC, create_at DESC;
+        ORDER BY discount_rate DESC, create_at DESC LIMIT 2;
     </select>
     <select id="getMenuByTodaySale" resultType="menu">
         SELECT id, name, price, amount, sell_amount, discount_rate, today_discount_rate, category, img1, img2,  seller_id, subname, create_at,todaysale

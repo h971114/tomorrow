@@ -50,11 +50,12 @@ public class MenuDaoImpl implements MenuDao {
     public MenuDto getMenuInfo(int id) {
         return sqlSession.selectOne("menu.getMenuInfo", id);
     }
-
+    
     @Override
     public List<MenuDto> getMenu() {
         return sqlSession.selectList("menu.getMenu");
     }
+    
 
     @Override
     public List<MenuDto> getMenuBySeller(String seller_id) {
