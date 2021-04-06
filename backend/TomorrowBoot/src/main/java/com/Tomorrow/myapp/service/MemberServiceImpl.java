@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameId(String memberId) {
         try {
-            if(memberDao.sameId(memberId)==1) {
+            if(memberDao.sameId(memberId)>=1) {
             	return false;
             }
             else {
@@ -74,7 +74,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameNick(String memberNickname) {
         try {
-            if(memberDao.sameNick(memberNickname)==1) {
+            if(memberDao.sameNick(memberNickname)>=1) {
             	return false;
             }
             else {
@@ -88,7 +88,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameCert(String memberCert) {
         try {
-            if(memberDao.sameCert(memberCert)==1) {
+            if(memberDao.sameCert(memberCert)>=1) {
             	return false;
             }
             else {
@@ -140,7 +140,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameEmail(String memberEmail) {
         try {
-            if(memberDao.sameEmail(memberEmail)==1) {
+            if(memberDao.sameEmail(memberEmail)>=1) {
             	return false;
             }
             else {
