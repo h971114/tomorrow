@@ -188,6 +188,23 @@ public class MemberController {
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
+	// 중복검사
+	@ApiOperation(value = "중복검사", notes = "중복검사", response = Map.class)
+	@PostMapping("/sameemail")
+	public ResponseEntity<String> sameEmail(@RequestBody Map<String, String> memberbody, HttpServletRequest req)
+			throws SQLException {
+		System.out.println(req);
+		String conclusion = "";
+		HttpStatus status = HttpStatus.ACCEPTED;
+		System.out.println("get to /member/sameemail done");
+		System.out.println("중복검사");
+		if (memberService.sameEmail(memberbody.get("email"))) {
+			conclusion = SUCCESS;
+		} else {
+			conclusion = FAIL;
+		}
+		return new ResponseEntity<String>(conclusion, status);
+	}
 
 	// 로그아웃
 	@ApiOperation(value = "로그아웃", notes = "로그아웃", response = Map.class)
