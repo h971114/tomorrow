@@ -141,3 +141,95 @@
     display: flex;
     justify-content: space-between;
 }
+
+
+.login_form {
+    max-width: 500px;
+    /* margin: 0 auto; */
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    position: relative;
+    display: block;
+}
+
+.find_form {
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    display: block;
+}
+
+.login_form .login_txt {text-align:center; color:#666;  border-bottom:1px solid #dadada; margin-bottom: 40px;}
+
+.login_form .login_txt p {position: relative; font-size:15px; word-break:keep-all; line-height:22px; }
+.login_form .login_box {width:100%; padding: 0 40px; box-sizing: border-box;}
+.login_form .login_box p {margin-top:10px;  position:relative; }
+.login_form .login_box p img{position: absolute; left: 10px; top: 50%; margin-top: -10px;}
+
+
+.login_form .login_box p:first-child {margin-top:0;}
+.login_form .login_box p input {width:100%; height:45px; line-height:45px; border:1px solid #dadada; padding: 0 10px 0 35px; box-sizing:border-box; font-size:14px; color:#333; }
+.inner_wrap.n_login .login_form .login_box p input{padding: 0 10px; box-sizing: border-box;}
+.login_form .login_box p input::placeholder , .login_form .login_box p input::-webkit-placeholder {color:#999; font-size:14px; }
+.login_form .login_reg {margin-top:15px;  padding: 0 40px; box-sizing: border-box;}
+.login_form .login_reg input[type="checkbox"] {display:inline-block; width:1px; height:1px; position:absolute; left:-9999px; overflow:hidden; filter:alpha(opacity=0); -ms-filter:alpha(opacity=0); visibility:hidden; }
+.login_form .login_reg label {font-size:15px; font-weight: 400; color: #3c3d3c; padding-left:25px; position:relative; display:inline-block; height:20px; line-height:20px;  cursor:pointer; }
+.login_form .login_reg label:before {position:absolute; width:20px; height:20px; border:1px solid #dadada; color:#dadada; box-sizing:border-box; line-height:15px; text-align:center; clear:both; content:''; display:block; position:absolute; left:0;}
+.login_form .login_reg input:checked + label:before {content:'\2714';}
+.login_form .login_btn {text-align:center; padding: 0 40px; box-sizing: border-box;  margin-top:35px;}
+.login_form .login_btn input {display:block; width:100%; height:40px; line-height:38px; border:0; margin:0 auto; color:#fff; cursor:pointer; font-size:16px;  background:#9fc54d; transition:all .2s; -webkit-transition:all .2s; font-weight:600;}  
+
+.login_form .login_util {padding: 20px 40px 0; /*max-width: 400px; width: 100%; margin: 20px auto 0; box-sizing: border-box; width:100%;*/ text-align: center;}
+.login_form .login_util a{position: relative; display: block; float: left; /*padding: 0 30px; box-sizing: border-box;*/ width: 100%; font-size:14px; font-weight: 400; height:30px; line-height:30px; color:#3c3d3c; text-align:center;}
+.login_form .login_util ul li:before{content: ''; position: absolute; width: 1px; height: 12px; background: #9d9e9d; left: 0; top: 50%; margin-top: -6px;}
+.login_form .login_util ul li{position: relative; float: left; width: 33.333%;}
+.login_form .login_util ul li:first-child:before{display: none;}
+
+#sub .inner_wrap.login {padding-top: 0;}
+#sub .inner_wrap.login .size{padding-bottom: 100px;}
+#sub .inner_wrap.login .login_txt h4{color: #3c3d3c; font-size: 22px; display: block; text-align: center; font-weight: bold;}
+#sub .inner_wrap.login .login_txt p{color: #3c3d3c; font-size: 16px; word-break: keep-all; font-weight: 400; text-align: center; padding: 20px 0 50px; box-sizing: border-box;}
+#sub .inner_wrap.login .login_btn a:first-child{background: #9fc54d; margin-top: 0;}
+#sub .inner_wrap.login .login_btn a, #sub .inner_wrap.login .login_btn div{margin-top: 10px; display: block; color: #fff; font-size: 16px; font-weight: bold; text-align: center; width: 100%; height: 45px; line-height: 45px; background: #8e8e8e;}
+
+#sub .inner_wrap .login_form .login_txt{border-bottom: 0;}
+
+#sub .inner_wrap.n_login .login_box .order_num input{float: left; width: 48.5%; margin-left: 3%;}
+#sub .inner_wrap.n_login .login_box .order_num input#order_num1{margin-left: 0;}
+#sub .inner_wrap.n_login .login_box .order_num span{position: absolute; left: 50%; margin-left: -2.7px; top: 50%; margin-top: -9.5px; color: #8f8f8f; font-weight: 900;}
+#sub .inner_wrap.n_login .login_btn a:first-child{background: #8f8f8f;}
+#sub .inner_wrap.n_login .login_util {padding: 0 40px; box-sizing: border-box; margin: 20px auto 50px; max-width: none;}
+#sub .inner_wrap.n_login .login_util p{font-size: 15px; padding-bottom: 10px; font-weight: 400; text-align: center; }
+#sub .inner_wrap.n_login .login_util a{display: block; height: 40px; line-height: 40px; font-size: 16px; width: 100%; font-weight: 400; text-align: center; background: #fff; border: 1px solid #3a3a3a; box-sizing: border-box;}
+#sub .inner_wrap.n_login .login_util a:before{display: none;}
+
+
+#sub .inner_wrap.join_page h3{margin-top: 55px; color: #3c3d3c; font-size: 18px; font-weight: 900; text-align: left; margin-bottom: 5px;}
+#sub .inner_wrap.join_page .top_visual{position: relative; text-align: center; /*height: 320px;*/}
+#sub .inner_wrap.join_page .top_visual img{max-width: 100%;}
+#sub .inner_wrap.join_page .top_visual > p{max-width: 2000px; margin: 0 auto; background-size: contain; background-repeat: no-repeat; background-position: center center;}
+#sub .inner_wrap.join_page .top_visual > p img{max-width: 100%; opacity: 0;}
+#sub .inner_wrap.join_page .top_visual p.m{display:none;}
+#sub .inner_wrap.join_page .top_visual p.pc {display:block;}
+
+
+
+.find_wrap {max-width:500px; width:100%; position:relative; margin:0 auto; }
+.find_wrap .find_tab {width:100%; margin-bottom:30px;}
+.find_wrap .find_tab ul {width:100%;}
+.find_wrap .find_tab ul li {float:left; width:50%; }
+.find_wrap .find_tab ul li a {    display: block;
+    background: #f5f5f5;
+    border: 1px solid #dadada;
+    border-bottom: 2px solid #8ec742;
+    font-size: 20px;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    box-sizing: border-box;}
+.find_wrap .find_tab ul li a.on {border-bottom:0; color: #8ec742; border-top:2px solid #8ec742; border-left:2px solid #8ec742; border-right:2px solid #8ec742; font-weight:bold; background:#fff;}
+.find_wrap .find_id {display:block;}
+.find_wrap .find_pw {display:none; }

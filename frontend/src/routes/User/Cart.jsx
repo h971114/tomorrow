@@ -125,9 +125,18 @@ const Cart = ({ history }) => {
         var checkboxes = document.getElementsByClassName("session_check");
 
         for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked === true)
-                console.log(checkboxes[i].value);
+            if (checkboxes[i].checked === true) {
+                var cartId = checkboxes[i].value;
+                axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
+                    params: {
+                        id: cartId
+                    }
+                }).then(res => {
+                    alert('삭제되었습니다.');
+                })
+            }
         }
+        window.location.replace("/cart");
     }
 
     return (
@@ -355,7 +364,7 @@ const Cart = ({ history }) => {
                                                     <input type="checkbox" className="menu_id" value={post.menu_id} />
                                                     <input type="checkbox" className="moneycheck" value={realPrice} />
                                                     <input type="checkbox" className="amountcheck" value={post.amount} />
-                                                    <input type="checkbox" className="session_check" onChange={handleChange} value={post.menu_id} name={checkBoxid} id={checkBoxid} />
+                                                    <input type="checkbox" className="session_check" onChange={handleChange} value={post.cartid} name={checkBoxid} id={checkBoxid} />
                                                     <label htmlFor={checkBoxid}></label>
                                                 </td>
                                                 <td className="pro_info">
@@ -413,7 +422,16 @@ const Cart = ({ history }) => {
 
                     <div className="last_bt">
                         <a>선택 상품 주문</a>
-                        <a>전체 상품 주문</a>
+                        <Link
+                            to={{
+                                pathname: `/order`,
+                                state: {
+                                    posts
+                                }
+                            }}
+                        >
+                            전체 상품 주문
+                    </Link>
                     </div>
                 </form>
             </div>
