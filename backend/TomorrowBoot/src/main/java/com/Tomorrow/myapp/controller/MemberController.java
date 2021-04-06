@@ -170,7 +170,23 @@ public class MemberController {
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
-
+	// 중복검사
+	@ApiOperation(value = "중복검사", notes = "중복검사", response = Map.class)
+	@PostMapping("/samecert")
+	public ResponseEntity<String> sameCert(@RequestBody Map<String, String> memberbody, HttpServletRequest req)
+			throws SQLException {
+		System.out.println(req);
+		String conclusion = "";
+		HttpStatus status = HttpStatus.ACCEPTED;
+		System.out.println("get to /member/samecert done");
+		System.out.println("중복검사");
+		if (memberService.sameCert(memberbody.get("cert"))) {
+			conclusion = SUCCESS;
+		} else {
+			conclusion = FAIL;
+		}
+		return new ResponseEntity<String>(conclusion, status);
+	}
 	// 중복검사
 	@ApiOperation(value = "중복검사", notes = "중복검사", response = Map.class)
 	@PostMapping("/samenick")
@@ -181,6 +197,7 @@ public class MemberController {
 		HttpStatus status = HttpStatus.ACCEPTED;
 		System.out.println("get to /member/samenick done");
 		System.out.println("중복검사");
+		System.out.println(memberbody.get("nickname"));
 		if (memberService.sameNick(memberbody.get("nickname"))) {
 			conclusion = SUCCESS;
 		} else {

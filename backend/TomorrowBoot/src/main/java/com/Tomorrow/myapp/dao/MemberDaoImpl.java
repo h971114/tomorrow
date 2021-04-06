@@ -56,7 +56,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	@Override
 	public int sameCert(String Cert)  throws SQLException{
-		return sqlSession.selectOne("member.sameNick",Cert);
+		return sqlSession.selectOne("member.sameCert",Cert);
 	}
 	@Override
 	public void modify(MemberDto member) throws SQLException {

@@ -19,7 +19,7 @@
 	<select id="sameNick" parameterType="String" resultType="int">
 		SELECT count(*) FROM member WHERE nickname=#{nickname}
 	</select>
-	<select id="sameCert" parameterType="String" resultType="String">
+	<select id="sameCert" parameterType="String" resultType="int">
 		SELECT count(*) FROM member WHERE cert=#{cert}
 	</select>
 	<select id="findid" parameterType="Map" resultType="String">
