@@ -96,6 +96,12 @@ public class PayController {
         orderService.paymentorder(order);
         return new RedirectView("http://localhost:3000/orderend");
     }
-    
-
+    @GetMapping("/kakaoPayCancel") // 결제완료페이지
+    public RedirectView kakaoPayCancel() throws Exception {
+        return new RedirectView("http://localhost:3000/cart");
+    }
+    @GetMapping("/kakaoPaySuccessFail") // 결제완료페이지
+    public RedirectView kakaoPaySuccessFail() throws Exception {
+        return new RedirectView("http://localhost:3000/cart");
+    }
 }
