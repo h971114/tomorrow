@@ -189,11 +189,11 @@ class Order extends React.Component {
         }
         List = arrnowpayHistory;
 
-        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, {
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List),{
             headers: { "Content-Type": `application/json` },
-            params: {
-                nowpay: List
-            }
+            // params: {
+            //     nowpay: List
+            // }
         }).then(res => {
             console.log(res);
             // if (res.data === "FAIL") {
