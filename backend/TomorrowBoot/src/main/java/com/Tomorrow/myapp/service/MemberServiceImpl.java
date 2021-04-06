@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameId(String memberId) {
         try {
-            if(memberDao.sameId(memberId)==1) {
+            if(memberDao.sameId(memberId)>=1) {
             	return false;
             }
             else {
@@ -74,7 +74,22 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameNick(String memberNickname) {
         try {
-            if(memberDao.sameNick(memberNickname)==1) {
+            if(memberDao.sameNick(memberNickname)>=1) {
+            	return false;
+            }
+            else {
+            return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+    @Override
+    public boolean sameCert(String memberCert) {
+        try {
+        	System.out.println(memberCert);
+            if(memberDao.sameCert(memberCert)>=1) {
             	return false;
             }
             else {
@@ -126,7 +141,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameEmail(String memberEmail) {
         try {
-            if(memberDao.sameEmail(memberEmail)==1) {
+            if(memberDao.sameEmail(memberEmail)>=1) {
             	return false;
             }
             else {
@@ -137,18 +152,5 @@ public class MemberServiceImpl implements MemberService{
             return false;
         }
     }
-    @Override
-    public List<Object> userMeet(String memberId) {
-        try {
-           List<Object> meetlist = memberDao.userMeetingFive(memberId);
-           return meetlist;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
-    }
-//    @Override
-//    public void logout(Long memberId) {
-//
-//    }
+
 }

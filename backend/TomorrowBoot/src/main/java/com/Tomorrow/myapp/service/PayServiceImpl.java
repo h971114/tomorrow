@@ -3,8 +3,11 @@ package com.Tomorrow.myapp.service;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -28,10 +31,10 @@ import com.Tomorrow.myapp.model.PayDto;
 @Service
 public class PayServiceImpl implements PayService{
 	private static final String HOST = "https://kapi.kakao.com";
-	private static final String APPROVAL_URL ="http://localhost:8080/PaySuccess";//성공 URL
-	private static final String CANCEL_URL ="http://localhost:8080/kakaoPayCancel";//취소 URL
-	private static final String FAIL_URL ="http://localhost:8080/kakaoPaySuccessFail";//실패 URL
-	private static final String partner_order_id = UUID.randomUUID().toString();//주문 고유번호 생성 위해서 or random?
+	private static final String APPROVAL_URL ="http://localhost:8080/myapp/pay/PaySuccess";//성공 URL
+	private static final String CANCEL_URL ="http://localhost:8080/myapp/pay/kakaoPayCancel";//취소 URL
+	private static final String FAIL_URL ="http://localhost:8080/myapp/pay/kakaoPaySuccessFail";//실패 URL
+	private static  String partner_order_id ;//주문 고유번호 생성 위해서 or random?
 
     private PayDto payDto;
     private PayApprovalDto payapprovalDto;
@@ -41,7 +44,7 @@ public class PayServiceImpl implements PayService{
     public String kakaoPayReady(String id, List<NowPayDto> nowpay) {
  
         RestTemplate restTemplate = new RestTemplate();
- 
+        partner_order_id = make();
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "77776689222371028c2b592fd2b3ca19");
@@ -68,7 +71,7 @@ public class PayServiceImpl implements PayService{
         params.add("quantity", Integer.toString(nowpay.size()));//총 수량 - > 장바구니 수량
         params.add("total_amount", Integer.toString(total));//총 가격 -> 장바구니 총 가격
         params.add("tax_free_amount", Integer.toString(tax));//세금
-        params.add("approval_url", APPROVAL_URL+id+Integer.toString(total));
+        params.add("approval_url", APPROVAL_URL+"/"+id+"/"+Integer.toString(total));
         params.add("cancel_url", CANCEL_URL);
         params.add("fail_url", FAIL_URL);
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
@@ -116,8 +119,12 @@ public class PayServiceImpl implements PayService{
         try {
         	payapprovalDto = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, PayApprovalDto.class);
            System.out.println("" + payapprovalDto);
-           sqlSession.insert("order.approval",payapprovalDto);
-           sqlSession.insert("order.detail",payapprovalDto);
+           sqlSession.insert("pay.approval",payapprovalDto);
+//           String[] splited = payapprovalDto.getItem_code().split(",");
+//           for(int cnt = 0; cnt<splited.length;cnt++) {
+//        	   Map<String, Object> map = new HashMap<String, Object>();
+//           }
+//           sqlSession.insert("pay.detail",payapprovalDto);
             return payapprovalDto;
         
         } catch (RestClientException e) {
@@ -130,5 +137,23 @@ public class PayServiceImpl implements PayService{
         
         return null;
     }
-    
+    public String make() {
+		String pattern = "yyMMdd";
+		SimpleDateFormat simpleDateFormat =
+		        new SimpleDateFormat(pattern, new Locale("ko", "KR"));
+		String date = simpleDateFormat.format(new Date());
+		System.out.println(date);
+		String ordernum = "";
+		String s = "";
+		if(sqlSession.selectOne("pay.paynum") != null) {
+			ordernum=sqlSession.selectOne("pay.paynum");
+		String[] splited = ordernum.split("-");
+		int num = Integer.parseInt(splited[1]);
+		num++;
+		s = String.format("%06d", num);
+		}
+		else s = "0000001";
+		System.out.println(s);
+		return date+"-"+s;
+    }
 }

@@ -21,8 +21,15 @@ class Find extends React.Component {
             addr1B: false,
             addr2B: false,
             checkId: false,
-            checkName: false
+            checkName: false,
+            checkSeller: false
         }
+    }
+
+    componentDidMount() {
+        document.getElementById('checkHT').disabled = true;
+        document.getElementById('seller_num').setAttribute('style', 'display:none');
+        document.getElementById('seller_name').setAttribute('style', 'display:none');
     }
 
     handleAddress = (data) => {
@@ -62,17 +69,110 @@ class Find extends React.Component {
         })
     }
 
+    sellerCheck = (e) => {
+        console.log(e.target.checked);
+        if (e.target.checked) {
+            this.setState({
+                sellerCheck: true,
+                checkht: false,
+                checkNick: false,
+            })
+            document.getElementById('checkHT').disabled = false;
+            document.getElementById('seller_num').setAttribute('style', 'display:');
+            document.getElementById('seller_name').setAttribute('style', 'display:');
+        } else {
+            this.setState({
+                sellerCheck: false
+            })
+            document.getElementById('checkHT').disabled = true;
+            document.getElementById('seller_num').setAttribute('style', 'display:none');
+            document.getElementById('seller_name').setAttribute('style', 'display:none');
+        }
+        // this.setState({
+
+        // })
+    }
+
     htChange = (e) => {
         this.setState({
             hometax: e.target.value
         })
     }
-    checkHT = () => {
+    checkHT = (e) => {
+        e.preventDefault();
         var number = this.state.hometax;
-        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/hometax/` + number, {
+        if (number === undefined) {
+        }
+        else {
+            if (number.length !== 10) {
+                console.log(number.length);
+            }
+            else {
+                axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/hometax/` + number,
+                ).then(res => {
+                    // console.log(res);
+                    var SF = res.data.substr(0, 1);
+                    if (SF === "국" || SF === "폐") {
+                        document.getElementById('validateHT').textContent = res.data;
+                        document.getElementById('validateHT').setAttribute('style', 'color:#ff3535');
+                        // 중복 된 번호인지 체크 추가 요망    
+                    } else if (SF === "부") {
+                        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/samecert`, {
+                            cert: this.state.hometax
+                        }).then(res => {
+                            if (res.data === "FAIL") {
+                                this.setState({
+                                    checkht: false
+                                })
+                                document.getElementById('validateHT').textContent = "중복된 번호입니다.";
+                                document.getElementById('validateHT').setAttribute('style', 'color:#ff3535');
+                            } else {
+                                this.setState({
+                                    checkht: true
+                                })
+                                document.getElementById('validateHT').textContent = "인증이 완료 되었습니다.";
+                                document.getElementById('validateHT').setAttribute('style', 'color:blue');
+                            }
+                        })
+                    }
+                })
+                    .catch(err => {
+                        this.setState({
+                            checkht: false
+                        })
+                        document.getElementById('validateHT').textContent = "존재하지 않는 사업자 번호입니다.";
+                        document.getElementById('validateHT').setAttribute('style', 'color: #ff3535');
+                    })
+            }
+        }
+    }
+
+    nickChange = (e) => {
+        this.setState({
+            nick: e.target.value
+        })
+    }
+    checkNick = (e) => {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/samenick`, {
+            nickname: this.state.nick
         }).then(res => {
             console.log(res);
-        })
+            if (res.data === "SUCCESS") {
+                this.setState({
+                    checkNick: true
+                });
+                document.getElementById('validateNick').textContent = "사용가능한 상호명입니다.";
+                document.getElementById('validateNick').setAttribute('style', 'color:blue');
+            }
+            else {
+                this.setState({
+                    checkNick: false
+                });
+                document.getElementById('validateNick').textContent = "이미 존재하는 상호명입니다.";
+                document.getElementById('validateNick').setAttribute('style', 'color: #ff3535');
+            }
+        });
     }
 
     addr2Change = () => {
@@ -102,6 +202,7 @@ class Find extends React.Component {
         var idReg = /^[a-z|\S]+[a-z0-9|\S]{5,19}$/g;
         // console.log(!idReg.test(this.state.id));
         if (idReg.test(this.state.id)) {
+            document.getElementById('validateId').textContent = "중복 아이디 확인중입니다.";
             axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/same`, {
                 id: this.state.id
             }).then(res => {
@@ -225,28 +326,42 @@ class Find extends React.Component {
     }
 
     emailChange = (e) => {
+        this.setState({
+            email: e.target.value,
+            checkEmail: false
+        });
+    }
+
+    checkEmail = (e) => {
+        e.preventDefault();
         var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if (e.target.value === '') {
+        if (emailReg.test(this.state.email)) {
+            document.getElementById('validateEmail').textContent = "중복 이메일 확인중입니다.";
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/sameemail`, {
+                email: this.state.email
+            }).then(res => {
+                // console.log(res);
+                if (res.data === "SUCCESS") {
+                    this.setState({
+                        checkEmail: true
+                    });
+                    document.getElementById('validateEmail').textContent = "사용가능한 이메일입니다.";
+                    document.getElementById('validateEmail').setAttribute('style', 'color:blue');
+                }
+                else {
+                    this.setState({
+                        checkEmail: false
+                    });
+                    document.getElementById('validateEmail').textContent = "이미 존재하는 이메일입니다.";
+                    document.getElementById('validateEmail').setAttribute('style', 'color: #ff3535');
+                }
+            });
+        } else {
             this.setState({
                 checkEmail: false
             });
-            document.getElementById('validateEmail').textContent = "메일수신이 가능한 이메일 주소를 입력해 주세요.";
-        }
-        else if (!emailReg.test(e.target.value)) {
-            this.setState({
-                checkEmail: false
-            });
-            // document.getElementById('joinbtn').disabled = true;
             document.getElementById('validateEmail').textContent = "이메일의 양식에 맞춰주세요!";
             document.getElementById('validateEmail').setAttribute('style', 'color: #ff3535');
-        }
-        else {
-            document.getElementById('validateEmail').textContent = "사용가능한 이메일입니다.";
-            document.getElementById('validateEmail').setAttribute('style', 'color:blue');
-            this.setState({
-                email: e.target.value,
-                checkEmail: true
-            });
         }
     }
 
@@ -278,25 +393,72 @@ class Find extends React.Component {
             this.state.checkPw === true && this.state.addr1B === true &&
             this.state.addr2B === true) {
             var addr = this.state.zoneCode + " / " + this.state.fullAddress + " / " + this.state.addr2;
-            axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/member`, {
-                id: this.state.id,
-                pw: this.state.pw,
-                email: this.state.email,
-                mobile: this.state.mobile,
-                address: addr
-            }).then(res => {
-                console.log(res);
-                alert("회원가입 완료");
+            if (this.state.sellerCheck === true) {
+                //사업자 맞음 seller:1
+                if (this.state.checkNick === true && this.state.checkht === true) {
+                    axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
+                        id: this.state.id,
+                        pw: this.state.pw,
+                        name: this.state.name,
+                        nickname: this.state.nick,
+                        mobile: this.state.mobile,
+                        email: this.state.email,
+                        address: addr,
+                        seller: 1,
+                        cert: this.state.hometax,
+                        points: 2500
+                    })
+                    alert("회원가입 완료되었습니다.");
+                    window.location.replace("/auth");
+                } else {
+                    if (this.state.checkNick === false)
+                        alert('상호명을 확인해주세요');
+                    if (this.state.checkht === false)
+                        alert('사업자 등록번호를 확인해주세요.');
+                }
+                console.log("asdf");
+            } else { //사업자 아님 seller:0
+                axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
+                    id: this.state.id,
+                    pw: this.state.pw,
+                    name: this.state.name,
+                    // nickname: this.state.nick,
+                    mobile: this.state.mobile,
+                    email: this.state.email,
+                    address: addr,
+                    seller: 0,
+                    cert: null,
+                    points: 2500
+                })
+                alert("회원가입 완료되었습니다.");
+                window.location.replace("/auth");
+            }
+            // axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/member`, {
+            //     id: this.state.id,
+            //     pw: this.state.pw,
+            //     email: this.state.email,
+            //     mobile: this.state.mobile,
+            //     address: addr
+            // }).then(res => {
+            //     console.log(res);
+            //     alert("회원가입 완료");
 
-            })
+            // })
         }
         else {
-            alert("안됨");
-            console.log(this.state.checkEmail);
-            console.log(this.state.checkMobile);
-            console.log(this.state.checkPw);
-            console.log(this.state.addr1B);
-            console.log(this.state.addr2B);
+            if (this.state.checkId === false) {
+                alert("아이디를 입력해주세요");
+            } else if (this.state.checkPw === false) {
+                alert("비밀번호를 확인해주세요");
+            } else if (this.state.checkName === false) {
+                alert("이름을 확인해주세요");
+            } else if (this.state.checkMobile === false) {
+                alert("휴대폰번호를 확인해주세요");
+            } else if (this.state.checkEmail === false) {
+                alert("이메일을 확인해주세요");
+            } else if (this.state.addr1B === false || this.state.addr2B === false) {
+                alert("주소를 확인해주세요");
+            }
         }
     }
 
@@ -342,10 +504,10 @@ class Find extends React.Component {
                                         <tr className="id_section">
                                             <th>아이디</th>
                                             <td>
-                                                <p class="ipt_box">
-                                                    <input type="text" name="id" id="id" class="ipt" onChange={this.idChange} />
-                                                    <button class="ipt_btn" onClick={this.checkID} style={{ border: `none` }}>중복확인</button>
-                                                    <span className="ptxt" id="validateId">아이디는 영어와 숫자 조합으로 5자 이상으로 입력해주세요.</span>
+                                                <p className="ipt_box">
+                                                    <input type="text" name="id" id="id" className="ipt" onChange={this.idChange} />
+                                                    <button className="ipt_btn" onClick={this.checkID} style={{ border: `none` }}>중복확인</button>
+                                                    <span className="ptxt" id="validateId">아이디는 5자 이상으로 입력해주세요.</span>
                                                 </p>
                                             </td>
                                         </tr>
@@ -376,8 +538,13 @@ class Find extends React.Component {
 
                                         <tr>
                                             <th className="email">이메일</th>
-                                            <td className="e_txt"><input type="text" name="email" id="email" className="ipt2" onChange={this.emailChange} />
-                                                <span className="ptxt" id="validateEmail">메일수신이 가능한 이메일 주소를 입력해 주세요. </span>
+                                            <td className="e_txt">
+                                                <p className="ipt_box">
+                                                    <input type="text" name="email" id="email" className="ipt" onChange={this.emailChange} />
+                                                    <button className="ipt_btn" id="checkEmail" onClick={this.checkEmail} style={{ border: `none` }}>중복 확인</button>
+                                                    <span className="ptxt" id="validateEmail">메일수신이 가능한 이메일 주소를 입력해 주세요. </span>
+                                                </p>
+
                                             </td>
                                         </tr>
                                         <tr className="addr_section">
@@ -395,13 +562,30 @@ class Find extends React.Component {
                                                 </p>
                                             </td>
                                         </tr>
-                                        <tr className="point">
+                                        <tr>
+                                            <th className="seller_check">사업자 여부</th>
+                                            <td>
+                                                <input type="checkbox" name="isseller" id="seller_ck" onChange={this.sellerCheck} />
+                                                <label for="seller_ck">사업자 여부를 체크해주세요</label>
+                                            </td>
+                                        </tr>
+                                        <tr className="point" id="seller_num">
                                             <th>사업자 등록번호</th>
                                             <td>
-                                                <p class="ipt_box">
-                                                    <input type="text" name="hometax" id="hometax" class="ipt" onChange={this.htChange} />
-                                                    <button class="ipt_btn" onClick={this.checkHT} style={{ border: `none` }}>확인</button>
-                                                    <span className="ptxt" id="validateId">사업자 분들만 입력해주세요!!</span>
+                                                <p className="ipt_box">
+                                                    <input type="text" name="hometax" id="hometax" className="ipt" onChange={this.htChange} />
+                                                    <button className="ipt_btn" id="checkHT" onClick={this.checkHT} style={{ border: `none` }}>확인</button>
+                                                    <span className="ptxt" id="validateHT">사업자 분들만 입력해주세요</span>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr className="point" id="seller_name">
+                                            <th>상호명</th>
+                                            <td>
+                                                <p className="ipt_box">
+                                                    <input type="text" name="hometax" id="homeNick" className="ipt" onChange={this.nickChange} />
+                                                    <button className="ipt_btn" id="checkNick" onClick={this.checkNick} style={{ border: `none` }}>확인</button>
+                                                    <span className="ptxt" id="validateNick">상호명을 입력해주세요</span>
                                                 </p>
                                             </td>
                                         </tr>

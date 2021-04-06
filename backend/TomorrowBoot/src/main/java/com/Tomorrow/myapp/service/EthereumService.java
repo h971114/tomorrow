@@ -59,10 +59,10 @@ public class EthereumService {
           // EthGetTransactionCount transactioncount =  web3j.ethGetTransactionCount(wallet.getAddress(), DefaultBlockParameterName.EARLIEST).send();
      	// System.out.println(transactioncount.getTransactionCount().toString());
           String transactionHash = ethSendTransaction.getTransactionHash();
-          String hex = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get().getInput(); // 인풋받는 코드
-          hex = hex.substring(2);
-          byte[] bytes = hexStringToByteArray(hex);
-          String st = new String(bytes, StandardCharsets.UTF_8);
+//          String hex = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get().getInput(); // 인풋받는 코드
+//          hex = hex.substring(2);
+//          byte[] bytes = hexStringToByteArray(hex);
+//          String st = new String(bytes, StandardCharsets.UTF_8);
           return transactionHash;
     	 }
     	 catch(Exception e) {
@@ -102,10 +102,10 @@ public class EthereumService {
           // EthGetTransactionCount transactioncount =  web3j.ethGetTransactionCount(wallet.getAddress(), DefaultBlockParameterName.EARLIEST).send();
      	// System.out.println(transactioncount.getTransactionCount().toString());
           String transactionHash = ethSendTransaction.getTransactionHash();
-          String hex = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get().getInput(); // 인풋받는 코드
-          hex = hex.substring(2);
-          byte[] bytes = hexStringToByteArray(hex);
-          String st = new String(bytes, StandardCharsets.UTF_8);
+//          String hex = web3j.ethGetTransactionByHash(transactionHash).send().getTransaction().get().getInput(); // 인풋받는 코드
+//          hex = hex.substring(2);
+//          byte[] bytes = hexStringToByteArray(hex);
+//          String st = new String(bytes, StandardCharsets.UTF_8);
           return transactionHash;
     	 }
     	 catch(Exception e) {
