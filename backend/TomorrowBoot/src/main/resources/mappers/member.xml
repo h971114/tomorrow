@@ -5,7 +5,8 @@
 <mapper namespace="member">
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="member">
-		INSERT INTO member (id,pw,name,nickname,mobile,email, address) VALUES (#{id},#{pw},#{name},#{nickname},#{mobile},#{email}, #{address})
+		INSERT INTO member (id,pw,name,nickname,mobile,email, address, seller, cert, points)
+		VALUES (#{id},#{pw},#{name},#{nickname},#{mobile},#{email}, #{address}, #{seller}, #{cert}, #{points})
 	</insert>
 	<!-- 로그인 -->
 	<select id="login" parameterType="Map" resultType="int">

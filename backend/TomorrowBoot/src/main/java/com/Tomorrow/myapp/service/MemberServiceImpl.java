@@ -88,6 +88,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public boolean sameCert(String memberCert) {
         try {
+        	System.out.println(memberCert);
             if(memberDao.sameCert(memberCert)>=1) {
             	return false;
             }
