@@ -10,6 +10,6 @@
 		DELETE FROM wallets WHERE owner_id=#{owner_id}
 	</delete>
 	<select id="get" parameterType="String" resultType="wallet">
-		SELECT * FROM cart WHERE owner_id = #{owner_id}
+		SELECT * FROM wallets WHERE owner_id = #{owner_id}
 	</select>
 </mapper>

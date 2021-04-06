@@ -42,6 +42,7 @@ public class EthereumService {
           EthGasPrice gasPrice = web3j.ethGasPrice().send();//gasPrice를 받기위해 사용
           EthGetBalance ethGetBalance= web3j.ethGetBalance("0x55eaeCE45fe268d9a58a36a38cfAAb47b9111A1d",DefaultBlockParameterName.LATEST).sendAsync().get();
           WalletDto wallet = walletdao.walletinfo(pay.getPartner_user_id());
+          System.out.println("출력할랭 : "+wallet.toString());
      	  Credentials credentials = Credentials.create(wallet.getPrivate_key());
 //          Credentials credentials = Credentials.create("c969656128f6e36fc18c2847100eb7640b34bf04f1015b17458de3bbd11ad586");
           char[] chars = Hex.encodeHex(pay.toString().getBytes(StandardCharsets.UTF_8));

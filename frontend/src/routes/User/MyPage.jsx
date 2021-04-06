@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import DaumPostCode from 'react-daum-postcode';
 import { instanceOf } from 'prop-types'
 import { withCookies, Cookies } from 'react-cookie';
@@ -29,8 +30,18 @@ class MyPage extends React.Component {
         const { location } = this.props;
 
         var id = location.state.id;
+        var isSeller = location.state.isSeller;
+        console.log(isSeller);
+
+        if (isSeller === '0') {
+            document.getElementById('sellerMenu').setAttribute("style", "display:none");
+        } else if (isSeller === '1') {
+            document.getElementById('userMenu').setAttribute("style", "display:none");
+        }
+
         this.setState({
-            id: id
+            id: id,
+            isSeller: isSeller
         })
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
@@ -39,6 +50,7 @@ class MyPage extends React.Component {
 
             this.setState({
                 name: res.data.name,
+                nowemail: res.data.email,
                 email: res.data.email,
                 points: res.data.points,
                 mobile: res.data.mobile,
@@ -221,30 +233,77 @@ class MyPage extends React.Component {
     }
 
     emailChange = (e) => {
+        this.setState({
+            email: e.target.value,
+            checkEmail: false
+        });
+    }
+
+    checkEmail = (e) => {
+        e.preventDefault();
         var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if (e.target.value === '') {
+        if (this.state.email === this.state.nowemail) {
             this.setState({
-                checkEmail: false
+                checkEmail: true
             });
-            document.getElementById('validateEmail').textContent = "메일수신이 가능한 이메일 주소를 입력해 주세요.";
+            document.getElementById('validateEmail').textContent = "기존 이메일과 동일합니다.";
+            document.getElementById('validateEmail').setAttribute('style', 'color:blue');
         }
-        else if (!emailReg.test(e.target.value)) {
+        else if (emailReg.test(this.state.email)) {
+            document.getElementById('validateEmail').textContent = "중복 이메일 확인중입니다.";
+            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/sameemail`, {
+                email: this.state.email
+            }).then(res => {
+                // console.log(res);
+                if (res.data === "SUCCESS") {
+                    this.setState({
+                        checkEmail: true
+                    });
+                    document.getElementById('validateEmail').textContent = "사용가능한 이메일입니다.";
+                    document.getElementById('validateEmail').setAttribute('style', 'color:blue');
+                }
+                else {
+                    this.setState({
+                        checkEmail: false
+                    });
+                    document.getElementById('validateEmail').textContent = "이미 존재하는 이메일입니다.";
+                    document.getElementById('validateEmail').setAttribute('style', 'color: #ff3535');
+                }
+            });
+        } else {
             this.setState({
                 checkEmail: false
             });
-            // document.getElementById('joinbtn').disabled = true;
             document.getElementById('validateEmail').textContent = "이메일의 양식에 맞춰주세요!";
             document.getElementById('validateEmail').setAttribute('style', 'color: #ff3535');
         }
-        else {
-            document.getElementById('validateEmail').textContent = "사용가능한 이메일입니다.";
-            document.getElementById('validateEmail').setAttribute('style', 'color:blue');
-            this.setState({
-                email: e.target.value,
-                checkEmail: true
-            });
-        }
     }
+
+    // emailChange = (e) => {
+    //     var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    //     if (e.target.value === '') {
+    //         this.setState({
+    //             checkEmail: false
+    //         });
+    //         document.getElementById('validateEmail').textContent = "메일수신이 가능한 이메일 주소를 입력해 주세요.";
+    //     }
+    //     else if (!emailReg.test(e.target.value)) {
+    //         this.setState({
+    //             checkEmail: false
+    //         });
+    //         // document.getElementById('joinbtn').disabled = true;
+    //         document.getElementById('validateEmail').textContent = "이메일의 양식에 맞춰주세요!";
+    //         document.getElementById('validateEmail').setAttribute('style', 'color: #ff3535');
+    //     }
+    //     else {
+    //         document.getElementById('validateEmail').textContent = "사용가능한 이메일입니다.";
+    //         document.getElementById('validateEmail').setAttribute('style', 'color:blue');
+    //         this.setState({
+    //             email: e.target.value,
+    //             checkEmail: true
+    //         });
+    //     }
+    // }
 
     modify = (e) => {
         if (this.state.checkEmail === true && this.state.checkMobile === true &&
@@ -284,7 +343,7 @@ class MyPage extends React.Component {
     logout = (e) => {
         const { cookies } = this.props;
 
-        window.localStorage.clear();
+        window.sessionStorage.clear();
         cookies.remove('id');
         cookies.remove('token');
         cookies.remove('isSeller');
@@ -296,7 +355,8 @@ class MyPage extends React.Component {
             modalOpen,
             fullAddress,
             zoneCode,
-            addr2
+            addr2,
+            isSeller
         } = this.state;
 
         const width = 595;
@@ -316,20 +376,99 @@ class MyPage extends React.Component {
                     <div className="size sub_page">
                         <div className="cs_tab">
                             <div className="sub">
-                                <ul className="clear">
-                                    <li className="itemList2">
-                                        <a href="/mypage/" className="on">
-                                            개인정보
-                                        <img src="/img/bbs_tab_arrow.png" />
-                                        </a>
+                                {/* 판매자 서브메뉴 */}
+                                <ul className="clear" id="sellerMenu">
+                                    <li className="itemList4">
+                                        <Link
+                                            to={{
+                                                pathname: `/mypage`,
+                                                state: {
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
+                                                }
+                                            }}
+                                            className="on"
+                                        >
+                                            판매자 정보
+                                    <img src="/img/bbs_tab_arrow.png" />
+                                        </Link>
                                     </li>
-                                    <li className="itemList2">
-                                        <a href="/mypage/order/">
-                                            주문내역
-                                        <img src="/img/bbs_tab_arrow.png" />
-                                        </a>
+                                    <li className="itemList4">
+                                        <Link
+                                            to={{
+                                                pathname: `/sellpage/manage`,
+                                                state: {
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
+                                                }
+                                            }}
+                                        >
+                                            판매 관리
+                                    <img src="/img/bbs_tab_arrow.png" />
+                                        </Link>
+                                    </li>
+                                    <li className="itemList4">
+                                        <Link
+                                            to={{
+                                                pathname: `/sellpage/order`,
+                                                state: {
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
+                                                }
+                                            }}
+                                        >
+                                            판매 내역
+                                    <img src="/img/bbs_tab_arrow.png" />
+                                        </Link>
+                                    </li>
+                                    <li className="itemList4">
+                                        <Link
+                                            to={{
+                                                pathname: `/sellpage/order`,
+                                                state: {
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
+                                                }
+                                            }}
+                                        >
+                                            판매 목록
+                                    <img src="/img/bbs_tab_arrow.png" />
+                                        </Link>
                                     </li>
                                 </ul>
+                                {/* 사용자 문제 */}
+                                <ul className="clear" id="userMenu">
+                                    <li className="itemList2">
+                                        <Link
+                                            to={{
+                                                pathname: `/mypage`,
+                                                state: {
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
+                                                }
+                                            }}
+                                            className="on"
+                                        >
+                                            개인정보
+                                        <img src="/img/bbs_tab_arrow.png" />
+                                        </Link>
+                                    </li>
+                                    <li className="itemList2">
+                                        <Link
+                                            to={{
+                                                pathname: `/mypage/order`,
+                                                state: {
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
+                                                }
+                                            }}
+                                        >
+                                            주문내역
+                                        <img src="/img/bbs_tab_arrow.png" />
+                                        </Link>
+                                    </li>
+                                </ul>
+
                             </div>
                         </div>
                         <h4 className="cs_title">개인정보</h4>
@@ -372,10 +511,20 @@ class MyPage extends React.Component {
                                         </tr>
 
                                         <tr>
+
                                             <th className="email">이메일</th>
+                                            <td className="e_txt">
+                                                <p className="ipt_box">
+                                                    <input type="text" name="email" id="email" className="ipt" onChange={this.emailChange} />
+                                                    <button className="ipt_btn" id="checkEmail" onClick={this.checkEmail} style={{ border: `none` }}>중복 확인</button>
+                                                    <span className="ptxt" id="validateEmail">메일수신이 가능한 이메일 주소를 입력해 주세요. </span>
+                                                </p>
+
+                                            </td>
+                                            {/* <th className="email">이메일</th>
                                             <td className="e_txt"><input type="text" name="email" id="email" className="ipt2" onChange={this.emailChange} />
                                                 <span className="ptxt" id="validateEmail">메일수신이 가능한 이메일 주소를 입력해 주세요. </span>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                         <tr className="addr_section">
                                             <th className="addr_th"><span>주소</span></th>

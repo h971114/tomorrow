@@ -54,7 +54,7 @@ class Order extends React.Component {
             PaymentString: (totPrices + sendprice).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
         })
 
-        var Uid = localStorage.getItem('id');
+        var Uid = sessionStorage.getItem('id');
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + Uid
         ).then(res => {
@@ -154,7 +154,7 @@ class Order extends React.Component {
     }
 
     payStart = (e) => {
-        var Uid = localStorage.getItem('id');
+        var Uid = sessionStorage.getItem('id');
 
         var j = this.state.posts.length;
         var List = new Object();
@@ -189,9 +189,13 @@ class Order extends React.Component {
         }
         List = arrnowpayHistory;
 
-        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List),{
-            headers: { "Content-Type": `application/json`,
-                        "Access-Control-Allow-Origin": "*" },
+
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
+            headers: {
+                "Content-Type": `application/json`,
+                "Access-Control-Allow-Origin": "*"
+            },
+
             // params: {
             //     nowpay: List
             // }
@@ -199,7 +203,11 @@ class Order extends React.Component {
             console.log(res);
             console.log('data is ' + res.data);
             const url = res.data;
+
             window.open(url, "_blank");
+
+            window.location.replace(url);
+
             // if (res.data === "FAIL") {
             //     alert("찾으시는 정보가 없습니다.");
             // }

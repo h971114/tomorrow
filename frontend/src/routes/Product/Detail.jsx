@@ -115,13 +115,13 @@ class Detail extends React.Component {
     }
 
     GoCart = (e) => {
-        if (localStorage.getItem('id') === null) {
+        if (sessionStorage.getItem('id') === null) {
             alert('로그인하시면 장바구니를 이용하실 수 있습니다.');
             // location.href("/auth");
             document.location.href = "/auth";
         }
         else {
-            var Uid = localStorage.getItem('id');
+            var Uid = sessionStorage.getItem('id');
             console.log(this.state.buyAmount);
             console.log(this.state.totPay);
             axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {

@@ -15,7 +15,7 @@ const Cart = ({ history }) => {
     const [paysString, setPaysString] = useState('');
 
     useEffect(() => {
-        var Uid = localStorage.getItem('id');
+        var Uid = sessionStorage.getItem('id');
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
             params: {
                 id: Uid

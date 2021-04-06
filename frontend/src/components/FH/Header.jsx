@@ -30,8 +30,8 @@ class Header extends Component {
     }
 
     cartCount = (e) => {
-        if (localStorage.getItem('id') !== null) {
-            var Uid = localStorage.getItem('id');
+        if (sessionStorage.getItem('id') !== null) {
+            var Uid = sessionStorage.getItem('id');
             console.log(Uid);
             axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/count`, {
                 params: {
@@ -51,7 +51,7 @@ class Header extends Component {
     logout = (e) => {
         const { cookies } = this.props;
 
-        window.localStorage.clear();
+        window.sessionStorage.clear();
         cookies.remove('id');
         cookies.remove('token');
         cookies.remove('isSeller');
@@ -65,10 +65,15 @@ class Header extends Component {
                     <div id="joinInduce">
                         <div className="size clear">
                             <p className="coupon">
-                                <a href="/Auth">
+                                <Link
+                                    to={{
+                                        pathname: `/join`
+                                    }}
+                                >
                                     <span>'내일' 회원가입시</span><img src="/img/top_banner.png" alt="top_banner" className="img1" />
                                     <span>할인쿠폰 지급<img src="/img/top_banner_go.png" className="go"></img></span>
-                                </a>
+                                </Link>
+
                             </p>
                         </div>
                     </div>
@@ -87,7 +92,8 @@ class Header extends Component {
                                     to={{
                                         pathname: `/`,
                                         state: {
-                                            id: this.state.id
+                                            id: this.state.id,
+                                            isSeller: this.state.isSeller
                                         }
                                     }}
                                 >
@@ -119,14 +125,23 @@ class Header extends Component {
                                                     to={{
                                                         pathname: `/mypage`,
                                                         state: {
-                                                            id: this.state.id
+                                                            id: this.state.id,
+                                                            isSeller: this.state.isSeller
                                                         }
                                                     }}
                                                 >마이페이지</Link>
                                             }
                                             {
                                                 this.state.isSeller === "1" &&
-                                                <a href="/sellPage">판매자 페이지</a>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/mypage`,
+                                                        state: {
+                                                            id: this.state.id,
+                                                            isSeller: this.state.isSeller
+                                                        }
+                                                    }}
+                                                >판매자 페이지</Link>
                                             }
                                         </li>
                                         <li><Link
