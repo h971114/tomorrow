@@ -31,21 +31,18 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     public String upload(String dirName, String id, MultipartFile multipartFile) throws IOException, SQLException {
         File uploadFile = convert(multipartFile).orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-        return uploadFile(dirName, id, uploadFile);
+
+        String fileName = dirName + "/" + id+"-"+uploadFile.getName();
+        String uploadImageUrl = insertAWS(uploadFile, fileName); // aws 업로드
+        uploadFile.delete();
+
+        return uploadImageUrl;
     }
 
     @Override
     public String uploadFile(String dirName, String id, File uploadFile) throws SQLException {
         String fileName = dirName + "/" + id+"-"+uploadFile.getName();
-
-//        이전 파일 url 주소를 prevFile에 저장할 경우 삭제 가능
-//        String keyName = prevFile.split("amazonaws.com/")[1];
-//        System.out.println("keyName = " + keyName);
-//        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, keyName)); // 기존 등록된 이미지 삭제
-
         String uploadImageUrl = insertAWS(uploadFile, fileName); // aws 업로드
-        galleryDao.insertGallery(fileName, uploadImageUrl); // db 업로드
-        System.out.println("uploadImageUrl = " + uploadImageUrl);
         uploadFile.delete();
         return uploadImageUrl;
     }
