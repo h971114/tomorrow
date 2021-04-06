@@ -190,12 +190,16 @@ class Order extends React.Component {
         List = arrnowpayHistory;
 
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List),{
-            headers: { "Content-Type": `application/json` },
+            headers: { "Content-Type": `application/json`,
+                        "Access-Control-Allow-Origin": "*" },
             // params: {
             //     nowpay: List
             // }
         }).then(res => {
             console.log(res);
+            console.log('data is ' + res.data);
+            const url = res.data;
+            window.open(url, "_blank");
             // if (res.data === "FAIL") {
             //     alert("찾으시는 정보가 없습니다.");
             // }
