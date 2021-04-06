@@ -4,7 +4,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.Tomorrow.myapp.utils.GalleryDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,11 +17,9 @@ import java.util.Optional;
 @Service
 public class GalleryServiceImpl implements GalleryService {
     private final AmazonS3Client amazonS3Client;
-    private final GalleryDao galleryDao;
 
-    public GalleryServiceImpl(AmazonS3Client amazonS3Client, GalleryDao galleryDao) {
+    public GalleryServiceImpl(AmazonS3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
-        this.galleryDao = galleryDao;
     }
 
     @Value("${cloud.aws.s3.bucket}")
@@ -31,19 +28,17 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     public String upload(String dirName, String id, MultipartFile multipartFile) throws IOException, SQLException {
         File uploadFile = convert(multipartFile).orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
-
-        String fileName = dirName + "/" + id+"-"+uploadFile.getName();
-        String uploadImageUrl = insertAWS(uploadFile, fileName); // aws 업로드
-        uploadFile.delete();
-
-        return uploadImageUrl;
+        return uploadFile(dirName, id, uploadFile);
     }
 
     @Override
     public String uploadFile(String dirName, String id, File uploadFile) throws SQLException {
         String fileName = dirName + "/" + id+"-"+uploadFile.getName();
+
         String uploadImageUrl = insertAWS(uploadFile, fileName); // aws 업로드
+        System.out.println("uploadImageUrl = " + uploadImageUrl);
         uploadFile.delete();
+
         return uploadImageUrl;
     }
 
@@ -51,12 +46,6 @@ public class GalleryServiceImpl implements GalleryService {
     public String insertAWS(File uploadFile, String fileName) {
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
-    }
-
-    @Override
-    public void deleteAWS(String fileName) {
-        String keyName = fileName.split("amazonaws.com/")[1];
-        amazonS3Client.deleteObject(new DeleteObjectRequest(bucket, keyName));
     }
 
     @Override
