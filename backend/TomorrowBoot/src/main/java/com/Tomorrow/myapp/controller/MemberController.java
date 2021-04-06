@@ -188,6 +188,40 @@ public class MemberController {
 		}
 		return new ResponseEntity<String>(conclusion, status);
 	}
+	// 중복검사
+	@ApiOperation(value = "중복검사", notes = "중복검사", response = Map.class)
+	@PostMapping("/sameemail")
+	public ResponseEntity<String> sameEmail(@RequestBody Map<String, String> memberbody, HttpServletRequest req)
+			throws SQLException {
+		System.out.println(req);
+		String conclusion = "";
+		HttpStatus status = HttpStatus.ACCEPTED;
+		System.out.println("get to /member/sameemail done");
+		System.out.println("중복검사");
+		if (memberService.sameEmail(memberbody.get("email"))) {
+			conclusion = SUCCESS;
+		} else {
+			conclusion = FAIL;
+		}
+		return new ResponseEntity<String>(conclusion, status);
+	}
+	// 중복검사
+		@ApiOperation(value = "중복검사", notes = "중복검사", response = Map.class)
+		@PostMapping("/samecert")
+		public ResponseEntity<String> sameCert(@RequestBody Map<String, String> memberbody, HttpServletRequest req)
+				throws SQLException {
+			System.out.println(req);
+			String conclusion = "";
+			HttpStatus status = HttpStatus.ACCEPTED;
+			System.out.println("get to /member/samecert done");
+			System.out.println("중복검사");
+			if (memberService.sameCert(memberbody.get("cert"))) {
+				conclusion = SUCCESS;
+			} else {
+				conclusion = FAIL;
+			}
+			return new ResponseEntity<String>(conclusion, status);
+		}
 
 	// 로그아웃
 	@ApiOperation(value = "로그아웃", notes = "로그아웃", response = Map.class)
@@ -250,36 +284,36 @@ public class MemberController {
 		return new ResponseEntity<String>(conclusion, status);
 	}
 
-	@ApiOperation(value = "이메일인증", notes = "이메일인증", response = Map.class)
-	@PostMapping("/email")
-	public ResponseEntity<String> email(@RequestBody Map<String, String> memberbody, HttpServletRequest req)
-			throws SQLException {
-		System.out.println(req);
-		HttpStatus status = HttpStatus.ACCEPTED;
-		System.out.println("post to /member/email done");
-		System.out.println("이메일 인증");
-		String token = "";
-		System.out.println(memberbody);
-		System.out.println(memberbody.containsKey("samecheck"));
-		System.out.println(memberService.sameEmail(memberbody.get("email")));
-		if (memberbody.containsKey("samecheck") && !memberService.sameEmail(memberbody.get("email"))) {
-			token = FAIL;
-		} else {
-			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(memberbody.get("email"));
-			message.setFrom("Leeting@naver.com");
-			message.setSubject("이메일인증입니다");
-			StringBuilder sb = new StringBuilder();
-			String tmp = getTempAuth();
-			sb.append("인증번호는 ");
-			sb.append(tmp);
-			sb.append(" 입니다");
-			message.setText(tmp);
-			javaMailSender.send(message);
-			token = jwtService.create("email", tmp, "email");
-		}
-		return new ResponseEntity<String>(token, status);
-	}
+//	@ApiOperation(value = "이메일인증", notes = "이메일인증", response = Map.class)
+//	@PostMapping("/email")
+//	public ResponseEntity<String> email(@RequestBody Map<String, String> memberbody, HttpServletRequest req)
+//			throws SQLException {
+//		System.out.println(req);
+//		HttpStatus status = HttpStatus.ACCEPTED;
+//		System.out.println("post to /member/email done");
+//		System.out.println("이메일 인증");
+//		String token = "";
+//		System.out.println(memberbody);
+//		System.out.println(memberbody.containsKey("samecheck"));
+//		System.out.println(memberService.sameEmail(memberbody.get("email")));
+//		if (memberbody.containsKey("samecheck") && !memberService.sameEmail(memberbody.get("email"))) {
+//			token = FAIL;
+//		} else {
+//			SimpleMailMessage message = new SimpleMailMessage();
+//			message.setTo(memberbody.get("email"));
+//			message.setFrom("Leeting@naver.com");
+//			message.setSubject("이메일인증입니다");
+//			StringBuilder sb = new StringBuilder();
+//			String tmp = getTempAuth();
+//			sb.append("인증번호는 ");
+//			sb.append(tmp);
+//			sb.append(" 입니다");
+//			message.setText(tmp);
+//			javaMailSender.send(message);
+//			token = jwtService.create("email", tmp, "email");
+//		}
+//		return new ResponseEntity<String>(token, status);
+//	}
 
 	@ApiOperation(value = "토큰인증", notes = "토큰인증", response = Map.class)
 	@PostMapping("/auth")
@@ -358,19 +392,6 @@ public class MemberController {
 		return new ResponseEntity<String>(conclusion, status);
 	}
 
-	@ApiOperation(value = "참여미팅", notes = "참여미팅메인", response = Map.class)
-	@GetMapping("/usermeet")
-	public ResponseEntity<List<Object>> usermeet(@RequestParam("id") String memberid,HttpServletRequest req) throws SQLException {
-		System.out.println(req);
-		HttpStatus status = HttpStatus.ACCEPTED;
-		System.out.println("get to /member/usermeet done");
-		System.out.println("참여미팅");
-		System.out.println(memberService.userMeet(memberid).toString());
-		List<Object> meetlist = memberService.userMeet(memberid);
-//    		memberService.userMeet(memberid);
-		return new ResponseEntity<List<Object>>(meetlist, status);
-	}
-
 	public String getTempAuth() {
 		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
 				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -383,76 +404,6 @@ public class MemberController {
 			str += charSet[idx];
 		}
 		return str;
-	}
-
-	@RequestMapping("/naver")
-	public ResponseEntity<Object> testNaver(HttpSession session, Model model) throws IOException, URISyntaxException {
-		String redirectURI = URLEncoder.encode("http://i4a304.p.ssafy.io/Login", "UTF-8");
-		SecureRandom random = new SecureRandom();
-		String state = new BigInteger(130, random).toString();
-		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-		apiURL += String.format("&client_id=%s&redirect_uri=%s&state=%s", naver_CLIENT_ID, redirectURI, state);
-		session.setAttribute("state", state);
-		model.addAttribute("apiURL", apiURL);
-		URI redirecUri = new URI(apiURL);
-		org.springframework.http.HttpHeaders httpHeaders = new org.springframework.http.HttpHeaders();
-		httpHeaders.setLocation(redirecUri);
-		return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
-	}
-
-	@GetMapping("/naver/callback1")
-	public ResponseEntity<Map<String, String>> naverCallback1(@RequestParam("code") String code,
-			@RequestParam("state") String state, HttpSession session)
-			throws IOException, ParseException, org.apache.tomcat.util.json.ParseException, URISyntaxException {
-		session.setAttribute("state", state);
-		HttpStatus status = HttpStatus.ACCEPTED;
-		String redirectURI = URLEncoder.encode("http://i4a304.p.ssafy.io/Login", "UTF-8");
-		String apiURL;
-		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-		apiURL += "client_id=" + naver_CLIENT_ID;
-		apiURL += "&client_secret=" + naver_CLI_SECRET;
-		apiURL += "&redirect_uri=" + redirectURI;
-		apiURL += "&code=" + code;
-		apiURL += "&state=" + state;
-		String res = requestToServer(apiURL);
-		if (res != null && !res.equals("")) {
-			Map<String, Object> parsedJson = new JSONParser(res).parseObject();
-			System.out.println(parsedJson);
-			session.setAttribute("currentUser", res);
-			session.setAttribute("currentAT", parsedJson.get("access_token"));
-			session.setAttribute("currentRT", parsedJson.get("refresh_token"));
-		} else {
-		}
-		String infoStr = getProfileFromNaver(session.getAttribute("currentAT").toString());
-		Map<String, Object> infoMap = new JSONParser(infoStr).parseObject();
-		Map<String, String> conclusionmap = new HashMap<String, String>();
-		if (infoMap.get("message").equals(SUCCESS)) {
-			Map<String, Object> infoResp = (Map<String, Object>) infoMap.get("response");
-			String uniqueid = "nav_" + infoResp.get("id");
-			MemberDto newmember = new MemberDto(uniqueid, uniqueid, infoResp.get("name").toString(),
-					infoResp.get("nickname").toString(), infoResp.get("mobile").toString(),
-					infoResp.get("email").toString());
-			if (memberService.sameId(newmember.getId()) && memberService.sameEmail(newmember.getEmail())) {
-				memberService.join(newmember);
-			} else if (memberService.sameEmail(newmember.getEmail())) {
-				conclusionmap.put("message", "FAIL_email");
-//    	 return new ResponseEntity<Map<String, String>>(conclusionmap, status);
-			}
-			String token = jwtService.create("id", newmember.getId(), "id");
-			if (!conclusionmap.containsKey("message")) {
-				conclusionmap.put("message", SUCCESS);
-			}
-			conclusionmap.put("token", token);
-			conclusionmap.put("id", newmember.getId());
-			conclusionmap.put("nickname", newmember.getNickname());
-			conclusionmap.put("name", newmember.getName());
-		}
-		if (!conclusionmap.containsKey("message")) {
-			conclusionmap.put("message", FAIL);
-		}
-		return new ResponseEntity<Map<String, String>>(conclusionmap, status);
-//   return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
-//    return new ResponseEntity<Map<String, String>>(conclusionmap, status);
 	}
 
 	private String requestToServer(String apiURL, String headerStr) throws IOException {
@@ -484,85 +435,6 @@ public class MemberController {
 
 	private String requestToServer(String apiURL) throws IOException {
 		return requestToServer(apiURL, "");
-	}
-
-	public String getProfileFromNaver(String accessToken) throws IOException {
-		// 네이버 로그인 접근 토큰;
-		String apiURL = "https://openapi.naver.com/v1/nid/me";
-		String headerStr = "Bearer " + accessToken; // Bearer 다음에 공백 추가
-		String res = requestToServer(apiURL, headerStr);
-		return res;
-	}
-
-	// 구글로그인
-	@ApiOperation(value = "구글로그인", notes = "구글로그인", response = Map.class)
-	@PostMapping("/google")
-	public ResponseEntity<Map<String, String>> googlelogin(@RequestBody Map<String, Map> memberbody,
-			HttpServletRequest req) throws SQLException {
-		Map<String, String> membermap = (Map<String, String>) memberbody.get("result").get("profileObj");
-		MemberDto newmember = new MemberDto();
-		HttpStatus status = HttpStatus.ACCEPTED;
-		newmember.setId("goo_" + membermap.get("googleId"));
-		newmember.setPw("goo_" + membermap.get("googleId"));
-		newmember.setEmail(membermap.get("email"));
-		newmember.setMobile("googleid");
-		newmember.setNickname(membermap.get("name"));
-		newmember.setName(membermap.get("name"));
-		Map<String, String> conclusionmap = new HashMap<String, String>();
-		if (memberService.sameId(newmember.getId()) && memberService.sameEmail(newmember.getEmail())) {
-			memberService.join(newmember);
-		} else if (memberService.sameEmail(newmember.getEmail())) {
-			conclusionmap.put("message", "FAIL_email");
-//	     	 return new ResponseEntity<Map<String, String>>(conclusionmap, status);
-		}
-		String token = jwtService.create("id", newmember.getId(), "id");
-		if (!conclusionmap.containsKey("message")) {
-			conclusionmap.put("message", SUCCESS);
-		}
-		conclusionmap.put("token", token);
-		conclusionmap.put("id", newmember.getId());
-		conclusionmap.put("nickname", newmember.getNickname());
-		conclusionmap.put("name", newmember.getName());
-		return new ResponseEntity<Map<String, String>>(conclusionmap, status);
-
-	}
-	// 카카오로그인
-	@ApiOperation(value = "카카오로그인", notes = "카카오로그인", response = Map.class)
-	@PostMapping("/kakao")
-	public ResponseEntity<Map<String, String>> kakaologin(@RequestBody Map memberbody,
-			HttpServletRequest req) throws SQLException {
-		Map membermap =  (Map) ((Map) memberbody.get("result")).get("profile");
-		MemberDto newmember = new MemberDto();
-		newmember.setId("kak_" + membermap.get("id"));
-		newmember.setPw("kak_" +membermap.get("id"));
-		HttpStatus status = HttpStatus.ACCEPTED;
-		membermap =  (Map) membermap.get("kakao_account");
-		newmember.setEmail(""+membermap.get("email"));
-		if(newmember.getEmail().equals("null")) {
-			newmember.setEmail(newmember.getId());
-		}
-		newmember.setMobile("kakaoid");
-		membermap = (Map) membermap.get("profile");
-		newmember.setNickname(""+membermap.get("nickname"));
-		newmember.setName(""+membermap.get("nickname"));
-		System.out.println(newmember.toString());
-		Map<String, String> conclusionmap = new HashMap<String, String>();
-		if (memberService.sameId(newmember.getId()) && memberService.sameEmail(newmember.getEmail())) {
-			memberService.join(newmember);
-		} else if (memberService.sameEmail(newmember.getEmail())) {
-			conclusionmap.put("message", "FAIL_email");
-//	     	 return new ResponseEntity<Map<String, String>>(conclusionmap, status);
-		}
-		String token = jwtService.create("id", newmember.getId(), "id");
-		if (!conclusionmap.containsKey("message")) {
-			conclusionmap.put("message", SUCCESS);
-		}
-		conclusionmap.put("token", token);
-		conclusionmap.put("id", newmember.getId());
-		conclusionmap.put("nickname", newmember.getNickname());
-		conclusionmap.put("name", newmember.getName());
-		return new ResponseEntity<Map<String, String>>(conclusionmap, status);
-
 	}
 	//sha256 해쉬
 	public static String sha256(String msg) throws NoSuchAlgorithmException  {

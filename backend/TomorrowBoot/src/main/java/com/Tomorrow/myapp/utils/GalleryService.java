@@ -17,5 +17,7 @@ public interface GalleryService {
 
     String insertAWS(File uploadFile, String fileName);
 
+    void deleteAWS(String fileName);
+
     Optional<File> convert(MultipartFile file) throws IOException;
 }

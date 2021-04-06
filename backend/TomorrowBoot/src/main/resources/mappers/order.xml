@@ -9,7 +9,10 @@
 	<delete id="delete" parameterType="String">
 		DELETE FROM orderInfo WHERE id=#{id}
 	</delete>
-	<select id="get" parameterType="String" resultType="order">
+	<select id="get" parameterType="String" resultType="List">
+		SELECT * FROM orderInfo WHERE member_id = #{member_id}
+	</select>
+	<select id= "getbyid" parameterType="String" resultType="order">
 		SELECT * FROM orderInfo WHERE id = #{id}
 	</select>
 	<update id="payment" parameterType="order">

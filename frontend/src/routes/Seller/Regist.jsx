@@ -123,7 +123,7 @@ const Regist = ({ history }) => {
         // console.log(file);
         var formData = new FormData();
         formData.append('data', file);
-        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('hostid', sessionStorage.getItem('id'));
         formData.append('dirNum', 1);
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
@@ -154,7 +154,7 @@ const Regist = ({ history }) => {
         // // console.log(file);
         var formData = new FormData();
         formData.append('data', file);
-        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('hostid', sessionStorage.getItem('id'));
         formData.append('dirNum', 1);
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
@@ -170,7 +170,7 @@ const Regist = ({ history }) => {
     }
 
     const regist = (e) => {
-        var id = localStorage.getItem('id');
+        var id = sessionStorage.getItem('id');
         var nameLength = title.length;
         var subNameLength = subtitle.length;
         var contents = content;

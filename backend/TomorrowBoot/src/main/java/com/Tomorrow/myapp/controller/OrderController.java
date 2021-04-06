@@ -72,8 +72,8 @@ public class OrderController {
     }
     
     @GetMapping("/list")
-    public ResponseEntity<List<OrderDto>> getOrder(@RequestParam("id") String id){
-        return new ResponseEntity<>(orderService.getorderlist(id), HttpStatus.ACCEPTED);
+    public ResponseEntity<List<OrderDto>> getOrder(@RequestParam("member_id") String member_id){
+        return new ResponseEntity<>(orderService.getorderlist(member_id), HttpStatus.ACCEPTED);
     }
     @PutMapping("/send")
     public ResponseEntity<String> deletedetail(@RequestBody Map<String, String> data, HttpServletRequest req){
