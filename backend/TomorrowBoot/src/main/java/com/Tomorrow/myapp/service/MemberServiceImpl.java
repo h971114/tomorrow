@@ -86,6 +86,20 @@ public class MemberServiceImpl implements MemberService{
         }
     }
     @Override
+    public boolean sameCert(String memberCert) {
+        try {
+            if(memberDao.sameCert(memberCert)==1) {
+            	return false;
+            }
+            else {
+            return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return false;
+        }
+    }
+    @Override
     public void delete(String memberId) {
         try {
             memberDao.delete(memberId);
@@ -137,18 +151,5 @@ public class MemberServiceImpl implements MemberService{
             return false;
         }
     }
-    @Override
-    public List<Object> userMeet(String memberId) {
-        try {
-           List<Object> meetlist = memberDao.userMeetingFive(memberId);
-           return meetlist;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return null;
-        }
-    }
-//    @Override
-//    public void logout(Long memberId) {
-//
-//    }
+
 }
