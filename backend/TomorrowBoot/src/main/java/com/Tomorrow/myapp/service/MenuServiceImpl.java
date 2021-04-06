@@ -4,6 +4,8 @@ import com.Tomorrow.myapp.dao.MenuDao;
 import com.Tomorrow.myapp.model.MenuDto;
 import com.Tomorrow.myapp.model.ReviewDto;
 import com.Tomorrow.myapp.utils.UtilsClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Service
 public class MenuServiceImpl implements MenuService {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final MenuDao menuDao;
 
     public MenuServiceImpl(MenuDao menuDao) {
@@ -24,8 +27,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDao.insertMenu(menu);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to insert Menu", e);
         }
     }
 
@@ -34,8 +36,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDao.deleteMenu(id);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to delete menu", e);
         }
     }
 
@@ -44,8 +45,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDao.updateMenu(menu);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to update menu", e);
         }
     }
 
@@ -56,8 +56,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menu = menuDao.getMenuInfo(id);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menu;
     }
@@ -67,8 +66,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menu = menuDao.getMenubyid(id);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menu;
     }
@@ -80,8 +78,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDtoList = menuDao.getMenu();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuDtoList;
     }
@@ -92,8 +89,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDtoList = menuDao.getMenuBySeller(seller_id);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuDtoList;
     }
@@ -104,8 +100,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDtoList = menuDao.getMenuByLowPrice();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuDtoList;
     }
@@ -116,8 +111,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDtoList = menuDao.getMenuByHighPrice();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuDtoList;
     }
@@ -128,8 +122,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDtoList = menuDao.getMenuByBest();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuDtoList;
     }
@@ -140,8 +133,7 @@ public class MenuServiceImpl implements MenuService {
         try {
             menuDtoList = menuDao.getMenuByNew();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuDtoList;
     }
@@ -158,8 +150,7 @@ public class MenuServiceImpl implements MenuService {
                 menuList.add(hashMap);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuList;
     }
@@ -176,8 +167,7 @@ public class MenuServiceImpl implements MenuService {
                 menuList.add(hashMap);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            logger.error("Fail to get menu", e);
         }
         return menuList;
     }
