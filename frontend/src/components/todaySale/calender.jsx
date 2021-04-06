@@ -57,14 +57,14 @@ const Calender = () => {
                 var str = "";
                 if (date == nowDd) {
                     document.getElementById("d" + i).classList.add("today");
-                    str += '<i className="today_line"></i>';
+                    str += '<i class="today_line"></i>';
                 }
                 if (date < 10)
-                    str += "<em className='day '> 0" + date + "</em>";
+                    str += "<em class='day '> 0" + date + "</em>";
                 else
-                    str += "<em className='day '>" + date + "</em>";
+                    str += "<em class='day '>" + date + "</em>";
                 str += "<div>"
-                str += '<p className="thumb" style="background-image:url(' + e[num].menu.img1 + ');">';
+                str += '<p class="thumb" style="background-image:url(' + e[num].menu.img1 + ');">';
                 str += "<img src='" + e[num].menu.img1 + "'/>";
                 str += "</p>";
                 str += "<span>" + e[num].menu.name + "</span>";
