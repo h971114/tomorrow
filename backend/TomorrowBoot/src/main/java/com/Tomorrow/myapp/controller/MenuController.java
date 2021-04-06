@@ -7,6 +7,8 @@ import com.Tomorrow.myapp.model.ReviewDto;
 import com.Tomorrow.myapp.service.MenuDetailService;
 import com.Tomorrow.myapp.service.MenuService;
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -146,58 +148,48 @@ public class MenuController {
     @GetMapping("/review")
     public ResponseEntity<Map<String, Object>> getReview(@RequestParam int id, HttpServletRequest req) throws SQLException {
         Map<String, Object> map = new HashMap<>();
-        HttpStatus httpStatus = HttpStatus.ACCEPTED;
         List<ReviewDto> list = menuService.getReview(id);
-        System.out.println("get /review");
         if (list.size() > 0) {
-            for (ReviewDto reviewDto : list)
-                System.out.println("reviewDto.getReview() = " + reviewDto.getReview());
             map.put("list", list);
             map.put("conclusion", SUCCESS);
         } else {
             map.put("list", null);
             map.put("conclusion", FAIL);
         }
-        return new ResponseEntity<>(map, httpStatus);
+        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
 
     // 리뷰 쓰기
     @PostMapping("/review")
     public ResponseEntity<String> postReview(@RequestBody ReviewDto reviewDto, HttpServletRequest req) throws SQLException {
         String conclusion = "";
-        HttpStatus httpStatus = HttpStatus.ACCEPTED;
-        System.out.println("post /review");
         if (menuService.postReview(reviewDto))
             conclusion = SUCCESS;
         else
             conclusion = FAIL;
-        return new ResponseEntity<>(conclusion, httpStatus);
+        return new ResponseEntity<>(conclusion, HttpStatus.ACCEPTED);
     }
 
     // 리뷰 수정
     @PutMapping("/review")
     public ResponseEntity<String> updateReview(@RequestBody ReviewDto reviewDto, HttpServletRequest req) throws SQLException {
         String conclusion = "";
-        HttpStatus httpStatus = HttpStatus.ACCEPTED;
-        System.out.println("put /review");
         if (menuService.updateReview(reviewDto))
             conclusion = SUCCESS;
         else
             conclusion = FAIL;
-        return new ResponseEntity<>(conclusion, httpStatus);
+        return new ResponseEntity<>(conclusion, HttpStatus.ACCEPTED);
     }
 
     // 리뷰 삭제
     @DeleteMapping("/review")
     public ResponseEntity<String> deleteReview(@RequestParam(value = "id") int id, HttpServletRequest req) throws SQLException {
         String conclusion = "";
-        HttpStatus httpStatus = HttpStatus.ACCEPTED;
-        System.out.println("del /review");
         if (menuService.deleteReview(id))
             conclusion = SUCCESS;
         else
             conclusion = FAIL;
-        return new ResponseEntity<>(conclusion, httpStatus);
+        return new ResponseEntity<>(conclusion, HttpStatus.ACCEPTED);
     }
 
 }
