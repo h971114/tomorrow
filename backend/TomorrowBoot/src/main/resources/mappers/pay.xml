@@ -9,4 +9,7 @@
 	 <insert id="detail" parameterType="pay">
 		INSERT INTO orderDetail (order_id,menu_id,amount) VALUES (#{partner_order_id},#{item_code},#{quantity})
 	</insert>
+	<select id="paynum" resultType="String">
+		SELECT id FROM orderInfo ORDER BY id DESC LIMIT 1
+	</select>
 </mapper>
