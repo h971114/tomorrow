@@ -25,7 +25,7 @@ import com.Tomorrow.myapp.service.OrderService;
 import com.Tomorrow.myapp.service.PayService;
 
 @Controller
-@CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io","*"})
+@CrossOrigin(origins = {"http://localhost:3000","https://j4a305.p.ssafy.io","*"}, allowedHeaders = "*")
 @RequestMapping("/pay")
 public class PayController {
     private final String SUCCESS = "SUCCESS";
