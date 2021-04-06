@@ -9,4 +9,5 @@ public interface OrderService {
 	void deleteorder(String id);
 	List<OrderDto> getorderlist(String memberid);
 	void paymentorder(OrderDto order);
+	String getLastOrder(String member_id);
 }

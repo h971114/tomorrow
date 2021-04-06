@@ -29,4 +29,8 @@ public class OrderServiceImpl implements OrderService {
 	public void paymentorder(OrderDto order) {
 		orderDao.paymentOrder(order);
 	}
+	@Override
+	public String getLastOrder(String member_id) {
+		return orderDao.getLastOrder(member_id);
+	}
 }

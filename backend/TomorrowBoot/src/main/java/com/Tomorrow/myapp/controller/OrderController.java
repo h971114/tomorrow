@@ -55,7 +55,11 @@ public class OrderController {
     	orderdetailservice.insertOrderdetail(order);
     	return new ResponseEntity<String>(SUCCESS, HttpStatus.ACCEPTED);
     }
-    
+    @GetMapping("/getlastid")
+    public ResponseEntity<String> insertdetail(@RequestParam("id") String member_id, HttpServletRequest req){
+    	System.out.println("getlastid");
+    	return new ResponseEntity<String>(orderService.getLastOrder(member_id), HttpStatus.ACCEPTED);
+    }
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteOrder(@RequestParam("id") String id, HttpServletRequest req){
     	orderService.deleteorder(id);

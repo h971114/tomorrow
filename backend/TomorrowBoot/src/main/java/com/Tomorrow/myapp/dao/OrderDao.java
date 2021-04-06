@@ -10,4 +10,5 @@ public interface OrderDao {
 	void deleteOrder(String id);
 	List<OrderDto> getOrder(String memberid);
 	void paymentOrder(OrderDto order);
+	String getLastOrder(String member_id);
 }
