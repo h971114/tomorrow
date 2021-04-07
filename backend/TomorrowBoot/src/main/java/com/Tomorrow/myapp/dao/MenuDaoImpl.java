@@ -133,4 +133,9 @@ public class MenuDaoImpl implements MenuDao {
             return false;
         return true;
     }
+
+	@Override
+	public List<MenuDto> getMenuByKeyword(String keyword) {
+        return sqlSession.selectList("menu.getMenuByKeyword", keyword);
+	}
 }

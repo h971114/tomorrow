@@ -4,7 +4,7 @@
 
 <mapper namespace="detail">
     <insert id="insert" parameterType="detail">
-		INSERT INTO orderDetail (id,order_id,menu_id,name,amount,foodhash) VALUES (#{id},#{order_id},#{menu_id},#{name},#{amount},#{foodhash})
+		INSERT INTO orderDetail (id,order_id,menu_id,name,amount,foodhash, partner_user_id) VALUES (#{id},#{order_id},#{menu_id},#{name},#{amount},#{foodhash},#{partner_user_id})
 	</insert>
 	<delete id="delete" parameterType="String">
 		DELETE FROM orderDetail WHERE id=#{id}

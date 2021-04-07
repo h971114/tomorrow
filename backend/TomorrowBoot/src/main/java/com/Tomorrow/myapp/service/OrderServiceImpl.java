@@ -22,6 +22,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	@Override
 	public List<OrderDto> getorderlist(String memberid) {
+		System.out.println(orderDao.getOrder(memberid));
 		return orderDao.getOrder(memberid);
 	}
 	

@@ -7,8 +7,9 @@ public class Orderdetail {
     private String name;
     private String amount;
     private String foodhash;
+    private String partner_user_id;
 
-    public Orderdetail(String id, String order_id, String menu_id, String name, String amount, String foodhash) {
+    public Orderdetail(String id, String order_id, String menu_id, String name, String amount, String foodhash, String partner_user_id) {
         super();
         this.id = id;
         this.order_id = order_id;
@@ -16,9 +17,18 @@ public class Orderdetail {
         this.name = name;
         this.amount = amount;
         this.foodhash = foodhash;
+        this.partner_user_id = partner_user_id;
     }
 
-    public String getId() {
+    public String getPartner_user_id() {
+		return partner_user_id;
+	}
+
+	public void setPartner_user_id(String partner_user_id) {
+		this.partner_user_id = partner_user_id;
+	}
+
+	public String getId() {
         return id;
     }
 

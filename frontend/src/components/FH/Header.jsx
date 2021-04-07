@@ -20,12 +20,36 @@ class Header extends Component {
         this.state = {
             id: cookies.get('id') || "",
             token: cookies.get('token') || "",
-            isSeller: cookies.get('isSeller') || "0",
+            searchtxt: ""
+            // isSeller: cookies.get('isSeller') || "0",
         }
     };
 
     componentDidMount() {
         this.cartCount();
+
+        if (sessionStorage.getItem('id') !== null) {
+            var Uid = sessionStorage.getItem('id');
+            console.log(Uid);
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/isseller/` + Uid
+            ).then(res => {
+                if (res.data === "SUCCESS") {
+                    document.getElementById('noSeller').setAttribute("style", "display:none");
+                    document.getElementById('Seller').setAttribute("style", "display:inline-block");
+
+                    this.setState({
+                        isSeller: 1
+                    })
+                } else {
+                    document.getElementById('Seller').setAttribute("style", "display:none");
+                    document.getElementById('noSeller').setAttribute("style", "display:inline-block");
+
+                    this.setState({
+                        isSeller: 0
+                    })
+                }
+            })
+        }
         // console.log(this.state.cartCnt);
     }
 
@@ -46,6 +70,19 @@ class Header extends Component {
                 })
             })
         }
+    }
+
+    searchtxt = (e) => {
+        // console.log(e.target.value);
+        this.setState({
+            searchtxt: e.target.value
+        })
+    }
+    goSearch = (e) => {
+        e.preventDefault();
+
+        console.log(this.state.searchtxt);
+        window.location.replace('/search');
     }
 
     logout = (e) => {
@@ -83,8 +120,17 @@ class Header extends Component {
                         <div className="size">
                             <div className="search">
                                 <form>
-                                    <input type="text" id="search_text" name="head_val" placeholder="제품 검색"></input>
-                                    <input type="submit" value=""></input>
+                                    <input type="text" id="search_text" name="head_val" onChange={this.searchtxt} placeholder="제품 검색"></input>
+
+                                    <Link
+                                        to={{
+                                            pathname: `/search/${this.state.searchtxt}`,
+                                            state: {
+                                                searchtxt: this.state.searchtxt
+                                            }
+                                        }}
+                                    ><input type="submit" value=""></input>
+                                    </Link>
                                 </form>
                             </div>
                             <h1 className="logo">
@@ -118,31 +164,29 @@ class Header extends Component {
                                         <li className="login">
                                             <a onClick={this.logout} style={{ cursor: "pointer" }}>로그아웃</a>
                                         </li>
-                                        <li className="login">
-                                            {
-                                                this.state.isSeller === "0" &&
-                                                <Link
-                                                    to={{
-                                                        pathname: `/mypage`,
-                                                        state: {
-                                                            id: this.state.id,
-                                                            isSeller: this.state.isSeller
-                                                        }
-                                                    }}
-                                                >마이페이지</Link>
-                                            }
-                                            {
-                                                this.state.isSeller === "1" &&
-                                                <Link
-                                                    to={{
-                                                        pathname: `/mypage`,
-                                                        state: {
-                                                            id: this.state.id,
-                                                            isSeller: this.state.isSeller
-                                                        }
-                                                    }}
-                                                >판매자 페이지</Link>
-                                            }
+
+                                        <li className="login" id="noSeller">
+                                            <Link
+                                                to={{
+                                                    pathname: `/mypage`,
+                                                    state: {
+                                                        id: this.state.id,
+                                                        isSeller: this.state.isSeller
+                                                    }
+                                                }}
+                                            >마이페이지</Link>
+                                        </li>
+                                        <li className="login" id="Seller" style={{ display: `none` }}>
+                                            <Link
+                                                to={{
+                                                    pathname: `/mypage`,
+                                                    state: {
+                                                        id: this.state.id,
+                                                        isSeller: this.state.isSeller
+                                                    }
+                                                }}
+                                            >마이페이지</Link>
+
                                         </li>
                                         <li><Link
                                             to={{

@@ -33,9 +33,10 @@ class MyPage extends React.Component {
         var isSeller = location.state.isSeller;
         console.log(isSeller);
 
-        if (isSeller === '0') {
+
+        if (isSeller === 0) {
             document.getElementById('sellerMenu').setAttribute("style", "display:none");
-        } else if (isSeller === '1') {
+        } else if (isSeller === 1) {
             document.getElementById('userMenu').setAttribute("style", "display:none");
         }
 

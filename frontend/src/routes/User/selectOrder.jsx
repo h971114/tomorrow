@@ -13,29 +13,30 @@ class Order extends React.Component {
 
     componentDidMount() {
         const { location } = this.props;
-        console.log(location.state.posts);
+        console.log(location.state.sendposts);
         this.setState({
-            posts: location.state.posts
+            posts: location.state.sendposts
         })
-
+        console.log(location.state.sendposts);
+        // console.log(this.state.posts);
         var totPrices = 0;
         var sendprice = 0;
-        for (var i = 0; i < location.state.posts.length; i++) {
-            var realPrice = location.state.posts[i].price;
+        for (var i = 0; i < location.state.sendposts.length; i++) {
+            var realPrice = location.state.sendposts[i].price;
             var date = new Date().getDate();
             // console.log(date);
             if (date < 10)
                 date = '0' + date;
 
-            var days = location.state.posts[i].todaysale;
+            var days = location.state.sendposts[i].todaysale;
             days = days.substr(days.length - 2, 2);
             // console.log(days);
             if (date === days)
-                realPrice = location.state.posts[i].price / 100 * (100 - location.state.posts[i].tdr);
-            else if (location.state.posts[i].discount_rate > 0)
-                realPrice = location.state.posts[i].price / 100 * (100 - location.state.posts[i].discount_rate);
+                realPrice = location.state.sendposts[i].price / 100 * (100 - location.state.sendposts[i].tdr);
+            else if (location.state.sendposts[i].discount_rate > 0)
+                realPrice = location.state.sendposts[i].price / 100 * (100 - location.state.sendposts[i].discount_rate);
 
-            var thisPrice = realPrice * location.state.posts[i].amount;
+            var thisPrice = realPrice * location.state.sendposts[i].amount;
             totPrices = totPrices + thisPrice;
             // console.log(totPrices);
         }
@@ -189,16 +190,11 @@ class Order extends React.Component {
         }
         List = arrnowpayHistory;
 
-
-
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
             headers: {
                 "Content-Type": `application/json`,
                 "Access-Control-Allow-Origin": "*"
             },
-
-
-
             // params: {
             //     nowpay: List
             // }
@@ -206,15 +202,7 @@ class Order extends React.Component {
             console.log(res);
             console.log('data is ' + res.data);
             const url = res.data;
-
-
-            window.open(url, "_blank");
-
             window.location.replace(url);
-
-
-            window.location.replace(url);
-
             // if (res.data === "FAIL") {
             //     alert("찾으시는 정보가 없습니다.");
             // }
