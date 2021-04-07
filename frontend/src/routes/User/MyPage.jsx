@@ -29,10 +29,9 @@ class MyPage extends React.Component {
     componentDidMount() {
         const { location } = this.props;
 
-        var id = location.state.id;
+        var id = sessionStorage.getItem('id');
         var isSeller = location.state.isSeller;
-        console.log(isSeller);
-
+        console.log(id);
 
         if (isSeller === 0) {
             document.getElementById('sellerMenu').setAttribute("style", "display:none");
@@ -47,7 +46,7 @@ class MyPage extends React.Component {
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
         ).then(res => {
-            // // console.log(res.data);
+            console.log(res.data);
 
             this.setState({
                 name: res.data.name,
@@ -63,6 +62,7 @@ class MyPage extends React.Component {
 
             var points = this.state.points;
             var pointsString = points.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            // var pointsString = "0";
 
             this.setState({
                 pointsString: pointsString

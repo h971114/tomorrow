@@ -164,7 +164,6 @@ class Header extends Component {
                                         <li className="login">
                                             <a onClick={this.logout} style={{ cursor: "pointer" }}>로그아웃</a>
                                         </li>
-
                                         <li className="login" id="noSeller">
                                             <Link
                                                 to={{
@@ -186,7 +185,6 @@ class Header extends Component {
                                                     }
                                                 }}
                                             >마이페이지</Link>
-
                                         </li>
                                         <li><Link
                                             to={{

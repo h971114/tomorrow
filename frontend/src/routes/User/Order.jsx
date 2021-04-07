@@ -8,6 +8,7 @@ class Order extends React.Component {
         this.state = {
             count: 0,
             posts: [],
+            usePoint: 0
         };
     }
 
@@ -58,7 +59,7 @@ class Order extends React.Component {
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + Uid
         ).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
 
             this.setState({
                 name: res.data.name,
@@ -152,6 +153,22 @@ class Order extends React.Component {
         })
         document.getElementById('usepoint').value = usingPoint;
     }
+    inputUsePoints = (e) => {
+        var usingPoint = e.target.value;
+        var totpay = (Number(this.state.totPay) + Number(this.state.usePoint)) - usingPoint;
+        // console.log("totPay : " + Number(this.state.totPay));
+        // console.log("usePoint : " + Number(this.state.usePoint));
+        // console.log(e.target.value);
+        // console.log("totPay + usePoint : " + (Number(this.state.totPay) + Number(this.state.usePoint)));
+        var totPayStrings = totpay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        this.setState({
+            usePoint: usingPoint,
+            totPay: totpay,
+            PaymentString: totPayStrings
+        })
+        document.getElementById('usepoint').value = usingPoint;
+
+    }
 
     payStart = (e) => {
         var Uid = sessionStorage.getItem('id');
@@ -184,21 +201,17 @@ class Order extends React.Component {
             nowpay.quantity = this.state.posts[i].amount;
             nowpay.total_mount = thisPrice;
             nowpay.tax_free_amount = 0;
+            nowpay.point = Number(this.state.usePoint);
 
             arrnowpayHistory.push(nowpay);
         }
         List = arrnowpayHistory;
-
-
 
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
             headers: {
                 "Content-Type": `application/json`,
                 "Access-Control-Allow-Origin": "*"
             },
-
-
-
             // params: {
             //     nowpay: List
             // }
@@ -206,15 +219,7 @@ class Order extends React.Component {
             console.log(res);
             console.log('data is ' + res.data);
             const url = res.data;
-
-
-            window.open(url, "_blank");
-
             window.location.replace(url);
-
-
-            window.location.replace(url);
-
             // if (res.data === "FAIL") {
             //     alert("찾으시는 정보가 없습니다.");
             // }
@@ -491,7 +496,7 @@ class Order extends React.Component {
                                 <tr>
                                     <th className="point_th"><span>사용 적립금</span></th>
                                     <td className="point">
-                                        <input type="number" min="0" name="usepoint" id="usepoint" />
+                                        <input type="number" min="0" name="usepoint" onChange={this.inputUsePoints} id="usepoint" />
                                         <a onClick={this.usePoints}>전액사용</a> <span>보유적립금 : <em id="nowpoint">{this.state.pointsString}</em></span>
                                     </td>
                                 </tr>

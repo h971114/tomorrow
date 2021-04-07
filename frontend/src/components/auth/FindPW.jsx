@@ -60,9 +60,7 @@ class Find extends React.Component {
     }
 
     changePW = (e) => {
-
         console.log(this.state)
-
         e.preventDefault();
         // 비밀번호 위에 입력이 이거
         // this.state.pw;
@@ -72,7 +70,6 @@ class Find extends React.Component {
         if (this.state.pw !== this.state.pwconfirm) {
             alert("입력한 비밀번호가 다릅니다 다시 입력해주세요!!");
         } else {
-
             axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/member/findpw`, {
                 id: this.state.id,
                 pw: this.state.pw,
@@ -98,6 +95,7 @@ class Find extends React.Component {
             });
         }
     }
+
 
 
     idChange = (e) => this.setState({ id: e.target.value });
