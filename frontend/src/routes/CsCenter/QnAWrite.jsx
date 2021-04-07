@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 import TopVisual from '../../components/CsCenter/TopVisual';
@@ -7,6 +7,11 @@ import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
+import axios from "axios";
+import { instanceOf } from 'prop-types'
+import { Cookies } from 'react-cookie';
+
+
 const QnAWrite = ({ history }) => {
 
     var editorRef = React.createRef();
@@ -14,6 +19,79 @@ const QnAWrite = ({ history }) => {
     const goBack = () => {
         history.goBack();
     };
+
+    const [title, setTitle] = useState("")
+    const [detail, setDetail] = useState("")
+    const [writer, setWriter] = useState("")
+    const [file, setFile] = useState("")
+
+    useEffect(() => {
+        setWriter(localStorage.getItem('id'))
+    }, []);
+
+    const titleChange = e => {
+        setTitle(e.target.value);
+    };
+
+    const detailChange = e => {
+        setDetail(editorRef.current.getInstance().getHtml());
+    };
+
+    const fileChange = (e) => {
+        console.log(e)
+
+        var filename;
+        if(window.FileReader){
+            filename = e.target.files[0].name;
+        } else {
+            filename = e.target.val().split('/').pop().split('\\').pop()
+        }
+
+        document.getElementById('addFile').value = filename;
+        // setFile1('filename', filename)
+
+        var formData = new FormData();
+        formData.append('data', e.target.files[0]);
+        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('dirNum', 2);
+        axios.post('http://127.0.0.1:8080/myapp/gallery/upload', formData,{
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        }).then(res => {
+            console.log(res.data);
+            setFile(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    const write = (e) => {
+        if ({title} === "") {
+            return (alert('제목이 작성되지 않았습니다.'));
+        }
+        else if ({detail} === "") {
+            return (alert('내용이 작성되지 않았습니다.'));
+        }
+
+        axios.post(`http://127.0.0.1:8080/myapp/question/`, {
+            title: {title}.title,
+            detail: {detail}.detail,
+            writer: localStorage.getItem('id'),
+            // file: {file}.file,
+        }).then(res => {
+            if (res.data === "SUCCESS") {
+                console.log("글 작성 성공");
+                alert("글 작성이 완료되었습니다.");
+                window.location.replace(`/cscenter/qna`);
+            }
+            else {
+                console.log("글 작성 실패");
+                alert("글 작성에 실패하셨습니다. 다시 작성해 주세요!");
+                window.location.replace('/cscenter/qna/write');
+            }
+        })
+    }
 
     return (
         <div id="sub" className="qna qna_write">
@@ -42,7 +120,7 @@ const QnAWrite = ({ history }) => {
                                     <tbody>
                                         <tr>
                                             <th>제목</th>
-                                            <td><input type="text" name="title" id="title" className="wid500" />
+                                            <td><input type="text" name="title" id="title" className="wid500" value={title} onChange={titleChange}/>
                                                 <input type="checkbox" name="secret" value="1" id="secret"></input>
                                                 <label for="secret">비밀글</label>
                                             </td>
@@ -56,6 +134,8 @@ const QnAWrite = ({ history }) => {
                                                     height="500px"
                                                     initialEditType="wysiwyg"
                                                     ref={editorRef}
+                                                    value={detail}
+                                                    onChange={detailChange}
                                                 />
                                             </td>
                                         </tr>
@@ -65,10 +145,10 @@ const QnAWrite = ({ history }) => {
                                             <td>
                                                 <div className="fileBox">
                                                     <div className="inputBox">
-                                                        <input type="text" id="addFile" disabled="" value="" />
+                                                        <input type="text" id="addFile" disabled="disabled" readOnly />
                                                     </div>
                                                     <div className="fileBtn">
-                                                        <label className="fileBtn_label">찾아보기<input type="file" name="filename" /></label>
+                                                        <label className="fileBtn_label">찾아보기<input type="file" accept="*" id="up_file" name="filename" onChange={fileChange}/></label>
                                                     </div>
                                                 </div>
                                                 <p className="help">첨부파일은 5MB 이하의 파일만 가능합니다.</p>
@@ -79,7 +159,7 @@ const QnAWrite = ({ history }) => {
                                 </table>
                                 <div className="btnSet clear">
                                     <div>
-                                        <a className="btn">저장</a>
+                                        <a className="btn" onClick={write}>저장</a>
                                         <a onclick={goBack} className="btn">취소</a>
                                     </div>
                                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 import TopVisual from '../../components/CsCenter/TopVisual';
@@ -7,13 +7,178 @@ import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
-const NoticeWrite = ({ history }) => {
+import axios from "axios";
+import { instanceOf } from 'prop-types'
+import { Cookies, useCookies } from 'react-cookie';
 
+
+const NoticeWrite = ({ history }) => {
+    
     var editorRef = React.createRef();
 
     const goBack = () => {
         history.goBack();
     };
+
+    const [title, setTitle] = useState("")
+    const [detail, setDetail] = useState("")
+    const [writer, setWriter] = useCookies("")
+    const [file1, setFile1] = useState("")
+    const [file2, setFile2] = useState("")
+    const [file3, setFile3] = useState("")
+
+    useEffect(() => {
+        if (localStorage.getItem('id') !== 'prestto1') {
+            alert('잘못된 접근입니다!')
+            history.goBack();
+        }
+        setWriter(localStorage.getItem('id'))
+        console.log(writer)
+        console.log(localStorage.getItem('id'))
+    }, []);
+
+    const titleChange = e => {
+        setTitle(e.target.value);
+    };
+
+    const detailChange = e => {
+        setDetail(editorRef.current.getInstance().getHtml());
+    };
+
+    const file1Change = (e) => {
+        console.log(e)
+
+        var filename;
+        if(window.FileReader){
+            filename = e.target.files[0].name;
+        } else {
+            filename = e.target.val().split('/').pop().split('\\').pop()
+        }
+
+        document.getElementById('addFile1').value = filename;
+        // setFile1('filename', filename)
+
+        var formData = new FormData();
+        formData.append('data', e.target.files[0]);
+        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('dirNum', 2);
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData,{
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        }).then(res => {
+            console.log(res.data);
+            setFile1(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    const file2Change = (e) => {
+        // console.log(e)
+        var filename;
+        if(window.FileReader){
+            filename = e.target.files[0].name;
+        } else {
+            filename = e.target.val().split('/').pop().split('\\').pop()
+        }
+
+        document.getElementById('addFile2').value = filename;
+
+        var formData = new FormData();
+        formData.append('data', filename);
+        formData.append('hostid', writer.nickname);
+        formData.append('dirNum', 0);
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData,{
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        }).then(res => {
+            console.log(res);
+            setFile2(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+    const file3Change = (e) => {
+        // console.log(e)
+        setFile3('file', e.target.files[0])
+
+        var filename;
+        if(window.FileReader){
+            filename = e.target.files[0].name;
+        } else {
+            filename = e.target.val().split('/').pop().split('\\').pop()
+        }
+
+        document.getElementById('addFile3').value = filename;
+        setFile3('filename', filename)
+
+        var formData = new FormData();
+        formData.append('data', filename);
+        formData.append('hostid', writer);
+        formData.append('dirNum', 0);
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData,{
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        }).then(res => {
+            console.log(res);
+            setFile3(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    const write = (e) => {
+        // console.log(e)
+        // e.preventDefault();
+        // var file1Name = document.getElementById('addFile1').value
+        // var file2Name = document.getElementById('addFile2').value
+        // var file3Name = document.getElementById('addFile3').value
+
+        if ({title} === "") {
+            return (alert('제목이 작성되지 않았습니다.'));
+        }
+        else if ({detail} === "") {
+            return (alert('내용이 작성되지 않았습니다.'));
+        }
+
+        // if (file2Name !== "" && file1Name === "") {
+        //     file1Name = file2Name;
+        //     file2Name = file3Name;
+        //     file3Name = "";
+        // }
+        // else if (file3Name !== "" && file1Name === "") {
+        //     file1Name = file3Name;
+        //     file3Name = "";
+        // }
+        // else if (file3Name !== "" && file2Name === "") {
+        //     file2Name = file3Name;
+        //     file3Name = "";
+        // }
+
+
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/`, {
+            title: {title}.title,
+            detail: {detail}.detail,
+            writer: localStorage.getItem('id'),
+            file1: {file1}.file1,
+            file2: {file2}.file2,
+            file3: {file3}.file3,
+        }).then(res => {
+            if (res.data === "SUCCESS") {
+                console.log("글 작성 성공");
+                alert("글 작성이 완료되었습니다.");
+                window.location.replace(`/cscenter/notice`);
+            }
+            else {
+                console.log("글 작성 실패");
+                alert("글 작성에 실패하셨습니다. 다시 작성해 주세요!");
+                window.location.replace('/cscenter/notice/write');
+            }
+        })
+    }
 
     return (
         <div id="sub" className="qna qna_write">
@@ -42,7 +207,7 @@ const NoticeWrite = ({ history }) => {
                                     <tbody>
                                         <tr>
                                             <th>제목</th>
-                                            <td><input type="text" name="title" id="title" className="wid500" />
+                                            <td><input type="text" name="title" id="title" className="wid500" value={title} onChange={titleChange} />
                                             </td>
                                         </tr>
                                         <tr className="txtarea">
@@ -54,6 +219,8 @@ const NoticeWrite = ({ history }) => {
                                                     height="500px"
                                                     initialEditType="wysiwyg"
                                                     ref={editorRef}
+                                                    value={detail}
+                                                    onChange={detailChange}
                                                 />
                                             </td>
                                         </tr>
@@ -63,10 +230,10 @@ const NoticeWrite = ({ history }) => {
                                             <td>
                                                 <div className="fileBox">
                                                     <div className="inputBox">
-                                                        <input type="text" id="addFile" disabled="" value="" />
+                                                        <input type="text" id="addFile1" disabled="" readOnly />
                                                     </div>
-                                                    <div className="fileBtn">
-                                                        <label className="fileBtn_label">찾아보기<input type="file" name="filename" /></label>
+                                                    <div className="fileBtn" id="up_file1">
+                                                        <label className="fileBtn_label" id="up_file1">찾아보기<input type="file" accept="*" id="up_file1" name="filename" onChange={file1Change} /></label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -76,10 +243,10 @@ const NoticeWrite = ({ history }) => {
                                             <td>
                                                 <div className="fileBox">
                                                     <div className="inputBox">
-                                                        <input type="text" id="addFile" disabled="" value="" />
+                                                        <input type="text" id="addFile2" disabled="" readOnly />
                                                     </div>
                                                     <div className="fileBtn">
-                                                        <label className="fileBtn_label">찾아보기<input type="file" name="filename" /></label>
+                                                        <label className="fileBtn_label">찾아보기<input type="file" name="filename" onChange={file2Change} /></label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -89,10 +256,10 @@ const NoticeWrite = ({ history }) => {
                                             <td>
                                                 <div className="fileBox">
                                                     <div className="inputBox">
-                                                        <input type="text" id="addFile" disabled="" value="" />
+                                                        <input type="text" id="addFile3" disabled="" readOnly />
                                                     </div>
                                                     <div className="fileBtn">
-                                                        <label className="fileBtn_label">찾아보기<input type="file" name="filename" /></label>
+                                                        <label className="fileBtn_label">찾아보기<input type="file" name="filename" onChange={file3Change} /></label>
                                                     </div>
                                                 </div>
                                                 <p className="help">첨부파일은 5MB 이하의 파일만 가능합니다.</p>
@@ -103,8 +270,8 @@ const NoticeWrite = ({ history }) => {
                                 </table>
                                 <div className="btnSet clear">
                                     <div>
-                                        <a className="btn">저장</a>
-                                        <a onclick={goBack} className="btn">취소</a>
+                                        <a className="btn" onClick={write}>작성</a>
+                                        <a onClick={goBack} className="btn">취소</a>
                                     </div>
                                 </div>
                             </div>

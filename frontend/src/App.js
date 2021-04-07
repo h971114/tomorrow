@@ -45,6 +45,7 @@ import OrderEnd from "./routes/User/OrderEnd";
 import Notice from "./routes/CsCenter/Notice";
 import NoticeWrite from "./routes/CsCenter/NoticeWrite";
 import NoticeModify from "./routes/CsCenter/NoticeModify";
+import NoticeDetail from "./routes/CsCenter/NoticeDetail";
 import Faq from "./routes/CsCenter/Faq";
 import QnA from "./routes/CsCenter/QnA";
 import QnADetail from "./routes/CsCenter/QnADetail";
@@ -101,12 +102,13 @@ function App() {
           
           <Route path="/cscenter/notice" exact={true} component={Notice}/>
           <Route path="/cscenter/notice/write" exact={true} component={NoticeWrite}/>
-          <Route path="/cscenter/notice/modify" exact={true} component={NoticeModify}/>
+          <Route path="/cscenter/notice/:id/modify" exact={true} component={NoticeModify}/>
+          <Route path="/cscenter/notice/:id" exact={true} component={NoticeDetail}/>
           <Route path="/cscenter/faq" exact={true} component={Faq}/>
           <Route path="/cscenter/qna" exact={true} component={QnA}/>
-          <Route path="/cscenter/qna/detail" exact={true} component={QnADetail}/>
           <Route path="/cscenter/qna/write" exact={true} component={QnAWrite}/>
-          <Route path="/cscenter/qna/rewrite" exact={true} component={QnARewrite}/>
+          <Route path="/cscenter/qna/:id/rewrite" exact={true} component={QnARewrite}/>
+          <Route path="/cscenter/qna/:id" exact={true} component={QnADetail}/>
         </Switch>
         <Footer/>
       </div>
