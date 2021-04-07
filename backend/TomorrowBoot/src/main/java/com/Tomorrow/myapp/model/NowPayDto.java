@@ -3,22 +3,31 @@ package com.Tomorrow.myapp.model;
 
 public class NowPayDto {
     private String item_name, item_code;
-    private int quantity, total_mount, tax_free_amount;
+    private int quantity, total_mount, tax_free_amount, point;
 
     public NowPayDto() {
         super();
     }
 
-    public NowPayDto(String item_name, String item_code, int quantity, int total_mount, int tax_free_amount) {
+    public NowPayDto(String item_name, String item_code, int quantity, int total_mount, int tax_free_amount, int point) {
         super();
         this.item_name = item_name;
         this.item_code = item_code;
         this.quantity = quantity;
         this.total_mount = total_mount;
         this.tax_free_amount = tax_free_amount;
+        this.point = point;
     }
 
-    public String getItem_code() {
+    public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public String getItem_code() {
         return item_code;
     }
 
@@ -58,10 +67,12 @@ public class NowPayDto {
         this.tax_free_amount = tax_free_amount;
     }
 
-    @Override
-    public String toString() {
-        return "NowPayDto [item_name=" + item_name + ", item_code=" + item_code + ", quantity=" + quantity
-                + ", total_mount=" + total_mount + ", tax_free_amount=" + tax_free_amount + "]";
-    }
+	@Override
+	public String toString() {
+		return "NowPayDto [item_name=" + item_name + ", item_code=" + item_code + ", quantity=" + quantity
+				+ ", total_mount=" + total_mount + ", tax_free_amount=" + tax_free_amount + ", point=" + point + "]";
+	}
+
+
 
 }

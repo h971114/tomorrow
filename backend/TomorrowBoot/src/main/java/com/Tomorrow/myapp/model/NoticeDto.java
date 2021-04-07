@@ -15,18 +15,26 @@ public class NoticeDto {
     private String file2;
     private String file3;
 
-    public NoticeDto(int ROWNUM, int no, String title, String detail, String date, String writer, int hit, String file1, String file2, String file3) {
-        this.ROWNUM = ROWNUM;
-        this.no = no;
-        this.title = title;
-        this.detail = detail;
-        this.date = date;
-        this.writer = writer;
-        this.hit = hit;
-        this.file1 = file1;
-        this.file2 = file2;
-        this.file3 = file3;
-    }
+    public NoticeDto() {
+		super();
+	}
+
+
+	public NoticeDto(int rOWNUM, int no, String title, String detail, String date, String writer, int hit, String file1,
+			String file2, String file3) {
+		super();
+		ROWNUM = rOWNUM;
+		this.no = no;
+		this.title = title;
+		this.detail = detail;
+		this.date = date;
+		this.writer = writer;
+		this.hit = hit;
+		this.file1 = file1;
+		this.file2 = file2;
+		this.file3 = file3;
+	}
+
 
     public int getROWNUM() {
         return ROWNUM;
