@@ -3,15 +3,15 @@ package com.Tomorrow.myapp.model;
 
 public class NowPayDto {
     private String item_name, item_code, name, mobile,addr,etc;
-    private int quantity, total_mount, tax_free_amount, point, uppoint;
+    private int quantity, total_mount, tax_free_amount, point, uppoint, total_amount;
 
     public NowPayDto() {
         super();
     }
 
 
-    public NowPayDto(String item_name, String item_code, String name, String mobile, String addr, String etc,
-			int quantity, int total_mount, int tax_free_amount, int point, int uppoint) {
+	public NowPayDto(String item_name, String item_code, String name, String mobile, String addr, String etc,
+			int quantity, int total_mount, int tax_free_amount, int point, int uppoint, int total_amount) {
 		super();
 		this.item_name = item_name;
 		this.item_code = item_code;
@@ -24,7 +24,21 @@ public class NowPayDto {
 		this.tax_free_amount = tax_free_amount;
 		this.point = point;
 		this.uppoint = uppoint;
+		this.total_amount = total_amount;
 	}
+
+
+	public int getTotal_amount() {
+		return total_amount;
+	}
+
+
+
+	public void setTotal_amount(int total_amount) {
+		this.total_amount = total_amount;
+	}
+
+
 
 	public String getName() {
 		return name;
@@ -128,7 +142,8 @@ public class NowPayDto {
 	public String toString() {
 		return "NowPayDto [item_name=" + item_name + ", item_code=" + item_code + ", name=" + name + ", mobile="
 				+ mobile + ", addr=" + addr + ", etc=" + etc + ", quantity=" + quantity + ", total_mount=" + total_mount
-				+ ", tax_free_amount=" + tax_free_amount + ", point=" + point + ", uppoint=" + uppoint + "]";
+				+ ", tax_free_amount=" + tax_free_amount + ", point=" + point + ", uppoint=" + uppoint
+				+ ", total_amount=" + total_amount + "]";
 	}
 
 
