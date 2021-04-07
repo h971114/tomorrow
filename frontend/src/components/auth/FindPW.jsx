@@ -52,14 +52,31 @@ class Find extends React.Component {
                     document.getElementById('findBtn').setAttribute('style', 'display:none');
                     document.getElementById('changeBtn').setAttribute('style', 'display:inline-block');
                     document.getElementById('changePW').setAttribute('style', 'display:inline-block');
-
-                    alert("변경하실 비밀번호를 입력해주세요.");
+                    axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/${this.state.id}`, {
+                        id: this.state.id,
+                    }).then(res => {
+                        console.log(res);
+                        // document.getElementById('checkNickName').disabled = true;
+                        this.setState({
+                        id: res.data.id,
+                        pw: res.data.pw,
+                        name: res.data.name,
+                        nickname: res.data.nickname,
+                        email: res.data.email,
+                        mobile: res.data.mobile,
+                        address: res.data.address,
+                        seller: res.data.seller,
+                        cert: res.data.cert,
+                        })
+                        alert("변경하실 비밀번호를 입력해주세요.");
+                    });
                 }
             })
         }
     }
 
     changePW = (e) => {
+        console.log(this.state)
         e.preventDefault();
         // 비밀번호 위에 입력이 이거
         // this.state.pw;
@@ -69,7 +86,29 @@ class Find extends React.Component {
         if (this.state.pw !== this.state.pwconfirm) {
             alert("입력한 비밀번호가 다릅니다 다시 입력해주세요!!");
         } else {
-            // 여기 axios하면 될거같음... ㅠㅠ
+            axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/member/findpw`, {
+                id: this.state.id,
+                pw: this.state.pw,
+                mobile: this.state.mobile,
+                address: this.state.address,
+                email: this.state.email,
+            }).then(res => {
+                console.log(res);
+                // document.getElementById('checkNickName').disabled = true;
+                this.setState({
+                id: res.data.id,
+                pw: res.data.pw,
+                name: res.data.name,
+                nickname: res.data.nickname,
+                email: res.data.email,
+                mobile: res.data.mobile,
+                address: res.data.address,
+                seller: res.data.seller,
+                cert: res.data.cert,
+                })
+                alert("비밀번호 변경이 완료되었습니다.\n원활한 이용을 위해 재 로그인 해주세요!");
+                this.logout();
+            });
         }
     }
 
