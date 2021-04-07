@@ -46,6 +46,6 @@
 	</update>
 	<!-- 포인트 수정 -->
 	<update id="updatepoint" parameterType="map">
-		UPDATE member SET points = points - #{points} WHERE id=#{id}
+		UPDATE member SET points = points - #{points} + #{uppoint} WHERE id=#{id}
 	</update>
 </mapper>

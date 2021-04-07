@@ -26,10 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.Tomorrow.myapp.model.NowPayDto;
@@ -91,7 +88,14 @@ public class PayController {
         Map<String,Object> map = new HashMap<>();
         map.put("id", id);
     	map.put("points", paydetail.get(0).getPoint());
+    	map.put("uppoint", paydetail.get(0).getUppoint());
+    	map.put("name", paydetail.get(0).getName());
+    	map.put("mobile", paydetail.get(0).getMobile());
+    	map.put("addr", paydetail.get(0).getAddr());
+    	map.put("etc", paydetail.get(0).getEtc());
+    	map.put("order_id", orderid);
     	sqlSession.update("member.updatepoint",map);
+    	sqlSession.insert("shipping.insert",map);
         String hash = ethereumService.sendTransaction(pay);
         OrderDto order = new OrderDto();
         order.setId(pay.getPartner_order_id());

@@ -2,24 +2,81 @@ package com.Tomorrow.myapp.model;
 
 
 public class NowPayDto {
-    private String item_name, item_code;
-    private int quantity, total_mount, tax_free_amount, point;
+    private String item_name, item_code, name, mobile,addr,etc;
+    private int quantity, total_mount, tax_free_amount, point, uppoint;
 
     public NowPayDto() {
         super();
     }
 
-    public NowPayDto(String item_name, String item_code, int quantity, int total_mount, int tax_free_amount, int point) {
-        super();
-        this.item_name = item_name;
-        this.item_code = item_code;
-        this.quantity = quantity;
-        this.total_mount = total_mount;
-        this.tax_free_amount = tax_free_amount;
-        this.point = point;
-    }
 
-    public int getPoint() {
+    public NowPayDto(String item_name, String item_code, String name, String mobile, String addr, String etc,
+			int quantity, int total_mount, int tax_free_amount, int point, int uppoint) {
+		super();
+		this.item_name = item_name;
+		this.item_code = item_code;
+		this.name = name;
+		this.mobile = mobile;
+		this.addr = addr;
+		this.etc = etc;
+		this.quantity = quantity;
+		this.total_mount = total_mount;
+		this.tax_free_amount = tax_free_amount;
+		this.point = point;
+		this.uppoint = uppoint;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getMobile() {
+		return mobile;
+	}
+
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+
+	public String getAddr() {
+		return addr;
+	}
+
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+
+	public String getEtc() {
+		return etc;
+	}
+
+
+	public void setEtc(String etc) {
+		this.etc = etc;
+	}
+
+
+	public int getUppoint() {
+		return uppoint;
+	}
+
+
+	public void setUppoint(int uppoint) {
+		this.uppoint = uppoint;
+	}
+
+
+	public int getPoint() {
 		return point;
 	}
 
@@ -69,8 +126,9 @@ public class NowPayDto {
 
 	@Override
 	public String toString() {
-		return "NowPayDto [item_name=" + item_name + ", item_code=" + item_code + ", quantity=" + quantity
-				+ ", total_mount=" + total_mount + ", tax_free_amount=" + tax_free_amount + ", point=" + point + "]";
+		return "NowPayDto [item_name=" + item_name + ", item_code=" + item_code + ", name=" + name + ", mobile="
+				+ mobile + ", addr=" + addr + ", etc=" + etc + ", quantity=" + quantity + ", total_mount=" + total_mount
+				+ ", tax_free_amount=" + tax_free_amount + ", point=" + point + ", uppoint=" + uppoint + "]";
 	}
 
 

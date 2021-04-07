@@ -42,7 +42,6 @@ public class PayServiceImpl implements PayService{
 	private SqlSession sqlSession;
 	
     public String kakaoPayReady(String id, List<NowPayDto> nowpay) {
- 
         RestTemplate restTemplate = new RestTemplate();
         partner_order_id = make();
         // 서버로 요청할 Header
@@ -60,18 +59,20 @@ public class PayServiceImpl implements PayService{
         String itemcode = "";
         int total = 0;
         int tax = 0;
+        int point = nowpay.get(0).getPoint();
         for(int i=0;i<nowpay.size();i++) {
         	itemname+=nowpay.get(i).getItem_name()+",";
         	itemcode+=nowpay.get(i).getItem_code()+",";
         	total += nowpay.get(i).getTotal_mount();
         	tax += nowpay.get(i).getTax_free_amount();
         }
+        System.out.println(total-point);
         params.add("item_name", itemname);//상품이름 or 서비스이름
         params.add("item_code", itemcode);//상품번호
         params.add("quantity", Integer.toString(nowpay.size()));//총 수량 - > 장바구니 수량
-        params.add("total_amount", Integer.toString(total-(nowpay.get(0).getPoint())));//총 가격 -> 장바구니 총 가격
+        params.add("total_amount", Integer.toString(total-point));//총 가격 -> 장바구니 총 가격
         params.add("tax_free_amount", Integer.toString(tax));//세금
-        params.add("approval_url", APPROVAL_URL+"/"+id+"/"+Integer.toString(total));
+        params.add("approval_url", APPROVAL_URL+"/"+id+"/"+Integer.toString(total-point));
         params.add("cancel_url", CANCEL_URL);
         params.add("fail_url", FAIL_URL);
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
