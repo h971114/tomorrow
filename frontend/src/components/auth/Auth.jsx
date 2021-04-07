@@ -101,9 +101,9 @@ class Auth extends React.Component {
                     }
                 }
                 var isseller = this.state.seller;
-                localStorage.setItem("seller", isseller);
-                localStorage.setItem("id", id);
-                localStorage.setItem("token", res.data.token);
+                // sessionStorage.setItem("seller", isseller);
+                sessionStorage.setItem("id", id);
+                sessionStorage.setItem("token", res.data.token);
                 this.saveCookies(res.data.token, id, isseller);
                 window.location.replace("/");
             } else {

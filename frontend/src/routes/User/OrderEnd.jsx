@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const OrderEnd = () => {
     return (
@@ -77,7 +78,13 @@ const OrderEnd = () => {
                             </div>
                             <div className="btnSet clear">
                                 <a href="/mypage/order" className="btn big point">주문내역</a>
-                                <a href="/" className="btn big">메인</a>
+                                <Link
+                                    to={{
+                                        pathname: `/`
+                                    }}
+                                    className="btn big">
+                                    메인
+                                    </Link>
                             </div>
                         </div>
                     </div>

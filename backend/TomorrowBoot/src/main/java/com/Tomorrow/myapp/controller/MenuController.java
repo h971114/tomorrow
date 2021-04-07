@@ -143,6 +143,25 @@ public class MenuController {
         return new ResponseEntity<>(conclusionMap, HttpStatus.ACCEPTED);
     }
 
+    // 메뉴 검색
+    @GetMapping("/gmbk")
+    public ResponseEntity<Map<String, Object>> getMenuByKeyword(@RequestParam(value = "keyword", defaultValue = "") String keyword,
+                                                                 HttpServletRequest req) throws SQLException {
+        Map<String, Object> conclusionMap = new HashMap<>();
+        List<MenuDto> list = new ArrayList<>();
+            list = menuService.getMenuByKeyword(keyword);
+        
+        System.out.println(keyword);
+
+        conclusionMap.put("list", list);
+        if (list.size() != 0)
+            conclusionMap.put("message", SUCCESS);
+        else
+            conclusionMap.put("message", FAIL);
+        System.out.println(conclusionMap);
+        return new ResponseEntity<Map<String, Object>>(conclusionMap, HttpStatus.ACCEPTED);
+    }
+
     /* 리뷰 Service */
     // 리뷰 목록
     @GetMapping("/review")

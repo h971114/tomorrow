@@ -27,6 +27,7 @@ import YangProductList from "./routes/Product/ProductList/YangProductList";
 import ChiProductList from "./routes/Product/ProductList/ChiProductList";
 import AsiaProductList from "./routes/Product/ProductList/AsiaProductList";
 import SalProductList from "./routes/Product/ProductList/SalProductList";
+import SearchList from "./routes/Product/SearchList";
 
 import Detail from "./routes/Product/Detail";
 
@@ -40,6 +41,7 @@ import MyOrder from "./routes/User/MyOrder";
 import MyOrderDetail from "./routes/User/MyOrderDetail";
 import Cart from "./routes/User/Cart";
 import Order from "./routes/User/Order";
+import selectOrder from "./routes/User/selectOrder";
 import OrderEnd from "./routes/User/OrderEnd";
 
 import Notice from "./routes/CsCenter/Notice";
@@ -72,6 +74,7 @@ function App() {
           <Route path="/goods/3" exact={true} component={ChiProductList} />
           <Route path="/goods/4" exact={true} component={AsiaProductList} />
           <Route path="/goods/5" exact={true} component={SalProductList} />
+          <Route path="/search/:keyword" exact={true} component={SearchList}/>
         
           <Route path="/TodaySale" exact={true} component={TodaySale} />
           <Route path="/Best" exact={true} component={BestProduct} />
@@ -97,6 +100,7 @@ function App() {
           <Route path="/mypage/order/detail" exact={true} component={MyOrderDetail}/>
           <Route path="/cart" exact={true} component={Cart}/>
           <Route path="/order" exact={true} component={Order}/>
+          <Route path="/selorder" exact={true} component={selectOrder}/>
           <Route path="/orderend" exact={true} component={OrderEnd} />
           
           <Route path="/cscenter/notice" exact={true} component={Notice}/>

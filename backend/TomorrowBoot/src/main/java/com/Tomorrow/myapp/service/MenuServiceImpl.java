@@ -186,6 +186,11 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuDto> getMenuByCategory(int keyword) {
         return menuDao.getMenuByCategory(keyword);
     }
+    
+	@Override
+	public List<MenuDto> getMenuByKeyword(String keyword) {
+        return menuDao.getMenuByKeyword(keyword);
+	}
 
     /* 리뷰 Service */
     @Override
@@ -207,4 +212,5 @@ public class MenuServiceImpl implements MenuService {
     public boolean deleteReview(int id) {
         return menuDao.deleteReview(id);
     }
+
 }

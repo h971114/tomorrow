@@ -23,6 +23,7 @@ public interface MenuDao {
     public List<MenuDto> getMenuBySale();
     public List<MenuDto> getMenuByTodaySale();
 	public List<MenuDto> getMenuByCategory(int keyword);
+	public List<MenuDto> getMenuByKeyword(String keyword);
 
 	// 리뷰
 	public List<ReviewDto> getReview(int id);

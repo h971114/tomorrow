@@ -22,4 +22,7 @@
 	<select id="getlist" parameterType="String" resultType="cart">
 		SELECT * FROM cart WHERE member_id = #{member_id}
 	</select>
+	<delete id="paydelete" parameterType="map">
+		DELETE FROM cart WHERE member_id  = #{member_id} and menu_id = #{menu_id}
+	</delete>
 </mapper>

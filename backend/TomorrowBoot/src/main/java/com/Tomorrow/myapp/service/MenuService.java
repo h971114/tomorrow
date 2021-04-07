@@ -21,6 +21,7 @@ public interface MenuService {
     List<HashMap<String, Object>> getMenuBySale();
     List<HashMap<String, Object>> getMenuByTodaySale();
 	List<MenuDto> getMenuByCategory(int keyword);
+	List<MenuDto> getMenuByKeyword(String keyword);
 
 	List<ReviewDto> getReview(int id);
 	boolean postReview(ReviewDto reviewDto);
