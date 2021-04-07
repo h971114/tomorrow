@@ -44,4 +44,8 @@
 	<update id="modify" parameterType="member">
 		UPDATE member SET pw=#{pw},mobile=#{mobile}, email=#{email}, address =#{address} WHERE id=#{id}
 	</update>
+	<!-- 포인트 수정 -->
+	<update id="updatepoint" parameterType="map">
+		UPDATE member SET points = points - #{points} WHERE id=#{id}
+	</update>
 </mapper>

@@ -88,6 +88,10 @@ public class PayController {
         	sqlSession.insert("pay.detail",map);
             sqlSession.delete("cart.paydelete",map);
         }
+        Map<String,Object> map = new HashMap<>();
+        map.put("id", id);
+    	map.put("points", paydetail.get(0).getPoint());
+    	sqlSession.update("member.updatepoint",map);
         String hash = ethereumService.sendTransaction(pay);
         OrderDto order = new OrderDto();
         order.setId(pay.getPartner_order_id());
