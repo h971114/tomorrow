@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -83,5 +84,25 @@ public class CartController {
     public ResponseEntity<Integer> getCartCount(@RequestParam("id") String id){
         List<CartDto> cartlist = cartService.getCartlist(id);
         return new ResponseEntity<>(cartlist.size(), HttpStatus.ACCEPTED);
+    }
+    @PutMapping("/plus/{member_id}/{menu_id}")
+    public ResponseEntity<String> getCartPlus(@PathVariable(value = "member_id") String member_id,@PathVariable(value = "menu_id") String menu_id){
+        String conclusion = SUCCESS;
+        HttpStatus status = HttpStatus.ACCEPTED;
+        Map<String, Object> map = new HashMap<>();
+        map.put("member_id",member_id);
+        map.put("menu_id",menu_id);
+        cartService.getCartplus(map);
+        return new ResponseEntity<String>(conclusion, status);
+    }
+    @PutMapping("/minus/{member_id}/{menu_id}")
+    public ResponseEntity<String> getCartMinus(@PathVariable(value = "member_id") String member_id,@PathVariable(value = "menu_id") String menu_id){
+        String conclusion = SUCCESS;
+        HttpStatus status = HttpStatus.ACCEPTED;
+        Map<String, Object> map = new HashMap<>();
+        map.put("member_id",member_id);
+        map.put("menu_id",menu_id);
+        cartService.getCartminus(map);
+        return new ResponseEntity<String>(conclusion, status);
     }
 }

@@ -25,4 +25,14 @@
 	<delete id="paydelete" parameterType="map">
 		DELETE FROM cart WHERE member_id  = #{member_id} and menu_id = #{menu_id}
 	</delete>
+	<update id="plus" parameterType="map">
+		update cart
+		set amount = amount +1
+		where member_id = #{member_id} and menu_id = #{menu_id};
+	</update>
+	<update id="minus" parameterType="map">
+		update cart
+		set amount = amount -1
+		where member_id = #{member_id} and menu_id = #{menu_id};
+	</update>
 </mapper>
