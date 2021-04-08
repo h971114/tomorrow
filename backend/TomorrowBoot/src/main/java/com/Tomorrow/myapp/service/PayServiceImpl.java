@@ -140,7 +140,7 @@ public class PayServiceImpl implements PayService{
     public String make() {
 		String pattern = "yyMMdd";
 		SimpleDateFormat simpleDateFormat =
-		        new SimpleDateFormat(pattern, new Locale("ko", "KR"));
+		        new SimpleDateFormat(pattern);
 		String date = simpleDateFormat.format(new Date());
 		System.out.println(date);
 		String ordernum = "";
