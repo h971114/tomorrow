@@ -44,14 +44,9 @@ public class ShippingController {
     }
 
     @GetMapping("/all1")
-    public ResponseEntity<Map<String, Object>> getBySellerId(@RequestParam("seller_id") String seller_id){
+    public ResponseEntity<List<Map<String, Object>>> getBySellerId(@RequestParam("seller_id") String seller_id){
         List<Map<String, Object>> list= shippingService.getBySellerId(seller_id);
-        Map<String, Object> map = new HashMap<>();
-        for(int i=0; i<list.size(); i++){
-            map.put(String.valueOf(i), list.get(i));
-        }
-        map.put("message", SUCCESS);
-        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/all2")
@@ -62,10 +57,6 @@ public class ShippingController {
         parameterMap.put("order_id", order_id);
 
         List<Map<String, Object>> list = shippingService.getByMemberId(parameterMap);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("message", SUCCESS);
-        list.add(map);
         return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 

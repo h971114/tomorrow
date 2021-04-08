@@ -22,7 +22,7 @@
 		select t2.*, t1.amount
 		from orderDetail t1
 		right join (
-			select s.*, m.img1
+			select s.*, m.img1, m.name as menu_name
 			from shipping as s
 			left join menu as m
 			on s.menu_id = m.id
@@ -34,7 +34,7 @@
 		select t2.*, t1.amount
 		from orderDetail t1
 		right join (
-		    select s.*, m.img1
+		    select s.*, m.img1, m.name as menu_name
 			from shipping as s
 			left join menu as m
 			on s.menu_id = m.id
