@@ -91,6 +91,7 @@ public class PayController {
             map.put("etc", paydetail.get(i).getEtc());
             map.put("status", "1");
             map.put("name", paydetail.get(i).getName());
+            map.put("mobile", paydetail.get(i).getMobile());
             sqlSession.insert("shipping.insert",map);
         }
         Map<String,Object> map = new HashMap<>();

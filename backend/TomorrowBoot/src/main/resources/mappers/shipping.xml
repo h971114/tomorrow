@@ -4,7 +4,7 @@
 
 <mapper namespace="shipping">
 	<insert id="insert" parameterType="map">
-		INSERT INTO shipping (order_id,member_id,mobile,addr,etc,name,status,menu_id) VALUES (#{order_id},#{id},#{mobile},#{addr},#{etc},#{name},#{status},#{menu_id})
+		INSERT INTO shipping (order_id,member_id,mobile,addr,etc,name,status,menu_id) VALUES (#{order_id},#{member_id},#{mobile},#{addr},#{etc},#{name},#{status},#{menu_id})
 	</insert>
 	<update id="updateStatus" parameterType="int">
 		update shipping
