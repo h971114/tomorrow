@@ -141,6 +141,7 @@
 .view_wrap .info .submit_bt a {
 	display:block;
 	float:left;
+	margin-left: 25%;
 	width:49.5%;
 	height:50px;
 	line-height:50px;

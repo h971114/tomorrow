@@ -10,9 +10,9 @@ import '../css/Product.css';
 class Detail extends React.Component {
     constructor() {
         super();
-        // // //console.log(props.match);
+        // // console.log(props.match);
         // const { location } = this.props;
-        // // //console.log(match);
+        // // console.log(match);
         this.state = {
             loading: true,
             buyAmount: 1,
@@ -23,7 +23,7 @@ class Detail extends React.Component {
     componentDidMount() {
         // const location = browserHistory.getCurrentLocation();
         const { location, history } = this.props;
-        // //console.log(location);
+        // console.log(location);
         var pay = location.state.price / 100 * (100 - location.state.discount_rate);
         var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         this.setState({
@@ -67,7 +67,7 @@ class Detail extends React.Component {
                 saleState: true
             })
         }
-        // // //console.log(location.state.discount_rate);
+        // // console.log(location.state.discount_rate);
 
         var no = location.state.id;
 
@@ -77,7 +77,7 @@ class Detail extends React.Component {
                 loading: false,
                 detail: res.data.detail
             })
-            // // //console.log(location.state.discount_rate);
+            // // console.log(location.state.discount_rate);
         });
     }
 
@@ -95,7 +95,7 @@ class Detail extends React.Component {
                 amounts = Number(amounts) - 1;
                 pay = amounts * this.state.sale_money;
                 var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                // // // //console.log(payString);
+                // // // console.log(payString);
                 this.setState({
                     buyAmount: amounts,
                     totPay: pay,
@@ -114,7 +114,7 @@ class Detail extends React.Component {
                 amounts = Number(amounts) + 1;
                 pay = amounts * this.state.sale_money;
                 var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                // // // //console.log(payString);
+                // // // console.log(payString);
                 this.setState({
                     buyAmount: amounts,
                     totPay: pay,
@@ -133,8 +133,8 @@ class Detail extends React.Component {
                 document.location.href = "/auth";
             }
             else {
-                // //console.log(this.state.buyAmount);
-                // //console.log(this.state.totPay);
+                // console.log(this.state.buyAmount);
+                // console.log(this.state.totPay);
                 axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
                     member_id: Uid,
                     menu_id: this.state.id,
@@ -144,7 +144,7 @@ class Detail extends React.Component {
                 }).then(res => {
                     if (res.data === "insert") {
                     }
-                    // // //console.log(res);
+                    // // console.log(res);
                     alert("장바구니에 등록되었습니다.");
 
                 })
@@ -220,7 +220,7 @@ class Detail extends React.Component {
 
                                 <div className="submit_bt clear">
                                     <a className="addCartBtn" id="pop1" onClick={GoCart} >장바구니</a>
-                                    <a className="purchase" >바로구매</a>
+                                    {/* <a className="purchase" >바로구매</a> */}
                                 </div>
                             </div>
                         </div>

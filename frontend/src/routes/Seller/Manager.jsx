@@ -17,11 +17,17 @@ class SellPage extends React.Component {
     componentDidMount() {
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/count`, {
             params: {
-                seller_id: this.state.id,
-                status: 1
+                seller_id: this.state.id
             }
         }).then(res => {
-            console.log(res);
+            this.setState({
+                Sready: res.data.one,
+                Sgoing: res.data.two,
+                Send: res.data.three
+            })
+            // console.log(res.data.one);
+            // console.log(res.data.two);
+            // console.log(res.data.three);
         });
     }
 
@@ -29,7 +35,10 @@ class SellPage extends React.Component {
         const {
             id,
             isSeller,
-            posts
+            posts,
+            Sready,
+            Sgoing,
+            Send
         } = this.state
         return (
             <div id="sub" className="sellManage" >
@@ -113,13 +122,13 @@ class SellPage extends React.Component {
                                                 <img src="/img/sell_img3.png" />배송 현황
                                                 </th>
                                             <th className="subtit">배송 준비</th>
-                                            <td><span className="greenTxt">1</span>건</td>
+                                            <td><span className="greenTxt">{Sready}</span>건</td>
                                             <th rowSpan="2" className="subtit">배송 완료</th>
-                                            <td rowSpan="2"><span className="greenTxt">2</span>건</td>
+                                            <td rowSpan="2"><span className="greenTxt">{Send}</span>건</td>
                                         </tr>
                                         <tr>
                                             <th className="subtit">배송 중</th>
-                                            <td><span className="greenTxt">20</span>건</td>
+                                            <td><span className="greenTxt">{Sgoing}</span>건</td>
                                         </tr>
                                     </tbody>
                                 </table>

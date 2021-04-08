@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.Tomorrow.myapp.service.MenuService;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -84,6 +85,13 @@ public class PayController {
         	map.put("member_id", id);
         	sqlSession.insert("pay.detail",map);
             sqlSession.delete("cart.paydelete",map);
+
+            // addr, etc, status, name, seller_id
+            map.put("addr", paydetail.get(i).getAddr());
+            map.put("etc", paydetail.get(i).getEtc());
+            map.put("status", "1");
+            map.put("name", paydetail.get(i).getName());
+            sqlSession.insert("shipping.insert",map);
         }
         Map<String,Object> map = new HashMap<>();
         map.put("id", id);
@@ -91,11 +99,11 @@ public class PayController {
     	map.put("uppoint", paydetail.get(0).getUppoint());
     	map.put("name", paydetail.get(0).getName());
     	map.put("mobile", paydetail.get(0).getMobile());
-    	map.put("addr", paydetail.get(0).getAddr());
-    	map.put("etc", paydetail.get(0).getEtc());
+//    	map.put("addr", paydetail.get(0).getAddr());
+//    	map.put("etc", paydetail.get(0).getEtc());
     	map.put("order_id", orderid);
     	sqlSession.update("member.updatepoint",map);
-    	sqlSession.insert("shipping.insert",map);
+//    	sqlSession.insert("shipping.insert",map);
         String hash = ethereumService.sendTransaction(pay);
         OrderDto order = new OrderDto();
         order.setId(pay.getPartner_order_id());

@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.web3j.protocol.Web3jService;
@@ -22,7 +20,6 @@ import com.Tomorrow.myapp.model.MemberDto;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private static final Web3jService web3jService = new HttpService("https://ropsten.infura.io/v3/184f3bb959504956a9a5db1c11ac8a2f");
 	@Autowired
 	private SqlSession sqlSession;

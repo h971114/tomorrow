@@ -7,8 +7,6 @@ import com.Tomorrow.myapp.model.ReviewDto;
 import com.Tomorrow.myapp.service.MenuDetailService;
 import com.Tomorrow.myapp.service.MenuService;
 import org.apache.ibatis.annotations.Param;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

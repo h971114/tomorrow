@@ -18,7 +18,7 @@ class Order extends React.Component {
 
     componentDidMount() {
         const { location } = this.props;
-        // //console.log(location.state.posts);
+        // console.log(location.state.posts);
         this.setState({
             posts: location.state.posts
         })
@@ -28,13 +28,13 @@ class Order extends React.Component {
         for (var i = 0; i < location.state.posts.length; i++) {
             var realPrice = location.state.posts[i].price;
             var date = new Date().getDate();
-            // // //console.log(date);
+            // // console.log(date);
             if (date < 10)
                 date = '0' + date;
 
             var days = location.state.posts[i].todaysale;
             days = days.substr(days.length - 2, 2);
-            // // //console.log(days);
+            // // console.log(days);
             if (date === days)
                 realPrice = location.state.posts[i].price / 100 * (100 - location.state.posts[i].tdr);
             else if (location.state.posts[i].discount_rate > 0)
@@ -42,7 +42,7 @@ class Order extends React.Component {
 
             var thisPrice = realPrice * location.state.posts[i].amount;
             totPrices = totPrices + thisPrice;
-            // // //console.log(totPrices);
+            // // console.log(totPrices);
         }
         if (totPrices > 30000) {
             sendprice = 0;
@@ -63,7 +63,7 @@ class Order extends React.Component {
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + Uid
         ).then(res => {
-            // // //console.log(res.data);
+            // // console.log(res.data);
 
             this.setState({
                 name: res.data.name,
@@ -85,7 +85,7 @@ class Order extends React.Component {
             })
 
             var addrs = this.state.addr;
-            // // // //console.log(addrs);
+            // // // console.log(addrs);
             var addrArray = addrs.split(' / ');
             this.setState({
                 zoneCode: addrArray[0],
@@ -119,17 +119,17 @@ class Order extends React.Component {
             modalOpen: false
         })
         // document.getElementById('zipcode').value = AllAddress;
-        // // //console.log(zoneCodes);
-        // // //console.log(AllAddress);
+        // // console.log(zoneCodes);
+        // // console.log(AllAddress);
     }
     openModal = () => {
-        // // // //console.log("열려따");
+        // // // console.log("열려따");
         this.setState({
             modalOpen: true
         })
     }
     closeModal = () => {
-        // // // //console.log("닫혔따");
+        // // // console.log("닫혔따");
         this.setState({
             modalOpen: false
         })
@@ -140,7 +140,7 @@ class Order extends React.Component {
     };
 
     getOrderInfo = (e) => {
-        // //console.log(e.target.checked);
+        // console.log(e.target.checked);
         if (e.target.checked) {
             document.getElementById("delivery_name").value = this.state.name;
             document.getElementById("delivery_name").readOnly = true;
@@ -184,10 +184,10 @@ class Order extends React.Component {
     inputUsePoints = (e) => {
         var usingPoint = e.target.value;
         var totpay = (Number(this.state.totPay) + Number(this.state.usePoint)) - usingPoint;
-        // // //console.log("totPay : " + Number(this.state.totPay));
-        // // //console.log("usePoint : " + Number(this.state.usePoint));
-        // // //console.log(e.target.value);
-        // // //console.log("totPay + usePoint : " + (Number(this.state.totPay) + Number(this.state.usePoint)));
+        // // console.log("totPay : " + Number(this.state.totPay));
+        // // console.log("usePoint : " + Number(this.state.usePoint));
+        // // console.log(e.target.value);
+        // // console.log("totPay + usePoint : " + (Number(this.state.totPay) + Number(this.state.usePoint)));
         var totPayStrings = totpay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         this.setState({
             usePoint: usingPoint,
@@ -239,13 +239,13 @@ class Order extends React.Component {
         for (var i = 0; i < j; i++) {
             var realPrice = this.state.posts[i].price;
             var date = new Date().getDate();
-            // // //console.log(date);
+            // // console.log(date);
             if (date < 10)
                 date = '0' + date;
 
             var days = this.state.posts[i].todaysale;
             days = days.substr(days.length - 2, 2);
-            // // //console.log(days);
+            // // console.log(days);
             if (date === days)
                 realPrice = this.state.posts[i].price / 100 * (100 - this.state.posts[i].tdr);
             else if (this.state.posts[i].discount_rate > 0)
@@ -267,6 +267,8 @@ class Order extends React.Component {
             nowpay.etc = this.state.etc;
             nowpay.uppoint = this.state.productPrice / 100 * 3;
             nowpay.total_amount = this.state.totPay;
+            console.log(this.state.deliverName);
+
 
             arrnowpayHistory.push(nowpay);
         }
@@ -281,8 +283,8 @@ class Order extends React.Component {
             //     nowpay: List
             // }
         }).then(res => {
-            // //console.log(res);
-            // //console.log('data is ' + res.data);
+            // console.log(res);
+            // console.log('data is ' + res.data);
             const url = res.data;
             window.location.replace(url);
             // if (res.data === "FAIL") {
@@ -292,7 +294,7 @@ class Order extends React.Component {
             //     alert("찾으시는 아이디는 : " + res.data + " 입니다.");
             // }
         })
-        // //console.log(List);
+        // console.log(List);
     }
 
     render() {
@@ -393,16 +395,16 @@ class Order extends React.Component {
 
                                 {
                                     this.state.posts.map((post, idx) => {
-                                        // // //console.log(post);
+                                        // // console.log(post);
                                         var realPrice = post.price;
                                         var date = new Date().getDate();
-                                        // // //console.log(date);
+                                        // // console.log(date);
                                         if (date < 10)
                                             date = '0' + date;
 
                                         var days = post.todaysale;
                                         days = days.substr(days.length - 2, 2);
-                                        // // //console.log(days);
+                                        // // console.log(days);
                                         if (date === days)
                                             realPrice = post.price / 100 * (100 - post.tdr);
                                         else if (post.discount_rate > 0)

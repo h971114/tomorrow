@@ -4,6 +4,18 @@
 
 <mapper namespace="shipping">
 	<insert id="insert" parameterType="map">
-		INSERT INTO shipping (order_id,member_id,mobile,addr,etc,name) VALUES (#{order_id},#{id},#{mobile},#{addr},#{etc},#{name})
+		INSERT INTO shipping (order_id,member_id,mobile,addr,etc,name,status,menu_id, seller_id) VALUES (#{order_id},#{id},#{mobile},#{addr},#{etc},#{name},#{status},#{menu_id},#{seller_id})
 	</insert>
+	<update id="updateStatus" parameterType="int">
+		update shipping
+		set status = #{status}
+		where id = #{id}
+	</update>
+	<select id="getShippingDto" parameterType="String" resultType="shipping">
+		select s.*
+		from shipping as s
+	 	left join menu as m
+	  	on s.menu_id = m.id
+		where m.seller_id = #{seller_id};
+	</select>
 </mapper>

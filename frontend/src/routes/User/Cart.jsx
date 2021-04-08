@@ -93,16 +93,16 @@ class Cart extends React.Component {
 
             if (checkall.checked) {
                 posts.map((post, idx) => {
-                    // // //console.log(post);
+                    // // console.log(post);
                     var realPrice = post.price;
                     var date = new Date().getDate();
-                    // // //console.log(date);
+                    // // console.log(date);
                     if (date < 10)
                         date = '0' + date;
 
                     var days = post.todaysale;
                     days = days.substr(days.length - 2, 2);
-                    // // //console.log(days);
+                    // // console.log(days);
                     if (date === days)
                         realPrice = post.price / 100 * (100 - post.tdr);
                     else if (post.discount_rate > 0)
@@ -138,7 +138,7 @@ class Cart extends React.Component {
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked === true) {
                     var cartId = checkboxes[i].value;
-                    // //console.log(cartId);
+                    // console.log(cartId);
                     axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
                         params: {
                             id: cartId
@@ -165,13 +165,13 @@ class Cart extends React.Component {
                 if (checkboxes[i].checked === true) {
                     var realPrice = posts[i].price;
                     var date = new Date().getDate();
-                    // // //console.log(date);
+                    // // console.log(date);
                     if (date < 10)
                         date = '0' + date;
 
                     var days = posts[i].todaysale;
                     days = days.substr(days.length - 2, 2);
-                    // // //console.log(days);
+                    // // console.log(days);
                     if (date === days)
                         realPrice = posts[i].price / 100 * (100 - posts[i].tdr);
                     else if (posts[i].discount_rate > 0)
@@ -292,17 +292,17 @@ class Cart extends React.Component {
                                 <tbody>
                                     {
                                         posts.map((post, idx) => {
-                                            // // //console.log(post);
+                                            // // console.log(post);
                                             var realPrice = post.price;
                                             var date = new Date().getDate();
-                                            // // //console.log(date);
+                                            // // console.log(date);
                                             if (date < 10)
                                                 date = '0' + date;
 
                                             if (post.todaysale !== null) {
                                                 var days = post.todaysale;
                                                 days = days.substr(days.length - 2, 2);
-                                                // // //console.log(days);
+                                                // // console.log(days);
                                                 if (date === days)
                                                     realPrice = post.price / 100 * (100 - post.tdr);
                                                 else if (post.discount_rate > 0)
@@ -332,7 +332,7 @@ class Cart extends React.Component {
                                                     document.getElementById(payId).innerText = eachpayString;
                                                     axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/plus/` + this.state.id + `/` + post.menu_id, {
                                                     }).then(res => {
-                                                        // //console.log("장바구니 갯수 더하기");
+                                                        // console.log("장바구니 갯수 더하기");
                                                     })
                                                 }
                                                 if (checkboxes.checked === true) {
@@ -369,7 +369,7 @@ class Cart extends React.Component {
                                                     document.getElementById(payId).innerText = eachpayString;
                                                     axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/minus/` + this.state.id + `/` + post.menu_id, {
                                                     }).then(res => {
-                                                        // //console.log("장바구니 갯수 빼기");
+                                                        // console.log("장바구니 갯수 빼기");
                                                     })
                                                     if (checkboxes.checked === true) {
                                                         var totpays = pays - (realPrice * (amounts + 1));
@@ -398,7 +398,7 @@ class Cart extends React.Component {
                                             const handleChange = (e) => {
                                                 if (e.target.checked) {
                                                     var Pays = pays + eachpay;
-                                                    // // //console.log(totpay + " : " + eachpay);
+                                                    // // console.log(totpay + " : " + eachpay);
                                                     var sendpays = sendpay;
                                                     if (Pays >= 30000) {
                                                         sendpays = 0;
@@ -410,7 +410,7 @@ class Cart extends React.Component {
                                                 }
                                                 else {
                                                     var Pays = pays - eachpay;
-                                                    // // //console.log(totpay + " : " + eachpay);
+                                                    // // console.log(totpay + " : " + eachpay);
                                                     var sendpays = sendpay;
                                                     if (Pays >= 30000) {
                                                         sendpays = 0;
