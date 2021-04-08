@@ -232,6 +232,9 @@ class Order extends React.Component {
     payStart = (e) => {
         var Uid = sessionStorage.getItem('id');
 
+
+
+
         var j = this.state.posts.length;
         var List = new Object();
 
@@ -267,34 +270,34 @@ class Order extends React.Component {
             nowpay.etc = this.state.etc;
             nowpay.uppoint = this.state.productPrice / 100 * 3;
             nowpay.total_amount = this.state.totPay;
-            console.log(this.state.deliverName);
+            // console.log(this.state.deliverName);
 
 
             arrnowpayHistory.push(nowpay);
         }
         List = arrnowpayHistory;
 
-        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
-            headers: {
-                "Content-Type": `application/json`,
-                "Access-Control-Allow-Origin": "*"
-            },
-            // params: {
-            //     nowpay: List
-            // }
-        }).then(res => {
-            // console.log(res);
-            // console.log('data is ' + res.data);
-            const url = res.data;
-            window.location.replace(url);
-            // if (res.data === "FAIL") {
-            //     alert("찾으시는 정보가 없습니다.");
-            // }
-            // else {
-            //     alert("찾으시는 아이디는 : " + res.data + " 입니다.");
-            // }
-        })
-        // console.log(List);
+        // axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
+        //     headers: {
+        //         "Content-Type": `application/json`,
+        //         "Access-Control-Allow-Origin": "*"
+        //     },
+        //     // params: {
+        //     //     nowpay: List
+        //     // }
+        // }).then(res => {
+        //     // console.log(res);
+        //     // console.log('data is ' + res.data);
+        //     const url = res.data;
+        //     window.location.replace(url);
+        //     // if (res.data === "FAIL") {
+        //     //     alert("찾으시는 정보가 없습니다.");
+        //     // }
+        //     // else {
+        //     //     alert("찾으시는 아이디는 : " + res.data + " 입니다.");
+        //     // }
+        // })
+        // // console.log(List);
     }
 
     render() {

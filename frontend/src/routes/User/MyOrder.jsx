@@ -122,13 +122,13 @@ const MyOrder = (props) => {
                             <tbody>
                                 {noPosts === false &&
                                     posts.map((post, idx) => {
-                                        console.log(post);
+                                        // console.log(post);
                                         var dateString = post.time.substr(0, 10);
                                         var namesArray = [];
                                         var namesArrayCnt = 1;
                                         if (post.menu_name !== null) {
 
-                                            console.log(post.menu_name);
+                                            // console.log(post.menu_name);
                                             namesArray = post.menu_name.split(',');
                                             namesArrayCnt = namesArray.length - 1;
                                         }
@@ -144,7 +144,11 @@ const MyOrder = (props) => {
                                                 </td>
                                                 <td>{dateString}</td>
                                                 <td className="product_name">
-                                                    {namesString}
+                                                    <Link to={{
+                                                        pathname: `/mypage/order/detail/${post.id}`
+                                                    }}>
+                                                        {namesString}
+                                                    </Link>
                                                 </td>
                                                 <td className="price"><em>금액 : </em>{priceString}원</td>
                                             </tr>
