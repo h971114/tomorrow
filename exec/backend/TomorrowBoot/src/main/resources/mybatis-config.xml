@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	<typeAliases>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.MemberDto" alias="member"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.CartDto" alias="cart"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.OrderDto" alias="order"></typeAlias>
+ 		 <typeAlias type="com.Tomorrow.myapp.model.Orderdetail" alias="detail"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.MenuDto" alias="menu"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.MenuDetailDto" alias="menudetail"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.WalletDto" alias="wallet"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.PayApprovalDto" alias="pay"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.NoticeDto" alias="notice"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.utils.GalleryDto" alias="gallery"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.QuestionDto" alias="question"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.AnswerDto" alias="answer"></typeAlias>
+		<typeAlias type="com.Tomorrow.myapp.model.ShippingDto" alias="shipping"></typeAlias>
+ 	</typeAliases>
+ </configuration>

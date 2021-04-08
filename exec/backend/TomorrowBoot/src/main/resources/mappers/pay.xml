@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pay">
+        <insert id="approval" parameterType="pay">
+		INSERT INTO orderInfo (id,member_id,price,payment,time,payment_status) VALUES (#{partner_order_id},#{partner_user_id},#{amount.total},#{payment_method_type},now(),0)
+	</insert>
+	 <insert id="detail" parameterType="Map">
+		INSERT INTO orderDetail (order_id,menu_id,amount) VALUES (#{order_id},#{menu_id},#{amount})
+	</insert>
+	<select id="paynum" resultType="String">
+		SELECT id FROM orderInfo ORDER BY id DESC LIMIT 1
+	</select>
+</mapper>

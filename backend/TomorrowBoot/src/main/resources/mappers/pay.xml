@@ -4,7 +4,7 @@
 
 <mapper namespace="pay">
         <insert id="approval" parameterType="pay">
-		INSERT INTO orderInfo (id,member_id,price,payment,time,payment_status) VALUES (#{partner_order_id},#{partner_user_id},#{amount.total},#{payment_method_type},now(),0)
+		INSERT INTO orderInfo (id,member_id,price,payment,time,payment_status,menu_name) VALUES (#{partner_order_id},#{partner_user_id},#{amount.total},#{payment_method_type},now(),0,#{item_name})
 	</insert>
 	 <insert id="detail" parameterType="Map">
 		INSERT INTO orderDetail (order_id,menu_id,amount) VALUES (#{order_id},#{menu_id},#{amount})
