@@ -232,8 +232,11 @@ class Order extends React.Component {
     payStart = (e) => {
         var Uid = sessionStorage.getItem('id');
 
-
-
+        var deliverName = document.getElementById("delivery_name").value;
+        var deliverMobile = document.getElementById("delivery_p").value;
+        var deliverAddr0 = document.getElementById("zipcode").value;
+        var deliverAddr1 = document.getElementById("addr1").value;
+        var deliverAddr2 = document.getElementById("addr2").value;
 
         var j = this.state.posts.length;
         var List = new Object();
@@ -264,9 +267,9 @@ class Order extends React.Component {
             nowpay.total_mount = thisPrice;
             nowpay.tax_free_amount = 0;
             nowpay.point = Number(this.state.usePoint);
-            nowpay.name = this.state.deliverName;
-            nowpay.mobile = this.state.deliverMobile;
-            nowpay.addr = this.state.deliverAddr0 + " / " + this.state.deliverAddr1 + " / " + this.state.deliverAddr2;
+            nowpay.name = deliverName;
+            nowpay.mobile = deliverMobile;
+            nowpay.addr = deliverAddr0 + " / " + deliverAddr1 + " / " + deliverAddr2;
             nowpay.etc = this.state.etc;
             nowpay.uppoint = this.state.productPrice / 100 * 3;
             nowpay.total_amount = this.state.totPay;
@@ -277,27 +280,27 @@ class Order extends React.Component {
         }
         List = arrnowpayHistory;
 
-        // axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
-        //     headers: {
-        //         "Content-Type": `application/json`,
-        //         "Access-Control-Allow-Origin": "*"
-        //     },
-        //     // params: {
-        //     //     nowpay: List
-        //     // }
-        // }).then(res => {
-        //     // console.log(res);
-        //     // console.log('data is ' + res.data);
-        //     const url = res.data;
-        //     window.location.replace(url);
-        //     // if (res.data === "FAIL") {
-        //     //     alert("찾으시는 정보가 없습니다.");
-        //     // }
-        //     // else {
-        //     //     alert("찾으시는 아이디는 : " + res.data + " 입니다.");
-        //     // }
-        // })
-        // // console.log(List);
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/pay/kakaoPay/` + Uid, JSON.stringify(List), {
+            headers: {
+                "Content-Type": `application/json`,
+                "Access-Control-Allow-Origin": "*"
+            },
+            // params: {
+            //     nowpay: List
+            // }
+        }).then(res => {
+            // console.log(res);
+            // console.log('data is ' + res.data);
+            const url = res.data;
+            window.location.replace(url);
+            // if (res.data === "FAIL") {
+            //     alert("찾으시는 정보가 없습니다.");
+            // }
+            // else {
+            //     alert("찾으시는 아이디는 : " + res.data + " 입니다.");
+            // }
+        })
+        // console.log(List);
     }
 
     render() {

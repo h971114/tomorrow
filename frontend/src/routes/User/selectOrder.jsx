@@ -232,6 +232,12 @@ class Order extends React.Component {
     payStart = (e) => {
         var Uid = sessionStorage.getItem('id');
 
+        var deliverName = document.getElementById("delivery_name").value;
+        var deliverMobile = document.getElementById("delivery_p").value;
+        var deliverAddr0 = document.getElementById("zipcode").value;
+        var deliverAddr1 = document.getElementById("addr1").value;
+        var deliverAddr2 = document.getElementById("addr2").value;
+
         var j = this.state.posts.length;
         var List = new Object();
 
@@ -261,12 +267,14 @@ class Order extends React.Component {
             nowpay.total_mount = thisPrice;
             nowpay.tax_free_amount = 0;
             nowpay.point = Number(this.state.usePoint);
-            nowpay.name = this.state.deliverName;
-            nowpay.mobile = this.state.deliverMobile;
-            nowpay.addr = this.state.deliverAddr0 + " / " + this.state.deliverAddr1 + " / " + this.state.deliverAddr2;
+            nowpay.name = deliverName;
+            nowpay.mobile = deliverMobile;
+            nowpay.addr = deliverAddr0 + " / " + deliverAddr1 + " / " + deliverAddr2;
             nowpay.etc = this.state.etc;
             nowpay.uppoint = this.state.productPrice / 100 * 3;
             nowpay.total_amount = this.state.totPay;
+            // console.log(this.state.deliverName);
+
 
             arrnowpayHistory.push(nowpay);
         }
