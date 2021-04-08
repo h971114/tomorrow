@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="menu">
+    <insert id="insert" parameterType="menu">
+        INSERT INTO menu (id, seller_id, name, subname, price, amount, sell_amount, discount_rate, todaysale, category, img1, img2, detail, shipping_fee)
+        VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
+                #{category}, #{img1}, #{img2}, #{detail}, #{shipping_fee})
+    </insert>
+    <delete id="delete" parameterType="String">
+        DELETE
+        FROM menu
+        WHERE id = #{id}
+    </delete>
+    <update id="update" parameterType="menu">
+        UPDATE menu
+        SET name=#{name},
+            subname=#{subname},
+            price=#{price},
+            amount=#{amount},
+            discount_rate = #{discount_rate},
+            create_at=#{create_at},
+            category=#{category},
+            img1 = #{img1},
+            img2 = #{img2},
+            detail = #{detail}
+        WHERE id = #{id}
+    </update>
+    <select id="getMenuInfo" parameterType="int" resultType="menu">
+        SELECT detail
+        FROM menu
+        WHERE id = #{id};
+    </select>
+    <select id="getMenu" resultType="menu">
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at, shipping_fee
+        FROM menu;
+    </select>
+    <select id="getMenuBySeller" parameterType="String" resultType="menu">
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at, shipping_fee
+        FROM menu
+        WHERE seller_id = #{seller_id}
+    </select>
+    <select id="getMenuByLowPrice" resultType="menu">
+        SELECT *
+        FROM menu
+        ORDER BY price ASC
+    </select>
+    <select id="getMenuByHighPrice" resultType="menu">
+        SELECT *
+        FROM menu
+        ORDER BY price DESC
+    </select>
+    <select id="getMenuByBest" resultType="menu">
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu
+        ORDER BY sell_amount DESC LIMIT 9
+    </select>
+    <select id="getMenuByNew" resultType="menu">
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu where TIMESTAMPDIFF(DAY, create_at, CURDATE( ))
+        ORDER BY create_at ASC
+    </select>
+    <select id="getMenuBySale" resultType="menu">
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at FROM menu
+        WHERE discount_rate > 0
+        ORDER BY discount_rate DESC, create_at DESC;
+    </select>
+    <select id="getMenuByTodaySale" resultType="menu">
+        SELECT id, name, price, amount, sell_amount, discount_rate, today_discount_rate, category, img1, img2,  seller_id, subname, create_at,todaysale
+        FROM menu
+        WHERE todaysale is not null
+        ORDER BY todaysale ASC
+    </select>
+    <select id="getMenuByCategory" parameterType="int" resultType="menu">
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu
+        WHERE category = #{keyword}
+        ORDER BY create_at DESC
+    </select>
+    <select id="getMenuByKeyword" parameterType="String" resultType="menu">
+        SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
+        FROM menu
+        WHERE name like CONCAT('%', #{keyword}, '%')
+        ORDER BY create_at DESC
+    </select>
+    <select id="getMenubyid" parameterType="int" resultType="menu">
+        SELECT name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at,todaysale, today_discount_rate
+        FROM menu
+        WHERE id = #{id};
+    </select>
+</mapper>

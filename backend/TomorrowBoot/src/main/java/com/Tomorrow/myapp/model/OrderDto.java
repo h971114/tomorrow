@@ -10,12 +10,42 @@ public class OrderDto {
     private String order_num;
     private String order_status;
     private String paymenthash;
-
+    private String menu_name;
     public OrderDto() {
 
     }
 
-    public OrderDto(String id, String member_id, String price, String payment, String time, String payment_status) {
+    public String getMenu_name() {
+		return menu_name;
+	}
+
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
+
+	public OrderDto(String id, String member_id, String price, String payment, String time, String payment_status,
+			String order_num, String order_status, String paymenthash, String menu_name) {
+		super();
+		this.id = id;
+		this.member_id = member_id;
+		this.price = price;
+		this.payment = payment;
+		this.time = time;
+		this.payment_status = payment_status;
+		this.order_num = order_num;
+		this.order_status = order_status;
+		this.paymenthash = paymenthash;
+		this.menu_name = menu_name;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderDto [id=" + id + ", member_id=" + member_id + ", price=" + price + ", payment=" + payment
+				+ ", time=" + time + ", payment_status=" + payment_status + ", order_num=" + order_num
+				+ ", order_status=" + order_status + ", paymenthash=" + paymenthash + ", menu_name=" + menu_name + "]";
+	}
+
+	public OrderDto(String id, String member_id, String price, String payment, String time, String payment_status) {
         super();
         this.id = id;
         this.member_id = member_id;
