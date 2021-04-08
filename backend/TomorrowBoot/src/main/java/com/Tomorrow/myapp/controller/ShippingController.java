@@ -42,8 +42,8 @@ public class ShippingController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Map<String, Object>> getCount(@RequestBody ShippingDto shippingDto){
-        List<ShippingDto> sdList = shippingService.getShippingDto(shippingDto);
+    public ResponseEntity<Map<String, Object>> getCount(@RequestParam("seller_id") String seller_id){
+        List<ShippingDto> sdList = shippingService.getShippingDto(seller_id);
         Map<String, Object> map = new HashMap<>();
         for(ShippingDto sd : sdList){
             int status = sd.getStatus();

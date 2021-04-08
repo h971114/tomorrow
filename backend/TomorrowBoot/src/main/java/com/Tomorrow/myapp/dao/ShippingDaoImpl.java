@@ -24,7 +24,7 @@ public class ShippingDaoImpl implements ShippingDao {
     }
 
     @Override
-    public List getShippingDto(ShippingDto shippingDto) {
-        return sqlSession.selectList("shipping.getShippingDto", shippingDto);
+    public List getShippingDto(String seller_id) {
+        return sqlSession.selectList("shipping.getShippingDto", seller_id);
     }
 }

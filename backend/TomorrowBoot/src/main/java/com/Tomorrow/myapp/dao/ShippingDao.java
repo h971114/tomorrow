@@ -7,5 +7,5 @@ import java.util.List;
 public interface ShippingDao {
 	public void insertInfo(ShippingDto shipping);
 	public void updateStatus(ShippingDto shippingDto);
-	public List getShippingDto(ShippingDto shippingDto);
+	public List getShippingDto(String seller_id);
 }

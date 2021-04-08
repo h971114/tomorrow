@@ -30,7 +30,7 @@ public class ShippingServiceImpl implements ShippingService {
     }
 
     @Override
-    public List getShippingDto(ShippingDto shippingDto) {
-        return shippingDao.getShippingDto(shippingDto);
+    public List getShippingDto(String seller_id) {
+        return shippingDao.getShippingDto(seller_id);
     }
 }
