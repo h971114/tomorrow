@@ -2,6 +2,7 @@ package com.Tomorrow.myapp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jnr.ffi.annotations.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.Tomorrow.myapp.model.ShippingDto;
 import com.Tomorrow.myapp.service.ShippingService;
+import org.web3j.crypto.Hash;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,8 +43,30 @@ public class ShippingController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/all1")
+    public ResponseEntity<Map<String, Object>> getBySellerId(@RequestParam("seller_id") String seller_id){
+        List<Map<String, Object>> list= shippingService.getBySellerId(seller_id);
+        Map<String, Object> map = new HashMap<>();
+        for(int i=0; i<list.size(); i++){
+            map.put(String.valueOf(i), list.get(i));
+        }
+        map.put("message", SUCCESS);
+        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/all2")
+    public ResponseEntity<Map<String, Object>> getByMemberId(@RequestParam("member_id") String seller_id){
+        List<Map<String, Object>> list= shippingService.getByMemberId(seller_id);
+        Map<String, Object> map = new HashMap<>();
+        for(int i=0; i<list.size(); i++){
+            map.put(String.valueOf(i), list.get(i));
+        }
+        map.put("message", SUCCESS);
+        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/count")
-    public ResponseEntity<Map<String, Object>> getCount(@RequestParam("seller_id") String seller_id){
+    public ResponseEntity<Map<String, Object>> getCount(@RequestParam("seller_id") String seller_id) {
         List<ShippingDto> sdList = shippingService.getShippingDto(seller_id);
         Map<String, Object> map = new HashMap<>();
         map.put("one", 0);

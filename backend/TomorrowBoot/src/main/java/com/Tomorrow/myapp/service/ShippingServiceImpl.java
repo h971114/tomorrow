@@ -8,6 +8,7 @@ import com.Tomorrow.myapp.model.MenuDetailDto;
 import com.Tomorrow.myapp.model.ShippingDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ShippingServiceImpl implements ShippingService {
@@ -32,5 +33,15 @@ public class ShippingServiceImpl implements ShippingService {
     @Override
     public List getShippingDto(String seller_id) {
         return shippingDao.getShippingDto(seller_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getBySellerId(String seller_id) {
+        return shippingDao.getBySellerId(seller_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getByMemberId(String member_id) {
+        return shippingDao.getByMemberId(member_id);
     }
 }
