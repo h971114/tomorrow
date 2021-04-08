@@ -21,8 +21,10 @@ const Regist = ({ history }) => {
     const [todaySalePrice, setTodaySalePrice] = useState(price);
     const [sSale, setSSale] = useState(false);
     const [sTodaySale, setSTodaySale] = useState(false);
-    const [thumb, setThumb] = useState();
-    const [thumb2, setThumb2] = useState();
+    const [thumb, setThumb] = useState('');
+    const [Cthumb, setCThumb] = useState(false);
+    const [thumb2, setThumb2] = useState('');
+    const [Cthumb2, setCThumb2] = useState(false);
     const [content, setContent] = useState("");
 
     const goBack = () => {
@@ -133,6 +135,7 @@ const Regist = ({ history }) => {
             // // console.log(res);
             var dec = decodeURI(res.data);
             // // console.log(dec);
+            setCThumb(true);
             setThumb(dec);
         }).catch(err => {
         })
@@ -163,6 +166,7 @@ const Regist = ({ history }) => {
         }).then(res => {
             // // console.log(res);
             var dec = decodeURI(res.data);
+            setCThumb(true)
             // // console.log(dec);
             setThumb2(dec);
         }).catch(err => {
@@ -174,12 +178,17 @@ const Regist = ({ history }) => {
         var nameLength = title.length;
         var subNameLength = subtitle.length;
         var contents = content;
-
-        if (thumb.length < 1) {
-            thumb = 'https://ssafy-tomorrow.s3.ap-northeast-2.amazonaws.com/member/prestto1-noImg.png';
+        var thumbs = "";
+        var thumbs2 = "";
+        if (Cthumb === false) {
+            thumbs = "https://ssafy-tomorrow.s3.ap-northeast-2.amazonaws.com/member/prestto1-noImg.png";
+        } else {
+            thumbs = thumb;
         }
-        if (thumb2.length < 1) {
-            thumb = 'https://ssafy-tomorrow.s3.ap-northeast-2.amazonaws.com/member/prestto1-noImg.png';
+        if (Cthumb2 === false) {
+            thumbs2 = "https://ssafy-tomorrow.s3.ap-northeast-2.amazonaws.com/member/prestto1-noImg.png";
+        } else {
+            thumbs2 = thumb2;
         }
 
         // // console.log(contents);
@@ -205,12 +214,13 @@ const Regist = ({ history }) => {
                 sell_amount: 0,
                 discount_rate: saleRate,
                 category: category,
-                img1: thumb,
-                img2: thumb2,
+                img1: thumbs,
+                img2: thumbs2,
                 detail: contents
             }).then(res => {
                 if (res.data === "SUCCESS") {
                     alert("상품 등록을 완료하셨습니다.");
+                    window.location.replace('/sellpage/list');
                     // // console.log(res);
                 } else {
                     alert("상품 등록에 실패하셨습니다. 잠시후 다시 시도해주세요!");
@@ -226,12 +236,13 @@ const Regist = ({ history }) => {
                 amount: amount,
                 sell_amount: 0,
                 category: category,
-                img1: thumb,
-                img2: thumb2,
+                img1: thumbs,
+                img2: thumbs2,
                 detail: contents
             }).then(res => {
                 if (res.data === "SUCCESS") {
                     alert("상품 등록을 완료하셨습니다.");
+                    window.location.replace('/sellpage/list');
                 } else {
                     alert("상품 등록에 실패하셨습니다. 잠시후 다시 시도해주세요!");
                 }

@@ -15,20 +15,53 @@ class SellPage extends React.Component {
         }
     }
     componentDidMount() {
-        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/count`, {
-            params: {
-                seller_id: this.state.id
-            }
-        }).then(res => {
-            this.setState({
-                Sready: res.data.one,
-                Sgoing: res.data.two,
-                Send: res.data.three
+        if (this.state.id === "") {
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/count`, {
+                params: {
+                    seller_id: sessionStorage.getItem('id')
+                }
+            }).then(res => {
+                this.setState({
+                    Sready: res.data.one,
+                    Sgoing: res.data.two,
+                    Send: res.data.three
+                })
+            });
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/seller/`, {
+                params: {
+                    seller_id: sessionStorage.getItem('id')
+                }
+            }).then(res => {
+                console.log(res.data.length);
+                this.setState({
+                    Cnt: res.data.length
+                })
             })
-            // console.log(res.data.one);
-            // console.log(res.data.two);
-            // console.log(res.data.three);
-        });
+        }
+        else {
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/count`, {
+                params: {
+                    seller_id: this.state.id
+                }
+            }).then(res => {
+                this.setState({
+                    Sready: res.data.one,
+                    Sgoing: res.data.two,
+                    Send: res.data.three
+                })
+            });
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/seller/`, {
+                params: {
+                    seller_id: this.state.id
+                }
+            }).then(res => {
+                console.log(res.data.length);
+                this.setState({
+                    Cnt: res.data.length
+                })
+
+            })
+        }
     }
 
     render() {
@@ -38,7 +71,8 @@ class SellPage extends React.Component {
             posts,
             Sready,
             Sgoing,
-            Send
+            Send,
+            Cnt
         } = this.state
         return (
             <div id="sub" className="sellManage" >
@@ -113,9 +147,9 @@ class SellPage extends React.Component {
                                             <th className="tit">
                                                 <img src="/img/sell_img1.png" />판매 현황</th>
                                             <th className="subtit">판매 중 상품</th>
-                                            <td><span className="greenTxt">0</span>건</td>
-                                            <th className="subtit">판매 완료</th>
-                                            <td><span className="redTxt">0</span>건</td>
+                                            <td><span className="greenTxt">{Cnt}</span>건</td>
+                                            <th className="subtit"></th>
+                                            <td></td>
                                         </tr>
                                         <tr className="topLine">
                                             <th rowSpan="2" className="tit">
