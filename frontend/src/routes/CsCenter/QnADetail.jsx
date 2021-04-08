@@ -6,7 +6,7 @@ import TopVisual from '../../components/CsCenter/TopVisual';
 
 
 const QnADetail = (props) => {
-    // //console.log(props)
+    // console.log(props)
     const [no, setNo] = useState(props.match.params.id)
     const [title, setTitle] = useState("")
     const [detail, setDetail] = useState("")
@@ -27,7 +27,7 @@ const QnADetail = (props) => {
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/${props.match.params.id}`, {
             no: props.match.params.id,
         }).then(res => {
-            // //console.log(res.data)
+            // console.log(res.data)
             if (sessionStorage.getItem('id') !== 'prestto1' && sessionStorage.getItem('id') !== res.data.writer) {
                 alert('잘못된 접근입니다!')
                 window.location.replace('/cscenter/qna');
@@ -41,7 +41,7 @@ const QnADetail = (props) => {
             return axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/answer/${props.match.params.id}`, {
                 question_no: props.match.params.id,
             }).then(res => {
-                // //console.log(res)
+                // console.log(res)
 
                 if (res.data.conclusion === "FAIL") {
                     setHasAnswer(0)
@@ -50,10 +50,10 @@ const QnADetail = (props) => {
                     setAnsDetail(res.data.answer.detail)
                 }
             }).catch(err => {
-                // //console.log(err)
+                // console.log(err)
             })
         }).catch(err => {
-            // //console.log(err)
+            // console.log(err)
         })
     }, [])
 
@@ -61,11 +61,11 @@ const QnADetail = (props) => {
         axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/question/${no}`, {
             no: no,
         }).then(res => {
-            // // //console.log(res)
+            // // console.log(res)
             alert('삭제 완료되었습니다!');
             window.location.replace('/question');
         }).catch(err => {
-            // //console.log(err)
+            // console.log(err)
         })
     }
 

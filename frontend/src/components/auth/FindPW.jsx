@@ -42,7 +42,7 @@ class Find extends React.Component {
                     email: this.state.email,
                 }
             }).then(res => {
-                // // //console.log(res);
+                // // console.log(res);
                 if (res.data === "FAIL") {
                     alert("찾으시는 정보가 없습니다.");
                     // window.location.replace("/findpw");
@@ -60,7 +60,7 @@ class Find extends React.Component {
     }
 
     changePW = (e) => {
-        // //console.log(this.state)
+        // console.log(this.state)
         e.preventDefault();
         // 비밀번호 위에 입력이 이거
         // this.state.pw;
@@ -77,7 +77,7 @@ class Find extends React.Component {
                 address: this.state.address,
                 email: this.state.email,
             }).then(res => {
-                // //console.log(res);
+                // console.log(res);
                 // document.getElementById('checkNickName').disabled = true;
                 this.setState({
                     id: res.data.id,

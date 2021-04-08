@@ -31,7 +31,7 @@ const BoB = () => {
             const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gmbb`);
 
             setPosts(res.data);
-            // // // //console.log();
+            // // // console.log();
             setLoading(false);
         }
         fetchPosts();

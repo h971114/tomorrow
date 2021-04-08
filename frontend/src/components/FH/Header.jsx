@@ -15,7 +15,7 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
-        // //console.log(props);
+        // console.log(props);
 
         const { cookies } = props;
         this.state = {
@@ -26,13 +26,13 @@ class Header extends Component {
 
     componentDidMount() {
         const { location } = this.props;
-        // // //console.log(location.state.id);
+        // // console.log(location.state.id);
 
         this.cartCount();
 
         // if (sessionStorage.getItem('id') !== null) {
         //     var Uid = sessionStorage.getItem('id');
-        //     // //console.log(Uid);
+        //     // console.log(Uid);
         //     axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/isseller/` + Uid
         //     ).then(res => {
         //         if (res.data === "SUCCESS") {
@@ -52,7 +52,7 @@ class Header extends Component {
         //         }
         //     })
         // }
-        // // // //console.log(this.state.cartCnt);
+        // // // console.log(this.state.cartCnt);
     }
 
     // shouldComponentUpdate()
@@ -60,15 +60,15 @@ class Header extends Component {
     cartCount = (e) => {
         if (sessionStorage.getItem('id') !== null) {
             var Uid = sessionStorage.getItem('id');
-            // //console.log(Uid);
+            // console.log(Uid);
             axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/count`, {
                 params: {
                     id: Uid
                 }
             }).then(res => {
-                // // //console.log(res.data);
+                // // console.log(res.data);
                 var cartCnts = res.data;
-                // // //console.log(cartCnt);
+                // // console.log(cartCnt);
                 this.setState({
                     cartCnt: cartCnts
                 })
@@ -77,7 +77,7 @@ class Header extends Component {
     }
 
     searchtxt = (e) => {
-        // // //console.log(e.target.value);
+        // // console.log(e.target.value);
         this.setState({
             searchtxt: e.target.value
         })

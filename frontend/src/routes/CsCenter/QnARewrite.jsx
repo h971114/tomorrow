@@ -8,7 +8,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
 const QnARewrite = ({ history }) => {
-    // //console.log(history)
+    // console.log(history)
     var editorRef = React.createRef();
 
     const goBack = () => {
@@ -31,13 +31,13 @@ const QnARewrite = ({ history }) => {
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/${history.location.state.no}`, {
             no: history.location.state.no,
         }).then(res => {
-            // //console.log(res.data)
+            // console.log(res.data)
             setTitle(res.data.title)
             setDetail(res.data.detail)
             setWriter(res.data.writer)
             setFile(res.data.file1)
         }).catch(err => {
-            // //console.log(err)
+            // console.log(err)
         })
     }, []);
 
@@ -46,7 +46,7 @@ const QnARewrite = ({ history }) => {
     };
 
     const ansFileChange = (e) => {
-        // //console.log(e)
+        // console.log(e)
 
         var filename;
         if (window.FileReader) {
@@ -66,10 +66,10 @@ const QnARewrite = ({ history }) => {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            // //console.log(res.data);
+            // console.log(res.data);
             setAnsFile(res.data);
         }).catch(err => {
-            // //console.log(err);
+            // console.log(err);
         });
     }
 
@@ -89,12 +89,12 @@ const QnARewrite = ({ history }) => {
             file: { file }.file,
         }).then(res => {
             if (res.data === "SUCCESS") {
-                // //console.log("답변 작성 성공");
+                // console.log("답변 작성 성공");
                 alert("답변 작성이 완료되었습니다.");
                 window.location.replace(`/cscenter/qna/${history.location.state.no}`);
             }
             else {
-                // //console.log("답변 작성 실패");
+                // console.log("답변 작성 실패");
                 alert("답변 작성에 실패하셨습니다. 다시 작성해 주세요!");
                 // window.location.replace('/cscenter/qna/write');
             }

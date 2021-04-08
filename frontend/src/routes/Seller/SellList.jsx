@@ -14,7 +14,7 @@ const SellList = (props) => {
     const [postsPerPage] = useState(10);
 
     useEffect(() => {
-        // // //console.log(props.Uid);
+        // // console.log(props.Uid);
         if (props.Uid === "") {
             setId(sessionStorage.getItem('id'));
             setisSeller(sessionStorage.getItem('isSeller'));
@@ -31,13 +31,13 @@ const SellList = (props) => {
             } else {
                 Uid = props.Uid;
             }
-            // //console.log(Uid);
+            // console.log(Uid);
             axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/seller/`, {
                 params: {
                     seller_id: Uid
                 }
             }).then(res => {
-                // //console.log(res);
+                // console.log(res);
                 // if (res.data.conclusion === "FAIL") {
                 //     setVPost(true);
                 //     // setPosts([nullpost]);
@@ -47,11 +47,11 @@ const SellList = (props) => {
                 // }
                 setLoading(false);
             }).catch(err => {
-                // //console.log(err)
+                // console.log(err)
             })
         }
         fetchPosts();
-        //console.log(id);
+        console.log(id);
     }, []);
 
     // Get current posts

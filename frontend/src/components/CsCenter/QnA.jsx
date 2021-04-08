@@ -5,7 +5,7 @@ import "../../routes/css/CsCenter.css";
 
 function List({ no, title, detail, writer, file1, file2, file3, date, hit }) {
     const day = date.substr(2, 8);
-    // // //console.log(day);
+    // // console.log(day);
     return (
         <tr>
             <td>{no}</td>

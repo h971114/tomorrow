@@ -90,7 +90,7 @@ class App extends Component {
         }
       }).then(res => {
         if (res.data.message == "SUCCESS") {
-          // //console.log("jwt인증완료");
+          // console.log("jwt인증완료");
           this.setState({
             id: res.data.id,
             message:"SUCCESS"
@@ -119,9 +119,9 @@ class App extends Component {
                 id: this.state.id
             }
         }).then(res => {
-            // // //console.log(res.data);
+            // // console.log(res.data);
             var cartCnts = res.data;
-            // // //console.log(cartCnt);
+            // // console.log(cartCnt);
             this.setState({
                 cartCnt: cartCnts
             })
@@ -129,7 +129,7 @@ class App extends Component {
     }
   }
   searchtxt = (e) => {
-    // // //console.log(e.target.value);
+    // // console.log(e.target.value);
     this.setState({
         searchtxt: e.target.value
     })
@@ -144,12 +144,12 @@ logout = (e) => {
     const { cookies } = this.props;
 
   cookies.remove('token');
-  localStorage.clear();
+  sessionStorage.clear();
     window.location.replace("/");
 };
 
   render() {
-    // // //console.log(this.state.id);
+    // // console.log(this.state.id);
     const {
       message,
       id,

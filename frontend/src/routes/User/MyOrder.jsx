@@ -12,7 +12,7 @@ class MyOrder extends React.Component {
 
         var id = location.state.id;
         var isSeller = location.state.isSeller;
-        // //console.log(isSeller);
+        // console.log(isSeller);
 
         // if (isSeller === '0') {
         //     document.getElementById('sellerMenu').setAttribute("style", "display:none");

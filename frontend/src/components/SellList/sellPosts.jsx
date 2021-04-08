@@ -5,14 +5,14 @@ import moment from 'moment';
 import 'moment/locale/ko';
 
 export const SellPosts = ({ posts, loading, uid }) => {
-    // //console.log(uid);
+    // console.log(uid);
     if (loading) {
 
         const arrays = [1, 2, 3, 4];
 
         const ArrayList = arrays.map(
             (array) => {
-                // // // //console.log(array);
+                // // // console.log(array);
                 (
                     <li key={array}>
                         <a href="#">
@@ -56,10 +56,10 @@ export const SellPosts = ({ posts, loading, uid }) => {
         )
     }
     else {
-        //console.log(uid);
+        console.log(uid);
         const salelist = posts.map((post, idx) => {
 
-            // // //console.log(post);
+            // // console.log(post);
 
             var title = post.name;
             var priceString = post.price;
@@ -93,11 +93,11 @@ export const SellPosts = ({ posts, loading, uid }) => {
                 sale = false;
                 sale_money = post.price;
             }
-            // // //console.log(saleMoneyString);
+            // // console.log(saleMoneyString);
 
             priceString = priceString.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-            // // //console.log(post);
+            // // console.log(post);
             return (
                 <li key={idx}>
                     <Link

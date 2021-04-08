@@ -30,7 +30,7 @@ export const BoBPosts = ({ posts, loading }) => {
 
         const ArrayList = arrays.map(
             (array) => {
-                // // //console.log(array);
+                // // console.log(array);
                 (
                     <SwiperSlide className="best_slide skeletonUI" key={array}>
                         <a href="#">

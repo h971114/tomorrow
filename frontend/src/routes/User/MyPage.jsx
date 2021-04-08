@@ -13,7 +13,7 @@ class MyPage extends React.Component {
 
     constructor(props) {
         super(props);
-        // //console.log(props);
+        // console.log(props);
 
         const { cookies } = props;
 
@@ -27,15 +27,15 @@ class MyPage extends React.Component {
             addr2B: true
         }
         if (props.Uid === "") {
-            //console.log(sessionStorage.getItem('id'));
-            //console.log(sessionStorage.getItem('isseller'));
+            console.log(sessionStorage.getItem('id'));
+            console.log(sessionStorage.getItem('isseller'));
             this.state = {
                 id: sessionStorage.getItem('id'),
                 isSeller: sessionStorage.getItem('isseller')
             }
         } else {
-            //console.log(sessionStorage.getItem('id'));
-            //console.log(sessionStorage.getItem('isseller'));
+            console.log(sessionStorage.getItem('id'));
+            console.log(sessionStorage.getItem('isseller'));
             this.state = {
                 id: this.props.Uid,
                 isSeller: this.props.isseller,
@@ -46,7 +46,7 @@ class MyPage extends React.Component {
     componentDidMount() {
         var id = this.state.id;
         var isSeller = this.state.isSeller;
-        // //console.log(isSeller);
+        // console.log(isSeller);
 
         if (isSeller == 0) {
             document.getElementById('sellerMenu').setAttribute("style", "display:none");
@@ -61,7 +61,7 @@ class MyPage extends React.Component {
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
         ).then(res => {
-            // //console.log(res.data);
+            // console.log(res.data);
 
             this.setState({
                 name: res.data.name,
@@ -84,7 +84,7 @@ class MyPage extends React.Component {
             })
 
             var addrs = this.state.addr;
-            // // // //console.log(addrs);
+            // // // console.log(addrs);
             var addrArray = addrs.split(' / ');
             this.setState({
                 zoneCode: addrArray[0],
@@ -122,18 +122,18 @@ class MyPage extends React.Component {
             modalOpen: false
         })
 
-        // // //console.log(data.zoneCode);
-        // // //console.log(data.address);
+        // // console.log(data.zoneCode);
+        // // console.log(data.address);
     }
 
     openModal = () => {
-        // // // //console.log("열려따");
+        // // // console.log("열려따");
         this.setState({
             modalOpen: true
         })
     }
     closeModal = () => {
-        // // // //console.log("닫혔따");
+        // // // console.log("닫혔따");
         this.setState({
             modalOpen: false
         })
@@ -220,7 +220,7 @@ class MyPage extends React.Component {
             document.getElementById('validateCPw').textContent = "비밀번호가 다릅니다.";
             document.getElementById('validateCPw').setAttribute('style', 'color: #ff3535');
         }
-        // // // // //console.log(this.state.checkPw);
+        // // // // console.log(this.state.checkPw);
     };
 
     mobileChange = (e) => {
@@ -271,7 +271,7 @@ class MyPage extends React.Component {
             axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/sameemail`, {
                 email: this.state.email
             }).then(res => {
-                // // //console.log(res);
+                // // console.log(res);
                 if (res.data === "SUCCESS") {
                     this.setState({
                         checkEmail: true
@@ -334,17 +334,17 @@ class MyPage extends React.Component {
                 mobile: this.state.mobile,
                 address: addr
             }).then(res => {
-                // //console.log(res);
+                // console.log(res);
                 alert("됐음~~");
             })
         }
         else {
             alert("안됨");
-            // //console.log(this.state.checkEmail);
-            // //console.log(this.state.checkMobile);
-            // //console.log(this.state.checkPw);
-            // //console.log(this.state.addr1B);
-            // //console.log(this.state.addr2B);
+            // console.log(this.state.checkEmail);
+            // console.log(this.state.checkMobile);
+            // console.log(this.state.checkPw);
+            // console.log(this.state.addr1B);
+            // console.log(this.state.addr2B);
         }
     }
 

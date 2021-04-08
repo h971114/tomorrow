@@ -12,7 +12,7 @@ export const NewPosts = ({ posts, loading }) => {
 
         const ArrayList = arrays.map(
             (array) => {
-                // // //console.log(array);
+                // // console.log(array);
                 (
                     <li key={array}>
                         <a href="#">

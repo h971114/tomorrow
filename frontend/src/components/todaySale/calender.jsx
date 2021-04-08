@@ -19,7 +19,7 @@ const Calender = () => {
         }
 
         const timeSet = async (e) => {
-            // // //console.log(e[0].menu.img1);
+            // // console.log(e[0].menu.img1);
             var d = new Date();
             var nowYyyy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
@@ -53,7 +53,7 @@ const Calender = () => {
             var date = 1;
             var num = 0;
             for (var i = todayLabel; i <= totdays + todayLabel - 1; i++) {
-                // // //console.log(num);
+                // // console.log(num);
                 var str = "";
                 if (date == nowDd) {
                     document.getElementById("d" + i).classList.add("today");

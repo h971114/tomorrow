@@ -26,7 +26,7 @@ const QnA = (props) => {
     const [postsPerPage] = useState(10);
 
     useEffect(() => {
-        // // //console.log(props.Uid);
+        // // console.log(props.Uid);
         if (props.Uid === "") {
             setId(sessionStorage.getItem('id'));
         }
@@ -41,12 +41,12 @@ const QnA = (props) => {
             } else {
                 Uid = props.Uid;
             }
-            // //console.log(Uid);
+            // console.log(Uid);
             if (Uid !== 'prestto1') {
                 axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/list/${Uid}`, {
 
                 }).then(res => {
-                    // //console.log(res)
+                    // console.log(res)
                     if (res.data.conclusion === "FAIL") {
                         setVPost(true);
                         // setPosts([nullpost]);
@@ -56,17 +56,17 @@ const QnA = (props) => {
                     }
                     setLoading(false);
                 }).catch(err => {
-                    // //console.log(err)
+                    // console.log(err)
                 })
             } else {
                 axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/`, {
 
                 }).then(res => {
-                    // //console.log(res.data.list);
+                    // console.log(res.data.list);
                     setPosts(res.data.list);
                     setLoading(false);
                 }).catch(err => {
-                    // //console.log(err)
+                    // console.log(err)
                 })
             }
         }
@@ -106,7 +106,7 @@ const QnA = (props) => {
         //             }
         //         }
 
-        //         // //console.log(this.state.id);
+        //         // console.log(this.state.id);
         //     }
 
         //     componentDidMount() {
@@ -117,7 +117,7 @@ const QnA = (props) => {
         //         if (this.state.id !== 'prestto1') {
         //             axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/list/` + this.state.id, {
         //             }).then(res => {
-        //                 // //console.log(res);
+        //                 // console.log(res);
         //                 if (res.data.conclusion === "FAIL") {
         //                     this.setState({
         //                         noPosts: true
@@ -126,7 +126,7 @@ const QnA = (props) => {
         //                     // setPosts([nullpost]);
         //                 }
         //                 else {
-        //                     // //console.log(res);
+        //                     // console.log(res);
         //                     this.setState({
         //                         posts: res.data.list
         //                     })
@@ -137,23 +137,23 @@ const QnA = (props) => {
         //                 })
         //                 // setLoading(false);
         //             }).catch(err => {
-        //                 // //console.log(err)
+        //                 // console.log(err)
         //             })
         //         } else {
         //             axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/`, {
         //             }).then(res => {
-        //                 // //console.log(res.data.list);
-        //                 // // //console.log(this.state.postslength);
+        //                 // console.log(res.data.list);
+        //                 // // console.log(this.state.postslength);
         //                 this.setState({
         //                     posts: res.data.list,
         //                     loading: false,
         //                     // postslength: this.state.posts.length
         //                 })
-        //                 // // //console.log();
+        //                 // // console.log();
         //                 // setPosts(res.data);
         //                 // setLoading(false);
         //             }).catch(err => {
-        //                 // //console.log(err)
+        //                 // console.log(err)
         //             })
         //         }
         //     }
@@ -176,7 +176,7 @@ const QnA = (props) => {
         //     }
 
         //     render() {
-        //         // // //console.log(this.state.posts.length);
+        //         // // console.log(this.state.posts.length);
         //         // const {
         //         //     currentPage,
         //         //     postsPerPage,

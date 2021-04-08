@@ -24,7 +24,7 @@ const SearchList = (props) => {
             });
 
             setPosts(res.data.list);
-            // // //console.log(res.data.list);
+            // // console.log(res.data.list);
             setLoading(false);
         }
         fetchPosts();

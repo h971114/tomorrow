@@ -33,8 +33,8 @@ const NoticeWrite = ({ history }) => {
             history.goBack();
         }
         setWriter(sessionStorage.getItem('id'))
-        // //console.log(writer)
-        // //console.log(sessionStorage.getItem('id'))
+        // console.log(writer)
+        // console.log(sessionStorage.getItem('id'))
     }, []);
 
     const titleChange = e => {
@@ -46,7 +46,7 @@ const NoticeWrite = ({ history }) => {
     };
 
     const file1Change = (e) => {
-        // //console.log(e)
+        // console.log(e)
 
         var filename;
         if (window.FileReader) {
@@ -67,15 +67,15 @@ const NoticeWrite = ({ history }) => {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            // //console.log(res.data);
+            // console.log(res.data);
             setFile1(res.data);
         }).catch(err => {
-            // //console.log(err);
+            // console.log(err);
         });
     }
 
     const file2Change = (e) => {
-        // // //console.log(e)
+        // // console.log(e)
         var filename;
         if (window.FileReader) {
             filename = e.target.files[0].name;
@@ -94,14 +94,14 @@ const NoticeWrite = ({ history }) => {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            // //console.log(res);
+            // console.log(res);
             setFile2(res.data);
         }).catch(err => {
-            // //console.log(err);
+            // console.log(err);
         });
     }
     const file3Change = (e) => {
-        // // //console.log(e)
+        // // console.log(e)
         setFile3('file', e.target.files[0])
 
         var filename;
@@ -123,15 +123,15 @@ const NoticeWrite = ({ history }) => {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            // //console.log(res);
+            // console.log(res);
             setFile3(res.data);
         }).catch(err => {
-            // //console.log(err);
+            // console.log(err);
         });
     }
 
     const write = (e) => {
-        // // //console.log(e)
+        // // console.log(e)
         // e.preventDefault();
         // var file1Name = document.getElementById('addFile1').value
         // var file2Name = document.getElementById('addFile2').value
@@ -168,12 +168,12 @@ const NoticeWrite = ({ history }) => {
             file3: { file3 }.file3,
         }).then(res => {
             if (res.data === "SUCCESS") {
-                // //console.log("글 작성 성공");
+                // console.log("글 작성 성공");
                 alert("글 작성이 완료되었습니다.");
                 window.location.replace(`/cscenter/notice`);
             }
             else {
-                // //console.log("글 작성 실패");
+                // console.log("글 작성 실패");
                 alert("글 작성에 실패하셨습니다. 다시 작성해 주세요!");
                 window.location.replace('/cscenter/notice/write');
             }

@@ -6,8 +6,8 @@ import TopVisual from '../../components/CsCenter/TopVisual';
 const Faq = () => {
 
     const show = (e, o) => {
-        // // // //console.log(document.getElementById(e).classList.contains('on'));
-        // // // //console.log(document.getElementById(e).classList.contains('on'));
+        // // // console.log(document.getElementById(e).classList.contains('on'));
+        // // // console.log(document.getElementById(e).classList.contains('on'));
         if (document.getElementById(e).classList.contains('on')) {
             document.getElementById(o).setAttribute('style', 'display:none');
             document.getElementById(e).classList.remove('on');

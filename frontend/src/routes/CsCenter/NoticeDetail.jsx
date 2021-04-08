@@ -24,7 +24,7 @@ const NoticeDetail = (props) => {
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${props.match.params.id}`, {
             no: props.match.params.id,
         }).then(res => {
-            // // //console.log(res.data)
+            // // console.log(res.data)
             setTitle(res.data.title)
             setDetail(res.data.detail)
             setWriter(res.data.writer)
@@ -34,7 +34,7 @@ const NoticeDetail = (props) => {
             setFile3(res.data.file3)
             setHit(res.data.hit)
         }).catch(err => {
-            // //console.log(err)
+            // console.log(err)
         })
     }, [])
 
@@ -42,11 +42,11 @@ const NoticeDetail = (props) => {
         axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${no}`, {
             no: no,
         }).then(res => {
-            // // //console.log(res)
+            // // console.log(res)
             alert('삭제 완료되었습니다!');
             window.location.replace('/cscenter/notice');
         }).catch(err => {
-            // //console.log(err)
+            // console.log(err)
         })
     }
 

@@ -16,7 +16,7 @@ class Find extends React.Component {
                 email: this.state.email,
             }
         }).then(res => {
-            // // // //console.log(res.data);
+            // // // console.log(res.data);
             if (res.data === "FAIL") {
                 alert("찾으시는 정보가 없습니다.");
             }

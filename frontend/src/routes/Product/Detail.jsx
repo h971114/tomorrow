@@ -219,7 +219,7 @@ class Detail extends React.Component {
                                 </div>
 
                                 <div className="submit_bt clear">
-                                    <a className="addCartBtn" id="pop1" onClick={GoCart} >장바구니</a>
+                                    <a className="addCartBtn cartBtn purchase" id="pop1" onClick={GoCart} >장바구니</a>
                                     {/* <a className="purchase" >바로구매</a> */}
                                 </div>
                             </div>

@@ -57,20 +57,20 @@ class Find extends React.Component {
     }
 
     openModal = () => {
-        // // // //console.log("열려따");
+        // // // console.log("열려따");
         this.setState({
             modalOpen: true
         })
     }
     closeModal = () => {
-        // // // //console.log("닫혔따");
+        // // // console.log("닫혔따");
         this.setState({
             modalOpen: false
         })
     }
 
     sellerCheck = (e) => {
-        // //console.log(e.target.checked);
+        // console.log(e.target.checked);
         if (e.target.checked) {
             this.setState({
                 sellerCheck: true,
@@ -105,12 +105,12 @@ class Find extends React.Component {
         }
         else {
             if (number.length !== 10) {
-                // //console.log(number.length);
+                // console.log(number.length);
             }
             else {
                 axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/hometax/` + number,
                 ).then(res => {
-                    // // //console.log(res);
+                    // // console.log(res);
                     var SF = res.data.substr(0, 1);
                     if (SF === "국" || SF === "폐") {
                         document.getElementById('validateHT').textContent = res.data;
@@ -157,7 +157,7 @@ class Find extends React.Component {
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/samenick`, {
             nickname: this.state.nick
         }).then(res => {
-            // //console.log(res);
+            // console.log(res);
             if (res.data === "SUCCESS") {
                 this.setState({
                     checkNick: true
@@ -192,7 +192,7 @@ class Find extends React.Component {
     }
 
     idChange = (e) => {
-        // //console.log(e.target.value);
+        // console.log(e.target.value);
         this.setState({
             id: e.target.value
         })
@@ -200,13 +200,13 @@ class Find extends React.Component {
     checkID = (e) => {
         e.preventDefault();
         var idReg = /^[a-z|\S]+[a-z0-9|\S]{5,19}$/g;
-        // // //console.log(!idReg.test(this.state.id));
+        // // console.log(!idReg.test(this.state.id));
         if (idReg.test(this.state.id)) {
             document.getElementById('validateId').textContent = "중복 아이디 확인중입니다.";
             axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/same`, {
                 id: this.state.id
             }).then(res => {
-                // //console.log(res);
+                // console.log(res);
                 if (res.data === "SUCCESS") {
                     this.setState({
                         checkId: true
@@ -296,7 +296,7 @@ class Find extends React.Component {
             document.getElementById('validateCPw').textContent = "비밀번호가 다릅니다.";
             document.getElementById('validateCPw').setAttribute('style', 'color: #ff3535');
         }
-        // // // // //console.log(this.state.checkPw);
+        // // // // console.log(this.state.checkPw);
     };
 
     mobileChange = (e) => {
@@ -340,7 +340,7 @@ class Find extends React.Component {
             axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/sameemail`, {
                 email: this.state.email
             }).then(res => {
-                // // //console.log(res);
+                // // console.log(res);
                 if (res.data === "SUCCESS") {
                     this.setState({
                         checkEmail: true
@@ -416,7 +416,7 @@ class Find extends React.Component {
                     if (this.state.checkht === false)
                         alert('사업자 등록번호를 확인해주세요.');
                 }
-                // //console.log("asdf");
+                // console.log("asdf");
             } else { //사업자 아님 seller:0
                 axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
                     id: this.state.id,
@@ -440,7 +440,7 @@ class Find extends React.Component {
             //     mobile: this.state.mobile,
             //     address: addr
             // }).then(res => {
-            //     // //console.log(res);
+            //     // console.log(res);
             //     alert("회원가입 완료");
 
             // })

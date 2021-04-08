@@ -76,7 +76,7 @@ class Auth extends React.Component {
             id: this.state.id,
             pw: this.state.pw
         }).then(res => {
-            // // // //console.log(res.data);
+            // // // console.log(res.data);
             var id = this.state.id;
 
             if (res.data.message === "SUCCESS") {
@@ -117,8 +117,8 @@ class Auth extends React.Component {
 
     // signUp = (e) => {
     //     e.preventDefault();
-    //     // // //console.log(this.state);
-    //     // // // //console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
+    //     // // console.log(this.state);
+    //     // // // console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
     //     if ((this.state.seller === 1) || !this.state.seller) {
     //         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
     //             id: this.state.id,
@@ -131,7 +131,7 @@ class Auth extends React.Component {
     //             seller: this.state.seller,
     //             cert: this.state.cert,
     //         }).then(res => {
-    //             // // //console.log(res);
+    //             // // console.log(res);
     //             if (res.data === "SUCCESS") {
     //                 alert('회원가입 성공! 로그인 창에서 로그인하세요.')
     //                 this.tabZero();
@@ -139,7 +139,7 @@ class Auth extends React.Component {
     //                 alert('문제가 있습니다')
     //             }
     //         }).catch(err => {
-    //             // // //console.log(err);
+    //             // // console.log(err);
     //         });
     //     };
     // }
