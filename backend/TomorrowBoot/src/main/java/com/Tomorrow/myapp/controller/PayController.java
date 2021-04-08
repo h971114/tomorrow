@@ -110,14 +110,14 @@ public class PayController {
         order.setPayment_status("1");
         order.setPaymenthash(hash);
         orderService.paymentorder(order);
-        return new RedirectView("http://localhost:3000/orderend");
+        return new RedirectView("https://j4a305.p.ssafy.io/orderend");
     }
     @GetMapping("/kakaoPayCancel") // 결제완료페이지
     public RedirectView kakaoPayCancel() throws Exception {
-        return new RedirectView("http://localhost:3000/cart");
+        return new RedirectView("https://j4a305.p.ssafy.io/cart");
     }
     @GetMapping("/kakaoPaySuccessFail") // 결제완료페이지
     public RedirectView kakaoPaySuccessFail() throws Exception {
-        return new RedirectView("http://localhost:3000/cart");
+        return new RedirectView("https://j4a305.p.ssafy.io/cart");
     }
 }
