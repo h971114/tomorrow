@@ -26,10 +26,16 @@ class Cart extends React.Component {
     }
 
     componentDidMount() {
+        // if (this.state.id === "") {
+        //     this.setState({
+        //         id: sessionStorage.getItem('id'),
+        //         isseller: sessionStorage.getItem('isSeller')
+        //     })
+        // }
         // var Uid = sessionStorage.getItem('id');
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
             params: {
-                id: this.state.id
+                id: sessionStorage.getItem('id')
             }
         }).then(res => {
             this.setState({
@@ -79,7 +85,7 @@ class Cart extends React.Component {
         } = this.state
 
         const goBack = () => {
-            window.history.goBack();
+            window.location.replace('/goods');
         };
 
         const checkAll = (e) => {
@@ -114,7 +120,7 @@ class Cart extends React.Component {
                 Pays = 0;
                 sendpays = 2500;
             }
-            if (Pays > 30000)
+            if (Pays >= 30000)
                 sendpays = 0;
             else {
                 sendpays = 2500;
@@ -334,25 +340,25 @@ class Cart extends React.Component {
                                                     }).then(res => {
                                                         // console.log("장바구니 갯수 더하기");
                                                     })
-                                                }
-                                                if (checkboxes.checked === true) {
-                                                    var totpays = pays - (realPrice * (amounts - 1));
-                                                    var sendpays = sendpay;
-                                                    if ((totpays + eachpay) >= 30000) {
-                                                        sendpays = 0;
+                                                    if (checkboxes.checked === true) {
+                                                        var totpays = pays - (realPrice * (amounts - 1));
+                                                        var sendpays = sendpay;
+                                                        if ((totpays + eachpay) >= 30000) {
+                                                            sendpays = 0;
+                                                        }
+                                                        else {
+                                                            sendpays = 2500;
+                                                        }
+                                                        var totpayStrings = (totpays + eachpay + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                                        this.setState({
+                                                            pays: totpays + eachpay,
+                                                            paysString: (totpays + eachpay).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+                                                            sendpay: sendpays,
+                                                            totpay: (totpays + eachpay + sendpays),
+                                                            totpayString: totpayStrings,
+                                                            sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                                                        })
                                                     }
-                                                    else {
-                                                        sendpays = 2500;
-                                                    }
-                                                    var totpayStrings = (totpays + eachpay + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                                                    this.setState({
-                                                        pays: totpays + eachpay,
-                                                        paysString: (totpays + eachpay).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
-                                                        sendpay: sendpays,
-                                                        totpay: (totpays + eachpay + sendpays),
-                                                        totpayString: totpayStrings,
-                                                        sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-                                                    })
                                                 }
                                             }
 

@@ -106,6 +106,7 @@ class App extends Component {
           this.setState({
               message:"FAIL"
           })
+          sessionStorage.clear();
         }
       });
     }
@@ -282,7 +283,8 @@ logout = (e) => {
                             <div className="menu_all">
                                 <ul className="clear">
                                     <li className="header_all">
-                                        <a href="/goods">전체카테고리</a>
+                        <Link to="/goods">
+                          전체카테고리</Link>
                                         <ul className="clear" id="menu_all_sub">
                                             <li className="has-sub">
                                                 <Link

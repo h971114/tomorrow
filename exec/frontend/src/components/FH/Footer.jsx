@@ -35,7 +35,15 @@ class Footer extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="sec3 sec">
+                            {/* <div className="sec3 sec">
+                                <div className="tb">
+                                    <div className="tbc">
+                                        <b className="cs_title">Bank Info</b>
+                                        <img src="/img/kb.png" />
+                                        <p>455-80-2041-719</p>
+                                        <span>예금주:(주) 내일</span>
+                                    </div>
+                                </div>
                                 <b className="cs_title clear">
                                     <span>Notice</span>
                                     <a href="#">
@@ -87,7 +95,7 @@ class Footer extends Component {
                                     </ul>
                                 </div>
                                 <a href="#" className="more_bt">More</a>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

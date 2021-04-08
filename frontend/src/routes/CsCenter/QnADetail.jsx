@@ -123,7 +123,7 @@ const QnADetail = (props) => {
                                     : null}
 
                                 <div className="btnSet clear">
-                                    <div className="fl_l"><Link to={`/cscenter/qna/`}><a className="btn">목록으로</a></Link></div>
+                                    <div className="fl_l"><Link to={`/cscenter/qna/`} className="btn">목록으로</Link></div>
                                     <div className="fl_r">
                                         {sessionStorage.getItem('id') === 'prestto1' ?
                                             <Link to={{ pathname: `/cscenter/qna/${no}/rewrite`, state: { no } }}><a className="btn">답변 작성</a></Link>

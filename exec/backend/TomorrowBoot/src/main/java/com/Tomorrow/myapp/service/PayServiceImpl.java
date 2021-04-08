@@ -31,9 +31,9 @@ import com.Tomorrow.myapp.model.PayDto;
 @Service
 public class PayServiceImpl implements PayService{
 	private static final String HOST = "https://kapi.kakao.com";
-	private static final String APPROVAL_URL ="https://j4a305.p.ssafy.io/myapp/pay/PaySuccess";//성공 URL
-	private static final String CANCEL_URL ="https://j4a305.p.ssafy.io/myapp/pay/kakaoPayCancel";//취소 URL
-	private static final String FAIL_URL ="https://j4a305.p.ssafy.io/myapp/pay/kakaoPaySuccessFail";//실패 URL
+	private static final String APPROVAL_URL ="http://localhost:8080/myapp/pay/PaySuccess";//성공 URL
+	private static final String CANCEL_URL ="http://localhost:8080/myapp/pay/kakaoPayCancel";//취소 URL
+	private static final String FAIL_URL ="http://localhost:8080/myapp/pay/kakaoPaySuccessFail";//실패 URL
 	private static  String partner_order_id ;//주문 고유번호 생성 위해서 or random?
 
     private PayDto payDto;

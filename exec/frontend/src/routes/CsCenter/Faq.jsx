@@ -127,7 +127,7 @@ const Faq = () => {
                             </tr>
 
                             <tr className="faqQ q7" id="faq7" onClick={(e, o) => show('faq7', 'q7')} >
-                                <td className="part">test2</td>
+                                <td className="part">회원</td>
                                 <td className="title"><span className="blind">Q</span>회원 탈퇴는 어떻게 하나요?</td>
                             </tr>
                             <tr id="q7" className="faqA">
@@ -135,11 +135,11 @@ const Faq = () => {
                                 <td className="title"><span className="blind">A</span>
                                     <p>로그인 후 마이페이지 &gt; 회원탈퇴 를 이용해주세요.
 </p><p>
-                                        회원 탈퇴 시 보유하고 계신 포인트는 자동 소멸 됩니다.</p>						</td>
+                                        회원 탈퇴 시 보유하고 계신 적립금은 자동 소멸 됩니다.</p>						</td>
                             </tr>
 
                             <tr className="faqQ q8" id="faq8" onClick={(e, o) => show('faq8', 'q8')} >
-                                <td className="part">test1</td>
+                                <td className="part">배송</td>
                                 <td className="title"><span className="blind">Q</span>물품을 아직 받지 못했어요.</td>
                             </tr>
                             <tr id="q8" className="faqA">
@@ -151,7 +151,7 @@ const Faq = () => {
                             </tr>
 
                             <tr className="faqQ q9" id="faq9" onClick={(e, o) => show('faq9', 'q9')} >
-                                <td className="part">test2</td>
+                                <td className="part">회원</td>
                                 <td className="title"><span className="blind">Q</span>회원가입을 할 때 이미 가입된 회원이라고 나와요~</td>
                             </tr>
                             <tr id="q9" className="faqA">

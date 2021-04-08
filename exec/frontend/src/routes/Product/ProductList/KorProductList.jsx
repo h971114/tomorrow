@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import TopVisual from '../../../components/Product/TopVisual/TopVisualKor';
 import Posts from '../../../components/Product/Posts';
@@ -26,7 +27,6 @@ const ProductList = () => {
 
         }
         fetchPosts();
-        document.getElementById('check1').setAttribute("checked", "true");
         return () => setLoading(false);
     }, []);
 
@@ -49,21 +49,13 @@ const ProductList = () => {
                 <div className="size">
                     <div className="bbs_tab">
                         <ul className="clear itemList5">
-                            <li><a href="/goods">전체 상품<img src="/img/bbs_tab_arrow.png" /></a></li>
-                            <li><a href="/goods/1" className="on">한식 밀키트<img src="/img/bbs_tab_arrow.png" /></a></li>
-                            <li><a href="/goods/2">양식 밀키트<img src="/img/bbs_tab_arrow.png" /></a></li>
-                            <li><a href="/goods/3">중식/일식 밀키트<img src="/img/bbs_tab_arrow.png" /></a></li>
-                            <li><a href="/goods/4">동남아 밀키트<img src="/img/bbs_tab_arrow.png" /></a></li>
-                            <li><a href="/goods/5">샐러드 밀키트<img src="/img/bbs_tab_arrow.png" /></a></li>
+                            <li><Link to="/goods">전체 상품<img src="/img/bbs_tab_arrow.png" /></Link></li>
+                            <li><Link to="/goods/1" className="on">한식 밀키트<img src="/img/bbs_tab_arrow.png" /></Link></li>
+                            <li><Link to="/goods/2">양식 밀키트<img src="/img/bbs_tab_arrow.png" /></Link></li>
+                            <li><Link to="/goods/3">중식/일식 밀키트<img src="/img/bbs_tab_arrow.png" /></Link></li>
+                            <li><Link to="/goods/4">동남아 밀키트<img src="/img/bbs_tab_arrow.png" /></Link></li>
+                            <li><Link to="/goods/5">샐러드 밀키트<img src="/img/bbs_tab_arrow.png" /></Link></li>
                         </ul>
-                    </div>
-                    <div className="radio_bt">
-                        <input type="radio" name="check" value="0" id="check1" />
-                        <label htmlFor="check1" className="first"><span>신상품</span></label>
-                        <input type="radio" name="check" value="1" id="check2" />
-                        <label htmlFor="check2"><span>낮은가격</span></label>
-                        <input type="radio" name="check" value="2" id="check3" />
-                        <label htmlFor="check3"><span>높은가격</span></label>
                     </div>
                     <Posts posts={currentPosts} loading={loading} />
                 </div>
