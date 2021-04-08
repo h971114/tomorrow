@@ -215,45 +215,47 @@ class SellPage extends React.Component {
                                                     }
                                                     const changeSIng = (e) => {
                                                         e.preventDefault();
-                                                        axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping`, {
-                                                            params: {
-                                                                status: 2,
-                                                                id: post.id
-                                                            }
+                                                        axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/`, {
+                                                            status: 2,
+                                                            id: post.id
                                                         }).then(res => {
                                                             console.log(res);
                                                         });
-                                                        // alert('변경 완료되었습니다.');
-                                                        // window.location.replace('/sellpage/manage');
+                                                        alert('변경 완료되었습니다.');
+                                                        window.location.replace('/sellpage/manage');
                                                     }
                                                     const changeSEnd = (e) => {
                                                         e.preventDefault();
                                                         console.log(post.id);
-                                                        axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping`, {
-                                                            params: {
-                                                                status: 2,
-                                                                id: post.id
-                                                            }
+                                                        axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/`, {
+                                                            status: 3,
+                                                            id: post.id
                                                         }).then(res => {
                                                             console.log(res);
                                                         });
-                                                        // alert('변경 완료되었습니다.');
-                                                        // window.location.replace('/sellpage/manage');
+                                                        ///sellpage/manage/:id
+                                                        alert('변경 완료되었습니다.');
+                                                        window.location.replace('/sellpage/manage');
                                                     }
                                                     return (
                                                         <tr key={idx}>
-                                                            <td className="pro_info">
+                                                            <td className="pro_info"><Link to={{
+                                                                pathname: `/sellpage/manage/${post.id}`,
+                                                                state: {
+                                                                    post: post
+                                                                }
+                                                            }}>
                                                                 <p style={{ marginLeft: `50px` }}>
                                                                     <img src={post.img1} />
                                                                     {post.menu_name}
-                                                                </p>
+                                                                </p></Link>
                                                             </td>
                                                             <td>{post.name}</td>
                                                             <td className="m_info">{statusString}
                                                             </td>
                                                             <td className="m_info">
-                                                                <button onClick={changeSIng}>배송 중</button><br />
-                                                                <button onClick={changeSEnd}>배송 완료</button>
+                                                                <button onClick={changeSIng} className="ManagerBtns goIng">배송 중</button><br />
+                                                                <button onClick={changeSEnd} className="ManagerBtns goEnd">배송 완료</button>
                                                             </td>
                                                         </tr>
                                                     )

@@ -20,6 +20,7 @@ import SellManage from "./routes/Seller/Manager";
 import SellList from "./routes/Seller/SellList";
 import SellRegist from "./routes/Seller/Regist";
 import SellModify from "./routes/Seller/Modify";
+import SellDetail from "./routes/Seller/MySellDetail";
 
 import AllProductList from "./routes/Product/ProductList/AllProductList";
 import KorProductList from "./routes/Product/ProductList/KorProductList";
@@ -428,6 +429,7 @@ logout = (e) => {
   
             <Route path="/sellpage" exact={true} render={() => <SellPage Uid={id} isseller={isseller} />} />
             <Route path="/sellpage/manage" exact={true} render={() => <SellManage Uid={id} isseller={isseller} />} />
+            <Route path="/sellpage/manage/:id" exact={true} component={SellDetail}/>
             <Route path="/sellpage/list" exact={true} render={() => <SellList Uid={id} isseller={isseller}/>} />
             <Route path="/sellregist" exact={true} render={() => <SellRegist Uid={id} isseller={isseller}/>} />
             <Route path="/sellmodify/:id" exact={true} component={SellModify} />
