@@ -300,9 +300,6 @@ class Order extends React.Component {
     render() {
         const {
             modalOpen,
-            deliverAddr1,
-            deliverAddr0,
-            addr2
         } = this.state;
 
         const width = 595;
@@ -518,12 +515,12 @@ class Order extends React.Component {
                                     <th className="addr_th"><span>주소 <em className="essential">*</em></span></th>
                                     <td colSpan="3" className="addr">
                                         <p className="clear">
-                                            <a onClick={this.openModal}><input type="text" name="zipcode" value={deliverAddr0 == null ? "" : deliverAddr0} onChange={this.cDeliveraddr0} id="zipcode" className="wid200" readOnly /></a>
+                                            <a onClick={this.openModal}><input type="text" name="zipcode" onChange={this.cDeliveraddr0} id="zipcode" className="wid200" readOnly /></a>
                                             <a onClick={this.openModal} id="gopost">우편번호</a>
                                             {/* 우편번호 api */}
                                         </p>
                                         <p className="inline">
-                                            <input type="text" name="receiptaddr1" id="addr1" value={deliverAddr1 == null ? "" : deliverAddr1} onChange={this.cDeliveraddr1} readOnly placeholder="기본주소" />
+                                            <input type="text" name="receiptaddr1" id="addr1" onChange={this.cDeliveraddr1} readOnly placeholder="기본주소" />
                                         </p>
                                         <p className="inline">
                                             <input type="text" name="receiptaddr2" id="addr2" placeholder="나머지주소" onChange={this.cDeliveraddr2} />
@@ -585,9 +582,6 @@ class Order extends React.Component {
                     </div>
 
                     <div className="last_check">
-                        <input type="checkbox" id="last_ck" name="order_agree" />
-                        <label htmlFor="last_ck">구매하실 상품의 결제정보를 확인하였으며, <em className="mbr">구매진행에 동의합니다.</em></label>
-
                         <div className="bt">
                             <a onClick={this.payStart}>결제하기</a>
                             {/* 백엔드 연동 예정 */}

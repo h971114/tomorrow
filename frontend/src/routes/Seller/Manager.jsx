@@ -11,7 +11,7 @@ class SellPage extends React.Component {
             id: props.Uid,
             isSeller: props.isseller,
             posts: [],
-            loading: false
+            loading: false,
         }
     }
     componentDidMount() {
@@ -166,11 +166,7 @@ class SellPage extends React.Component {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div className="color_btnSet clear">
-                                    <div className="clear">
-                                        <a className="btn fl_r" href="/sellregist">상품 등록</a>
-                                    </div>
-                                </div>
+
                             </div>
                         </form>
                     </div>

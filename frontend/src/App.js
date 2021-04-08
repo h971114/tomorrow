@@ -434,7 +434,7 @@ logout = (e) => {
   
             <Route path="/mypage" exact={true} render={() => <MyPage Uid={id} isseller={isseller}/> }/>
             <Route path="/mypage/order" exact={true} render={() => <MyOrder Uid={id} isseller={isseller}/> }/>
-            <Route path="/mypage/order/detail" exact={true} render={() => <MyOrderDetail Uid={id} isseller={isseller}/> }/>
+            <Route path="/mypage/order/detail" exact={true} component={MyOrderDetail}/>
             <Route path="/cart" exact={true} render={() => <Cart Uid={id} isseller={isseller}/>}/>
             <Route path="/order" exact={true} component={Order}/>
             <Route path="/selorder" exact={true} component={selectOrder}/>
