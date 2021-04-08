@@ -1,6 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
-const MyOrderDetail = () => {
+const MyOrderDetail = (props) => {
+    const [id, setId] = useState('');
+    const [isSeller, setisSeller] = useState(1);
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [noPosts, setVPost] = useState(false);
+    const [dName, setDName] = useState("");
+    const [dMobile, setDmobile] = useState("");
+    const [dAddr0, setdAddr0] = useState("");
+    const [dAddr1, setdAddr1] = useState("");
+    const [dAddr2, setdAddr2] = useState("");
+    const [dEtc, setEtc] = useState("");
+
+    useEffect(() => {
+        var order_id = props.location.state.id;
+        var member_id = props.location.state.Uid;
+
+        const fetchPosts = async () => {
+            setLoading(true);
+            // console.log(Uid);
+            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/all2`, {
+                params: {
+                    member_id: member_id,
+                    order_id: order_id
+                }
+            }).then(res => {
+                var addr = res.data[0].addr.split(' / ');
+                // console.log(addr);
+                setDName(res.data[0].name);
+                setDmobile(res.data[0].mobile);
+                setdAddr0(addr[0]);
+                setdAddr1(addr[1]);
+                setdAddr2(addr[2]);
+                setEtc(res.data[0].etc);
+                // console.log(res.data[0].name);
+                // console.log(res.data[0].mobile);
+                // console.log(res.data[0].addr);
+                // console.log(res.data[0].etc);
+
+
+                // if (res.data.length < 1) {
+                //     setVPost(true);
+                // }
+                setPosts(res.data);
+                setLoading(false);
+            }).catch(err => {
+
+            })
+        }
+        fetchPosts();
+    }, []);
+
     return (
         <div id="sub">
             <div className="size order_page check order_view">
@@ -29,89 +82,46 @@ const MyOrderDetail = () => {
                         <table>
                             <colgroup>
                                 <col width="*" />
-                                <col width="15%" />
-                                <col width="5%" />
-                                <col width="10%" />
+                                <col width="30%" />
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th>상품정보</th>
-                                    <th>판매가</th>
-                                    <th>수량</th>
-                                    <th>합계</th>
+                                    <th>배송상태</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td className="pro_info">
-                                        <p>
-                                            <img src="/img/cart_sample.png" />
-                                    밀키트 이름
-                                </p>
-                                    </td>
-                                    <td className="m_info">
-                                        <em className="m_block">판매가 :
-                                </em> 31,900원
-							</td>
-                                    <td className="m_info">
-                                        <em className="m_block">수량 :
-                                </em> 1개
-							</td>
-                                    <td className="m_info bottom">
-                                        <em className="m_block">합계 :
-                                </em> 31,900원
-							</td>
-                                </tr>
+                                {
+                                    posts.map((post, idx) => {
+                                        // console.log(post);
+                                        var statusString = "";
+                                        if (post.status === 1) {
+                                            statusString = "배송 준비 중";
+                                        } else if (post.status === 2) {
+                                            statusString = "배송 중";
+                                        } else {
+                                            statusString = "배송 완료";
+                                        }
+                                        return (
+                                            <tr key={idx}>
+                                                <td className="pro_info">
+                                                    <p style={{ marginLeft: `50px` }}>
+                                                        <img src={post.img1} />
+                                                        {post.menu_name}
+                                                    </p>
+                                                </td>
+                                                <td className="m_info">{statusString}
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+
                             </tbody>
                         </table>
-                    </div>
-
-                    <div className="price_result clear">
-                        <span>상품 구매금액
-                            <b> 31,900</b>
-                            원 + 배송비 <b>
-                                0
-                            </b>원
-                            <em className="mbr">= 총 합계
-                            <b className="result"> 31,900
-                                <span>원</span>
-                                </b>
-                            </em>
-                        </span>
                     </div>
 
                     <div className="order_info">
-                        <h3>주문자 정보</h3>
-
-                        <table className="write">
-                            <colgroup>
-                                <col width="13%" />
-                                <col width="*" />
-                                <col width="13%" />
-                                <col width="*" />
-                            </colgroup>
-                            <tbody>
-                                <tr>
-                                    <th className="first">주문번호</th>
-                                    <td className="first"><b>210330-00001</b></td>
-                                    <th className="first">주문일</th>
-                                    <td className="first">2021-03-30</td>
-                                </tr>
-                                <tr>
-                                    <th>주문하시는 분</th>
-                                    <td>이름 값</td>
-                                    <th>아이디</th>
-                                    <td>아이디 값</td>
-                                </tr>
-                                <tr>
-                                    <th>휴대폰번호</th>
-                                    <td>010-3788-3468</td>
-                                    <th className="last">이메일 주소</th>
-                                    <td className="last">prestto@kakao.com</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
                         <h3>배송지 정보</h3>
                         <table className="write">
                             <colgroup>
@@ -123,75 +133,39 @@ const MyOrderDetail = () => {
                             <tbody>
                                 <tr>
                                     <th className="first">받으시는 분</th>
-                                    <td className="delivery_n first">이름</td>
+                                    <td className="delivery_n first">{dName}</td>
                                     <th className="first none"></th>
                                     <td className="first none"></td>
                                 </tr>
                                 <tr>
                                     <th>휴대폰번호</th>
-                                    <td className="delivery_p">	010-3788-3468</td>
-                                    <th>운송장번호</th>
+                                    <td className="delivery_p">	{dMobile}</td>
+                                    <th></th>
                                     <td className="order_num"></td>
                                 </tr>
 
                                 <tr>
                                     <th className="addr_th">주소</th>
                                     <td className="addr" colSpan="3">
-                                        <span>(우편번호)</span>
-                                수령지 주소
-                            </td>
+                                        <span>({dAddr0})</span>
+                                        {dAddr1} {dAddr2}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th className="last">남기실 말씀</th>
-                                    <td className="last" colSpan="3"></td>
+                                    <td className="last" colSpan="3">{dEtc}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <h3>결제 정보</h3>
-                        <table className="write">
-                            <colgroup>
-                                <col width="13%" />
-                                <col width="37%" />
-                                <col width="13%" />
-                                <col width="37%" />
-                            </colgroup>
-                            <tbody>
-                                <tr>
-                                    <th className="first"><span>상품 구매금액</span></th>
-                                    <td className="first" colSpan="3">31,900원 (사용 적립금: 0원)</td>
-                                </tr>
-                                <tr>
-                                    <th><span>예상 적립금액</span></th>
-                                    <td>638원</td>
-                                    <th><span>사용 적립금액</span></th>
-                                    <td>0원</td>
-                                </tr>
-                                <tr>
-                                    <th><span>총 결제 금액</span></th>
-                                    <td className="total">
-                                        <span>31,900</span>원
-							</td>
-                                    <th>결제일</th>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th className="last">주문상태</th>
-                                    <td className="result order last">배송 준비 중</td>
-                                    <th className="last none"></th>
-                                    <td className="last none"></td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
 
                     <div className="btnSet clear">
                         <div className="fl_l">
-                            <a href="/mypage/order">목록</a>
+                            <Link to="/mypage/order">목록</Link>
                         </div>
                         <div className="fl_r">
-                            <a className="pop" id="pop2">주문취소</a>
-                            <a href="/mypage">확인</a>
+                            <Link to="/mypage">확인</Link>
                         </div>
                     </div>
                 </form>

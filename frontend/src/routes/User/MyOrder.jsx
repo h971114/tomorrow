@@ -48,7 +48,7 @@ const MyOrder = (props) => {
                     member_id: Uid
                 }
             }).then(res => {
-                // console.log(res.data.length);
+                // console.log(res.data);
                 if (res.data.length < 1) {
                     setVPost(true);
                 }
@@ -60,7 +60,6 @@ const MyOrder = (props) => {
             })
         }
         fetchPosts();
-        console.log(id);
     }, []);
 
     return (
@@ -122,7 +121,8 @@ const MyOrder = (props) => {
                             <tbody>
                                 {noPosts === false &&
                                     posts.map((post, idx) => {
-                                        // console.log(post);
+                                        // console.log(id);
+                                        var Uid = id;
                                         var dateString = post.time.substr(0, 10);
                                         var namesArray = [];
                                         var namesArrayCnt = 1;
@@ -145,7 +145,11 @@ const MyOrder = (props) => {
                                                 <td>{dateString}</td>
                                                 <td className="product_name">
                                                     <Link to={{
-                                                        pathname: `/mypage/order/detail/${post.id}`
+                                                        pathname: `/mypage/order/detail/${post.id}`,
+                                                        state: {
+                                                            id: post.id,
+                                                            Uid: Uid
+                                                        }
                                                     }}>
                                                         {namesString}
                                                     </Link>
