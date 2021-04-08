@@ -13,7 +13,7 @@ import { Cookies, useCookies } from 'react-cookie';
 
 
 const NoticeWrite = ({ history }) => {
-    
+
     var editorRef = React.createRef();
 
     const goBack = () => {
@@ -28,13 +28,13 @@ const NoticeWrite = ({ history }) => {
     const [file3, setFile3] = useState("")
 
     useEffect(() => {
-        if (localStorage.getItem('id') !== 'prestto1') {
+        if (sessionStorage.getItem('id') !== 'prestto1') {
             alert('잘못된 접근입니다!')
             history.goBack();
         }
-        setWriter(localStorage.getItem('id'))
-        console.log(writer)
-        console.log(localStorage.getItem('id'))
+        setWriter(sessionStorage.getItem('id'))
+        // //console.log(writer)
+        // //console.log(sessionStorage.getItem('id'))
     }, []);
 
     const titleChange = e => {
@@ -46,10 +46,10 @@ const NoticeWrite = ({ history }) => {
     };
 
     const file1Change = (e) => {
-        console.log(e)
+        // //console.log(e)
 
         var filename;
-        if(window.FileReader){
+        if (window.FileReader) {
             filename = e.target.files[0].name;
         } else {
             filename = e.target.val().split('/').pop().split('\\').pop()
@@ -60,24 +60,24 @@ const NoticeWrite = ({ history }) => {
 
         var formData = new FormData();
         formData.append('data', e.target.files[0]);
-        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('hostid', sessionStorage.getItem('id'));
         formData.append('dirNum', 2);
-        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData,{
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res.data);
+            // //console.log(res.data);
             setFile1(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
 
     const file2Change = (e) => {
-        // console.log(e)
+        // // //console.log(e)
         var filename;
-        if(window.FileReader){
+        if (window.FileReader) {
             filename = e.target.files[0].name;
         } else {
             filename = e.target.val().split('/').pop().split('\\').pop()
@@ -89,23 +89,23 @@ const NoticeWrite = ({ history }) => {
         formData.append('data', filename);
         formData.append('hostid', writer.nickname);
         formData.append('dirNum', 0);
-        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData,{
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res);
+            // //console.log(res);
             setFile2(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
     const file3Change = (e) => {
-        // console.log(e)
+        // // //console.log(e)
         setFile3('file', e.target.files[0])
 
         var filename;
-        if(window.FileReader){
+        if (window.FileReader) {
             filename = e.target.files[0].name;
         } else {
             filename = e.target.val().split('/').pop().split('\\').pop()
@@ -118,29 +118,29 @@ const NoticeWrite = ({ history }) => {
         formData.append('data', filename);
         formData.append('hostid', writer);
         formData.append('dirNum', 0);
-        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData,{
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res);
+            // //console.log(res);
             setFile3(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
 
     const write = (e) => {
-        // console.log(e)
+        // // //console.log(e)
         // e.preventDefault();
         // var file1Name = document.getElementById('addFile1').value
         // var file2Name = document.getElementById('addFile2').value
         // var file3Name = document.getElementById('addFile3').value
 
-        if ({title} === "") {
+        if ({ title } === "") {
             return (alert('제목이 작성되지 않았습니다.'));
         }
-        else if ({detail} === "") {
+        else if ({ detail } === "") {
             return (alert('내용이 작성되지 않았습니다.'));
         }
 
@@ -160,20 +160,20 @@ const NoticeWrite = ({ history }) => {
 
 
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/`, {
-            title: {title}.title,
-            detail: {detail}.detail,
-            writer: localStorage.getItem('id'),
-            file1: {file1}.file1,
-            file2: {file2}.file2,
-            file3: {file3}.file3,
+            title: { title }.title,
+            detail: { detail }.detail,
+            writer: sessionStorage.getItem('id'),
+            file1: { file1 }.file1,
+            file2: { file2 }.file2,
+            file3: { file3 }.file3,
         }).then(res => {
             if (res.data === "SUCCESS") {
-                console.log("글 작성 성공");
+                // //console.log("글 작성 성공");
                 alert("글 작성이 완료되었습니다.");
                 window.location.replace(`/cscenter/notice`);
             }
             else {
-                console.log("글 작성 실패");
+                // //console.log("글 작성 실패");
                 alert("글 작성에 실패하셨습니다. 다시 작성해 주세요!");
                 window.location.replace('/cscenter/notice/write');
             }

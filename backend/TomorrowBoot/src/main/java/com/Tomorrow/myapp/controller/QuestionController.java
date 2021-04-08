@@ -49,7 +49,7 @@ public class QuestionController {
         return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/{writer}")
+    @GetMapping("/list/{writer}")
     public ResponseEntity<Map<String, Object>> listQuestion(@PathVariable("writer") String writer, HttpServletRequest req) throws SQLException {
         Map<String, Object> resultMap = new HashMap<>();
         List<QuestionDto> list = questionService.listQuestion(writer);

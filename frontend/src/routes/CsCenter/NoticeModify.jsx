@@ -13,12 +13,7 @@ import { Cookies, useCookies } from 'react-cookie';
 
 
 const NoticeWrite = (props, { history }) => {
-
     var editorRef = React.createRef();
-
-    const goBack = () => {
-        history.goBack();
-    };
 
     const [title, setTitle] = useState("")
     const [detail, setDetail] = useState("")
@@ -33,7 +28,7 @@ const NoticeWrite = (props, { history }) => {
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${props.match.params.id}`, {
             no: props.match.params.id,
         }).then(res => {
-            // console.log(res.data)
+            // // //console.log(res.data)
             setTitle(res.data.title)
             setDetail(res.data.detail)
             setWriter(res.data.writer)
@@ -43,7 +38,7 @@ const NoticeWrite = (props, { history }) => {
             setFile3(res.data.file3)
             setHit(res.data.hit)
         }).catch(err => {
-            console.log(err)
+            // //console.log(err)
         })
 
     }, []);
@@ -57,7 +52,7 @@ const NoticeWrite = (props, { history }) => {
     };
 
     const file1Change = (e) => {
-        console.log(e)
+        // //console.log(e)
 
         var filename;
         if (window.FileReader) {
@@ -71,22 +66,22 @@ const NoticeWrite = (props, { history }) => {
 
         var formData = new FormData();
         formData.append('data', e.target.files[0]);
-        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('hostid', sessionStorage.getItem('id'));
         formData.append('dirNum', 2);
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res.data);
+            // //console.log(res.data);
             setFile1(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
 
     const file2Change = (e) => {
-        // console.log(e)
+        // // //console.log(e)
         var filename;
         if (window.FileReader) {
             filename = e.target.files[0].name;
@@ -105,14 +100,14 @@ const NoticeWrite = (props, { history }) => {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res);
+            // //console.log(res);
             setFile2(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
     const file3Change = (e) => {
-        // console.log(e)
+        // // //console.log(e)
         setFile3('file', e.target.files[0])
 
         var filename;
@@ -134,15 +129,18 @@ const NoticeWrite = (props, { history }) => {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res);
+            // //console.log(res);
             setFile3(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
 
+    const goBack = () => {
+        history.goBack();
+    };
     const modify = (e) => {
-        // console.log(e)
+        // // //console.log(e)
         // e.preventDefault();
         // var file1Name = document.getElementById('addFile1').value
         // var file2Name = document.getElementById('addFile2').value
@@ -168,7 +166,7 @@ const NoticeWrite = (props, { history }) => {
         //     file2Name = file3Name;
         //     file3Name = "";
         // }
-        console.log(props.match.params.id)
+        // //console.log(props.match.params.id)
         axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/`, {
             no: `${props.match.params.id}`,
             title: { title }.title,
@@ -178,17 +176,17 @@ const NoticeWrite = (props, { history }) => {
             file3: { file3 }.file3,
         }).then(res => {
             if (res.data === "SUCCESS") {
-                console.log("글 수정 성공");
+                // //console.log("글 수정 성공");
                 alert("글 수정이 완료되었습니다.");
                 window.location.replace(`/cscenter/notice`);
             }
             else {
-                console.log("글 수정 실패");
+                // //console.log("글 수정 실패");
                 alert("글 수정에 실패하셨습니다. 다시 시도해 주세요!");
                 // window.location.replace('/cscenter/notice/write');
             }
         }).catch(err => {
-            console.log(err)
+            // //console.log(err)
         })
     }
 

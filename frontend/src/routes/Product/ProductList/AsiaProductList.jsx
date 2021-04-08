@@ -21,7 +21,7 @@ const ProductList = () => {
             });
 
             setPosts(res.data.list);
-            // // console.log(res);
+            // // // //console.log(res);
             setLoading(false);
         }
         fetchPosts();

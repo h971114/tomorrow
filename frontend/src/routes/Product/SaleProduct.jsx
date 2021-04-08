@@ -17,7 +17,7 @@ const SaleProduct = () => {
             const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gmbs`);
 
             setPosts(res.data);
-            // console.log(res.data.menu);
+            // // //console.log(res.data.menu);
             setLoading(false);
 
         }

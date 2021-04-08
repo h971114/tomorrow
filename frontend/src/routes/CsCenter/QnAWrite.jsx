@@ -26,7 +26,7 @@ const QnAWrite = ({ history }) => {
     const [file, setFile] = useState("")
 
     useEffect(() => {
-        setWriter(localStorage.getItem('id'))
+        setWriter(sessionStorage.getItem('id'))
     }, []);
 
     const titleChange = e => {
@@ -38,7 +38,7 @@ const QnAWrite = ({ history }) => {
     };
 
     const fileChange = (e) => {
-        console.log(e)
+        // //console.log(e)
 
         var filename;
         if (window.FileReader) {
@@ -52,17 +52,17 @@ const QnAWrite = ({ history }) => {
 
         var formData = new FormData();
         formData.append('data', e.target.files[0]);
-        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('hostid', sessionStorage.getItem('id'));
         formData.append('dirNum', 2);
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res.data);
+            // //console.log(res.data);
             setFile(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
 
@@ -77,16 +77,16 @@ const QnAWrite = ({ history }) => {
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/question/`, {
             title: { title }.title,
             detail: { detail }.detail,
-            writer: localStorage.getItem('id'),
+            writer: sessionStorage.getItem('id'),
             // file: {file}.file,
         }).then(res => {
             if (res.data === "SUCCESS") {
-                console.log("글 작성 성공");
+                // //console.log("글 작성 성공");
                 alert("글 작성이 완료되었습니다.");
                 window.location.replace(`/cscenter/qna`);
             }
             else {
-                console.log("글 작성 실패");
+                // //console.log("글 작성 실패");
                 alert("글 작성에 실패하셨습니다. 다시 작성해 주세요!");
                 window.location.replace('/cscenter/qna/write');
             }

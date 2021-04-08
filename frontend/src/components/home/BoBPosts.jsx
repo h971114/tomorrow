@@ -30,7 +30,7 @@ export const BoBPosts = ({ posts, loading }) => {
 
         const ArrayList = arrays.map(
             (array) => {
-                // console.log(array);
+                // // //console.log(array);
                 (
                     <SwiperSlide className="best_slide skeletonUI" key={array}>
                         <a href="#">
@@ -97,7 +97,7 @@ export const BoBPosts = ({ posts, loading }) => {
             var createDate = moment([createYY, createMM - 1, createDD]);
             var nowDate = moment();
 
-            if (createDate.diff(nowDate, 'days') > 3) {
+            if (createDate.diff(nowDate, 'days') < -3) {
                 newP = false;
             } else {
                 newP = true;

@@ -8,7 +8,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
 const QnARewrite = ({ history }) => {
-    console.log(history)
+    // //console.log(history)
     var editorRef = React.createRef();
 
     const goBack = () => {
@@ -24,20 +24,20 @@ const QnARewrite = ({ history }) => {
     const [ansFile, setAnsFile] = useState("")
 
     useEffect(() => {
-        if (localStorage.getItem('id') !== 'prestto1') {
+        if (sessionStorage.getItem('id') !== 'prestto1') {
             alert('잘못된 접근입니다!')
             history.goBack();
         }
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/${history.location.state.no}`, {
             no: history.location.state.no,
         }).then(res => {
-            console.log(res.data)
+            // //console.log(res.data)
             setTitle(res.data.title)
             setDetail(res.data.detail)
             setWriter(res.data.writer)
             setFile(res.data.file1)
         }).catch(err => {
-            console.log(err)
+            // //console.log(err)
         })
     }, []);
 
@@ -46,7 +46,7 @@ const QnARewrite = ({ history }) => {
     };
 
     const ansFileChange = (e) => {
-        console.log(e)
+        // //console.log(e)
 
         var filename;
         if (window.FileReader) {
@@ -59,17 +59,17 @@ const QnARewrite = ({ history }) => {
 
         var formData = new FormData();
         formData.append('data', e.target.files[0]);
-        formData.append('hostid', localStorage.getItem('id'));
+        formData.append('hostid', sessionStorage.getItem('id'));
         formData.append('dirNum', 2);
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
             headers: {
                 'content-type': 'multipart/form-data',
             },
         }).then(res => {
-            console.log(res.data);
+            // //console.log(res.data);
             setAnsFile(res.data);
         }).catch(err => {
-            console.log(err);
+            // //console.log(err);
         });
     }
 
@@ -85,16 +85,16 @@ const QnARewrite = ({ history }) => {
         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/answer/`, {
             question_no: history.location.state.no,
             detail: { ansDetail }.ansDetail,
-            writer: localStorage.getItem('id'),
+            writer: sessionStorage.getItem('id'),
             file: { file }.file,
         }).then(res => {
             if (res.data === "SUCCESS") {
-                console.log("답변 작성 성공");
+                // //console.log("답변 작성 성공");
                 alert("답변 작성이 완료되었습니다.");
                 window.location.replace(`/cscenter/qna/${history.location.state.no}`);
             }
             else {
-                console.log("답변 작성 실패");
+                // //console.log("답변 작성 실패");
                 alert("답변 작성에 실패하셨습니다. 다시 작성해 주세요!");
                 // window.location.replace('/cscenter/qna/write');
             }

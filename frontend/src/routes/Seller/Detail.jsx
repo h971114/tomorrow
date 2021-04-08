@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { Link } from "react-router-dom";
 
 import 'moment/locale/ko';
 
@@ -23,7 +24,7 @@ class Detail extends React.Component {
     componentDidMount() {
         // const location = browserHistory.getCurrentLocation();
         const { location, history } = this.props;
-        // //console.log(location);
+        // //console.log(location.state.Uid);
         var pay = location.state.price / 100 * (100 - location.state.discount_rate);
         var payString = pay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         this.setState({
@@ -43,7 +44,7 @@ class Detail extends React.Component {
             saleMoneyString: location.state.saleMoneyString,
             totPay: pay,
             totPayString: payString,
-            Uid: sessionStorage.getItem('id')
+            Uid: location.state.Uid
         })
 
         var createYY = location.state.create_at.substring(0, 4);
@@ -83,10 +84,32 @@ class Detail extends React.Component {
 
     render() {
         const {
+            id,
+            name,
+            subname,
+            discount_rate,
+            amount,
+            category,
+            create_at,
+            img1,
+            price,
+            priceString,
+            sell_amount,
+            seller_id,
+            sale_money,
+            saleMoneyString,
+            totPay,
+            totPayString,
             detail,
-            Uid
+            Uid,
         } = this.state;
         var codes = detail;
+        var seller = false;
+        if (Uid === seller_id) {
+            seller = true;
+        }
+
+        //console.log(id);
 
         const downAmount = (e) => {
             var amounts = document.getElementById("amountCnt").value;
@@ -124,6 +147,15 @@ class Detail extends React.Component {
             else {
                 alert('한 품목당 10개 이상 구매하실 수 없습니다.\n대용량 구매는 문의 게시판을 이용해주세요!');
             }
+        }
+
+        const deleteP = (e) => {
+            axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/${id}`, {
+                id: id,
+            }).then(res => {
+                //console.log(res.data);
+                window.location.replace('/sellpage/list');
+            })
         }
 
         const GoCart = (e) => {
@@ -217,11 +249,18 @@ class Detail extends React.Component {
                                     <b>총 금액(수량):</b>
                                     <span><b className="price_val">{this.state.totPayString}</b>원({this.state.buyAmount}개)</span>
                                 </div>
+                                {seller === false &&
+                                    <div className="submit_bt clear">
+                                        <a className="addCartBtn" id="pop1" onClick={GoCart} >장바구니</a>
+                                        <a className="purchase" >바로구매</a>
+                                    </div>
+                                }
+                                {seller === true &&
+                                    <div className="submit_bt clear">
 
-                                <div className="submit_bt clear">
-                                    <a className="addCartBtn" id="pop1" onClick={GoCart} >장바구니</a>
-                                    <a className="purchase" >바로구매</a>
-                                </div>
+                                        <a className="deleteP" onClick={deleteP}>삭제</a>
+                                    </div>
+                                }
                             </div>
                         </div>
 

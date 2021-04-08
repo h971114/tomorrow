@@ -14,7 +14,7 @@ function List({ idx, amount, member_id, menu_id, name, price }) {
 
     // useEffect(() => {
     //     const res = axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/gm/` + menu_id);
-    //     console.log(res);
+    //     // //console.log(res);
     // });
 
     const upAmount = (e) => {

@@ -13,7 +13,7 @@ const OrderEnd = () => {
             }
         }).then(res => {
             setOrderId(res.data);
-            // console.log(res.data);
+            // // //console.log(res.data);
         })
     }, [])
 

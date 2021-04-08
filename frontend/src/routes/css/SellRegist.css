@@ -226,3 +226,93 @@ tr.hidden{
 .sellManage{
     padding-bottom: 50px;
 }
+
+.mypage .sub_page .sell_list>ul>li {
+	float:left;
+	width:48%;
+	margin-left:2%;
+	margin-top:2%;
+}
+.mypage .sub_page .sell_list>ul>li a {
+	display:block;
+	border:1px solid #e0e0dc;
+}
+.mypage .sub_page .sell_list>ul {
+	width:102%;
+	margin-left:-2%;
+	margin-top:-2;
+}
+.mypage .sub_page .sell_list>ul>li .con .pic {
+	overflow:hidden;
+	float:left;
+	width:44%;
+}
+.mypage .sub_page .sell_list>ul>li .con .pic p {
+	opacity:1;
+	background-position:center bottom;
+	background-repeat:no-repeat;
+	background-size:cover;
+	transition:all 0.4s ease-in-out;
+}
+.mypage .sub_page .sell_list>ul>li .pic {
+	position:relative;
+}
+/*.mypage .sub_page .sell_list>ul>li .con .pic .pic_img{opacity: 1;}*/
+.mypage .sub_page .sell_list>ul>li .con .pic .pic_hover {
+	position:absolute;
+	height:100%;
+	max-width:100%;
+	width:100%;
+	top:0;
+	left:0;
+	opacity:0;
+}
+.mypage .sub_page .sell_list>ul>li a:hover .con .pic .pro_img {
+	opacity:0;
+}
+.mypage .sub_page .sell_list>ul>li a:hover .con .pic .pic_hover {
+	opacity:1;
+}
+.mypage .sub_page .sell_list>ul>li .con .pic img {
+	width:100%;
+	opacity:0;
+	visibility:hidden;
+	height:232px;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt .icon {
+	position:absolute;
+	top:20px;
+	right:23px;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt .other {
+	position:absolute;
+	top:20px;
+	right:72px;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt {
+	position:relative;
+	float:left;
+	width:56%;
+	text-align:left;
+	padding:65px 60px 24px 25px;
+	box-sizing:border-box;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt .sale.per {
+	position:relative;
+	margin-top:20px;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt .sale_per {
+	margin-left:0;
+	margin-top:0;
+	font-size:40px;
+	font-weight:800;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt .sale_per em {
+	font-size:20px;
+	font-weight:800;
+}
+.mypage .sub_page .sell_list>ul>li .con .pro_txt .before_p {
+	position:absolute;
+	top:0;
+	left: 76px;
+}

@@ -4,7 +4,7 @@ import axios from "axios";
 
 import '../css/User.css';
 
-class MyPage extends React.Component {
+class Cart extends React.Component {
 
     constructor(props) {
         super(props);
@@ -24,76 +24,62 @@ class MyPage extends React.Component {
             change: ''
         }
     }
-    // const Cart = ({ history }) => {
-    //     const [posts, setPosts] = useState([]);
-    //     const [sendposts, setSendPosts] = useState([]);
-    //     const [amount, setAmount] = useState(1);
-    //     const [sendpay, setSendPay] = useState(2500);
-    //     const [pays, setPays] = useState(0);
-    //     const [totpay, setTotPay] = useState(0);
-    //     const [totpayString, setTotPayString] = useState('');
-    //     const [sendpayString, setSendPayString] = useState('');
-    //     const [paysString, setPaysString] = useState('');
-    //     const [change, setChange] = useState(false);
 
     componentDidMount() {
+        // var Uid = sessionStorage.getItem('id');
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
+            params: {
+                id: this.state.id
+            }
+        }).then(res => {
+            this.setState({
+                posts: res.data
+            })
 
+            var totPrices = 0;
+            var sendprice = 0;
+
+            if (totPrices > 30000) {
+                sendprice = 0;
+            } else {
+                sendprice = 2500;
+            }
+            this.setState({
+                pays: totPrices,
+                paysString: totPrices.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+                sendpay: sendprice,
+                sendpayString: sendprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+                totpay: totPrices + sendprice,
+                totpayString: (totPrices + sendprice).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            })
+            // setPays(totPrices);
+            // setPaysString(totPrices.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+
+            // setSendPay(sendprice);
+            // setSendPayString(sendprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+
+            // setTotPay(totPrices + sendprice);
+            // setTotPayString((totPrices + sendprice).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+        })
     }
 
-    // useEffect(() => {
-    //     var Uid = sessionStorage.getItem('id');
-    //     axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
-    //         params: {
-    //             id: Uid
-    //         }
-    //     }).then(res => {
-    //         setPosts(res.data);
-    //         var totPrices = 0;
-    //         var sendprice = 0;
-    //         // for (var i = 0; i < res.data.length; i++) {
-    //         //     var thisPrice = res.data[i].price * res.data[i].amount;
-    //         //     totPrices = totPrices + thisPrice;
-    //         //     console.log(totPrices);
-    //         // }
-    //         // console.log(posts);
-    //         // setPosts(postsTemp);
-    //         if (totPrices > 30000) {
-    //             sendprice = 0;
-    //         } else {
-    //             sendprice = 2500;
-    //         }
-    //         setPays(totPrices);
-    //         setPaysString(totPrices.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-
-    //         setSendPay(sendprice);
-    //         setSendPayString(sendprice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-
-    //         setTotPay(totPrices + sendprice);
-    //         setTotPayString((totPrices + sendprice).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-    //     })
-
-    // }, [change]);
-
-    // // 체크박스 전체 선택
-    // const handleAllCheck = (checked) => {
-    //     if (checked) {
-    //         // console.log("wow");
-    //         const idArray = [];
-    //     // 전체 체크 박스가 체크 되면 id를 가진 모든 elements를 배열에 넣어주어서,
-    //     // 전체 체크 박스 체크
-    //         posts.htmlForEach((el) => idArray.push(el.id));
-    //         setCheckItems(idArray);
-    //     }
-
-    //     // 반대의 경우 전체 체크 박스 체크 삭제
-    //     else {
-    //         setCheckItems([]);
-    //     }
-    // };
-
     render() {
+        const {
+            id,
+            isSeller,
+            posts,
+            sendposts,
+            amount,
+            sendpay,
+            pays,
+            totpay,
+            totpayString,
+            sendpayString,
+            paysString
+        } = this.state
+
         const goBack = () => {
-            history.goBack();
+            window.history.goBack();
         };
 
         const checkAll = (e) => {
@@ -107,16 +93,16 @@ class MyPage extends React.Component {
 
             if (checkall.checked) {
                 posts.map((post, idx) => {
-                    // console.log(post);
+                    // // //console.log(post);
                     var realPrice = post.price;
                     var date = new Date().getDate();
-                    // console.log(date);
+                    // // //console.log(date);
                     if (date < 10)
                         date = '0' + date;
 
                     var days = post.todaysale;
                     days = days.substr(days.length - 2, 2);
-                    // console.log(days);
+                    // // //console.log(days);
                     if (date === days)
                         realPrice = post.price / 100 * (100 - post.tdr);
                     else if (post.discount_rate > 0)
@@ -134,18 +120,16 @@ class MyPage extends React.Component {
                 sendpays = 2500;
             }
 
-            setPays(Pays);
-            setPaysString(Pays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-            setTotPay(Pays + sendpays);
-
-            setSendPay(sendpays);
             var totpayStrings = (Pays + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-            setTotPayString(totpayStrings);
-            setSendPayString(sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+            this.setState({
+                pays: Pays,
+                paysString: Pays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
 
-
-            // console.log(e.target.checked);
-            // console.log(checkall.checked);
+                totpay: Pays + sendpays,
+                sendpay: sendpays,
+                totpayString: totpayStrings,
+                sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            })
         }
 
         const deleteCart = (e) => {
@@ -154,14 +138,13 @@ class MyPage extends React.Component {
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked === true) {
                     var cartId = checkboxes[i].value;
-                    console.log(cartId);
+                    // //console.log(cartId);
                     axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/cart`, {
                         params: {
                             id: cartId
                         }
                     }).then(res => {
                         alert('삭제되었습니다.');
-                        setChange(!change);
                     })
                 }
             }
@@ -182,13 +165,13 @@ class MyPage extends React.Component {
                 if (checkboxes[i].checked === true) {
                     var realPrice = posts[i].price;
                     var date = new Date().getDate();
-                    // console.log(date);
+                    // // //console.log(date);
                     if (date < 10)
                         date = '0' + date;
 
                     var days = posts[i].todaysale;
                     days = days.substr(days.length - 2, 2);
-                    // console.log(days);
+                    // // //console.log(days);
                     if (date === days)
                         realPrice = posts[i].price / 100 * (100 - posts[i].tdr);
                     else if (posts[i].discount_rate > 0)
@@ -219,8 +202,9 @@ class MyPage extends React.Component {
             }
             List = arrnowpayHistory;
 
-            setSendPosts(List);
-            // console.log(List);
+            this.setState({
+                sendposts: List
+            })
         }
 
         return (
@@ -308,17 +292,17 @@ class MyPage extends React.Component {
                                 <tbody>
                                     {
                                         posts.map((post, idx) => {
-                                            // console.log(post);
+                                            // // //console.log(post);
                                             var realPrice = post.price;
                                             var date = new Date().getDate();
-                                            // console.log(date);
+                                            // // //console.log(date);
                                             if (date < 10)
                                                 date = '0' + date;
 
                                             if (post.todaysale !== null) {
                                                 var days = post.todaysale;
                                                 days = days.substr(days.length - 2, 2);
-                                                // console.log(days);
+                                                // // //console.log(days);
                                                 if (date === days)
                                                     realPrice = post.price / 100 * (100 - post.tdr);
                                                 else if (post.discount_rate > 0)
@@ -346,6 +330,10 @@ class MyPage extends React.Component {
                                                     eachpayString = eachpay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
                                                     document.getElementById(amountCntId).value = post.amount;
                                                     document.getElementById(payId).innerText = eachpayString;
+                                                    axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/plus/` + this.state.id + `/` + post.menu_id, {
+                                                    }).then(res => {
+                                                        // //console.log("장바구니 갯수 더하기");
+                                                    })
                                                 }
                                                 if (checkboxes.checked === true) {
                                                     var totpays = pays - (realPrice * (amounts - 1));
@@ -356,14 +344,15 @@ class MyPage extends React.Component {
                                                     else {
                                                         sendpays = 2500;
                                                     }
-                                                    setPays(totpays + eachpay);
-                                                    setPaysString((totpays + eachpay).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-                                                    setSendPay(sendpays);
-                                                    setTotPay(totpays + eachpay + sendpays);
                                                     var totpayStrings = (totpays + eachpay + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                                                    setTotPayString(totpayStrings);
-                                                    setSendPayString(sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-
+                                                    this.setState({
+                                                        pays: totpays + eachpay,
+                                                        paysString: (totpays + eachpay).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+                                                        sendpay: sendpays,
+                                                        totpay: (totpays + eachpay + sendpays),
+                                                        totpayString: totpayStrings,
+                                                        sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                                                    })
                                                 }
                                             }
 
@@ -378,6 +367,10 @@ class MyPage extends React.Component {
                                                     eachpayString = eachpay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
                                                     document.getElementById(amountCntId).value = post.amount;
                                                     document.getElementById(payId).innerText = eachpayString;
+                                                    axios.put(`${process.env.REACT_APP_SERVER_BASE_URL}/cart/minus/` + this.state.id + `/` + post.menu_id, {
+                                                    }).then(res => {
+                                                        // //console.log("장바구니 갯수 빼기");
+                                                    })
                                                     if (checkboxes.checked === true) {
                                                         var totpays = pays - (realPrice * (amounts + 1));
                                                         var sendpays = sendpay;
@@ -387,14 +380,16 @@ class MyPage extends React.Component {
                                                         else {
                                                             sendpays = 2500;
                                                         }
-                                                        setPays(totpays + eachpay);
-                                                        setPaysString((totpays + eachpay).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-                                                        setSendPay(sendpays);
-                                                        setTotPay(totpays + eachpay + sendpays);
-                                                        var totpayStrings = (totpays + eachpay + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                                                        setTotPayString(totpayStrings);
-                                                        setSendPayString(sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 
+                                                        var totpayStrings = (totpays + eachpay + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                                        this.setState({
+                                                            pays: totpays + eachpay,
+                                                            paysString: (totpays + eachpay).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+                                                            sendpay: sendpays,
+                                                            totpay: (totpays + eachpay + sendpays),
+                                                            totpayString: totpayStrings,
+                                                            sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                                                        })
                                                     }
                                                 }
 
@@ -403,7 +398,7 @@ class MyPage extends React.Component {
                                             const handleChange = (e) => {
                                                 if (e.target.checked) {
                                                     var Pays = pays + eachpay;
-                                                    // console.log(totpay + " : " + eachpay);
+                                                    // // //console.log(totpay + " : " + eachpay);
                                                     var sendpays = sendpay;
                                                     if (Pays >= 30000) {
                                                         sendpays = 0;
@@ -411,18 +406,11 @@ class MyPage extends React.Component {
                                                     else {
                                                         sendpays = 2500;
                                                     }
-                                                    setPays(Pays);
-                                                    setPaysString(Pays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-                                                    setTotPay(Pays + sendpays);
 
-                                                    setSendPay(sendpays);
-                                                    var totpayStrings = (Pays + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                                                    setTotPayString(totpayStrings);
-                                                    setSendPayString(sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
                                                 }
                                                 else {
                                                     var Pays = pays - eachpay;
-                                                    // console.log(totpay + " : " + eachpay);
+                                                    // // //console.log(totpay + " : " + eachpay);
                                                     var sendpays = sendpay;
                                                     if (Pays >= 30000) {
                                                         sendpays = 0;
@@ -430,15 +418,17 @@ class MyPage extends React.Component {
                                                     else {
                                                         sendpays = 2500;
                                                     }
-                                                    setPays(Pays);
-                                                    setPaysString(Pays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-                                                    setTotPay(Pays + sendpays);
-
-                                                    setSendPay(sendpays);
-                                                    var totpayStrings = (Pays + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                                                    setTotPayString(totpayStrings);
-                                                    setSendPayString(sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
                                                 }
+                                                var totpayStrings = (Pays + sendpays).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                                                this.setState({
+                                                    pays: Pays,
+                                                    paysString: Pays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+
+                                                    totpay: Pays + sendpays,
+                                                    sendpay: sendpays,
+                                                    totpayString: totpayStrings,
+                                                    sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                                                })
                                                 selectPost();
                                             }
 

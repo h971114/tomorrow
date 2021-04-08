@@ -13,12 +13,11 @@ class MyPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
+        // //console.log(props);
 
         const { cookies } = props;
+
         this.state = {
-            id: props.Uid,
-            isSeller: props.isseller,
             modalOpen: false,
             isdaumpost: false,
             checkEmail: true,
@@ -27,18 +26,31 @@ class MyPage extends React.Component {
             addr1B: true,
             addr2B: true
         }
+        if (props.Uid === "") {
+            //console.log(sessionStorage.getItem('id'));
+            //console.log(sessionStorage.getItem('isseller'));
+            this.state = {
+                id: sessionStorage.getItem('id'),
+                isSeller: sessionStorage.getItem('isseller')
+            }
+        } else {
+            //console.log(sessionStorage.getItem('id'));
+            //console.log(sessionStorage.getItem('isseller'));
+            this.state = {
+                id: this.props.Uid,
+                isSeller: this.props.isseller,
+            }
+        }
     }
 
     componentDidMount() {
-        const { location } = this.props;
-
         var id = this.state.id;
         var isSeller = this.state.isSeller;
-        console.log(id);
+        // //console.log(isSeller);
 
-        if (isSeller === 0) {
+        if (isSeller == 0) {
             document.getElementById('sellerMenu').setAttribute("style", "display:none");
-        } else if (isSeller === 1) {
+        } else if (isSeller == 1) {
             document.getElementById('userMenu').setAttribute("style", "display:none");
         }
 
@@ -49,7 +61,7 @@ class MyPage extends React.Component {
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
         ).then(res => {
-            console.log(res.data);
+            // //console.log(res.data);
 
             this.setState({
                 name: res.data.name,
@@ -72,7 +84,7 @@ class MyPage extends React.Component {
             })
 
             var addrs = this.state.addr;
-            // // console.log(addrs);
+            // // // //console.log(addrs);
             var addrArray = addrs.split(' / ');
             this.setState({
                 zoneCode: addrArray[0],
@@ -110,18 +122,18 @@ class MyPage extends React.Component {
             modalOpen: false
         })
 
-        // console.log(data.zoneCode);
-        // console.log(data.address);
+        // // //console.log(data.zoneCode);
+        // // //console.log(data.address);
     }
 
     openModal = () => {
-        // // console.log("열려따");
+        // // // //console.log("열려따");
         this.setState({
             modalOpen: true
         })
     }
     closeModal = () => {
-        // // console.log("닫혔따");
+        // // // //console.log("닫혔따");
         this.setState({
             modalOpen: false
         })
@@ -208,7 +220,7 @@ class MyPage extends React.Component {
             document.getElementById('validateCPw').textContent = "비밀번호가 다릅니다.";
             document.getElementById('validateCPw').setAttribute('style', 'color: #ff3535');
         }
-        // // // console.log(this.state.checkPw);
+        // // // // //console.log(this.state.checkPw);
     };
 
     mobileChange = (e) => {
@@ -259,7 +271,7 @@ class MyPage extends React.Component {
             axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/sameemail`, {
                 email: this.state.email
             }).then(res => {
-                // console.log(res);
+                // // //console.log(res);
                 if (res.data === "SUCCESS") {
                     this.setState({
                         checkEmail: true
@@ -322,17 +334,17 @@ class MyPage extends React.Component {
                 mobile: this.state.mobile,
                 address: addr
             }).then(res => {
-                console.log(res);
+                // //console.log(res);
                 alert("됐음~~");
             })
         }
         else {
             alert("안됨");
-            console.log(this.state.checkEmail);
-            console.log(this.state.checkMobile);
-            console.log(this.state.checkPw);
-            console.log(this.state.addr1B);
-            console.log(this.state.addr2B);
+            // //console.log(this.state.checkEmail);
+            // //console.log(this.state.checkMobile);
+            // //console.log(this.state.checkPw);
+            // //console.log(this.state.addr1B);
+            // //console.log(this.state.addr2B);
         }
     }
 
@@ -381,7 +393,7 @@ class MyPage extends React.Component {
                             <div className="sub">
                                 {/* 판매자 서브메뉴 */}
                                 <ul className="clear" id="sellerMenu">
-                                    <li className="itemList4">
+                                    <li className="itemList3">
                                         <Link
                                             to={{
                                                 pathname: `/mypage`,
@@ -396,7 +408,7 @@ class MyPage extends React.Component {
                                     <img src="/img/bbs_tab_arrow.png" />
                                         </Link>
                                     </li>
-                                    <li className="itemList4">
+                                    <li className="itemList3">
                                         <Link
                                             to={{
                                                 pathname: `/sellpage/manage`,
@@ -410,24 +422,10 @@ class MyPage extends React.Component {
                                     <img src="/img/bbs_tab_arrow.png" />
                                         </Link>
                                     </li>
-                                    <li className="itemList4">
+                                    <li className="itemList3">
                                         <Link
                                             to={{
-                                                pathname: `/sellpage/order`,
-                                                state: {
-                                                    id: this.state.id,
-                                                    isSeller: this.state.isSeller
-                                                }
-                                            }}
-                                        >
-                                            판매 내역
-                                    <img src="/img/bbs_tab_arrow.png" />
-                                        </Link>
-                                    </li>
-                                    <li className="itemList4">
-                                        <Link
-                                            to={{
-                                                pathname: `/sellpage/order`,
+                                                pathname: `/sellpage/list`,
                                                 state: {
                                                     id: this.state.id,
                                                     isSeller: this.state.isSeller

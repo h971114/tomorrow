@@ -17,7 +17,6 @@ import Home from "./routes/Home";
 
 import SellPage from "./routes/Seller/SellPage";
 import SellManage from "./routes/Seller/Manager";
-import SellOrder from "./routes/Seller/Order";
 import SellList from "./routes/Seller/SellList";
 import SellRegist from "./routes/Seller/Regist";
 import SellModify from "./routes/Seller/Modify";
@@ -31,6 +30,7 @@ import SalProductList from "./routes/Product/ProductList/SalProductList";
 import SearchList from "./routes/Product/SearchList";
 
 import Detail from "./routes/Product/Detail";
+import SDetail from "./routes/Seller/Detail";
 
 import TodaySale from "./routes/Product/TodaySale";
 import BestProduct from "./routes/Product/BestProduct";
@@ -90,7 +90,7 @@ class App extends Component {
         }
       }).then(res => {
         if (res.data.message == "SUCCESS") {
-          console.log("jwt인증완료");
+          // //console.log("jwt인증완료");
           this.setState({
             id: res.data.id,
             message:"SUCCESS"
@@ -99,7 +99,9 @@ class App extends Component {
             this.setState({
               isseller:1
             })
-          } 
+          }
+          sessionStorage.setItem('id', this.state.id);
+          sessionStorage.setItem('isseller', this.state.isseller);
         } else {
           this.setState({
               message:"FAIL"
@@ -117,9 +119,9 @@ class App extends Component {
                 id: this.state.id
             }
         }).then(res => {
-            // console.log(res.data);
+            // // //console.log(res.data);
             var cartCnts = res.data;
-            // console.log(cartCnt);
+            // // //console.log(cartCnt);
             this.setState({
                 cartCnt: cartCnts
             })
@@ -127,7 +129,7 @@ class App extends Component {
     }
   }
   searchtxt = (e) => {
-    // console.log(e.target.value);
+    // // //console.log(e.target.value);
     this.setState({
         searchtxt: e.target.value
     })
@@ -141,12 +143,13 @@ goSearch = (e) => {
 logout = (e) => {
     const { cookies } = this.props;
 
-    cookies.remove('token');
-    // window.location.replace("/");
+  cookies.remove('token');
+  localStorage.clear();
+    window.location.replace("/");
 };
 
   render() {
-    // console.log(this.state.id);
+    // // //console.log(this.state.id);
     const {
       message,
       id,
@@ -233,7 +236,7 @@ logout = (e) => {
                                 <div className="util">
                                     <ul className="clear">
                                         <li className="login">
-                                            <a onClick={this.logout} href="/">로그아웃</a>
+                                            <a onClick={this.logout}>로그아웃</a>
                                         </li>
                                         <li className="login" id="noSeller">
                                             <Link
@@ -265,7 +268,7 @@ logout = (e) => {
                                                 }
                                             }}
                                         >
-                                            장바구니 <span id="cartCnt">{cartCnt}</span>
+                                            장바구니
                                         </Link>
                                         </li>
                                     </ul>
@@ -413,7 +416,8 @@ logout = (e) => {
             <Route path="/New" exact={true} component={NewProduct} />
             <Route path="/Sale" exact={true} component={SaleProduct} />
   
-            <Route path="/product/detail/:id" exact={true}  component={Detail} />
+            <Route path="/product/detail/:id" exact={true} component={Detail} />
+            <Route path="/product/seller/:id" exact={true} component={SDetail} />
   
             <Route path="/todaysale" exact={true} component={TodaySale} />
             <Route path="/best" exact={true} component={BestProduct} />
@@ -424,7 +428,7 @@ logout = (e) => {
             <Route path="/sellpage/manage" exact={true} render={() => <SellManage Uid={id} isseller={isseller} />} />
             <Route path="/sellpage/list" exact={true} render={() => <SellList Uid={id} isseller={isseller}/>} />
             <Route path="/sellregist" exact={true} render={() => <SellRegist Uid={id} isseller={isseller}/>} />
-            <Route path="/sellmodify" exact={true} render={() => <SellModify Uid={id} isseller={isseller}/>} />
+            <Route path="/sellmodify/:id" exact={true} component={SellModify} />
   
             <Route path="/mypage" exact={true} render={() => <MyPage Uid={id} isseller={isseller}/> }/>
             <Route path="/mypage/order" exact={true} render={() => <MyOrder Uid={id} isseller={isseller}/> }/>

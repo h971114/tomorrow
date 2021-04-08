@@ -19,7 +19,7 @@ const Calender = () => {
         }
 
         const timeSet = async (e) => {
-            // console.log(e[0].menu.img1);
+            // // //console.log(e[0].menu.img1);
             var d = new Date();
             var nowYyyy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
@@ -53,18 +53,18 @@ const Calender = () => {
             var date = 1;
             var num = 0;
             for (var i = todayLabel; i <= totdays + todayLabel - 1; i++) {
-                // console.log(num);
+                // // //console.log(num);
                 var str = "";
                 if (date == nowDd) {
                     document.getElementById("d" + i).classList.add("today");
-                    str += '<i className="today_line"></i>';
+                    str += '<i class="today_line"></i>';
                 }
                 if (date < 10)
-                    str += "<em className='day '> 0" + date + "</em>";
+                    str += "<em class='day '> 0" + date + "</em>";
                 else
-                    str += "<em className='day '>" + date + "</em>";
+                    str += "<em class='day '>" + date + "</em>";
                 str += "<div>"
-                str += '<p className="thumb" style="background-image:url(' + e[num].menu.img1 + ');">';
+                str += '<p class="thumb" style="background-image:url(' + e[num].menu.img1 + ');">';
                 str += "<img src='" + e[num].menu.img1 + "'/>";
                 str += "</p>";
                 str += "<span>" + e[num].menu.name + "</span>";

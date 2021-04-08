@@ -8,7 +8,7 @@
         VALUES (#{id}, #{seller_id}, #{name}, #{subname}, #{price}, #{amount}, #{sell_amount}, #{discount_rate}, #{todaysale},
                 #{category}, #{img1}, #{img2}, #{detail}, #{shipping_fee})
     </insert>
-    <delete id="delete" parameterType="menu">
+    <delete id="delete" parameterType="String">
         DELETE
         FROM menu
         WHERE id = #{id}
@@ -19,15 +19,12 @@
             subname=#{subname},
             price=#{price},
             amount=#{amount},
-            sell_amount =#{sell_amount},
             discount_rate = #{discount_rate},
-            todaysale = #{todaysale},
             create_at=#{create_at},
             category=#{category},
             img1 = #{img1},
             img2 = #{img2},
             detail = #{detail}
-            shipping_fee = #{shipping_fee}
         WHERE id = #{id}
     </update>
     <select id="getMenuInfo" parameterType="int" resultType="menu">
@@ -62,7 +59,7 @@
     <select id="getMenuByNew" resultType="menu">
         SELECT  id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at
         FROM menu where TIMESTAMPDIFF(DAY, create_at, CURDATE( ))
-        ORDER BY create_at DESC
+        ORDER BY create_at ASC
     </select>
     <select id="getMenuBySale" resultType="menu">
         SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at FROM menu

@@ -4,6 +4,8 @@ import propTypes from "prop-types";
 import "../../routes/css/CsCenter.css";
 
 function List({ no, title, detail, writer, file1, file2, file3, date, hit }) {
+    const day = date.substr(2, 8);
+    // // //console.log(day);
     return (
         <tr>
             <td>{no}</td>
@@ -16,8 +18,7 @@ function List({ no, title, detail, writer, file1, file2, file3, date, hit }) {
                 }}>{title}
                 </Link></td>
             <td className="writer">{writer}</td>
-            <td className="date">{date}</td>
-            <td className="view">{hit}</td>
+            <td className="date">{day}</td>
         </tr>
     )
 }
@@ -52,11 +53,10 @@ export const QnA = ({ posts, loading }) => {
                 <div className="notice_wrap">
                     <table className="table_form">
                         <colgroup>
-                            <col width="10%" />
+                            <col width="12%" />
                             <col width="*" />
-                            <col width="10%" />
-                            <col width="13%" />
-                            <col width="10%" />
+                            <col width="12%" />
+                            <col width="15%" />
                         </colgroup>
                         <thead>
                             <tr>
@@ -64,7 +64,6 @@ export const QnA = ({ posts, loading }) => {
                                 <th>제목</th>
                                 <th>작성자</th>
                                 <th>작성일</th>
-                                <th>조회수</th>
                             </tr>
                         </thead>
                         <tbody>

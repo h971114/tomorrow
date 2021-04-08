@@ -6,7 +6,7 @@ class SellPage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
+        // console.log(props);
         this.state = {
             id: props.Uid,
             isSeller: props.isseller,
@@ -15,28 +15,14 @@ class SellPage extends React.Component {
         }
     }
     componentDidMount() {
-        const fetchPosts = async () => {
-            // setLoading(true);
-            console.log(this.state.id);
-            this.setState({
-                loading: true
-            })
-            const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/menu/seller`, {
-                params: {
-                    seller_id: this.state.id
-                }
-            });
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/count`, {
+            params: {
+                seller_id: this.state.id,
+                status: 1
+            }
+        }).then(res => {
             console.log(res);
-
-            this.setState({
-                posts: res.data,
-                loading: false
-            })
-            // setPosts(res.data);
-            // setLoading(false);
-        }
-        fetchPosts();
-        // console.log(this.state.posts);
+        });
     }
 
     render() {
@@ -52,7 +38,8 @@ class SellPage extends React.Component {
                         <div className="cs_tab">
                             <div className="sub">
                                 <ul className="clear" id="sellerMenu">
-                                    <li className="itemList4">
+
+                                    <li className="itemList3">
                                         <Link
                                             to={{
                                                 pathname: `/mypage`,
@@ -63,50 +50,36 @@ class SellPage extends React.Component {
                                             }}
                                         >
                                             판매자 정보
-                                        <img src="/img/bbs_tab_arrow.png" />
+                                    <img src="/img/bbs_tab_arrow.png" />
                                         </Link>
                                     </li>
-                                    <li className="itemList4">
+                                    <li className="itemList3">
                                         <Link
                                             to={{
                                                 pathname: `/sellpage/manage`,
                                                 state: {
-                                                    id: id,
-                                                    isSeller: isSeller
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
                                                 }
                                             }}
                                             className="on"
                                         >
                                             판매 관리
-                                        <img src="/img/bbs_tab_arrow.png" />
+                                    <img src="/img/bbs_tab_arrow.png" />
                                         </Link>
                                     </li>
-                                    <li className="itemList4">
+                                    <li className="itemList3">
                                         <Link
                                             to={{
-                                                pathname: `/sellpage/order`,
+                                                pathname: `/sellpage/list`,
                                                 state: {
-                                                    id: id,
-                                                    isSeller: isSeller
-                                                }
-                                            }}
-                                        >
-                                            판매 내역
-                                        <img src="/img/bbs_tab_arrow.png" />
-                                        </Link>
-                                    </li>
-                                    <li className="itemList4">
-                                        <Link
-                                            to={{
-                                                pathname: `/sellpage/order`,
-                                                state: {
-                                                    id: id,
-                                                    isSeller: isSeller
+                                                    id: this.state.id,
+                                                    isSeller: this.state.isSeller
                                                 }
                                             }}
                                         >
                                             판매 목록
-                                        <img src="/img/bbs_tab_arrow.png" />
+                                    <img src="/img/bbs_tab_arrow.png" />
                                         </Link>
                                     </li>
                                 </ul>

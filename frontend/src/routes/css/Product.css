@@ -154,6 +154,10 @@
 	margin-left:1%;
 	background: #9fc54d;
 }
+.view_wrap .info .submit_bt .deleteP {
+    margin-left: 25%;
+    background: #fa3030;
+}
 
 
 .view_wrap .multi_info .tab {
@@ -164,7 +168,7 @@
 }
 .view_wrap .multi_info .tab>ul>li {
 	float:left;
-	width:33%;
+	width:50%;
 }
 .view_wrap .multi_info .tab>ul>li a {
 	display:block;

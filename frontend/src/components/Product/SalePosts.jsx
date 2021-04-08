@@ -3,7 +3,7 @@ import List from "./SaleList"
 
 export const SalePosts = ({ posts, loading }) => {
 
-    // console.log(posts);
+    // // //console.log(posts);
     if (loading) {
 
         const arrays = [1, 2, 3];

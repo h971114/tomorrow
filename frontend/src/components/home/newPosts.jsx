@@ -12,7 +12,7 @@ export const NewPosts = ({ posts, loading }) => {
 
         const ArrayList = arrays.map(
             (array) => {
-                // console.log(array);
+                // // //console.log(array);
                 (
                     <li key={array}>
                         <a href="#">
@@ -67,7 +67,7 @@ export const NewPosts = ({ posts, loading }) => {
             var createDate = moment([createYY, createMM - 1, createDD]);
             var nowDate = moment();
 
-            if (createDate.diff(nowDate, 'days') > 3) {
+            if (createDate.diff(nowDate, 'days') < -3) {
                 newP = false;
             } else {
                 newP = true;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 
 import TopVisual from '../../components/SellRegist/TopVisual';
 
@@ -8,43 +9,79 @@ import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
-const Modify = () => {
+const Modify = (props) => {
     var editorRef = React.createRef();
+    const [id, setId] = useState(1);
     const [category, setCategory] = useState(1);
     const [title, setTitle] = useState("");
+    const [subtitle, setsubTitle] = useState("");
     const [price, setPrice] = useState(0);
+    const [amount, setAmount] = useState(0);
     const [salePrice, setSalePrice] = useState(price);
+    const [saleRate, setSaleRate] = useState(0);
     const [todaySalePrice, setTodaySalePrice] = useState(price);
     const [sSale, setSSale] = useState(false);
     const [sTodaySale, setSTodaySale] = useState(false);
+    const [thumb, setThumb] = useState();
+    const [thumb2, setThumb2] = useState();
+    const [content, setContent] = useState("");
+    const [detail, setDetail] = useState("");
+
+    useEffect(() => {
+        //console.log(props.match.params.id);
+        setId(props.match.params.id);
+        setTitle(props.match.params.name);
+        setsubTitle(props.match.params.subname);
+        setSSale(props.match.params.discount_rate);
+        setAmount(props.match.params.amount);
+        setCategory(props.match.params.category);
+        setPrice(props.match.params.price);
+        setDetail(props.match.params.detail);
+
+    });
+
+    const goBack = () => {
+        window.location.replace('/sellpage/list');
+    };
 
     const selectChange = (e) => {
         var cate = document.getElementById("category").value;
         setCategory(cate);
-        // // console.log(cate);
+        // // // //console.log(cate);
     } // 카테고리 바꿀 때
     const titChange = (e) => {
         var tit = document.getElementById("tit").value;
 
         setTitle(tit);
-        // // console.log(titles);
+        // // // //console.log(titles);
     } // 상품명 바꿀때
     const subtitChange = (e) => {
         var subTit = document.getElementById("subTit").value;
 
-        setTitle(subTit);
+        setsubTitle(subTit);
     } // 상품 소개 바꿀때
     const priceChange = (e) => {
         var price = document.getElementById("price").value;
-
+        // // // //console.log(price);
         setPrice(price);
     } // 금액 바뀔 때
+    const amountChange = (e) => {
+        var amount = document.getElementById("amount").value;
+
+        setAmount(amount);
+    }
     const saleChange = (e) => {
         var saleRate = document.getElementById("saleRate").value;
-
-        var salePrice = price / 100 * (100 - saleRate);
-
-        setSalePrice(salePrice);
+        // var salePrice = saleRate
+        if (Number(saleRate) >= 100) {
+            setSalePrice(0);
+            alert('할인율은 최대 99%까지 가능합니다');
+            document.getElementById("saleRate").value = '';
+        } else {
+            var salePrice = price / 100 * (100 - saleRate);
+            setSalePrice(salePrice);
+            setSaleRate(saleRate);
+        }
     } // 세일 퍼센트 바뀔때
     const todaySaleChange = (e) => {
         var todaySaleRate = document.getElementById("todaySaleRate").value;
@@ -81,6 +118,170 @@ const Modify = () => {
         }
     } // 오늘의 할인 체크박스 바뀔 때
 
+    const editorChange = (e) => {
+        setContent(editorRef.current.getInstance().getHtml());
+    }
+
+    const handleFileInput = (e) => {
+        // setSelectedFile(e.target.files[0])
+
+        var filename;
+        if (window.FileReader) {
+            filename = e.target.files[0].name;
+        } else {
+            filename = e.target.val().split('/').pop().split('\\').pop();
+        }
+
+        var file = e.target.files[0];
+        // // //console.log(file);
+        var formData = new FormData();
+        formData.append('data', file);
+        formData.append('hostid', sessionStorage.getItem('id'));
+        formData.append('dirNum', 1);
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        }).then(res => {
+            // // //console.log(res);
+            var dec = decodeURI(res.data);
+            // // //console.log(dec);
+            setThumb(dec);
+        }).catch(err => {
+        })
+    }
+
+    const handleFileInput2 = (e) => {
+        // setSelectedFile(e.target.files[0])
+
+        var filename;
+        if (window.FileReader) {
+            filename = e.target.files[0].name;
+        } else {
+            filename = e.target.val().split('/').pop().split('\\').pop();
+        }
+
+        document.getElementById('upload-name2').value = filename;
+
+        var file = e.target.files[0];
+        // // // //console.log(file);
+        var formData = new FormData();
+        formData.append('data', file);
+        formData.append('hostid', sessionStorage.getItem('id'));
+        formData.append('dirNum', 1);
+        axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/gallery/upload`, formData, {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        }).then(res => {
+            // // //console.log(res);
+            var dec = decodeURI(res.data);
+            // // //console.log(dec);
+            setThumb2(dec);
+        }).catch(err => {
+        })
+    }
+
+    const regist = (e) => {
+        var id = sessionStorage.getItem('id');
+        var nameLength = title.length;
+        var subNameLength = subtitle.length;
+        var contents = content;
+
+        // // //console.log(contents);
+        if (nameLength < 3) {
+            alert("상품명은 3글자 이상 입력해주세요");
+        }
+        else if (subNameLength < 3) {
+            alert("상품 소개는 3글자 이상 입력해주세요");
+        }
+        else if (price < 0) {
+            alert("금액을 입력해주세요");
+        }
+        else if (amount < 0) {
+            alert("판매 수량을 입력해주세요");
+        }
+        //console.log(thumb);
+        // else if (sSale) {
+        //     axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/menu`, {
+        //         seller_id: id,
+        //         name: title,
+        //         subname: subtitle,
+        //         price: price,
+        //         amount: amount,
+        //         sell_amount: 0,
+        //         discount_rate: saleRate,
+        //         category: category,
+        //         img1: thumb,
+        //         img2: thumb2,
+        //         detail: contents
+        //     }).then(res => {
+        //         if (res.data === "SUCCESS") {
+        //             alert("상품 등록을 완료하셨습니다.");
+        //             // // //console.log(res);
+        //         } else {
+        //             alert("상품 등록에 실패하셨습니다. 잠시후 다시 시도해주세요!");
+        //         }
+        //     })
+        // }
+        // else if (!sSale) {
+        //     axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/menu`, {
+        //         seller_id: id,
+        //         name: title,
+        //         subname: subtitle,
+        //         price: price,
+        //         amount: amount,
+        //         sell_amount: 0,
+        //         category: category,
+        //         img1: thumb,
+        //         img2: thumb2,
+        //         detail: contents
+        //     }).then(res => {
+        //         if (res.data === "SUCCESS") {
+        //             alert("상품 등록을 완료하셨습니다.");
+        //         } else {
+        //             alert("상품 등록에 실패하셨습니다. 잠시후 다시 시도해주세요!");
+        //         }
+        //     })
+        // }
+    }
+
+    function priceOnlyNum(e) {
+        var price = document.getElementById('price').value;
+        if (e.nativeEvent.data === '-') {
+            document.getElementById('price').value = price.slice(0, -1);
+        }
+        if (price === '0') {
+            if (e.nativeEvent.data === '0') {
+                document.getElementById('price').value = price.slice(0, -1);
+            }
+        }
+    }
+
+    function amountOnlyNum(e) {
+        var amount = document.getElementById('amount').value;
+        if (e.nativeEvent.data === '-') {
+            document.getElementById('amount').value = amount.slice(0, -1);
+        }
+        if (amount === '0') {
+            if (e.nativeEvent.data === '0') {
+                document.getElementById('amount').value = amount.slice(0, -1);
+            }
+        }
+    }
+
+    function saleRateOnlyNum(e) {
+        var saleRate = document.getElementById('saleRate').value;
+        if (e.nativeEvent.data === '-') {
+            document.getElementById('saleRate').value = saleRate.slice(0, -1);
+        }
+        if (saleRate === '0') {
+            if (e.nativeEvent.data === '0') {
+                document.getElementById('saleRate').value = saleRate.slice(0, -1);
+            }
+        }
+    }
+
     return (
         <div id="sub">
             <div className="inner sub_menu all_menu">
@@ -94,19 +295,19 @@ const Modify = () => {
                             <tr>
                                 <th scope="row">카테고리</th>
                                 <td colSpan="5">
-                                    <select id="category" value={category} onChange={selectChange}>
+                                    <select id="category" value={category} defaultValue={category} onChange={selectChange}>
                                         <option value="1" defaultValue>한  식</option>
                                         <option value="2">양  식</option>
                                         <option value="3">중식,일식</option>
-                                        <option value="4">면,파스타</option>
-                                        <option value="5">분식, 야식</option>
+                                        <option value="4">동남아</option>
+                                        <option value="5">샐러드</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">상품 명</th>
                                 <td colSpan="2">
-                                    <input type="text" id="tit" onChange={titChange}></input>
+                                    <input type="text" id="tit" value={title} defaultValue={title} onChange={titChange}></input>
                                 </td>
                                 <th scope="row">상품 소개</th>
                                 <td colSpan="2">
@@ -116,12 +317,12 @@ const Modify = () => {
                             <tr>
                                 <th scope="row">금액</th>
                                 <td colSpan="2">
-                                    <input type="number" id="price" onChange={priceChange}></input>
+                                    <input type="number" min="0" id="price" onChange={priceChange} onInput={priceOnlyNum}></input>
                                     <label> 원</label>
                                 </td>
                                 <th scope="row">판매 수량</th>
                                 <td colSpan="2">
-                                    <input type="number" id="amount" onChange={subtitChange}></input>
+                                    <input type="number" min="0" id="amount" onChange={amountChange} onInput={amountOnlyNum}></input>
                                     <label> 개</label>
                                 </td>
                             </tr>
@@ -130,14 +331,14 @@ const Modify = () => {
                                 <td colSpan="5">
                                     <input type="checkBox" id="sale" onChange={saleCChange} checked={sSale}></input>
                                     <label htmlFor="sale">일반 할인</label>
-                                    <input type="checkBox" id="todaySale" onChange={tSaleCChange} checked={sTodaySale}></input>
-                                    <label htmlFor="todaySale">오늘만 할인 (오늘만 할인이란? 등록 순서대로 한 달의 특정한 날 할인된 가격으로 판매)</label>
+                                    {/* <input type="checkBox" id="todaySale" onChange={tSaleCChange} checked={sTodaySale}></input>
+                                    <label htmlFor="todaySale">오늘만 할인 (오늘만 할인이란? 등록 순서대로 한 달의 특정한 날 할인된 가격으로 판매)</label> */}
                                 </td>
                             </tr>
                             <tr id="trSale" className="hidden">
                                 <th scope="row">할인율</th>
                                 <td colSpan="2">
-                                    <input type="number" id="saleRate" onChange={saleChange} readOnly></input>
+                                    <input type="number" min="0" max="100" id="saleRate" onChange={saleChange} onInput={saleRateOnlyNum}></input>
                                     <label> %</label>
                                 </td>
                                 <th scope="row">할인가</th>
@@ -145,7 +346,7 @@ const Modify = () => {
                                     <label id="salePrice">{salePrice} 원</label>
                                 </td>
                             </tr>
-                            <tr id="trTodaySale" className="hidden">
+                            {/* <tr id="trTodaySale" className="hidden">
                                 <th scope="row">오늘만 할인 할인율</th>
                                 <td colSpan="2">
                                     <input type="number" id="todaySaleRate" onChange={todaySaleChange} readOnly></input>
@@ -155,14 +356,14 @@ const Modify = () => {
                                 <td colSpan="2">
                                     <label id="todaySalePrice">{todaySalePrice} 원</label>
                                 </td>
-                            </tr>
+                            </tr> */}
                             <tr>
                                 <th scope="row">메인썸네일</th>
                                 <td colSpan="2">
                                     <form className="filebox bs3-primary" encType="multipart/form-data">
-                                        <input className="upload-name" id="upload-name" placeholder="파일선택" disabled="disabled" />
+                                        <input className="upload-name" id="upload-name1" placeholder="파일선택" disabled="disabled" />
                                         <label htmlFor="ex_filename">업로드</label>
-                                        <input type="file" accept="image/*" id="ex_filename" className="upload-hidden" onChange={e => this.handleFileInput(e)} />
+                                        <input type="file" accept="image/*" id="ex_filename" className="upload-hidden" onChange={handleFileInput} />
                                     </form>
                                     {/* <input type="file" name="file" onChange={e => this.handleFileInput(e)}/>
                                     <button type="button" onClick={this.uploadImage}>업로드</button> */}
@@ -170,9 +371,9 @@ const Modify = () => {
                                 <th scope="row">서브썸네일</th>
                                 <td colSpan="2">
                                     <form className="filebox bs3-primary" encType="multipart/form-data">
-                                        <input className="upload-name" id="upload-name" placeholder="파일선택" disabled="disabled" />
-                                        <label htmlFor="ex_filename">업로드</label>
-                                        <input type="file" accept="image/*" id="ex_filename" className="upload-hidden" onChange={e => this.handleFileInput(e)} />
+                                        <input className="upload-name" id="upload-name2" placeholder="파일선택" disabled="disabled" />
+                                        <label htmlFor="ex_filename2">업로드</label>
+                                        <input type="file" accept="image/*" id="ex_filename2" className="upload-hidden" onChange={handleFileInput2} />
                                     </form>
                                     {/* <input type="file" name="file" onChange={e => this.handleFileInput(e)}/>
                                     <button type="button" onClick={this.uploadImage}>업로드</button> */}
@@ -191,14 +392,16 @@ const Modify = () => {
                                         height="500px"
                                         initialEditType="wysiwyg"
                                         ref={editorRef}
+                                        onChange={editorChange}
                                     />
+
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div className="buttonWrap">
-                        <button className="cancleBtn">취소하기</button>
-                        <button className="submitBtn">수정하기</button>
+                        <button className="cancleBtn" onClick={goBack}>취소하기</button>
+                        <button className="submitBtn" onClick={regist}>등록하기</button>
                     </div>
                 </div>
             </div>

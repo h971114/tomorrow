@@ -19,7 +19,7 @@ function List({ idx, id, name, subname, category, price, discount_rate, img1, im
     var createDate = moment([createYY, createMM - 1, createDD]);
     var nowDate = moment();
 
-    if (createDate.diff(nowDate, 'days') > 3) {
+    if (createDate.diff(nowDate, 'days') < -3) {
         newP = false;
     } else {
         newP = true;

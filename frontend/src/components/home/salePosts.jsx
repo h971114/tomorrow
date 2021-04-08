@@ -12,7 +12,7 @@ export const SalePosts = ({ posts, loading }) => {
 
         const ArrayList = arrays.map(
             (array) => {
-                // // console.log(array);
+                // // // //console.log(array);
                 (
                     <li key={array}>
                         <a href="#">
@@ -71,7 +71,7 @@ export const SalePosts = ({ posts, loading }) => {
             var createDate = moment([createYY, createMM - 1, createDD]);
             var nowDate = moment();
 
-            if (createDate.diff(nowDate, 'days') > 3) {
+            if (createDate.diff(nowDate, 'days') < -3) {
                 newP = false;
             } else {
                 newP = true;
@@ -85,7 +85,7 @@ export const SalePosts = ({ posts, loading }) => {
             priceString = priceString.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
             if (idx <= 3) {
-                // console.log(post);
+                // // //console.log(post);
                 return (
                     <li key={idx}>
                         <Link

@@ -19,7 +19,7 @@ const Notice = (props) => {
         const fetchPosts = async () => {
             setLoading(true);
             const res = await axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/list`);
-            console.log(res);
+            // //console.log(res);
 
             if (res.data.conclusion === "FAIL") {
                 setVPost(true);

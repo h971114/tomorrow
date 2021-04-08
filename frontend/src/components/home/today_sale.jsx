@@ -69,12 +69,12 @@ const Today_sale = () => {
             var nowYy = Number(d.getFullYear());
             var nowMm = Number((d.getMonth() + 1));
             var nowDd = Number(d.getDate());
-            // console.log(nowDd);
+            // // //console.log(nowDd);
 
             var tomorrow1 = new Date(nowYy, nowMm, nowDd + 1);
             var tomorrow1Mm = Number((tomorrow1.getMonth()));
             var tomorrow1Dd = Number(tomorrow1.getDate());
-            // console.log(tomorrow1Dd);
+            // // //console.log(tomorrow1Dd);
 
             var tomorrow2 = new Date(nowYy, nowMm, nowDd + 2);
             var tomorrow2Mm = Number((tomorrow2.getMonth()));
@@ -104,16 +104,16 @@ const Today_sale = () => {
             var PriceString2;
             var saleMoneyString3;
             var PriceString3;
-            // console.log(nowDd + " + " + tomorrow1Dd + " + " + tomorrow2Dd);
+            // // //console.log(nowDd + " + " + tomorrow1Dd + " + " + tomorrow2Dd);
             e.map(
                 (array) => {
-                    // console.log(array);
+                    // // //console.log(array);
                     var Days = array.menu.todaysale
                     var Mm = Days.substring(5, 7);
                     var Dd = Days.substring(8, 10);
 
                     if (nowMm == Mm && nowDd == Dd) {
-                        // console.log(array.menu.name);
+                        // // //console.log(array.menu.name);
                         setName(array.menu.name);
                         setSubName(array.menu.subname);
                         setTDR(array.menu.today_discount_rate);
@@ -127,7 +127,7 @@ const Today_sale = () => {
                         setSeller(array.menu.seller_id);
                         setCreate(array.menu.create_at);
                         saleMoneyString = array.sale_price;
-                        // console.log(saleMoneyString);
+                        // // //console.log(saleMoneyString);
                         PriceString = array.menu.price;
                     }
                     if (tomorrow1Mm == Mm && tomorrow1Dd == Dd) {
@@ -160,8 +160,8 @@ const Today_sale = () => {
                         setSeller3(array.menu.seller_id);
                         setCreate3(array.menu.create_at);
                         saleMoneyString3 = array.sale_price;
-                        // console.log(Mm + ":" + Dd);
-                        // console.log(saleMoneyString3);
+                        // // //console.log(Mm + ":" + Dd);
+                        // // //console.log(saleMoneyString3);
                         PriceString3 = array.menu.price;
                     }
                 }

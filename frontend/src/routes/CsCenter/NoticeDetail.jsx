@@ -24,7 +24,7 @@ const NoticeDetail = (props) => {
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${props.match.params.id}`, {
             no: props.match.params.id,
         }).then(res => {
-            // console.log(res.data)
+            // // //console.log(res.data)
             setTitle(res.data.title)
             setDetail(res.data.detail)
             setWriter(res.data.writer)
@@ -34,20 +34,20 @@ const NoticeDetail = (props) => {
             setFile3(res.data.file3)
             setHit(res.data.hit)
         }).catch(err => {
-            console.log(err)
+            // //console.log(err)
         })
     }, [])
 
     const deleteNotice = () => {
         axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${no}`, {
             no: no,
-          }).then(res => {
-              // console.log(res)
-              alert('삭제 완료되었습니다!');
-              window.location.replace('/cscenter/notice');
-          }).catch(err => {
-              console.log(err)
-          })
+        }).then(res => {
+            // // //console.log(res)
+            alert('삭제 완료되었습니다!');
+            window.location.replace('/cscenter/notice');
+        }).catch(err => {
+            // //console.log(err)
+        })
     }
 
     const callFile1Download = () => {
@@ -55,9 +55,9 @@ const NoticeDetail = (props) => {
         var _lastDot = file1.lastIndexOf('.');
         var _fileExt = file1.substring(_lastDot, _fileLen).toLowerCase();
         var _lastSlash = file1.lastIndexOf('/');
-        var _fileName = file1.substring(_lastSlash+1, _lastDot).toLowerCase();
+        var _fileName = file1.substring(_lastSlash + 1, _lastDot).toLowerCase();
         var FileSaver = require('file-saver');
-        FileSaver.saveAs(file1, _fileName+_fileExt);
+        FileSaver.saveAs(file1, _fileName + _fileExt);
     }
 
     const callFile2Download = () => {
@@ -65,10 +65,10 @@ const NoticeDetail = (props) => {
         var _lastDot = file2.lastIndexOf('.');
         var _fileExt = file2.substring(_lastDot, _fileLen).toLowerCase();
         var _lastSlash = file2.lastIndexOf('/');
-        var _fileName = file2.substring(_lastSlash+1, _lastDot).toLowerCase();
-        
+        var _fileName = file2.substring(_lastSlash + 1, _lastDot).toLowerCase();
+
         var FileSaver = require('file-saver');
-        FileSaver.saveAs(file2, _fileName+_fileExt);
+        FileSaver.saveAs(file2, _fileName + _fileExt);
     }
 
     const callFile3Download = () => {
@@ -76,10 +76,10 @@ const NoticeDetail = (props) => {
         var _lastDot = file3.lastIndexOf('.');
         var _fileExt = file3.substring(_lastDot, _fileLen).toLowerCase();
         var _lastSlash = file3.lastIndexOf('/');
-        var _fileName = file3.substring(_lastSlash+1, _lastDot).toLowerCase();
-        
+        var _fileName = file3.substring(_lastSlash + 1, _lastDot).toLowerCase();
+
         var FileSaver = require('file-saver');
-        FileSaver.saveAs(file3, _fileName+_fileExt);
+        FileSaver.saveAs(file3, _fileName + _fileExt);
     }
 
     return (
@@ -114,20 +114,23 @@ const NoticeDetail = (props) => {
                                 <div className="title">
                                     <dl>
                                         <dt>첨부파일</dt>
-                                        {file1 ? <dd className="name" onClick={callFile1Download} style={{ cursor: 'pointer' }}>{file1.substring(file1.lastIndexOf('/')+1, file1.lastIndexOf('.')).toLowerCase()+file1.substring(file1.lastIndexOf('.'), file1.length).toLowerCase()}</dd> : <p>첨부파일이 없습니다.</p>}
-                                        {file2 ? <dd className="name" onClick={callFile2Download} style={{ cursor: 'pointer' }}>{file2.substring(file2.lastIndexOf('/')+1, file2.lastIndexOf('.')).toLowerCase()+file2.substring(file2.lastIndexOf('.'), file2.length).toLowerCase()}</dd> : null}
-                                        {file3 ? <dd className="name" onClick={callFile3Download} style={{ cursor: 'pointer' }}>{file3.substring(file3.lastIndexOf('/')+1, file3.lastIndexOf('.')).toLowerCase()+file3.substring(file3.lastIndexOf('.'), file3.length).toLowerCase()}</dd> : null}
+                                        {file1 ? <dd className="name" onClick={callFile1Download} style={{ cursor: 'pointer' }}>{file1.substring(file1.lastIndexOf('/') + 1, file1.lastIndexOf('.')).toLowerCase() + file1.substring(file1.lastIndexOf('.'), file1.length).toLowerCase()}</dd> : <p>첨부파일이 없습니다.</p>}
+                                        {file2 ? <dd className="name" onClick={callFile2Download} style={{ cursor: 'pointer' }}>{file2.substring(file2.lastIndexOf('/') + 1, file2.lastIndexOf('.')).toLowerCase() + file2.substring(file2.lastIndexOf('.'), file2.length).toLowerCase()}</dd> : null}
+                                        {file3 ? <dd className="name" onClick={callFile3Download} style={{ cursor: 'pointer' }}>{file3.substring(file3.lastIndexOf('/') + 1, file3.lastIndexOf('.')).toLowerCase() + file3.substring(file3.lastIndexOf('.'), file3.length).toLowerCase()}</dd> : null}
                                     </dl>
                                 </div>
                                 <div className="btnSet clear">
-                                    <div className="fl_l"><Link to="/cscenter/notice"><a className="btn">목록으로</a></Link></div>
+                                    <div className="fl_l">
+                                        <Link to="/cscenter/notice" className="btn">
+                                            목록으로</Link></div>
                                     <div className="fl_r">
-                                        {localStorage.getItem('id') === 'prestto1' ?
-                                        <div>
-                                            <Link to={`/cscenter/notice/${no}/modify`} id="goModify"><a className="btn">수정</a></Link>
-                                            <a id="goDelete" className="btn" onClick={deleteNotice}>삭제</a>
-                                        </div>
-                                        : null}
+                                        {sessionStorage.getItem('id') === 'prestto1' ?
+                                            <div>
+                                                <Link to={`/cscenter/notice/${no}/modify`} id="goModify" className="btn">
+                                                    수정</Link>
+                                                <a id="goDelete" className="btn" onClick={deleteNotice}>삭제</a>
+                                            </div>
+                                            : null}
                                     </div>
                                 </div>
                             </div>
