@@ -138,10 +138,11 @@ public class PayServiceImpl implements PayService{
         return null;
     }
     public String make() {
-		String pattern = "yyMMdd";
+    	Date curdate = new Date();
+//		String pattern = "yyMMdd";
 		SimpleDateFormat simpleDateFormat =
-		        new SimpleDateFormat(pattern);
-		String date = simpleDateFormat.format(new Date());
+		        new SimpleDateFormat("yyMMdd");
+		String date = simpleDateFormat.format(curdate);
 		System.out.println(date);
 		String ordernum = "";
 		String s = "";
