@@ -55,20 +55,18 @@ public class ShippingController {
     }
 
     @GetMapping("/all2")
-    public ResponseEntity<Map<String, Object>> getByMemberId(@RequestParam("member_id") String member_id,
+    public ResponseEntity<List<Map<String, Object>>> getByMemberId(@RequestParam("member_id") String member_id,
                                                              @RequestParam("order_id") String order_id){
         Map<String, String> parameterMap = new HashMap<>();
         parameterMap.put("member_id", member_id);
         parameterMap.put("order_id", order_id);
 
-        List<Map<String, Object>> list= shippingService.getByMemberId(parameterMap);
-        System.out.println(list.size());
+        List<Map<String, Object>> list = shippingService.getByMemberId(parameterMap);
+
         Map<String, Object> map = new HashMap<>();
-        for(int i=0; i<list.size(); i++){
-            map.put(String.valueOf(i), list.get(i));
-        }
         map.put("message", SUCCESS);
-        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+        list.add(map);
+        return new ResponseEntity<>(list, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/count")
