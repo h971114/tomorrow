@@ -9,7 +9,7 @@ import { withCookies, Cookies } from 'react-cookie';
 
 class Find extends React.Component {
     constructor(props) {
-        super();
+        super(props);
 
         const { cookies } = props;
         this.state = {
@@ -566,7 +566,7 @@ class Find extends React.Component {
                                             <th className="seller_check">사업자 여부</th>
                                             <td>
                                                 <input type="checkbox" name="isseller" id="seller_ck" onChange={this.sellerCheck} />
-                                                <label for="seller_ck">사업자 여부를 체크해주세요</label>
+                                                <label htmlFor="seller_ck">사업자 여부를 체크해주세요</label>
                                             </td>
                                         </tr>
                                         <tr className="point" id="seller_num">
@@ -595,7 +595,11 @@ class Find extends React.Component {
                                 <div className="color_btnSet clear">
                                     <div className="clear">
                                         <a className="btn" onClick={this.join}>회원가입</a>
-                                        <a className="btn" href="/">취소</a>
+                                        <Link
+                                            to={{
+                                                pathname: `/`
+                                            }}
+                                            className="btn">취소</Link>
 
                                     </div>
                                 </div>

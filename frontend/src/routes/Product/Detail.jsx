@@ -8,8 +8,9 @@ import 'moment/locale/ko';
 import '../css/Product.css';
 
 class Detail extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
+        console.log(props);
         this.state = {
             loading: true,
             buyAmount: 1,
@@ -131,14 +132,22 @@ class Detail extends React.Component {
                 amount: this.state.buyAmount,
                 price: this.state.totPay
             }).then(res => {
+                if (res.data === "insert") {
+                    var cartCnt = document.getElementById('cartCnt').textContent;
+                    document.getElementById('cartCnt').textContent = Number(cartCnt) + 1;
+                }
                 // console.log(res);
-                alert('등록완료~');
+                alert("장바구니에 등록되었습니다.");
+
             })
         }
     }
 
     render() {
-        var codes = this.state.detail;
+        const {
+            detail
+        } = this.state;
+        var codes = detail;
 
         return (
             <div id="sub" >

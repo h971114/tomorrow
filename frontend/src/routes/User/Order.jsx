@@ -8,7 +8,11 @@ class Order extends React.Component {
         this.state = {
             count: 0,
             posts: [],
-            usePoint: 0
+            usePoint: 0,
+            buyername: '',
+            mobile: '',
+            addr: '',
+            etc: ''
         };
     }
 
@@ -94,6 +98,30 @@ class Order extends React.Component {
         document.getElementById("usepoint").value = "0"
     }
 
+    handleAddress = (data) => {
+        let AllAddress = data.address;
+        let extraAddress = '';
+        let zoneCodes = data.zonecode;
+
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+            }
+            AllAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+        this.setState({
+            deliverAddr1: AllAddress,
+            deliverAddr0: zoneCodes,
+            addr1B: true,
+            modalOpen: false
+        })
+        // document.getElementById('zipcode').value = AllAddress;
+        // console.log(zoneCodes);
+        // console.log(AllAddress);
+    }
     openModal = () => {
         // // console.log("열려따");
         this.setState({
@@ -169,6 +197,37 @@ class Order extends React.Component {
         document.getElementById('usepoint').value = usingPoint;
 
     }
+    cDelivername = (e) => {
+        this.setState({
+            deliverName: e.target.value
+        })
+    }
+    cDeliverP = (e) => {
+        this.setState({
+            deliverMobile: e.target.value
+        })
+    }
+    cDeliveraddr0 = (e) => {
+        this.setState({
+            deliverAddr0: e.target.value
+        })
+    }
+    cDeliveraddr1 = (e) => {
+        this.setState({
+            deliverAddr1: e.target.value
+        })
+    }
+    cDeliveraddr2 = (e) => {
+        this.setState({
+            deliverAddr2: e.target.value,
+            addr2B: true,
+        })
+    }
+    changeetc = (e) => {
+        this.setState({
+            etc: e.target.value
+        })
+    }
 
     payStart = (e) => {
         var Uid = sessionStorage.getItem('id');
@@ -202,6 +261,12 @@ class Order extends React.Component {
             nowpay.total_mount = thisPrice;
             nowpay.tax_free_amount = 0;
             nowpay.point = Number(this.state.usePoint);
+            nowpay.name = this.state.deliverName;
+            nowpay.mobile = this.state.deliverMobile;
+            nowpay.addr = this.state.deliverAddr0 + " / " + this.state.deliverAddr1 + " / " + this.state.deliverAddr2;
+            nowpay.etc = this.state.etc;
+            nowpay.uppoint = this.state.productPrice / 100 * 3;
+            nowpay.total_amount = this.state.totPay;
 
             arrnowpayHistory.push(nowpay);
         }
@@ -233,8 +298,8 @@ class Order extends React.Component {
     render() {
         const {
             modalOpen,
-            fullAddress,
-            zoneCode,
+            deliverAddr1,
+            deliverAddr0,
             addr2
         } = this.state;
 
@@ -355,7 +420,7 @@ class Order extends React.Component {
                                         var payId = "eachtotal" + (idx + 1);
 
                                         return (
-                                            <tr>
+                                            <tr key={idx}>
                                                 <td className="pro_info">
                                                     <a style={{ cursor: `default` }}>
                                                         <div>
@@ -403,19 +468,19 @@ class Order extends React.Component {
                                 <tr>
                                     <th className="first"><span>주문하시는 분 <em className="essential">*</em></span></th>
                                     <td className="order_n first">
-                                        <input type="text" id="order_name" name="ordername" />
+                                        <input type="text" id="order_name" name="ordername" readOnly />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><span>휴대폰번호 <em className="essential">*</em></span></th>
                                     <td className="order_p">
-                                        <input type="text" id="order_phone" name="orderhp" />
+                                        <input type="text" id="order_phone" name="orderhp" readOnly />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th className="last"><span>이메일 주소 <em className="essential">*</em></span></th>
                                     <td className="order_e last">
-                                        <input type="text" id="order_email" name="orderemail" />
+                                        <input type="text" id="order_email" name="orderemail" readOnly />
                                     </td>
                                 </tr>
                             </tbody>
@@ -438,35 +503,35 @@ class Order extends React.Component {
                                 <tr>
                                     <th><span>받으시는 분<em className="essential">*</em></span></th>
                                     <td className="delivery_n">
-                                        <input type="text" id="delivery_name" name="receiptname" />
+                                        <input type="text" id="delivery_name" name="receiptname" onChange={this.cDelivername} />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th><span>휴대폰번호 <em className="essential">*</em></span></th>
                                     <td className="delivery_p">
-                                        <input type="text" id="delivery_p" name="receipthp" />
+                                        <input type="text" id="delivery_p" name="receipthp" onChange={this.cDeliverP} />
                                     </td>
                                 </tr>
                                 <tr>
                                     <th className="addr_th"><span>주소 <em className="essential">*</em></span></th>
                                     <td colSpan="3" className="addr">
                                         <p className="clear">
-                                            <a onClick={this.openModal}><input type="text" name="zipcode" id="zipcode" className="wid200" readOnly /></a>
+                                            <a onClick={this.openModal}><input type="text" name="zipcode" value={deliverAddr0 == null ? "" : deliverAddr0} onChange={this.cDeliveraddr0} id="zipcode" className="wid200" readOnly /></a>
                                             <a onClick={this.openModal} id="gopost">우편번호</a>
                                             {/* 우편번호 api */}
                                         </p>
                                         <p className="inline">
-                                            <input type="text" name="receiptaddr1" id="addr1" readOnly placeholder="기본주소" />
+                                            <input type="text" name="receiptaddr1" id="addr1" value={deliverAddr1 == null ? "" : deliverAddr1} onChange={this.cDeliveraddr1} readOnly placeholder="기본주소" />
                                         </p>
                                         <p className="inline">
-                                            <input type="text" name="receiptaddr2" id="addr2" placeholder="나머지주소" />
+                                            <input type="text" name="receiptaddr2" id="addr2" placeholder="나머지주소" onChange={this.cDeliveraddr2} />
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th className="last"><span>남기실 말씀</span></th>
                                     <td className="last">
-                                        <input type="text" id="comment" name="memo" />
+                                        <input type="text" id="comment" name="memo" onChange={this.changeetc} />
                                     </td>
                                 </tr>
                             </tbody>

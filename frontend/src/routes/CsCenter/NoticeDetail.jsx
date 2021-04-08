@@ -1,75 +1,56 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom"
 
 import TopVisual from '../../components/CsCenter/TopVisual';
 
 
-const QnADetail = (props) => {
-    console.log(props)
+const NoticeDetail = (props) => {
     const [no, setNo] = useState(props.match.params.id)
     const [title, setTitle] = useState("")
     const [detail, setDetail] = useState("")
-    const [ansTitle, setAnsTitle] = useState("")
-    const [ansDetail, setAnsDetail] = useState("")
     const [writer, setWriter] = useState("")
-    const [ansWriter, setAnsWriter] = useState("")
     const [date, setDate] = useState("")
-    const [ansDate, setAnsDate] = useState("")
     const [file1, setFile1] = useState("")
     const [file2, setFile2] = useState("")
     const [file3, setFile3] = useState("")
     const [hit, setHit] = useState(0)
-    const [hasAnswer, setHasAnswer] = useState(0)
 
     useEffect(() => {
-
-        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/question/${props.match.params.id}`, {
+        // if (props.match.params.id !== 'prestto1') {
+        //     document.getElementById('goModify').setAttribute('style', 'display:none');
+        //     document.getElementById('goDelete').setAttribute('style', 'display:none');
+        // }
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${props.match.params.id}`, {
             no: props.match.params.id,
         }).then(res => {
-            console.log(res.data)
-            if (localStorage.getItem('id') !== 'prestto1' && localStorage.getItem('id') !== res.data.writer) {
-                alert('잘못된 접근입니다!')
-                window.location.replace('/cscenter/qna');
-            }
+            // console.log(res.data)
             setTitle(res.data.title)
             setDetail(res.data.detail)
             setWriter(res.data.writer)
             setDate(res.data.date)
             setFile1(res.data.file1)
+            setFile2(res.data.file2)
+            setFile3(res.data.file3)
             setHit(res.data.hit)
-            return axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/answer/${props.match.params.id}`, {
-                question_no: props.match.params.id,
-            }).then(res => {
-                console.log(res)
-                
-                if (res.data.conclusion === "FAIL") {
-                    setHasAnswer(0)
-                } else {
-                    setHasAnswer(1)
-                    setAnsDetail(res.data.answer.detail)
-                }
-            }).catch(err => {
-                console.log(err)
-            })
         }).catch(err => {
             console.log(err)
         })
     }, [])
 
-    const deleteQnA = () => {
-        axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/question/${no}`, {
+    const deleteNotice = () => {
+        axios.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/notice/${no}`, {
             no: no,
           }).then(res => {
               // console.log(res)
               alert('삭제 완료되었습니다!');
-              window.location.replace('/question');
+              window.location.replace('/cscenter/notice');
           }).catch(err => {
               console.log(err)
           })
     }
 
-    const callFileDownload = () => {
+    const callFile1Download = () => {
         var _fileLen = file1.length;
         var _lastDot = file1.lastIndexOf('.');
         var _fileExt = file1.substring(_lastDot, _fileLen).toLowerCase();
@@ -77,6 +58,28 @@ const QnADetail = (props) => {
         var _fileName = file1.substring(_lastSlash+1, _lastDot).toLowerCase();
         var FileSaver = require('file-saver');
         FileSaver.saveAs(file1, _fileName+_fileExt);
+    }
+
+    const callFile2Download = () => {
+        var _fileLen = file2.length;
+        var _lastDot = file2.lastIndexOf('.');
+        var _fileExt = file2.substring(_lastDot, _fileLen).toLowerCase();
+        var _lastSlash = file2.lastIndexOf('/');
+        var _fileName = file2.substring(_lastSlash+1, _lastDot).toLowerCase();
+        
+        var FileSaver = require('file-saver');
+        FileSaver.saveAs(file2, _fileName+_fileExt);
+    }
+
+    const callFile3Download = () => {
+        var _fileLen = file3.length;
+        var _lastDot = file3.lastIndexOf('.');
+        var _fileExt = file3.substring(_lastDot, _fileLen).toLowerCase();
+        var _lastSlash = file3.lastIndexOf('/');
+        var _fileName = file3.substring(_lastSlash+1, _lastDot).toLowerCase();
+        
+        var FileSaver = require('file-saver');
+        FileSaver.saveAs(file3, _fileName+_fileExt);
     }
 
     return (
@@ -93,7 +96,7 @@ const QnADetail = (props) => {
                             </ul>
                         </div>
                     </div>
-                    <h4 className="cs_title">Q&A</h4>
+                    <h4 className="cs_title">공지사항</h4>
                     <div className="contents">
                         <div className="bbs view">
                             <div className="view">
@@ -107,29 +110,23 @@ const QnADetail = (props) => {
                                 <div className="cont">
                                     {detail ? <p dangerouslySetInnerHTML={{ __html: detail }}></p> : null}
                                 </div>
-                                {hasAnswer === 1 ? 
-                                <div>
+
                                 <div className="title">
                                     <dl>
-                                        <dt>Re: {title}</dt>
-                                        <dd className="name">관리자</dd>
-                                        {/* <dd className="date">2021-03-31</dd> */}
+                                        <dt>첨부파일</dt>
+                                        {file1 ? <dd className="name" onClick={callFile1Download} style={{ cursor: 'pointer' }}>{file1.substring(file1.lastIndexOf('/')+1, file1.lastIndexOf('.')).toLowerCase()+file1.substring(file1.lastIndexOf('.'), file1.length).toLowerCase()}</dd> : <p>첨부파일이 없습니다.</p>}
+                                        {file2 ? <dd className="name" onClick={callFile2Download} style={{ cursor: 'pointer' }}>{file2.substring(file2.lastIndexOf('/')+1, file2.lastIndexOf('.')).toLowerCase()+file2.substring(file2.lastIndexOf('.'), file2.length).toLowerCase()}</dd> : null}
+                                        {file3 ? <dd className="name" onClick={callFile3Download} style={{ cursor: 'pointer' }}>{file3.substring(file3.lastIndexOf('/')+1, file3.lastIndexOf('.')).toLowerCase()+file3.substring(file3.lastIndexOf('.'), file3.length).toLowerCase()}</dd> : null}
                                     </dl>
                                 </div>
-                                <div className="cont">
-                                    {ansDetail ? <p dangerouslySetInnerHTML={{ __html: ansDetail }}></p> : null}
-                                </div>
-                                </div>
-                                : null}
-
                                 <div className="btnSet clear">
-                                    <div className="fl_l"><Link to={`/cscenter/qna/`}><a className="btn">목록으로</a></Link></div>
+                                    <div className="fl_l"><Link to="/cscenter/notice"><a className="btn">목록으로</a></Link></div>
                                     <div className="fl_r">
                                         {localStorage.getItem('id') === 'prestto1' ?
-                                        <Link to={{pathname: `/cscenter/qna/${no}/rewrite`, state: {no}}}><a className="btn">답변 작성</a></Link>
-                                        : null}
-                                        {localStorage.getItem('id') === writer ?
-                                        <a className="btn" onClick={deleteQnA}>삭제</a>
+                                        <div>
+                                            <Link to={`/cscenter/notice/${no}/modify`} id="goModify"><a className="btn">수정</a></Link>
+                                            <a id="goDelete" className="btn" onClick={deleteNotice}>삭제</a>
+                                        </div>
                                         : null}
                                     </div>
                                 </div>
@@ -141,4 +138,4 @@ const QnADetail = (props) => {
         </div>
     )
 }
-export default QnADetail;
+export default NoticeDetail;

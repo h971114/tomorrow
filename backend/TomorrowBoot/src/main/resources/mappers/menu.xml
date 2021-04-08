@@ -40,7 +40,7 @@
         FROM menu;
     </select>
     <select id="getMenuBySeller" parameterType="String" resultType="menu">
-        SELECT *
+        SELECT id, name, price, amount, sell_amount, discount_rate, category, img1, img2,  seller_id, subname, create_at, shipping_fee
         FROM menu
         WHERE seller_id = #{seller_id}
     </select>

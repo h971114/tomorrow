@@ -17,17 +17,8 @@ class Auth extends React.Component {
 
         const { cookies } = props;
         this.state = {
-            id: cookies.get('id') || "",
-            // name: cookies.get('name') || "",
-            nickname: cookies.get('nickname') || "",
-            token: cookies.get('token') || "",
-            // mobile: cookies.get('mobile') || "",
-            // email: cookies.get('email') || "",
-            // address: cookies.get('address') || "",
-            // seller: cookies.get('seller') || 0,
-            // cert: cookies.get('cert') || null,
+            token: cookies.get('token') || ""
         }
-        // // console.log(cookies)
     };
 
     state = {
@@ -91,20 +82,20 @@ class Auth extends React.Component {
             if (res.data.message === "SUCCESS") {
                 // sessionStorage.setItem("token", res.data.token);
                 // sessionStorage.setItem("id", this.state.id);
-                if (res.data.isseller === "seller") {
-                    this.state = {
-                        seller: 1
-                    }
-                } else {
-                    this.state = {
-                        seller: 0
-                    }
-                }
-                var isseller = this.state.seller;
-                // sessionStorage.setItem("seller", isseller);
-                sessionStorage.setItem("id", id);
-                sessionStorage.setItem("token", res.data.token);
-                this.saveCookies(res.data.token, id, isseller);
+                // if (res.data.isseller === "seller") {
+                //     this.state = {
+                //         seller: 1
+                //     }
+                // } else {
+                //     this.state = {
+                //         seller: 0
+                //     }
+                // }
+                // var isseller = this.state.seller;
+                // // sessionStorage.setItem("seller", isseller);
+                // sessionStorage.setItem("id", id);
+                // sessionStorage.setItem("token", res.data.token);
+                this.saveCookies(res.data.token);
                 window.location.replace("/");
             } else {
                 alert("아이디와 비밀번호를 확인해주세요.");
@@ -112,11 +103,9 @@ class Auth extends React.Component {
         })
     };
 
-    saveCookies = (token, id, isseller) => {
+    saveCookies = (token) => {
         const { cookies } = this.props;
         cookies.set("token", token);
-        cookies.set("id", id);
-        cookies.set("isSeller", isseller);
         // cookies.set("nickname", nickname);
     }
 
@@ -126,34 +115,34 @@ class Auth extends React.Component {
 
 
 
-    signUp = (e) => {
-        e.preventDefault();
-        // console.log(this.state);
-        // // console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
-        if ((this.state.seller === 1) || !this.state.seller) {
-            axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
-                id: this.state.id,
-                pw: this.state.pw,
-                name: this.state.name,
-                nickname: this.state.nickname,
-                mobile: this.state.mobile,
-                email: this.state.email,
-                address: this.state.address,
-                seller: this.state.seller,
-                cert: this.state.cert,
-            }).then(res => {
-                // console.log(res);
-                if (res.data === "SUCCESS") {
-                    alert('회원가입 성공! 로그인 창에서 로그인하세요.')
-                    this.tabZero();
-                } else {
-                    alert('문제가 있습니다')
-                }
-            }).catch(err => {
-                // console.log(err);
-            });
-        };
-    }
+    // signUp = (e) => {
+    //     e.preventDefault();
+    //     // console.log(this.state);
+    //     // // console.log((this.state.seller === 1 && this.state.nickname === true && this.state.cert === true) || !this.state.seller)
+    //     if ((this.state.seller === 1) || !this.state.seller) {
+    //         axios.post(`${process.env.REACT_APP_SERVER_BASE_URL}/member/join`, {
+    //             id: this.state.id,
+    //             pw: this.state.pw,
+    //             name: this.state.name,
+    //             nickname: this.state.nickname,
+    //             mobile: this.state.mobile,
+    //             email: this.state.email,
+    //             address: this.state.address,
+    //             seller: this.state.seller,
+    //             cert: this.state.cert,
+    //         }).then(res => {
+    //             // console.log(res);
+    //             if (res.data === "SUCCESS") {
+    //                 alert('회원가입 성공! 로그인 창에서 로그인하세요.')
+    //                 this.tabZero();
+    //             } else {
+    //                 alert('문제가 있습니다')
+    //             }
+    //         }).catch(err => {
+    //             // console.log(err);
+    //         });
+    //     };
+    // }
 
     render() {
         return (
@@ -196,7 +185,10 @@ class Auth extends React.Component {
                                                     pathname: `/findpw`
                                                 }}
                                             >비밀번호 찾기</Link></li>
-                                        <li><a href="#">회원가입</a></li>
+                                        <li><Link
+                                            to={{
+                                                pathname: `/join`
+                                            }}>회원가입</Link></li>
                                     </ul>
                                 </div>
                             </fieldset>

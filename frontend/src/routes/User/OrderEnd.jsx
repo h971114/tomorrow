@@ -1,7 +1,22 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const OrderEnd = () => {
+    const [orderId, setOrderId] = useState('');
+
+    useEffect(() => {
+        var Uid = sessionStorage.getItem('id');
+        axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/order/getlastid`, {
+            params: {
+                id: Uid
+            }
+        }).then(res => {
+            setOrderId(res.data);
+            // console.log(res.data);
+        })
+    }, [])
+
     return (
         <div id="sub">
             <div className="size order_page">
@@ -70,7 +85,7 @@ const OrderEnd = () => {
                                 주문이 정상적으로 <em className="mbr">완료되었습니다.</em></span>
                                 </p>
                                 <div className="order_num">
-                                    주문번호 : <strong>210330-00001</strong>
+                                    주문번호 : <strong>{orderId}</strong>
                                 </div>
                                 <p>
                                     주문하신 내역은 마이페이지에서 확인 가능합니다.

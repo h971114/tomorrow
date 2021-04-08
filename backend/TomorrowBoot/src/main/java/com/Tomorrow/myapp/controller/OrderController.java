@@ -80,21 +80,23 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getorderlist(member_id), HttpStatus.ACCEPTED);
     }
     @PutMapping("/send")
-    public ResponseEntity<String> deletedetail(@RequestBody Map<String, String> data, HttpServletRequest req){
-    	Orderdetail order = orderdetailservice.getdetail(data.get("id"));
-    	orderdetailservice.sendOrderdetail(order);
-    	String seller =  menuservice.getMenuInfo(Integer.parseInt(order.getMenu_id())).getSeller_id();
-    	String conclusion = SUCCESS;
-    	String hash ="";
-    	try {
-			hash = etherservice.sendTransaction(seller, data.toString());
-		} catch (Exception e) {
-			conclusion = FAIL;
-			e.printStackTrace();
-		}
-    	order.setFoodhash(hash);
-    	orderdetailservice.sendOrderdetail(order);
-    	return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
+    public ResponseEntity<String> senddetail(@RequestBody Map<String, String> data, HttpServletRequest req){
+       Orderdetail order = orderdetailservice.getdetail(data.get("id"));
+       orderdetailservice.sendOrderdetail(order);
+       String seller =  menuservice.getMenubyid(Integer.parseInt(order.getMenu_id())).getSeller_id();
+       System.out.println(seller);
+       String conclusion = SUCCESS;
+       String hash ="";
+       try {
+         hash = etherservice.sendTransaction(seller, data.toString());
+      } catch (Exception e) {
+         conclusion = FAIL;
+         System.out.println("fail");
+         e.printStackTrace();
+      }
+       order.setFoodhash(hash);
+       orderdetailservice.sendOrderdetail(order);
+       return new ResponseEntity<String>(conclusion, HttpStatus.ACCEPTED);
     }
 }
 

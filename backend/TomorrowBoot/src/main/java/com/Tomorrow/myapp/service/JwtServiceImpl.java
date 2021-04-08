@@ -29,7 +29,7 @@ public class JwtServiceImpl implements JwtService{
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(datetime);
 		System.out.println(cal);
-		cal.add(Calendar.MINUTE, 10);
+		cal.add(Calendar.HOUR, 24);
 		datetime = cal.getTime();
 		String jwt = Jwts.builder()
 						 .setHeaderParam("typ", "JWT")

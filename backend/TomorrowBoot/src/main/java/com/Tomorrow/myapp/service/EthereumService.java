@@ -26,7 +26,10 @@ import com.Tomorrow.myapp.model.WalletDto;
 @Service
 public class EthereumService {
 
-	static WalletDao walletdao;
+	private final WalletDao walletdao;
+	   public EthereumService(WalletDao walletDao) {
+	      this.walletdao = walletDao;
+	   }
 	 public String sendTransaction(PayApprovalDto pay) throws Exception{
 
 		//sqlSession.insert("menu.insert", menuDto);

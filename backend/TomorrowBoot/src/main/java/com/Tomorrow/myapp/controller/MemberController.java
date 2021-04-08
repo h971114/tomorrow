@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -155,12 +156,13 @@ public class MemberController {
       System.out.println("get to /member/jwttoken done");
       System.out.println("jwt인증");
       if (jwtService.isUsable(jwttoken)) {
-         MemberDto newmember = (MemberDto) jwtService.get("member", jwttoken);
+         LinkedHashMap linkhashmap = (LinkedHashMap) jwtService.get("member", jwttoken);
+         System.out.println(linkhashmap);
          conclusionmap.put("message", SUCCESS);
-         conclusionmap.put("id", newmember.getId());
-         conclusionmap.put("nickname", newmember.getNickname());
-         conclusionmap.put("name", newmember.getName());
-         if(newmember.getSeller() == 1) {
+         conclusionmap.put("id", (String) linkhashmap.get("id"));
+         conclusionmap.put("nickname", (String) linkhashmap.get("nickname"));
+         conclusionmap.put("name", (String) linkhashmap.get("name"));
+         if((int)linkhashmap.get("seller") == 1) {
             conclusionmap.put("isseller", "seller");
          }
          else {
@@ -171,6 +173,7 @@ public class MemberController {
       }
       return new ResponseEntity<Map<String, String>>(conclusionmap, status);
    }
+   
    // 중복검사
    @ApiOperation(value = "중복검사", notes = "중복검사", response = Map.class)
    @PostMapping("/same")

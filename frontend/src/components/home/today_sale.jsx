@@ -112,7 +112,7 @@ const Today_sale = () => {
                     var Mm = Days.substring(5, 7);
                     var Dd = Days.substring(8, 10);
 
-                    if (nowMm === Mm && nowDd === Dd) {
+                    if (nowMm == Mm && nowDd == Dd) {
                         // console.log(array.menu.name);
                         setName(array.menu.name);
                         setSubName(array.menu.subname);
@@ -127,9 +127,10 @@ const Today_sale = () => {
                         setSeller(array.menu.seller_id);
                         setCreate(array.menu.create_at);
                         saleMoneyString = array.sale_price;
+                        // console.log(saleMoneyString);
                         PriceString = array.menu.price;
                     }
-                    if (tomorrow1Mm === Mm && tomorrow1Dd === Dd) {
+                    if (tomorrow1Mm == Mm && tomorrow1Dd == Dd) {
                         setName2(array.menu.name);
                         setSubName2(array.menu.subname);
                         setTDR2(array.menu.today_discount_rate);
@@ -145,7 +146,7 @@ const Today_sale = () => {
                         saleMoneyString2 = array.sale_price;
                         PriceString2 = array.menu.price;
                     }
-                    if (tomorrow2Mm === Mm && tomorrow2Dd === Dd) {
+                    if (tomorrow2Mm == Mm && tomorrow2Dd == Dd) {
                         setName3(array.menu.name);
                         setSubName3(array.menu.subname);
                         setTDR3(array.menu.today_discount_rate);
@@ -159,6 +160,8 @@ const Today_sale = () => {
                         setSeller3(array.menu.seller_id);
                         setCreate3(array.menu.create_at);
                         saleMoneyString3 = array.sale_price;
+                        // console.log(Mm + ":" + Dd);
+                        // console.log(saleMoneyString3);
                         PriceString3 = array.menu.price;
                     }
                 }

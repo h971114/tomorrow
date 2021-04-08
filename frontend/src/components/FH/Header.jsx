@@ -15,43 +15,47 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
 
         const { cookies } = props;
         this.state = {
-            id: cookies.get('id') || "",
             token: cookies.get('token') || "",
             searchtxt: ""
-            // isSeller: cookies.get('isSeller') || "0",
         }
     };
 
     componentDidMount() {
+        const { location } = this.props;
+        // console.log(location.state.id);
+
         this.cartCount();
 
-        if (sessionStorage.getItem('id') !== null) {
-            var Uid = sessionStorage.getItem('id');
-            console.log(Uid);
-            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/isseller/` + Uid
-            ).then(res => {
-                if (res.data === "SUCCESS") {
-                    document.getElementById('noSeller').setAttribute("style", "display:none");
-                    document.getElementById('Seller').setAttribute("style", "display:inline-block");
+        // if (sessionStorage.getItem('id') !== null) {
+        //     var Uid = sessionStorage.getItem('id');
+        //     console.log(Uid);
+        //     axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/isseller/` + Uid
+        //     ).then(res => {
+        //         if (res.data === "SUCCESS") {
+        //             document.getElementById('noSeller').setAttribute("style", "display:none");
+        //             document.getElementById('Seller').setAttribute("style", "display:inline-block");
 
-                    this.setState({
-                        isSeller: 1
-                    })
-                } else {
-                    document.getElementById('Seller').setAttribute("style", "display:none");
-                    document.getElementById('noSeller').setAttribute("style", "display:inline-block");
+        //             this.setState({
+        //                 isSeller: 1
+        //             })
+        //         } else {
+        //             document.getElementById('Seller').setAttribute("style", "display:none");
+        //             document.getElementById('noSeller').setAttribute("style", "display:inline-block");
 
-                    this.setState({
-                        isSeller: 0
-                    })
-                }
-            })
-        }
-        // console.log(this.state.cartCnt);
+        //             this.setState({
+        //                 isSeller: 0
+        //             })
+        //         }
+        //     })
+        // }
+        // // console.log(this.state.cartCnt);
     }
+
+    // shouldComponentUpdate()
 
     cartCount = (e) => {
         if (sessionStorage.getItem('id') !== null) {
@@ -62,7 +66,7 @@ class Header extends Component {
                     id: Uid
                 }
             }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 var cartCnts = res.data;
                 // console.log(cartCnt);
                 this.setState({
@@ -81,21 +85,20 @@ class Header extends Component {
     goSearch = (e) => {
         e.preventDefault();
 
-        console.log(this.state.searchtxt);
         window.location.replace('/search');
     }
 
     logout = (e) => {
         const { cookies } = this.props;
 
-        window.sessionStorage.clear();
-        cookies.remove('id');
         cookies.remove('token');
-        cookies.remove('isSeller');
-        window.location.replace("/");
+        // window.location.replace("/");
     };
 
     render() {
+        const {
+            cartCnt
+        } = this.state;
         return (
             <div id="header">
                 {this.state.id === "" &&
@@ -162,7 +165,7 @@ class Header extends Component {
                                 <div className="util">
                                     <ul className="clear">
                                         <li className="login">
-                                            <a onClick={this.logout} style={{ cursor: "pointer" }}>로그아웃</a>
+                                            <a onClick={this.logout} href="/">로그아웃</a>
                                         </li>
                                         <li className="login" id="noSeller">
                                             <Link
@@ -194,7 +197,7 @@ class Header extends Component {
                                                 }
                                             }}
                                         >
-                                            장바구니 <span>{this.state.cartCnt}</span>
+                                            장바구니 <span id="cartCnt">{cartCnt}</span>
                                         </Link>
                                         </li>
                                     </ul>
@@ -211,29 +214,51 @@ class Header extends Component {
                                         <a href="/goods">전체카테고리</a>
                                         <ul className="clear" id="menu_all_sub">
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/1">
-                                                    한식
-                                                </a>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/goods/1`
+                                                    }}
+                                                    className="categoryDepthLink"
+                                                    aria-label="submenu"
+                                                >한식</Link>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/2">
-                                                    양식
-                                                </a>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/goods/2`
+                                                    }}
+                                                    className="categoryDepthLink"
+                                                    aria-label="submenu"
+                                                >양식</Link>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/3">
-                                                    중식/일식
-                                                </a>
+
+                                                <Link
+                                                    to={{
+                                                        pathname: `/goods/3`
+                                                    }}
+                                                    className="categoryDepthLink"
+                                                    aria-label="submenu"
+                                                >중식/일식</Link>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/4">
-                                                    동남아
-                                                </a>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/goods/4`
+                                                    }}
+                                                    className="categoryDepthLink"
+                                                    aria-label="submenu"
+                                                >동남아</Link>
                                             </li>
                                             <li className="has-sub">
-                                                <a className="categoryDepthLink" aria-label="submenu" href="/goods/5">
-                                                    샐러드
-                                                </a>
+                                                <Link
+                                                    to={{
+                                                        pathname: `/goods/5`
+                                                    }}
+                                                    className="categoryDepthLink"
+                                                    aria-label="submenu"
+                                                >샐러드</Link>
+
                                             </li>
                                         </ul>
                                         <div className="header_bg"></div>
@@ -243,24 +268,49 @@ class Header extends Component {
                             <div className="menu_other">
                                 <ul className="clear depth1">
                                     <li>
-                                        <a href="/Best">
-                                            베스트 상품</a>
+                                        <Link
+                                            to={{
+                                                pathname: `/best`
+                                            }}
+                                        >
+                                            베스트 상품
+                                            </Link>
                                     </li>
                                     <li>
-                                        <a href="/New" >
-                                            신상품</a>
+                                        <Link
+                                            to={{
+                                                pathname: `/new`
+                                            }}
+                                        >
+                                            신상품
+                                            </Link>
                                     </li>
                                     <li>
-                                        <a href="/TodaySale" >
-                                            오늘만 특가</a>
+                                        <Link
+                                            to={{
+                                                pathname: `/TodaySale`
+                                            }}
+                                        >
+                                            오늘만 특가
+                                            </Link>
                                     </li>
                                     <li>
-                                        <a href="/Sale" >
-                                            알뜰쇼핑</a>
+                                        <Link
+                                            to={{
+                                                pathname: `/Sale`
+                                            }}
+                                        >
+                                            알뜰쇼핑
+                                            </Link>
                                     </li>
                                     <li>
-                                        <a href="/cscenter/notice" >
-                                            고객센터</a>
+                                        <Link
+                                            to={{
+                                                pathname: `/cscenter/notice`
+                                            }}
+                                        >
+                                            고객센터
+                                            </Link>
                                     </li>
                                 </ul>
                             </div>

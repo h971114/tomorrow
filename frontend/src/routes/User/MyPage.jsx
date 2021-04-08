@@ -12,10 +12,13 @@ class MyPage extends React.Component {
     };
 
     constructor(props) {
-        super();
+        super(props);
+        console.log(props);
 
         const { cookies } = props;
         this.state = {
+            id: props.Uid,
+            isSeller: props.isseller,
             modalOpen: false,
             isdaumpost: false,
             checkEmail: true,
@@ -29,8 +32,8 @@ class MyPage extends React.Component {
     componentDidMount() {
         const { location } = this.props;
 
-        var id = sessionStorage.getItem('id');
-        var isSeller = location.state.isSeller;
+        var id = this.state.id;
+        var isSeller = this.state.isSeller;
         console.log(id);
 
         if (isSeller === 0) {
@@ -39,10 +42,10 @@ class MyPage extends React.Component {
             document.getElementById('userMenu').setAttribute("style", "display:none");
         }
 
-        this.setState({
-            id: id,
-            isSeller: isSeller
-        })
+        // this.setState({
+        //     id: id,
+        //     isSeller: isSeller
+        // })
 
         axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/member/` + id
         ).then(res => {
@@ -106,8 +109,9 @@ class MyPage extends React.Component {
             addr1B: true,
             modalOpen: false
         })
-        // // console.log(this.state.zoneCode);
-        // // console.log(this.state.fullAddress);
+
+        // console.log(data.zoneCode);
+        // console.log(data.address);
     }
 
     openModal = () => {
@@ -344,10 +348,7 @@ class MyPage extends React.Component {
     logout = (e) => {
         const { cookies } = this.props;
 
-        window.sessionStorage.clear();
-        cookies.remove('id');
         cookies.remove('token');
-        cookies.remove('isSeller');
         window.location.replace("/");
     };
 
@@ -357,6 +358,7 @@ class MyPage extends React.Component {
             fullAddress,
             zoneCode,
             addr2,
+            id,
             isSeller
         } = this.state;
 
@@ -384,8 +386,8 @@ class MyPage extends React.Component {
                                             to={{
                                                 pathname: `/mypage`,
                                                 state: {
-                                                    id: this.state.id,
-                                                    isSeller: this.state.isSeller
+                                                    id: id,
+                                                    isSeller: isSeller
                                                 }
                                             }}
                                             className="on"

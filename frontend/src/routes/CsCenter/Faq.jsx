@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import { Link } from "react-router-dom";
 
 import TopVisual from '../../components/CsCenter/TopVisual';
 
@@ -25,9 +25,34 @@ const Faq = () => {
                     <div className="cs_tab">
                         <div className="sub" >
                             <ul className="clear">
-                                <li className="itemList3"><a href="/cscenter/notice/">공지사항<img src="/img/bbs_tab_arrow.png" /></a></li>
-                                <li className="itemList3"><a href="/cscenter/faq/" className="on">FAQ<img src="/img/bbs_tab_arrow.png" /></a></li>
-                                <li className="itemList3"><a href="/cscenter/qna/">Q&amp;A<img src="/img/bbs_tab_arrow.png" /></a></li>
+                                <li className="itemList3">
+                                    <Link
+                                        to={{
+                                            pathname: `/cscenter/notice/`
+                                        }}
+                                    >
+                                        공지사항<img src="/img/bbs_tab_arrow.png" />
+                                    </Link>
+                                </li>
+                                <li className="itemList3">
+                                    <Link
+                                        to={{
+                                            pathname: `/cscenter/faq/`
+                                        }}
+                                        className="on"
+                                    >
+                                        FAQ<img src="/img/bbs_tab_arrow.png" />
+                                    </Link>
+                                </li>
+                                <li className="itemList3">
+                                    <Link
+                                        to={{
+                                            pathname: `/cscenter/qna/`
+                                        }}
+                                    >
+                                        Q&amp;A<img src="/img/bbs_tab_arrow.png" />
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -45,28 +70,18 @@ const Faq = () => {
                         </thead>
                         <tbody>
 
-                            <tr className="faqQ q0" id="faq0" onClick={(e, o) => show('faq0', 'q0')} >
-                                <td className="part">test1</td>
-                                <td className="title"><span className="blind">Q</span>신용카드 결제 후 주문취소했는데, 언제 환불되나요?</td>
-                            </tr>
-                            <tr id="q0" className="faqA" >
-                                <td>&nbsp;</td>
-                                <td className="title"><span className="blind">A</span>
-                                    <p>신용카드로 결제하신 금액은 현금이나, 그린너트 포인트로 환불되지 않고, 카드 승인내역을 승인취소 해드리며 </p><p>취소완료일로부터 약 3~5일 정도 소요됩니다.(토,일 공휴일 제외) &nbsp;</p><p>※카드결제의 환불 소요시간은 카드사에 따라 다소 차이가 있을 수 있습니다.</p>						</td>
-                            </tr>
-
                             <tr className="faqQ q1" id="faq1" onClick={(e, o) => show('faq1', 'q1')} >
-                                <td className="part">test2</td>
+                                <td className="part">고객센터</td>
                                 <td className="title"><span className="blind">Q</span>고객센터 운영시간은 어떻게 되나요?</td>
                             </tr>
                             <tr id="q1" className="faqA" >
                                 <td>&nbsp;</td>
                                 <td className="title"><span className="blind">A</span>
-                                    <p>그린너트 전화상담은 평일 오전 9시 ~ 18시까지 가능합니다.</p><p>그린너트 고객센터 : ☎ 031.763.4666</p>						</td>
+                                    <p>전화상담은 평일 오전 9시 ~ 18시까지 가능합니다.</p><p>고객센터 : ☎ 031.763.4666</p>						</td>
                             </tr>
 
                             <tr className="faqQ q2" id="faq2" onClick={(e, o) => show('faq2', 'q2')} >
-                                <td className="part">test1</td>
+                                <td className="part">회원</td>
                                 <td className="title"><span className="blind">Q</span>회원탈퇴 후 재가입할 수 있나요?</td>
                             </tr>
                             <tr id="q2" className="faqA" >
@@ -75,20 +90,8 @@ const Faq = () => {
                                     <p>탈퇴 후 즉시, 재가입을 하실 수 있습니다.</p><p>단, 기존 회원정보는 탈퇴 즉시 삭제되었기 때문에 기존 구매내역을 재가입한 회원정보로는 확인할 수 없습니다.</p>						</td>
                             </tr>
 
-                            <tr className="faqQ q3" id="faq3" onClick={(e, o) => show('faq3', 'q3')} >
-                                <td className="part">test2</td>
-                                <td className="title"><span className="blind">Q</span>이메일로 임시 비밀번호 발급 받았는데, 메일이 안와요.</td>
-                            </tr>
-                            <tr id="q3" className="faqA" >
-                                <td>&nbsp;</td>
-                                <td className="title"><span className="blind">A</span>
-                                    <p>발송된 메일이 스팸 처리되어 수신되지 않을 수 있습니다.
-</p><p>번거로우시겠지만, 메일 수신함 중 스팸 메일함을 확인해 주시기 바랍니다.&nbsp;</p><p>
-                                        위 방법으로도 확인되지 않을 경우, 고객센터(☎031.763.4666)로 문의 주시면&nbsp;</p><p>본인확인 후 임시 비밀번호를 발급해 드립니다.</p>						</td>
-                            </tr>
-
                             <tr className="faqQ q4" id="faq4" onClick={(e, o) => show('faq4', 'q4')} >
-                                <td className="part">test1</td>
+                                <td className="part">결제</td>
                                 <td className="title"><span className="blind">Q</span>반품이 가능한 기준이 따로 있나요?</td>
                             </tr>
                             <tr id="q4" className="faqA">
@@ -103,7 +106,7 @@ const Faq = () => {
                             </tr>
 
                             <tr className="faqQ q5" id="faq5" onClick={(e, o) => show('faq5', 'q5')} >
-                                <td className="part">test3</td>
+                                <td className="part">결제</td>
                                 <td className="title"><span className="blind">Q</span>이미 주문을 했는데, 결제 수단을 변경할 수 있나요?</td>
                             </tr>
                             <tr id="q5" className="faqA">
@@ -114,13 +117,13 @@ const Faq = () => {
                             </tr>
 
                             <tr className="faqQ q6" id="faq6" onClick={(e, o) => show('faq6', 'q6')} >
-                                <td className="part">test2</td>
+                                <td className="part">주문조회</td>
                                 <td className="title"><span className="blind">Q</span>주문 내역은 어디에서 볼 수 있나요?</td>
                             </tr>
                             <tr id="q6" className="faqA">
                                 <td>&nbsp;</td>
                                 <td className="title"><span className="blind">A</span>
-							주문 내역은 [마이너트 &gt; 주문조회]에서 확인하실 수 있습니다.						</td>
+							주문 내역은 [주문조회]에서 확인하실 수 있습니다.						</td>
                             </tr>
 
                             <tr className="faqQ q7" id="faq7" onClick={(e, o) => show('faq7', 'q7')} >
@@ -130,7 +133,7 @@ const Faq = () => {
                             <tr id="q7" className="faqA">
                                 <td>&nbsp;</td>
                                 <td className="title"><span className="blind">A</span>
-                                    <p>로그인 후 마이너트 &gt; 회원탈퇴 를 이용해주세요.
+                                    <p>로그인 후 마이페이지 &gt; 회원탈퇴 를 이용해주세요.
 </p><p>
                                         회원 탈퇴 시 보유하고 계신 포인트는 자동 소멸 됩니다.</p>						</td>
                             </tr>
