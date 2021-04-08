@@ -9,5 +9,6 @@ public interface ShippingDao {
 	public void insertInfo(ShippingDto shipping);
 	public void updateStatus(ShippingDto shippingDto);
 	public List getShippingDto(String seller_id);
-	public List<Map<String, Object>> getAllShipping(String seller_id);
+	public List<Map<String, Object>> getBySellerId(String seller_id);
+	public List<Map<String, Object>> getByMemberId(String member_id);
 }

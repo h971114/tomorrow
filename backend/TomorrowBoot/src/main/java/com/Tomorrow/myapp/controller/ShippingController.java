@@ -43,9 +43,9 @@ public class ShippingController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Map<String, Object>> getShipping(@RequestParam("seller_id") String seller_id){
-        List<Map<String, Object>> list= shippingService.getAllShipping(seller_id);
+    @GetMapping("/all1")
+    public ResponseEntity<Map<String, Object>> getBySellerId(@RequestParam("seller_id") String seller_id){
+        List<Map<String, Object>> list= shippingService.getBySellerId(seller_id);
         Map<String, Object> map = new HashMap<>();
         for(int i=0; i<list.size(); i++){
             map.put(String.valueOf(i), list.get(i));
@@ -53,6 +53,18 @@ public class ShippingController {
         map.put("message", SUCCESS);
         return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
     }
+
+    @GetMapping("/all2")
+    public ResponseEntity<Map<String, Object>> getByMemberId(@RequestParam("member_id") String seller_id){
+        List<Map<String, Object>> list= shippingService.getByMemberId(seller_id);
+        Map<String, Object> map = new HashMap<>();
+        for(int i=0; i<list.size(); i++){
+            map.put(String.valueOf(i), list.get(i));
+        }
+        map.put("message", SUCCESS);
+        return new ResponseEntity<>(map, HttpStatus.ACCEPTED);
+    }
+
     @GetMapping("/count")
     public ResponseEntity<Map<String, Object>> getCount(@RequestParam("seller_id") String seller_id) {
         List<ShippingDto> sdList = shippingService.getShippingDto(seller_id);
