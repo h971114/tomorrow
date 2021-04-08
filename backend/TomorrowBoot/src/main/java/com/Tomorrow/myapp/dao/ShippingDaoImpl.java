@@ -35,7 +35,7 @@ public class ShippingDaoImpl implements ShippingDao {
     }
 
     @Override
-    public List<Map<String, Object>> getByMemberId(String member_id) {
-        return sqlSession.selectList("shipping.getByMemberId", member_id);
+    public List<Map<String, Object>> getByMemberId(Map<String, String> parameterMap) {
+        return sqlSession.selectList("shipping.getByMemberId", parameterMap);
     }
 }

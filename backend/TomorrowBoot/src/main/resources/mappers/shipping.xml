@@ -30,15 +30,15 @@
 		on t1.order_id = t2.order_id and t1.menu_id = t2.menu_id;
 	</select>
 
-	<select id="getByMemberId" parameterType="String" resultType="hashmap">
+	<select id="getByMemberId" parameterType="map" resultType="hashmap">
 		select t2.*, t1.amount
 		from orderDetail t1
 		right join (
-			select s.*, m.img1
+		    select s.*, m.img1
 			from shipping as s
 			left join menu as m
 			on s.menu_id = m.id
-			where s.member_id = #{member_id}) t2
+			where s.member_id = #{member_id} and order_id = #{order_id}) t2
 		on t1.order_id = t2.order_id and t1.menu_id = t2.menu_id;
 	</select>
 </mapper>

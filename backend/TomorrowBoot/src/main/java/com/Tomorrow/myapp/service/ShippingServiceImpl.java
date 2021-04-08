@@ -41,7 +41,7 @@ public class ShippingServiceImpl implements ShippingService {
     }
 
     @Override
-    public List<Map<String, Object>> getByMemberId(String member_id) {
-        return shippingDao.getByMemberId(member_id);
+    public List<Map<String, Object>> getByMemberId(Map<String, String> parameterMap) {
+        return shippingDao.getByMemberId(parameterMap);
     }
 }
