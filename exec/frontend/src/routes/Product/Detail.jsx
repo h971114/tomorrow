@@ -127,7 +127,7 @@ class Detail extends React.Component {
         }
 
         const GoCart = (e) => {
-            if (Uid === "") {
+            if (sessionStorage.getItem('id') === null) {
                 alert('로그인하시면 장바구니를 이용하실 수 있습니다.');
                 // location.href("/auth");
                 document.location.href = "/auth";
