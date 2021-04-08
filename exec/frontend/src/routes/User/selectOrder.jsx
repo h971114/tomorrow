@@ -232,6 +232,12 @@ class Order extends React.Component {
     payStart = (e) => {
         var Uid = sessionStorage.getItem('id');
 
+        var deliverName = document.getElementById("delivery_name").value;
+        var deliverMobile = document.getElementById("delivery_p").value;
+        var deliverAddr0 = document.getElementById("zipcode").value;
+        var deliverAddr1 = document.getElementById("addr1").value;
+        var deliverAddr2 = document.getElementById("addr2").value;
+
         var j = this.state.posts.length;
         var List = new Object();
 
@@ -261,12 +267,14 @@ class Order extends React.Component {
             nowpay.total_mount = thisPrice;
             nowpay.tax_free_amount = 0;
             nowpay.point = Number(this.state.usePoint);
-            nowpay.name = this.state.deliverName;
-            nowpay.mobile = this.state.deliverMobile;
-            nowpay.addr = this.state.deliverAddr0 + " / " + this.state.deliverAddr1 + " / " + this.state.deliverAddr2;
+            nowpay.name = deliverName;
+            nowpay.mobile = deliverMobile;
+            nowpay.addr = deliverAddr0 + " / " + deliverAddr1 + " / " + deliverAddr2;
             nowpay.etc = this.state.etc;
             nowpay.uppoint = this.state.productPrice / 100 * 3;
             nowpay.total_amount = this.state.totPay;
+            // console.log(this.state.deliverName);
+
 
             arrnowpayHistory.push(nowpay);
         }
@@ -297,10 +305,7 @@ class Order extends React.Component {
 
     render() {
         const {
-            modalOpen,
-            deliverAddr1,
-            deliverAddr0,
-            addr2
+            modalOpen
         } = this.state;
 
         const width = 595;
@@ -516,12 +521,12 @@ class Order extends React.Component {
                                     <th className="addr_th"><span>주소 <em className="essential">*</em></span></th>
                                     <td colSpan="3" className="addr">
                                         <p className="clear">
-                                            <a onClick={this.openModal}><input type="text" name="zipcode" value={deliverAddr0 == null ? "" : deliverAddr0} onChange={this.cDeliveraddr0} id="zipcode" className="wid200" readOnly /></a>
+                                            <a onClick={this.openModal}><input type="text" name="zipcode" onChange={this.cDeliveraddr0} id="zipcode" className="wid200" readOnly /></a>
                                             <a onClick={this.openModal} id="gopost">우편번호</a>
                                             {/* 우편번호 api */}
                                         </p>
                                         <p className="inline">
-                                            <input type="text" name="receiptaddr1" id="addr1" value={deliverAddr1 == null ? "" : deliverAddr1} onChange={this.cDeliveraddr1} readOnly placeholder="기본주소" />
+                                            <input type="text" name="receiptaddr1" id="addr1" onChange={this.cDeliveraddr1} readOnly placeholder="기본주소" />
                                         </p>
                                         <p className="inline">
                                             <input type="text" name="receiptaddr2" id="addr2" placeholder="나머지주소" onChange={this.cDeliveraddr2} />

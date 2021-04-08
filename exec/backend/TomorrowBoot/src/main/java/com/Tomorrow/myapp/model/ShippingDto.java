@@ -21,19 +21,6 @@ public class ShippingDto {
         this.seller_id = seller_id;
     }
     
-    public ShippingDto(int id, int status, String name, String order_id, String menu_id, String member_id, String mobile, String tracking_num, String addr, String etc) {
-        this.id = id;
-        this.status = status;
-        this.name = name;
-        this.order_id = order_id;
-        this.menu_id = menu_id;
-        this.member_id = member_id;
-        this.mobile = mobile;
-        this.tracking_num = tracking_num;
-        this.addr = addr;
-        this.etc = etc;
-    }
-
     public int getId() {
         return id;
     }

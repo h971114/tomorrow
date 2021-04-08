@@ -1053,9 +1053,6 @@ input#comment {
 #sub table.table_form tr {
 	border-bottom:1px solid #dadada;
 }
-#sub table.table_form tr.myorder_tr {
-	cursor:pointer;
-}
 #sub table.table_form tr td {
 	font-size:14px;
 	color:#3c3d3c;
@@ -1069,6 +1066,8 @@ input#comment {
 }
 #sub .inner_wrap.order .order_wrap table tbody tr td.product_name {
 	height:85px;
+	text-align: left;
+    padding-left: 50px;
 }
 #sub .inner_wrap.order .order_wrap table tbody tr td.product_name>p {
 	position:absolute;

@@ -316,3 +316,21 @@ tr.hidden{
 	top:0;
 	left: 76px;
 }
+
+.ManagerBtns{
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.ManagerBtns.goIng{
+    margin-bottom: 10px;
+    background-color: #92c947;
+}
+
+.ManagerBtns.goEnd{
+    background-color: #4a6af8;
+}

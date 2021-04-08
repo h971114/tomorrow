@@ -92,7 +92,7 @@ const OrderEnd = () => {
                                 </p>
                             </div>
                             <div className="btnSet clear">
-                                <a href="/mypage/order" className="btn big point">주문내역</a>
+                                <Link to="/mypage/order" className="btn big point">주문내역</Link>
                                 <Link
                                     to={{
                                         pathname: `/`

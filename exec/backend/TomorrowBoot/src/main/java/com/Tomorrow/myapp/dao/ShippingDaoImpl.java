@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.Tomorrow.myapp.model.ShippingDto;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ShippingDaoImpl implements ShippingDao {
@@ -26,5 +27,15 @@ public class ShippingDaoImpl implements ShippingDao {
     @Override
     public List getShippingDto(String seller_id) {
         return sqlSession.selectList("shipping.getShippingDto", seller_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getBySellerId(String seller_id) {
+        return sqlSession.selectList("shipping.getBySellerId", seller_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getByMemberId(Map<String, String> parameterMap) {
+        return sqlSession.selectList("shipping.getByMemberId", parameterMap);
     }
 }

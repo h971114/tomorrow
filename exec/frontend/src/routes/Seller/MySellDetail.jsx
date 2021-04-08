@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-const MyOrderDetail = (props) => {
+const MySellDetail = (props) => {
     const [id, setId] = useState('');
     const [isSeller, setisSeller] = useState(1);
     const [posts, setPosts] = useState([]);
@@ -14,44 +14,26 @@ const MyOrderDetail = (props) => {
     const [dAddr1, setdAddr1] = useState("");
     const [dAddr2, setdAddr2] = useState("");
     const [dEtc, setEtc] = useState("");
+    const [statusString, setStS] = useState("");
 
     useEffect(() => {
-        var order_id = props.location.state.id;
-        var member_id = props.location.state.Uid;
+        // console.log(props.location.state.post);
+        setPosts(props.location.state.post);
+        // console.log(props.location.state.post.addr);
+        // var order_id = props.location.state.id;
+        // var member_id = props.location.state.Uid;
+        var addr = (props.location.state.post).addr.split(' / ');
+        setdAddr0(addr[0]);
+        setdAddr1(addr[1]);
+        setdAddr2(addr[2]);
 
-        const fetchPosts = async () => {
-            setLoading(true);
-            // console.log(Uid);
-            axios.get(`${process.env.REACT_APP_SERVER_BASE_URL}/shipping/all2`, {
-                params: {
-                    member_id: member_id,
-                    order_id: order_id
-                }
-            }).then(res => {
-                var addr = res.data[0].addr.split(' / ');
-                // console.log(addr);
-                setDName(res.data[0].name);
-                setDmobile(res.data[0].mobile);
-                setdAddr0(addr[0]);
-                setdAddr1(addr[1]);
-                setdAddr2(addr[2]);
-                setEtc(res.data[0].etc);
-                // console.log(res.data[0].name);
-                // console.log(res.data[0].mobile);
-                // console.log(res.data[0].addr);
-                // console.log(res.data[0].etc);
-
-
-                // if (res.data.length < 1) {
-                //     setVPost(true);
-                // }
-                setPosts(res.data);
-                setLoading(false);
-            }).catch(err => {
-
-            })
+        if (posts.status === 1) {
+            setStS("배송 준비 중");
+        } else if (posts.status === 2) {
+            setStS("배송 중");
+        } else {
+            setStS("배송 완료");
         }
-        fetchPosts();
     }, []);
 
     return (
@@ -60,23 +42,43 @@ const MyOrderDetail = (props) => {
                 <form>
                     <div className="cs_tab">
                         <div className="sub">
-                            <ul className="clear">
-                                <li className="itemList2">
-                                    <a href="/mypage/">
-                                        개인정보
+                            <ul className="clear" id="sellerMenu">
+
+                                <li className="itemList3">
+                                    <Link
+                                        to={{
+                                            pathname: `/mypage`
+                                        }}
+                                    >
+                                        판매자 정보
                                     <img src="/img/bbs_tab_arrow.png" />
-                                    </a>
+                                    </Link>
                                 </li>
-                                <li className="itemList2">
-                                    <a href="/mypage/order/" className="on">
-                                        주문내역
+                                <li className="itemList3">
+                                    <Link
+                                        to={{
+                                            pathname: `/sellpage/manage`
+                                        }}
+                                        className="on"
+                                    >
+                                        판매 관리
                                     <img src="/img/bbs_tab_arrow.png" />
-                                    </a>
+                                    </Link>
+                                </li>
+                                <li className="itemList3">
+                                    <Link
+                                        to={{
+                                            pathname: `/sellpage/list`
+                                        }}
+                                    >
+                                        판매 목록
+                                    <img src="/img/bbs_tab_arrow.png" />
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <h4 className="cs_title">주문내역</h4>
+                    <h4 className="cs_title">판매 관리</h4>
 
                     <div className="product_list">
                         <table>
@@ -91,32 +93,16 @@ const MyOrderDetail = (props) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {
-                                    posts.map((post, idx) => {
-                                        // console.log(post);
-                                        var statusString = "";
-                                        if (post.status === 1) {
-                                            statusString = "배송 준비 중";
-                                        } else if (post.status === 2) {
-                                            statusString = "배송 중";
-                                        } else {
-                                            statusString = "배송 완료";
-                                        }
-                                        return (
-                                            <tr key={idx}>
-                                                <td className="pro_info">
-                                                    <p style={{ marginLeft: `50px` }}>
-                                                        <img src={post.img1} />
-                                                        {post.menu_name}
-                                                    </p>
-                                                </td>
-                                                <td className="m_info">{statusString}
-                                                </td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-
+                                <tr>
+                                    <td className="pro_info">
+                                        <p style={{ marginLeft: `50px` }}>
+                                            <img src={posts.img1} />
+                                            {posts.menu_name}
+                                        </p>
+                                    </td>
+                                    <td className="m_info">{statusString}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -133,13 +119,13 @@ const MyOrderDetail = (props) => {
                             <tbody>
                                 <tr>
                                     <th className="first">받으시는 분</th>
-                                    <td className="delivery_n first">{dName}</td>
+                                    <td className="delivery_n first">{posts.name}</td>
                                     <th className="first none"></th>
                                     <td className="first none"></td>
                                 </tr>
                                 <tr>
                                     <th>휴대폰번호</th>
-                                    <td className="delivery_p">	{dMobile}</td>
+                                    <td className="delivery_p">	{posts.mobile}</td>
                                     <th></th>
                                     <td className="order_num"></td>
                                 </tr>
@@ -153,7 +139,7 @@ const MyOrderDetail = (props) => {
                                 </tr>
                                 <tr>
                                     <th className="last">남기실 말씀</th>
-                                    <td className="last" colSpan="3">{dEtc}</td>
+                                    <td className="last" colSpan="3">{posts.etc}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -173,4 +159,4 @@ const MyOrderDetail = (props) => {
         </div>
     )
 }
-export default MyOrderDetail;
+export default MySellDetail;

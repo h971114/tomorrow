@@ -136,6 +136,58 @@ class Cart extends React.Component {
                 totpayString: totpayStrings,
                 sendpayString: sendpays.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
             })
+
+            var j = posts.length;
+
+            var checkboxes = document.getElementsByClassName("session_check");
+            // session_check
+
+            var List = new Object();
+
+            var arrnowpayHistory = new Array();
+
+            for (var i = 0; i < j; i++) {
+                var realPrice = posts[i].price;
+                var date = new Date().getDate();
+                // // console.log(date);
+                if (date < 10)
+                    date = '0' + date;
+
+                var days = posts[i].todaysale;
+                days = days.substr(days.length - 2, 2);
+                // // console.log(days);
+                if (date === days)
+                    realPrice = posts[i].price / 100 * (100 - posts[i].tdr);
+                else if (posts[i].discount_rate > 0)
+                    realPrice = posts[i].price / 100 * (100 - posts[i].discount_rate);
+
+                var thisPrice = realPrice * posts[i].amount;
+
+                // var itemID = "nowpay" + i;
+                var nowpay = new Object();
+                nowpay.amount = posts[i].amount;
+                nowpay.cart_id = posts[i].cart_id;
+                nowpay.category = posts[i].category;
+                nowpay.create_at = posts[i].create_at;
+                nowpay.discount_rate = posts[i].discount_rate
+                nowpay.id = posts[i].id;
+                nowpay.img1 = posts[i].img1;
+                nowpay.img2 = posts[i].img2;
+                nowpay.menu_id = posts[i].menu_id;
+                nowpay.name = posts[i].name;
+                nowpay.price = posts[i].price;
+                nowpay.seller_id = posts[i].seller_id;
+                nowpay.subname = posts[i].subname;
+                nowpay.tdr = posts[i].tdr;
+                nowpay.todaysale = posts[i].todaysale;
+
+                arrnowpayHistory.push(nowpay);
+            }
+            List = arrnowpayHistory;
+
+            this.setState({
+                sendposts: List
+            })
         }
 
         const deleteCart = (e) => {

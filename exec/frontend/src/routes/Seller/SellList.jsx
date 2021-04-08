@@ -114,7 +114,7 @@ const SellList = (props) => {
                         <div className="member bbs">
                             <div className="color_btnSet clear">
                                 <div className="clear">
-                                    <a className="btn fl_r" href="/sellregist">상품 등록</a>
+                                    <Link to="/sellregist" className="btn fl_r" >상품 등록</Link>
                                 </div>
                             </div>
                         </div>
